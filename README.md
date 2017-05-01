@@ -7,7 +7,7 @@ References
 <br>[1] Usoskin et al. Nat. Neurosci. 2014, 18:145–153
 <br>[2] Pollen et al. Nat. Biotechnol. 2014, 32:1–37
 <br>[3] Kolodziejczyk et al. Cell Stem Cell 2015, 17:471–485
-<br>[4] Wang et al. http://biorxiv.org/content/early/2016/05/09/052225
+<br>[4] Wang et al. Nat Methods. 2017 14:414-416
 <br>[5] Tibshirani et al. PNAS 2002, 99:6567-6572
 <br>[6] Diaz et al. Bioinformatics 2016, 32: 2219-2220
 
