@@ -11,3 +11,6 @@ References
 <br>[5] Tibshirani et al. PNAS 2002, 99:6567-6572
 <br>[6] Diaz et al. Bioinformatics 2016, 32: 2219-2220
 
+
+CASC vignette is available at: http://rpubs.com/rcaloger/285423
+
