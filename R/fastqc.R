@@ -3,7 +3,7 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
-#'
+#' @return fastqc html file and fastqc data in z zipped archive
 #' @examples
 #' \dontrun{
 #'     system("wget http://130.192.119.59/public/test_R1.fastq.gz")

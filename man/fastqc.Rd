@@ -11,6 +11,9 @@ fastqc(group = c("sudo", "docker"), data.folder)
 
 \item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
 }
+\value{
+fastqc html file and fastqc data in z zipped archive
+}
 \description{
 This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files
 }

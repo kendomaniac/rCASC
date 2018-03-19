@@ -1,6 +1,6 @@
 ---
 title: "Single Cell workflow"
-author: "Raffaele A Calogero"
+author: "Raffaele A Calogero, Luca Alessadri and Marco Beccuti"
 output: 
   rmarkdown::html_vignette
 vignette: >

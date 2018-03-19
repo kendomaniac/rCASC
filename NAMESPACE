@@ -2,6 +2,7 @@
 
 export(checkCountDepth)
 export(clusterReorg)
+export(counts2log)
 export(demultiplexing)
 export(dockerTest)
 export(downloadContainers)
