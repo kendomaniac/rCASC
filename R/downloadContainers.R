@@ -3,7 +3,7 @@
 #' @param group, a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs
 #' @param containers.file, a character string with the name of the file which indicate which are the initial set of containers to be downloaded. Initally the set is given by a file located in the folder containers of docker4seq package.
 #' @author Raffaele Calogero
-#' 
+#'
 #' @examples
 #'\dontrun{
 ##'     #running runDocker
@@ -13,7 +13,7 @@
 #' @export
 downloadContainers <- function(group="docker", containers.file=NULL){
    if(is.null(containers.file)){
-     containers.file=paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")
+     containers.file=paste(path.package(package="casc"),"containers/containers.txt",sep="/")
    }
    containers <- readLines(containers.file)
    for(i in containers){
