@@ -8,6 +8,22 @@ References
 [3] Kolodziejczyk et al. Cell Stem Cell 2015, 17:471–485
 [4] Wang et al. Nat Methods. 2017 14:414-416
 
+## Installation
+
+install.packages("devtools")
+library(devtools)
+install_github("kendomaniac/casc", ref="master")
+
+## Requirements
+
+You need to have docker installed on your machine, for more info see this document: https://docs.docker.com/engine/installation/. 
+
+The functions in CASC package require that user is sudo or part of a docker group. See the following document for more info: https://docs.docker.com/engine/installation/linux/ubuntulinux/#/manage-docker-as-a-non-root-user
+
+IMPORTANT The first time casc is installed the downloadContainers needs to be executed to download to the local repository the containers that are needed for the use of docker4seq
+
+library(casc)
+downloadContainers()
 
 [CASC vignette](http://rpubs.com/rcaloger/285423)
 
