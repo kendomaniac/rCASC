@@ -10,9 +10,11 @@ References
 
 ## Installation
 
+```
 install.packages("devtools")
 library(devtools)
 install_github("kendomaniac/casc", ref="master")
+```
 
 ## Requirements
 
@@ -22,8 +24,10 @@ The functions in CASC package require that user is sudo or part of a docker grou
 
 IMPORTANT The first time casc is installed the downloadContainers needs to be executed to download to the local repository the containers that are needed for the use of docker4seq
 
+```
 library(casc)
 downloadContainers()
+```
 
-[CASC vignette](http://rpubs.com/rcaloger/285423)
+More info: [CASC vignette](http://rpubs.com/rcaloger/285423)
 
