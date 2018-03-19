@@ -1,0 +1,22 @@
+Package: case
+Version: 0.0.1
+Date: 2018-19-03
+Title: Single-cell analysis workflow
+Authors@R: c(person("Raffaele", "Calogero", role = c("aut", "cre"),
+                     email = "raffaele.calogero@unito.it"),
+                     person("Luca", "Alessandri", role = "aut"),
+              person("Marco", "Beccuti", role = "aut"))
+Author: Raffaele Calogero [aut, cre],
+    Luca Alessandri [aut]
+    Marco Beccuti [aut]
+Maintainer: Raffaele Calogero <raffaele.calogero@unito.it>
+Depends:
+    R (>= 3.0.0)
+VignetteBuilder: knitr
+Suggests: BiocStyle, knitr, rmarkdown
+BiocStyle: :html_document
+Description: A collection of functions to analyse single-cell transcriptome data
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
