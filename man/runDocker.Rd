@@ -4,8 +4,7 @@
 \alias{runDocker}
 \title{Run docker container}
 \usage{
-runDocker(group = "docker", container = NULL, params = NULL,
-  DockerSwarm = FALSE)
+runDocker(group = "docker", container = NULL, params = NULL)
 }
 \arguments{
 \item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}
@@ -13,8 +12,6 @@ runDocker(group = "docker", container = NULL, params = NULL,
 \item{container, }{a character string downloading the docker container. If no value is inserted the container is already present on the local server}
 
 \item{params, }{a character string containing all parameters needed to tun the docker container}
-
-\item{DockerSwarm, }{a bolean value used to enable docker execution in swarm mode.}
 }
 \value{
 NULL if success, 1 if parameters are missing, 2 if the group is neither sudo or docker. In case of 1 or 2 the docker execution is aborted
@@ -26,7 +23,7 @@ This is an internal function executing a docker container. Not to be used by use
 \dontrun{
     #running runDocker
      runDocker(group="docker", container="docker.io/rcaloger/bwa.2017.01", params=NULL)
-
+    
 }
 }
 \author{

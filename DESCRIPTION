@@ -1,12 +1,14 @@
-Package: case
-Version: 0.0.1
-Date: 2018-19-03
-Title: Single-cell analysis workflow
+Package: casc
+Version: 2.1.5
+Date: 2018-14-02
+Title: Running NGS computing demanding applications, e.g reads mapping and counting, wrapped in docker containers
 Authors@R: c(person("Raffaele", "Calogero", role = c("aut", "cre"),
                      email = "raffaele.calogero@unito.it"),
-                     person("Luca", "Alessandri", role = "aut"),
+              person("Neha", "Kulkarni", role = "aut"),
+              person("Luca", "Alessandri", role = "aut"),
               person("Marco", "Beccuti", role = "aut"))
 Author: Raffaele Calogero [aut, cre],
+    Neha Kulkarni [aut],
     Luca Alessandri [aut]
     Marco Beccuti [aut]
 Maintainer: Raffaele Calogero <raffaele.calogero@unito.it>
@@ -15,7 +17,7 @@ Depends:
 VignetteBuilder: knitr
 Suggests: BiocStyle, knitr, rmarkdown
 BiocStyle: :html_document
-Description: A collection of functions to analyse single-cell transcriptome data
+Description: A collection of functions to execute NGS computing demanding applications, e.g reads mapping and counting, wrapped in docker containers
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
