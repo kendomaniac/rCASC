@@ -1,7 +1,7 @@
 Package: casc
 Version: 0.0.1
 Date: 2018-19-03
-Title: Running NGS computing demanding applications, e.g reads mapping and counting, wrapped in docker containers
+Title: CASC Classification Analysis of Single Cell Sequencing Data
 Authors@R: c(person("Raffaele", "Calogero", role = c("aut", "cre"),
                      email = "raffaele.calogero@unito.it"),
               person("Luca", "Alessandri", role = "aut"),
@@ -15,7 +15,7 @@ Depends:
 VignetteBuilder: knitr
 Suggests: BiocStyle, knitr, rmarkdown
 BiocStyle: :html_document
-Description: A collection of functions to execute NGS computing demanding applications, e.g reads mapping and counting, wrapped in docker containers
+Description: A collection of functions to analyse single cell data
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
