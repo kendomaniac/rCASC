@@ -26,5 +26,5 @@ downloadContainers <- function(group="docker", containers.file=NULL){
        return(2)
      }
    }
-   writeLines(containers, paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/"))
+   writeLines(containers, paste(path.package(package="casc"),"containers/containers.txt",sep="/"))
 }
