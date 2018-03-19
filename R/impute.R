@@ -1,7 +1,7 @@
 #' @title Imputing dropouts
-#' @description This function executes a wrapper for scImpute: Accurate And Robust Imputation For Single Cell RNA-Seq Data
+#' @description This function executes a wrapper for scImpute: Accurate And Robust Inputation For Single Cell RNA-Seq Data (Li WV Nature Communications, vol. 9, Article number: 997, 2018)
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
-#' @param data.folder, a character string indicating the folder where tab separated file of cells counts is saved
+#' @param data.folder, a character string indicating the folder where tab separated file of cells counts is located
 #' @param counts.matrix, a character string indicating the  tab separated file of cells  counts
 #' @param drop.thre, A number between 0 and 1, specifying the threshold to determine dropout values
 #' @param cores, a integer specifying the number of cores used for parallel computation.
@@ -16,27 +16,20 @@
 #' }
 #'
 #' @export
-cascImpute <- function(group=c("sudo","docker"), data.folder, counts.matrix, drop.thre, cores, refining=FALSE){
+impute <- function(group=c("sudo","docker"), data.folder, counts.matrix, drop.thre, cores, refining=FALSE){
 
   if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/rcaloger/r340.2017.01 Rscript /bin/scimpute.R ",counts.matrix," ",drop.thre," ",cores," ", refining, sep="")
-    runDocker(group="sudo",container="docker.io/rcaloger/r340.2017.01", params=params)
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/r340.2017.01 Rscript /bin/scimpute.R ",counts.matrix," ",drop.thre," ",cores," ", refining, sep="")
+    runDocker(group="sudo",container="docker.io/repbioinfo/r340.2017.01", params=params)
   }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/rcaloger/r340.2017.01 Rscript /bin/scimpute.R ",counts.matrix," ",drop.thre," ",cores," ", refining, sep="")
-    runDocker(group="docker",container="docker.io/rcaloger/r340.2017.01", params=params)
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/r340.2017.01 Rscript /bin/scimpute.R ",counts.matrix," ",drop.thre," ",cores," ", refining, sep="")
+    runDocker(group="docker",container="docker.io/repbioinfo/r340.2017.01", params=params)
   }
 
-  out <- "xxxx"
-  #waiting for the end of the container work
-  while(out != "anno.info"){
-    Sys.sleep(10)
-    cat(".")
-    out.tmp <- dir(file.path(data.folder))
-    out.tmp <- out.tmp[grep("anno.info",out.tmp)]
-    if(length(out.tmp)>0){
-      out <- "anno.info"
-    }
+  if(resultRun=="false"){
+    cat("\nscImpute is finished\n")
   }
+
   #running time 2
   ptm <- proc.time() - ptm
   dir <- dir(data.folder)

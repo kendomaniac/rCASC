@@ -1,8 +1,8 @@
-#' @title Running SCnorm  checkCountDepth
-#' @description This function executes check the data count-depth relationship
-#' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
-#' @param data.folder, a character string indicating the folder where comma separated file of cells log10 counts is saved
-#' @param counts.matrix, a character string indicating the the name of tab delimited file  file of cells un-normalized expression counts
+#' @title Running SCnorm  checkCountDepth test.
+#' @description This function executes a check on the data count-depth relationship used by SCnorm.
+#' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs.
+#' @param data.folder, a character string indicating the folder where output will be saved.
+#' @param counts.matrix, a character string indicating the the name of tab delimited file  of cells un-normalized expression counts.
 #' @param conditions, vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.
 #' @param outputName, specify the path and/or name of output files.
 #' @param nCores, number of cores to use, default is detectCores() - 1.
@@ -35,23 +35,15 @@ checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), count
     conditions <- paste(conditions, collapse = "_")
   }
   if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/rcaloger/r340.2017.01 Rscript /bin/checkCountDepth.R ",counts.matrix," ",conditions," ",outputName," ",nCores, sep="")
-    runDocker(group="sudo",container="docker.io/rcaloger/r340.2017.01", params=params)
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/r340.2017.01 Rscript /bin/checkCountDepth.R ",counts.matrix," ",conditions," ",outputName," ",nCores, sep="")
+    runDocker(group="sudo",container="docker.io/repbioinfo/r340.2017.01", params=params)
   }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/rcaloger/r340.2017.01 Rscript /bin/checkCountDepth.R ",counts.matrix," ",conditions," ",outputName," ",nCores, sep="")
-    runDocker(group="docker",container="docker.io/rcaloger/r340.2017.01", params=params)
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/r340.2017.01 Rscript /bin/checkCountDepth.R ",counts.matrix," ",conditions," ",outputName," ",nCores, sep="")
+    runDocker(group="docker",container="docker.io/repbioinfo/r340.2017.01", params=params)
   }
 
-  out <- "xxxx"
-  #waiting for the end of the container work
-  while(out != "anno.info"){
-    Sys.sleep(10)
-    cat(".")
-    out.tmp <- dir(file.path(data.folder))
-    out.tmp <- out.tmp[grep("anno.info",out.tmp)]
-    if(length(out.tmp)>0){
-      out <- "anno.info"
-    }
+  if(resultRun=="false"){
+    cat("\ncheckCountDepth test is finished\n")
   }
 
   #running time 2

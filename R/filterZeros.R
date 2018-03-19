@@ -1,9 +1,9 @@
 #' @title Plotting the distribution of zeros in cells eliminating all genes without counts
 #' @description This function plots the zeros distributions in cells and removes genes without counts
-#' @param data.folder, a character string indicating the folder where comma separated file of cells log10 counts is saved
-#' @param counts.matrix, a character string indicating the the name of tab delimited file  file of cells un-normalized expression counts
-#' @param threshold, an nuer from 0 to 1 indicating the fraction of max accepted zeros in each gene
-#' @return a PDF providing zeros distributions before removal of all genes without counts, a file with the pre
+#' @param data.folder, a character string indicating the folder where filtered sel file will be saved. The saved file will have the prefix *filtered*.
+#' @param counts.matrix, a character string indicating the the name of tab delimited file of cells un-normalized expression counts
+#' @param threshold, an number from 0 to 1 indicating the fraction of max accepted zeros in each gene
+#' @return a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *fltered* in which the filtered data are saved.
 #' @examples
 #' \dontrun{
 #'     #downloading fastq files

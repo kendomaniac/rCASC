@@ -42,18 +42,12 @@ demultiplexing <- function(group=c("sudo","docker"),  data.folder, threads=8){
 	  params <- paste("--cidfile ", main.folder,"/dockerID -v ", main.folder,":/data/scratch"," -d docker.io/repbioinfo/demultiplexing.2017.01 sh /bin/demultiplexing.sh ",illumina.folder," "," ",threads, sep="")
 	  runDocker(group="docker",container="docker.io/repbioinfo/demultiplexing.2017.01", params=params)
 	}
-  out <- "xxxx"
-  #waiting for the end of the container work
-  while(out != "out.info"){
-    Sys.sleep(10)
-    cat(".")
-    out.tmp <- dir(main.folder)
-    out.tmp <- out.tmp[grep("out.info",out.tmp)]
-    if(length(out.tmp)>0){
-      out <- "out.info"
-    }
+
+  if(resultRun=="false"){
+    cat("\ndemultiplexing is finished\n")
   }
-  #running time 2
+
+    #running time 2
   system(paste("mv ",  data.folder,"/Data/Intensities/BaseCalls/*.fastq.gz ",main.folder, sep=""))
   ptm <- proc.time() - ptm
   con <- file(paste(main.folder,"run.info", sep="/"), "r")
