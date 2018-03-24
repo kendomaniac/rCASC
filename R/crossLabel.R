@@ -1,24 +1,20 @@
-#' @title Permutation Analysis 
-#' @description This function analyze the data that came up from permutationClustering script.
+#' @title Cross Label
+#' @description This function executes a ubuntu docker that produces informations about the true clusters 
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
-#' @param range1, First number of cluster that has to be analyzed 
-#' @param range2, Last number of cluster that has to be analyzed
-#' @param format, matrix count format, "csv", "txt"
+#' @param format, count matrix format "csv", "txt"..
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster. 
-#' @param clusterPermErr, error that can be done by each permutation in cluster number depicting.Default = 0.05
-#' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+#' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return stability plot for each nCluster,two files with score information for each cell for each permutation. 
+#' @return Csv file with cluster component informations and dataPlot and pie chart based on true Label   
 #' @examples
 #'\dontrun{
-#'permAnalysis("sudo","path/to/scratch","path/to/data","TOTAL",3,4,"csv",",",0.8)# 
+#'  crossLabel("sudo","/home/lucastormreig/CASC5.0/7_crossLabel/scratch/","/home/lucastormreig/CASC5.0/7_crossLabel/Data/","New_Buettner",3,"csv",",")# 
 #'}
 #' @export
-permAnalysis <- function(group=c("sudo","docker"), scratch.folder, data.folder,matrixName,range1,range2,format,separator,sp,clusterPermErr=0.05){
+crossLabel <- function(group=c("sudo","docker"), scratch.folder, data.folder,matrixName,nCluster,format,separator){
 
 
 
@@ -53,20 +49,21 @@ permAnalysis <- function(group=c("sudo","docker"), scratch.folder, data.folder,m
 if(separator=="\t"){
 separator="tab"
 }
+
 system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
-system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,sep=""))
+
 
   #executing the docker job
   if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationanalysis Rscript /home/main.R ",matrixName," ",range1," ",range2," ",format," ",separator," ",sp," ",clusterPermErr, sep="")
-    resultRun <- runDocker(group="sudo",container="docker.io/rcaloger/permutationanalysis", params=params)
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/crosslabel Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator,sep="")
+    resultRun <- runDocker(group="sudo",container="docker.io/rcaloger/crosslabel", params=params)
   }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationanalysis Rscript /home/main.R ",matrixName," ",range1," ",range2," ",format," ",separator," ",sp," ",clusterPermErr,sep="")
-    resultRun <- runDocker(group="docker",container="docker.io/rcaloger/permutationanalysis", params=params)
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/crosslabel Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator,sep="")
+    resultRun <- runDocker(group="docker",container="docker.io/rcaloger/crosslabel", params=params)
   }
   #waiting for the end of the container work
   if(resultRun=="false"){
-    #system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
+    #system(paste("cp -r ", scrat_tmp.folder, "/* ", data.folder,"Results", sep=""))
   }
   #running time 2
   ptm <- proc.time() - ptm
@@ -93,9 +90,9 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,se
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
   system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
-   cat("Copying Result Folder")
-  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results",sep=""))
   #removing temporary folder
+  cat("Copying Result Folder")
+  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results/",sep=""))
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))
   system("rm -fR out.info")
