@@ -1,6 +1,6 @@
 Package: casc
-Version: 0.0.1
-Date: 2018-19-03
+Version: 0.0.2
+Date: 2018-24-03
 Title: CASC Classification Analysis of Single Cell Sequencing Data
 Authors@R: c(person("Raffaele", "Calogero", role = c("aut", "cre"),
                      email = "raffaele.calogero@unito.it"),
