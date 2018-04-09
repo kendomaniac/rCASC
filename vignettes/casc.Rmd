@@ -80,7 +80,11 @@ IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, 
 
 #### Check counts-depth relationship
 
-Before normalizing using **scnorm**, it is advised to check the data count-depth relationship. **checkCountDepth** provides a wrapper, in CASC, for the checkCountDepth of the [**SCnorm package**](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
+Before normalizing using **scnorm**, it is advised to check the data count-depth relationship.
+If all genes have a similar relationship then a global normalization strategy such as median-by-
+ratio in the DESeq package or TMM in edgeR will also be adequate. However, when the count-depth relationship varies among genes using global scaling strategies leads to poor normalization. In these cases the normalization provided by SCnorm is reccomanded.
+
+**checkCountDepth** provides a wrapper, in CASC, for the checkCountDepth of the [**SCnorm package**](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
 
 ```{r, echo=TRUE, eval=FALSE}
 #downloading fastq files

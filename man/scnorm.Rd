@@ -23,9 +23,9 @@ scnorm(group = c("sudo", "docker"), data.folder = getwd(), counts.matrix,
 
 \item{filtercellNum, }{the number of non-zero expression estimate required to include the genes into the SCnorm fitting (default = 10). The initial grouping fits a quantile regression to each gene, making this value too low gives unstable fits.}
 
-\item{ditherCount, }{FALSE of TRUE. Settin gto TRUE might improve results with UMI data}
+\item{ditherCount, }{FALSE of TRUE. Setting to TRUE might improve results with UMI data. NOTE fequently if ditherCount is set to TRUE you get an error.}
 
-\item{PropToUse, }{as default is set to 0.25 but to increase speed with large data set could be reduced, e.g. 0.1}
+\item{PropToUse, }{as default is set to 0.25, but to increase speed with large data set could be reduced, e.g. 0.1}
 }
 \value{
 a PDF providing a view of effects of normalization, a Rda file containing the full output of **SCnorm** and a tab delimited file containing the normalized data.
