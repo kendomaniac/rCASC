@@ -36,10 +36,10 @@ checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), count
   }
   if(group=="sudo"){
     params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scnorm.2018.01 Rscript /bin/checkCountDepth.R ",counts.matrix," ",conditions," ",outputName," ",nCores, sep="")
-    runDocker(group="sudo",container="docker.io/repbioinfo/scnorm.2018.01", params=params)
+    resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/scnorm.2018.01", params=params)
   }else{
     params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scnorm.2018.01 Rscript /bin/checkCountDepth.R ",counts.matrix," ",conditions," ",outputName," ",nCores, sep="")
-    runDocker(group="docker",container="docker.io/repbioinfo/scnorm.2018.01", params=params)
+    resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/scnorm.2018.01", params=params)
   }
 
   if(resultRun=="false"){
