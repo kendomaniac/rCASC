@@ -5,7 +5,8 @@
 \title{Running SCnorm  checkCountDepth test.}
 \usage{
 checkCountDepth(group = c("sudo", "docker"), data.folder = getwd(),
-  counts.matrix, conditions = NULL, outputName, nCores = 8)
+  counts.matrix, conditions = NULL, FilterCellProportion = 0.1,
+  FilterExpression = 0, ditherCounts = FALSE, outputName, nCores = 8)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs.}
@@ -15,6 +16,12 @@ checkCountDepth(group = c("sudo", "docker"), data.folder = getwd(),
 \item{counts.matrix, }{a character string indicating the the name of tab delimited file  of cells un-normalized expression counts.}
 
 \item{conditions, }{vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.}
+
+\item{FilterCellProportion, }{a value indicating the proportion of non-zero expression estimates required to include the genes into the evaluation. Default is .10, and will not go below a proportion which uses less than 10 total cells/samples}
+
+\item{FilterExpression, }{a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots}
+
+\item{ditherCounts, }{whether to dither/jitter the counts, may be used for data with many ties, default is FALSE}
 
 \item{outputName, }{specify the path and/or name of output files.}
 
@@ -34,6 +41,7 @@ This function executes a check on the data count-depth relationship used by SCno
     conditions=rep(1,288)
     checkCountDepth(group="docker", data.folder=getwd(),
     counts.matrix="singlecells_counts.txt", conditions=conditions,
+    FilterCellProportion=0.1, FilterExpression=0, ditherCounts=FALSE,
     outputName="singlecells_counts", nCores=8)
 }
 }
