@@ -19,19 +19,41 @@ genesUmi <- function(data.folder, counts.matrix, umiXgene=3){
   #running time 1
   ptm <- proc.time()
   #running time 1
-  test <- dockerTest()
-  if(!test){
-    cat("\nERROR: Docker seems not to be installed in your system\n")
-    return()
-  }
+
   setwd(data.folder)
   tmp <- read.table(counts.matrix, sep="\t", header=T, row.names=1, stringsAsFactors = F)
-  genes <- apply(tmp,2, function(x, umiXgene){
-     x[which(x <  umiXgene)] <- 0
-     x[which(x >=  umiXgene)] <- 1
-  })
-  umi <- apply(tmp,2, sum)
+  genes <- list()
+  for(i in 1:dim(tmp)[2]){
+    x = rep(0, dim(tmp)[1])
+    x[which(tmp[,i] >=  umiXgene)] <- 1
+    genes[[i]] <- x
+  }
+  genes <- as.data.frame(genes)
+  genes.sum <-  apply(genes,2, sum)
+  umi.sum <- apply(tmp,2, sum)
   pdf("genes.umi.pdf")
-     plot(log10(umi), genes, xlab="log10 UMI", ylab="# of genes")
+     plot(log10(umi.sum), genes.sum, xlab="log10 UMI", ylab="# of genes")
   dev.off()
+  #running time 2
+  ptm <- proc.time() - ptm
+  dir <- dir(data.folder)
+  dir <- dir[grep("run.info",dir)]
+  if(length(dir)>0){
+    con <- file("run.info", "r")
+    tmp.run <- readLines(con)
+    close(con)
+    tmp.run[length(tmp.run)+1] <- paste("casc checkCountDepth user run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("casc checkCountDepth system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("casc checkCountDepth elapsed run time mins ",ptm[3]/60, sep="")
+    writeLines(tmp.run,"run.info")
+  }else{
+    tmp.run <- NULL
+    tmp.run[1] <- paste("casc user run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("casc geneU system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("casc checkCountDepth elapsed run time mins ",ptm[3]/60, sep="")
+
+    writeLines(tmp.run,"run.info")
+  }
+
 }
+
