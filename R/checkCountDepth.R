@@ -78,10 +78,8 @@ checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), count
 
   #removing temporary folder
   cat("\n\nRemoving the checkCountDepth temporary file ....\n")
-  system(paste("rm -R ",scrat_tmp.folder))
   system(paste("rm  -f ",data.folder,"/dockerID", sep=""))
   system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
 
-#  system(paste("docker rm ", container.id, sep=""))
 
 }
