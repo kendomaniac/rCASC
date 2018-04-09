@@ -3,22 +3,25 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
 #' @param p_value, threshold to be used for the filtering
 #' @param format, counts file extension, "txt", "csv"
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' 
+#'
 #' @author Name Family name, myemail [at] somewhere [dot] org, Affiliation
 #'
 #' @return output will be in the same format and with the same separator of input.
-#' 
-#' @examples
-#'\dontrun{
 #'
-#'  lorenzFilter(group="docker",scratch.folder="path/of/scratch/folder",
-#'           data.folder="path/of/data/folder",matrixName="matrixName",p_value=0.05,format="txt",separator='\t')
+#' @examples
+#' \dontrun{
+#'  system("wget http://130.192.119.59/public/lorenz.zip")
+#'  unzip("lorenz.zip")
+#'  setwd("./lorenz")
+#'  library("CASC")
+#'  lorenzFilter(group="docker",scratch.folder="/data/scratch",
+#'           data.folder=getwd(),matrixName="Buettner",p_value=0.05,format="csv",separator=',')
 #' }
-#' 
+#'
 #' @export
 lorenzFilter <- function(group=c("sudo","docker"), scratch.folder, data.folder, matrixName, p_value, format, separator){
   #testing if docker is running
@@ -27,9 +30,9 @@ lorenzFilter <- function(group=c("sudo","docker"), scratch.folder, data.folder, 
     cat("\nERROR: Docker seems not to be installed in your system\n")
     return()
   }
-  #storing the position of the home folder  
+  #storing the position of the home folder
   home <- getwd()
-  
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -48,7 +51,7 @@ lorenzFilter <- function(group=c("sudo","docker"), scratch.folder, data.folder, 
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-  
+
   write.csv(read.table(paste(data.folder,"/",matrixName,".",format,sep=""),sep=separator,header=TRUE,row.names=1),paste(scrat_tmp.folder,"/set1.csv",sep=""))
 if(separator=="\t"){
 separator="tab"

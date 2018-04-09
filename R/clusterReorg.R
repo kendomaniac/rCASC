@@ -3,19 +3,24 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
 #' @param nCluster, number of Cluster used in Kmeans to generate the clusters that you want to merge
-#' @param A, first Cluster that has to be merged 
+#' @param A, first Cluster that has to be merged
 #' @param B, second Cluster that has to be merged
 #' @param format, matrix count format, "csv", "txt"#' @param B, second Cluster that has to be merged
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster. 
+#' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/
 #' @examples
-#'\dontrun{
-#'clusterReorg("sudo","/home/lucastormreig/CASC2.0/2.1_clusterReorg/scratch/","/home/lucastormreig/CASC2.0/2.1_clusterReorg/Data/","TOTAL",3,1,3,"csv",",")# 
+#' \dontrun{
+#'  system("wget http://130.192.119.59/public/clustereorg.zip")
+#'  unzip("clustereorg.zip")
+#'  setwd("./clustereorg")
+#'  library("CASC")
+#'  clusterReorg("docker",scratch.folder="/data/scratch", data.folder=getwd(),
+#'       matrixName="lorenz_Buettner", nCluster=4, A=1, B=2, format="csv", separator=",")
 #'}
 #' @export
 clusterReorg <- function(group=c("sudo","docker"), scratch.folder, data.folder,matrixName,nCluster,A,B,format,separator,sp=0.8){
@@ -28,9 +33,9 @@ clusterReorg <- function(group=c("sudo","docker"), scratch.folder, data.folder,m
     cat("\nERROR: Docker seems not to be installed in your system\n")
     return()
   }
-  #storing the position of the home folder  
+  #storing the position of the home folder
   home <- getwd()
-  
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -49,7 +54,7 @@ clusterReorg <- function(group=c("sudo","docker"), scratch.folder, data.folder,m
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-  
+
 if(separator=="\t"){
 separator="tab"
 }

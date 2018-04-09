@@ -30,9 +30,12 @@ This function executes a docker that produces ....
 }
 \examples{
 \dontrun{
-
- lorenzFilter(group="docker",scratch.folder="path/of/scratch/folder",
-          data.folder="path/of/data/folder",matrixName="matrixName",p_value=0.05,format="txt",separator='\\t')
+ system("wget http://130.192.119.59/public/lorenz.zip")
+ unzip("lorenz.zip")
+ setwd("./lorenz")
+ library("CASC")
+ lorenzFilter(group="docker",scratch.folder="/data/scratch",
+          data.folder=getwd(),matrixName="Buettner",p_value=0.05,format="csv",separator=',')
 }
 
 }

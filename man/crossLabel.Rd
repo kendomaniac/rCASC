@@ -16,7 +16,9 @@ crossLabel(group = c("sudo", "docker"), scratch.folder, data.folder,
 
 \item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
 
-\item{format, }{count matrix format "csv", "txt"..}
+\item{nCluster, }{number of Cluster used in Kmeans to generate the clusters that you want to merge}
+
+\item{format, }{count matrix format "csv", "txt".}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 }
@@ -26,9 +28,17 @@ Csv file with cluster component informations and dataPlot and pie chart based on
 \description{
 This function executes a ubuntu docker that produces informations about the true clusters
 }
+\note{
+In the Results folder a file with the name XXXX_Label.csv, where XXXX is the name of count matrix, must be present.
+}
 \examples{
 \dontrun{
- crossLabel("sudo","/home/lucastormreig/CASC5.0/7_crossLabel/scratch/","/home/lucastormreig/CASC5.0/7_crossLabel/Data/","New_Buettner",3,"csv",",")# 
+ system("wget http://130.192.119.59/public/crosslabel.zip")
+ unzip("crosslabel.zip")
+ setwd("./crosslabel")
+ library("CASC")
+ crossLabel("docker",scratch.folder="/data/scratch", data.folder=getwd(),
+      matrixName"lorenz_Buettner", nCluster=4, format="csv", separator=",")
 }
 }
 \author{

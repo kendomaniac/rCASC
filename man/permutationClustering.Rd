@@ -45,7 +45,13 @@ This function executes a ubuntu docker that produces a specific number of permut
 }
 \examples{
 \dontrun{
- permutationClustering("sudo","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/","TOTAL",4,2,10,3,4,"csv",",",0,"SIMLR",0)# 
+ system("wget http://130.192.119.59/public/permutationclustering.zip")
+ unzip("permutationclustering.zip")
+ setwd("./permutationclustering)
+ library("CASC")
+ permutationClustering("docker", scratch.folder="/data/scratch, data.folder=getwd(),
+     matrixName="lorenz_Buettner", nPerm=8, permAtTime=4, percent=10, range1=4, range2=5,
+     format="csv", separator=",", logTen=0, clustering="SIMLR", perplexity=10)
 }
 }
 \author{

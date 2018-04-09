@@ -1,17 +1,24 @@
 #' @title Cross Label
-#' @description This function executes a ubuntu docker that produces informations about the true clusters 
+#' @description This function executes a ubuntu docker that produces informations about the true clusters
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
-#' @param format, count matrix format "csv", "txt"..
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
+#' @param nCluster, number of Cluster used in Kmeans to generate the clusters that you want to merge
+#' @param format, count matrix format "csv", "txt".
 #' @param separator, separator used in count file, e.g. '\\t', ','
+#' @note In the Results folder a file with the name XXXX_Label.csv, where XXXX is the name of count matrix, must be present.
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return Csv file with cluster component informations and dataPlot and pie chart based on true Label   
+#' @return Csv file with cluster component informations and dataPlot and pie chart based on true Label
 #' @examples
-#'\dontrun{
-#'  crossLabel("sudo","/home/lucastormreig/CASC5.0/7_crossLabel/scratch/","/home/lucastormreig/CASC5.0/7_crossLabel/Data/","New_Buettner",3,"csv",",")# 
+#' \dontrun{
+#'  system("wget http://130.192.119.59/public/crosslabel.zip")
+#'  unzip("crosslabel.zip")
+#'  setwd("./crosslabel")
+#'  library("CASC")
+#'  crossLabel("docker",scratch.folder="/data/scratch", data.folder=getwd(),
+#'       matrixName"lorenz_Buettner", nCluster=4, format="csv", separator=",")
 #'}
 #' @export
 crossLabel <- function(group=c("sudo","docker"), scratch.folder, data.folder,matrixName,nCluster,format,separator){
@@ -24,9 +31,9 @@ crossLabel <- function(group=c("sudo","docker"), scratch.folder, data.folder,mat
     cat("\nERROR: Docker seems not to be installed in your system\n")
     return()
   }
-  #storing the position of the home folder  
+  #storing the position of the home folder
   home <- getwd()
-  
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -45,7 +52,7 @@ crossLabel <- function(group=c("sudo","docker"), scratch.folder, data.folder,mat
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-  
+
 if(separator=="\t"){
 separator="tab"
 }

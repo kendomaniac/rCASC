@@ -1,24 +1,31 @@
-#' @title Permutation Analysis 
+#' @title Permutation Analysis
 #' @description This function analyze the data that came up from permutationClustering script.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
-#' @param range1, First number of cluster that has to be analyzed 
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
+#' @param range1, First number of cluster that has to be analyzed
 #' @param range2, Last number of cluster that has to be analyzed
 #' @param format, matrix count format, "csv", "txt"
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster. 
+#' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.
 #' @param clusterPermErr, error that can be done by each permutation in cluster number depicting.Default = 0.05
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return stability plot for each nCluster,two files with score information for each cell for each permutation. 
+#' @return stability plot for each nCluster,two files with score information for each cell for each permutation.
 #' @examples
-#'\dontrun{
-#'permAnalysis("sudo","path/to/scratch","path/to/data","TOTAL",3,4,"csv",",",0.8)# 
+#' \dontrun{
+#'  system("wget http://130.192.119.59/public/permutationanalysis.zip")
+#'  unzip("permutationanalysis.zip")
+#'  setwd("./permutationanalysis)
+#'  library("CASC")
+#'  permAnalysis("docker", scratch.folder="/data/scratch, data.folder=getwd(),
+#'      matrixName="lorenz_Buettner", range1=4, range2=5, format="csv",
+#'      separator=",", sp=0.8, clusterPermErr=0.05)
 #'}
 #' @export
-permAnalysis <- function(group=c("sudo","docker"), scratch.folder, data.folder,matrixName,range1,range2,format,separator,sp,clusterPermErr=0.05){
+permAnalysis <- function(group=c("sudo","docker"), scratch.folder, data.folder, matrixName,
+                         range1, range2, format, separator, sp, clusterPermErr=0.05){
 
 
 
@@ -28,9 +35,9 @@ permAnalysis <- function(group=c("sudo","docker"), scratch.folder, data.folder,m
     cat("\nERROR: Docker seems not to be installed in your system\n")
     return()
   }
-  #storing the position of the home folder  
+  #storing the position of the home folder
   home <- getwd()
-  
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -49,7 +56,7 @@ permAnalysis <- function(group=c("sudo","docker"), scratch.folder, data.folder,m
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-  
+
 if(separator=="\t"){
 separator="tab"
 }

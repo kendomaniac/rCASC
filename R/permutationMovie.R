@@ -1,19 +1,26 @@
 #' @title Permutation Movie
-#' @description This function executes a ubuntu docker that create a video showing the cluster changing of all the cells 
+#' @description This function executes a ubuntu docker that create a video showing the cluster changing of all the cells
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
+#' @param nCluster, number of Cluster used in Kmeans to generate the clusters that you want to merge
 #' @param format, count matrix format "csv", "txt"..
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param framePP, Number of frame for each permutation
-#' @param permutationNumber, Number of random permutation,have to be less or the same then the total permutation 
+#' @param permutationNumber, Number of random permutation,have to be less or the same then the total permutation
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return Csv file with correct cluster name 
+#' @return Csv file with correct cluster name
 #' @examples
-#'\dontrun{
-#'  permutationMovie("sudo","/home/lucastormreig/CASC5.0/5_permutationMovie/scratch/","/home/lucastormreig/CASC5.0/5_permutationMovie/data/","TOTAL",7,"csv",",",200,5)# 
+#' \dontrun{
+#'  system("wget http://130.192.119.59/public/permutationmovie.zip")
+#'  unzip("permutationmovie.zip")
+#'  setwd("./permutationmovie")
+#'  library("CASC")
+#'  permutationMovie("docker",scratch.folder="/data/scratch", data.folder=getwd(),
+#'         matrixName="lorenz_Buettner", nCluster=4, format="csv", separator=",",
+#'         framePP=200, permutationNumber=3)
 #'}
 #' @export
 permutationMovie <- function(group=c("sudo","docker"), scratch.folder, data.folder,matrixName,nCluster,format,separator,framePP,permutationNumber){
@@ -26,9 +33,9 @@ permutationMovie <- function(group=c("sudo","docker"), scratch.folder, data.fold
     cat("\nERROR: Docker seems not to be installed in your system\n")
     return()
   }
-  #storing the position of the home folder  
+  #storing the position of the home folder
   home <- getwd()
-  
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -47,7 +54,7 @@ permutationMovie <- function(group=c("sudo","docker"), scratch.folder, data.fold
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-  
+
 if(separator=="\t"){
 separator="tab"
 }

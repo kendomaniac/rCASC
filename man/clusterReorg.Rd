@@ -36,7 +36,12 @@ This function executes a ubuntu docker that merge two clusters
 }
 \examples{
 \dontrun{
-clusterReorg("sudo","/home/lucastormreig/CASC2.0/2.1_clusterReorg/scratch/","/home/lucastormreig/CASC2.0/2.1_clusterReorg/Data/","TOTAL",3,1,3,"csv",",")# 
+ system("wget http://130.192.119.59/public/clustereorg.zip")
+ unzip("clustereorg.zip")
+ setwd("./clustereorg")
+ library("CASC")
+ clusterReorg("docker",scratch.folder="/data/scratch", data.folder=getwd(),
+      matrixName="lorenz_Buettner", nCluster=4, A=1, B=2, format="csv", separator=",")
 }
 }
 \author{

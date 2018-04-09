@@ -3,12 +3,12 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
 #' @param nPerm, number of permutations to perform the pValue to evaluate clustering
 #' @param permAtTime, number of permutations that can be computes in parallel
 #' @param percent, percentage of random cells that has to be removed in each permutation
-#' @param range1, first number of cluster for k means algorithm  
-#' @param range2, last number of cluster for k means algorithm 
+#' @param range1, first number of cluster for k means algorithm
+#' @param range2, last number of cluster for k means algorithm
 #' @param format, count matrix format "csv", "txt"..
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
@@ -16,13 +16,20 @@
 #' @param perplexity, Number of close neighbors for each point
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.  
+#' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
 #' @examples
-#'\dontrun{
-#'  permutationClustering("sudo","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/","TOTAL",4,2,10,3,4,"csv",",",0,"SIMLR",0)# 
+#' \dontrun{
+#'  system("wget http://130.192.119.59/public/permutationclustering.zip")
+#'  unzip("permutationclustering.zip")
+#'  setwd("./permutationclustering)
+#'  library("CASC")
+#'  permutationClustering("docker", scratch.folder="/data/scratch, data.folder=getwd(),
+#'      matrixName="lorenz_Buettner", nPerm=8, permAtTime=4, percent=10, range1=4, range2=5,
+#'      format="csv", separator=",", logTen=0, clustering="SIMLR", perplexity=10)
 #'}
 #' @export
-permutationClustering <- function(group=c("sudo","docker"), scratch.folder, data.folder,matrixName,nPerm,permAtTime,percent,range1,range2,format,separator,logTen,clustering,perplexity){
+permutationClustering <- function(group=c("sudo","docker"), scratch.folder, data.folder, matrixName, nPerm, permAtTime,
+                                  percent, range1, range2,format, separator, logTen, clustering, perplexity){
 
 
 
@@ -32,9 +39,9 @@ permutationClustering <- function(group=c("sudo","docker"), scratch.folder, data
     cat("\nERROR: Docker seems not to be installed in your system\n")
     return()
   }
-  #storing the position of the home folder  
+  #storing the position of the home folder
   home <- getwd()
-  
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -53,7 +60,7 @@ permutationClustering <- function(group=c("sudo","docker"), scratch.folder, data
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-  
+
 if(separator=="\t"){
 separator="tab"
 }

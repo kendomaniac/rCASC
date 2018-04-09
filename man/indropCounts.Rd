@@ -44,8 +44,9 @@ system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
 library(docker4seq)
 #running indropCounts
 indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
-       index.folder="/data/genomes/mm10indrop", sample.name="testMm", split.affixes="S0_L001",
-       bowtie.index.prefix="Mus_musculus.GRCm38.85.index", M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=5)
+       index.folder="/data/genomes/mm10indrop", sample.name="testMm",
+       split.affixes="S0_L001", bowtie.index.prefix="Mus_musculus.GRCm38.85.index",
+       M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=5)
 }
 
 }

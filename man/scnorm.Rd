@@ -40,6 +40,7 @@ This function is a wrapper for SCnorm: robust normalization of single-cell RNA-s
     system("gzip -d singlecells_counts.txt.gz")
     conditions=rep(1,288)
     scnorm(group="docker", data.folder=getwd(),counts.matrix="singlecells_counts.txt",
-    conditions=conditions,outputName="singlecells_counts", nCores=8, filtercellNum=10, ditherCount=TRUE, PropToUse=0.1)
+       conditions=conditions,outputName="singlecells_counts",
+       nCores=8, filtercellNum=10, ditherCount=TRUE, PropToUse=0.1)
 }
 }

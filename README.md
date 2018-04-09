@@ -18,7 +18,7 @@ install_github("kendomaniac/casc", ref="master")
 
 ## Requirements
 
-You need to have docker installed on your machine, for more info see this document: https://docs.docker.com/engine/installation/. 
+You need to have docker installed on your linux machine, for more info see this document: https://docs.docker.com/engine/installation/. 
 
 The functions in CASC package require that user is sudo or part of a docker group. See the following document for more info: https://docs.docker.com/engine/installation/linux/ubuntulinux/#/manage-docker-as-a-non-root-user
 

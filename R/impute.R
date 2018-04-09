@@ -12,7 +12,9 @@
 #'     #downloading fastq files
 #'     system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
 #'     system("gzip -d singlecells_counts.txt.gz")
-#'     cascImpute(group="docker", data.folder=getwd(), counts.matrix="singlecells_counts.txt", drop.thre=0.5, cores=8, refining=FALSE)
+#'     cascImpute(group="docker", data.folder=getwd(),
+#'          counts.matrix="singlecells_counts.txt",
+#'          drop.thre=0.5, cores=8, refining=FALSE)
 #' }
 #'
 #' @export

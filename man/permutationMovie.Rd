@@ -16,6 +16,8 @@ permutationMovie(group = c("sudo", "docker"), scratch.folder, data.folder,
 
 \item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
 
+\item{nCluster, }{number of Cluster used in Kmeans to generate the clusters that you want to merge}
+
 \item{format, }{count matrix format "csv", "txt"..}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
@@ -32,7 +34,13 @@ This function executes a ubuntu docker that create a video showing the cluster c
 }
 \examples{
 \dontrun{
- permutationMovie("sudo","/home/lucastormreig/CASC5.0/5_permutationMovie/scratch/","/home/lucastormreig/CASC5.0/5_permutationMovie/data/","TOTAL",7,"csv",",",200,5)# 
+ system("wget http://130.192.119.59/public/permutationmovie.zip")
+ unzip("permutationmovie.zip")
+ setwd("./permutationmovie")
+ library("CASC")
+ permutationMovie("docker",scratch.folder="/data/scratch", data.folder=getwd(),
+        matrixName="lorenz_Buettner", nCluster=4, format="csv", separator=",",
+        framePP=200, permutationNumber=3)
 }
 }
 \author{

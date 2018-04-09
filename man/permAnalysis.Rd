@@ -36,7 +36,13 @@ This function analyze the data that came up from permutationClustering script.
 }
 \examples{
 \dontrun{
-permAnalysis("sudo","path/to/scratch","path/to/data","TOTAL",3,4,"csv",",",0.8)# 
+ system("wget http://130.192.119.59/public/permutationanalysis.zip")
+ unzip("permutationanalysis.zip")
+ setwd("./permutationanalysis)
+ library("CASC")
+ permAnalysis("docker", scratch.folder="/data/scratch, data.folder=getwd(),
+     matrixName="lorenz_Buettner", range1=4, range2=5, format="csv",
+     separator=",", sp=0.8, clusterPermErr=0.05)
 }
 }
 \author{

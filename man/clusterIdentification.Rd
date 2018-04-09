@@ -16,6 +16,8 @@ clusterIdentification(group = c("sudo", "docker"), scratch.folder,
 
 \item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
 
+\item{nCluster, }{number of Cluster used in Kmeans to generate the clusters that you want to merge}
+
 \item{format, }{count matrix format "csv", "txt"..}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
@@ -28,8 +30,14 @@ This function executes a ubuntu docker that normalize all the permutation findin
 }
 \examples{
 \dontrun{
- clusterIdentification("sudo","/home/lucastormreig/CASC5.0/4_numberClustDetect/scratch/","/home/lucastormreig/CASC5.0/4_numberClustDetect/data/","TOTAL",7,"csv",",")# 
+ system("wget http://130.192.119.59/public/clusteridentification.zip")
+ unzip("clusteridentification.zip")
+ setwd("./clusteridentification")
+ library("CASC")
+ clusterIdentification("docker",scratch.folder="/data/scratch", data.folder=getwd(),
+         matrixName="lorenz_Buettner", nCluster=4, format="csv", separator=",")
 }
+
 }
 \author{
 Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino

@@ -1,6 +1,6 @@
 ---
 title: "Single Cell workflow"
-author: "Raffaele A Calogero, Luca Alessadri and Marco Beccuti"
+author: "Luca Alessadri, Francesca Cordero, Marco Beccuti and Raffaele A Calogero"
 output: 
   rmarkdown::html_vignette
 vignette: >
@@ -13,18 +13,23 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Single Cell workflow
+## Introduction
+
+Single cell sequencing is a  recent technique, very powerful but not mature yet. Single cell sequencing data analysis is therefore a very dinamic field. The present workflow will undergo modifications on the basis of the availability of new tools and sequencing techniques.
+
+The worflow is divided in two bocks: the first one designed to generate counts
+
+![Counts generation](../inst/img/workflow0.jpeg)
+
+and the second made to analyze counts for the identification of cell sub-population clusters. The dashed elements are those parts of the workflow not finished, yet.
+
+![Counts analysis](../inst/img/workflow1.jpeg)
+
+## Counts generation
 
 - **inDropseq**:
     + Creating a reference genome for inDrop V2:
     + From fastq to UMI counts using inDrop workflow: **indropCounts**
-- **Counts manipulation**:
-    + Removing non informative genes: **allZeros**
-    + Data normalization: **scnorm**
-    + Imputing dropouts: **cascImpute**
-    + Converting a count table in log10: **counts2log**
-- **Cell filtering**:
-    + Removing low quality cells: **lorenzFilter**
 
 ## inDrop seq
 
@@ -40,11 +45,23 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 
 
 
+## Counts analysis
+
+- **Counts manipulation**:
+    + Removing non informative genes: **filterZeros**
+    + Data normalization: **scnorm**
+    + Imputing dropouts: **cascImpute**
+    + Converting a count table in log10: **counts2log**
+- **Cell filtering**:
+    + Removing low quality cells: **lorenzFilter**
+
+
+
 ## Counts manipulation
 
 ### Removing non informative genes
 
-The function **allZeros** removed all genes that are without counts in all cells and plot the frequency distribution of genes with counts in the cells.
+The function **filterZeros** retains all genes that have cells without counts, given a theshold fraction (between 0 and 1, where 1 indicate only gens without 0s are retained) and plot the frequency distribution of genes with counts in the cells.
 
 ```{r, echo=TRUE, eval=FALSE}
 #downloading fastq files
@@ -61,7 +78,7 @@ SCnorm (as detailed in Bacher et al.) performs a quantile-regression based appro
 
 #### Check counts-depth relationship
 
-Before normalizing using **scnorm**, it is advised to check the data count-depth relationship. **checkCountDepth** provides a wrapper, in docker4seq, for the checkCountDepth of the [**SCnorm package**](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
+Before normalizing using **scnorm**, it is advised to check the data count-depth relationship. **checkCountDepth** provides a wrapper, in CASC, for the checkCountDepth of the [**SCnorm package**](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
 
 ```{r, echo=TRUE, eval=FALSE}
 #downloading fastq files
@@ -73,6 +90,8 @@ checkCountDepth(group="docker", data.folder=getwd(), counts.matrix="singlecells_
 ```
 
 The output is a PDF that provides a view of the counts distribution of the data.
+
+
 
 #### scnorm
 
@@ -90,6 +109,9 @@ scnorm(group="docker", data.folder=getwd(),counts.matrix="singlecells_counts.txt
 The output is a PDF that provides a view of effects of normalization, and Rda file containing the full output of **SCnorm** and a tab delimited file containing the normalized data.
 
 Setting PropToUse to 0.1 was particularly useful with large UMI based datasets. Proportion of genes closest to the slope mode used for the group fitting. This number affects a lot speed.
+
+**IMPORTANT NOTE:** for large number of cells, e.g. 1000 or more, setting filtercellNum to low numbers, e.g. 10, makes the scnorm running to an indefinite time. We suggest to make various tests to see which is a suitable number of non-zero genes passed via filtercellNum parameter.
+
 
 ### Imputing dropouts
 
@@ -117,7 +139,8 @@ The function **counts2log** can convert a count table in a log10 values saved in
 #downloading fastq files
 system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
 system("gzip -d singlecells_counts.txt.gz")
-counts2log(counts.matrix="singlecells_counts.txt", data.folder=getwd(), log.base=10, type="txt")
+counts2log(counts.matrix="singlecells_counts.txt", data.folder=getwd(), 
+           log.base=10, type="txt")
 ```
 
 
@@ -126,61 +149,22 @@ counts2log(counts.matrix="singlecells_counts.txt", data.folder=getwd(), log.base
 
 ### Identifying outlier libraries
 
-To identify outlier libraries, [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/) developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Furthermore, this statistics correlates with correlates (Pearson-correlation 0.7) with live-dead staining [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/).  
+To identify outlier libraries, [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/) developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Furthermore, this statistics correlates with live-dead staining, Pearson-correlation 0.7 [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/).  
 
 ```{r, echo=TRUE,eval=FALSE}
 
 lorenzFilter(group="docker",scratch.folder="path/of/scratch/folder",
-           data.folder="path/of/data/folder",matrixName="matrixName",p_value=0.05,format="txt",separator='\t')
+           data.folder="path/of/data/folder",matrixName="matrixName",
+           p_value=0.05,format="txt",separator='\t')
 
 ```
 
-
-### CASC Classification Analysis of Single Cell Sequencing Data
-
-Genome-wide single-cell measurements such as transcriptome sequencing enable the characterization of cellular composition as well as functional variation in homogenic/heterogenic cell populations. An important step in the single-cell transcriptome analysis is to group cells that belong to the same sub-type based on gene expression patterns [Usoskin et al, Pollen et al, Kolodziejczyk et al]. Critical issues in cell clustering are:
-
-- cluster stability
-
-- feature selection, i.e. the identification genes playing the major role in cluster formation. 
-
-To address the above issues, we have developed CASC, a tool implemented in a docker container, that uses as core application to detect cell clusters the “kernel based similarity learning” [Wang et al] and allows: 
-
-- identification of the optimal number of clusters for cell partitioning using “silhouette method”. 
-
-- The evaluation of clusters stability, measuring the permanence of a cell in a cluster upon random removal of subsets of cells. 
-
--Feature selection via “nearest shrunken centroid method” [Tibshirani et al], applied to the gene Index Of Dispersion [Diaz et al]. 
-
-CASC was tested on previously published data sets [Usoskin et al, Pollen et al, Kolodziejczyk et al]. CASC feature selection procedure efficiently allows the identification of the subpopulation of genes playing the main role in discriminating between cell subpopulations.
-
-
-#### Introduction
-
-**CASC** is controlled by a set of functions embedded in **kendomaniac/docker4seq** package,
-which was developed to facilitate the use of computing demanding applications in the field of NGS data analysis.
-
-
-This approach provides multiple advantages: 
-
-- user does not need to install all the software on its local server
-
-- results generated by different containers can be organized in pipelines
-
-- reproducible research is guarantee by the possibility of sharing the docker containers used for the analysis 
-
-#### Requirements
-The minimal hardware requirements are a 4 core 64 bits linux computer, 32 Gb RAM, one SSD 250GB, with a folder with read/write permission for any users (chmod 777), and [docker](https://www.docker.com/) installed.
-
-**IMPORTANT** The first time *docker4seq* is installed the **downloadContainers** needs to be executed  to download to the local repository the containers that are needed for the use of *docker4seq*
-
-```{r, echo=TRUE, eval=FALSE}
-downloadContainers(group="docker")
-```
 
 
 #### Defining the optimal number of clusters
 
+An important step in the single-cell transcriptome analysis is to group cells that belong to the same type based on gene expression patterns [Usoskin et al, Pollen et al, Kolodziejczyk et al].
+This can be done using supervised and unsupervised clustering. A lot of tools are actually available for single-cell transcriptome clustering [ref]. At the present time we have implemented tSne and SIMLR.
 
 ```{r, echo=TRUE, eval=FALSE}
 #downloading fastq files
@@ -201,7 +185,7 @@ The function **cascKoptimization** run SIMLR [Wang et al] using a range of clust
 
 Taking in account the two plots and the clusters structure observed for 3 and 4 clusters, fig C and D, it is clear that 4 clusters provide a better separation between cells but keeping very high the cell permanence in a cluster.
 
-![cluster decision](/Users/raffaelecalogero/Dropbox/data/docker/stable/docker4seq/inst/img/silhouette.stability.jpg)
+
 
 The function **cascOutputReformat** use SilhouetteParameters.csv (the file containing the cell silhouette scores), mainVector.csv (the file that associates each cell to a specific SIMLR cluster), scoreVector.csv (the file associating each cell to a specific cell stability score), dataPlot.csv (containing SIMLR component 1 and 2 cohordinates) to generate a summary file called **summary_table.csv**.
 
@@ -213,7 +197,6 @@ setwd("./example")
 cascOutputReformat(data.folder=getwd())
 ```
 
-![summary_table](../inst/img/summary_table.jpeg)
 
 
 
@@ -221,20 +204,6 @@ cascOutputReformat(data.folder=getwd())
 
 
 
-## References
 
-Usoskin et al. Nat. Neurosci. 2014, 18:145–153
-
-Pollen et al. Nat. Biotechnol. 2014, 32:1–37
-
-Kolodziejczyk et al. Cell Stem Cell 2015, 17:471–485
-
-Wang et al. Nat Methods. 2017 14:414-416
-
-Tibshirani et al. PNAS 2002, 99:6567-6572
-
-Diaz et al. Bioinformatics 2016, 32: 2219-2220
-
-Bacher et al. Nat. Methods  2017, 14:584–586
 
 

@@ -1,20 +1,29 @@
 #' @title Cluster identification
-#' @description This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0 
+#' @description This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
+#' @param nCluster, number of Cluster used in Kmeans to generate the clusters that you want to merge
 #' @param format, count matrix format "csv", "txt"..
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return Csv file with correct cluster name 
+#' @return Csv file with correct cluster name
+#'
 #' @examples
-#'\dontrun{
-#'  clusterIdentification("sudo","/home/lucastormreig/CASC5.0/4_numberClustDetect/scratch/","/home/lucastormreig/CASC5.0/4_numberClustDetect/data/","TOTAL",7,"csv",",")# 
+#' \dontrun{
+#'  system("wget http://130.192.119.59/public/clusteridentification.zip")
+#'  unzip("clusteridentification.zip")
+#'  setwd("./clusteridentification")
+#'  library("CASC")
+#'  clusterIdentification("docker",scratch.folder="/data/scratch", data.folder=getwd(),
+#'          matrixName="lorenz_Buettner", nCluster=4, format="csv", separator=",")
 #'}
+#'
 #' @export
-clusterIdentification <- function(group=c("sudo","docker"), scratch.folder, data.folder,matrixName,nCluster,format,separator){
+clusterIdentification <- function(group=c("sudo","docker"), scratch.folder, data.folder,
+                                  matrixName, nCluster, format, separator){
 
 
 
@@ -24,9 +33,9 @@ clusterIdentification <- function(group=c("sudo","docker"), scratch.folder, data
     cat("\nERROR: Docker seems not to be installed in your system\n")
     return()
   }
-  #storing the position of the home folder  
+  #storing the position of the home folder
   home <- getwd()
-  
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -45,7 +54,7 @@ clusterIdentification <- function(group=c("sudo","docker"), scratch.folder, data
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-  
+
 if(separator=="\t"){
 separator="tab"
 }
