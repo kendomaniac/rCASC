@@ -25,7 +25,7 @@ genesUmi <- function(data.folder, counts.matrix, umiXgene=3){
     return()
   }
   setwd(data.folder)
-  tmp <- read.table(counts.matrix, sep="\t", heder=T, row.names=1, stringsAsFactors = F)
+  tmp <- read.table(counts.matrix, sep="\t", header=T, row.names=1, stringsAsFactors = F)
   genes <- apply(tmp,2, function(x, umiXgene){
      x[which(x <  umiXgene)] <- 0
      x[which(x >=  umiXgene)] <- 1
