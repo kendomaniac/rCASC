@@ -4,7 +4,7 @@
 \alias{genesUmi}
 \title{Plotting genes to UMIs relationship.}
 \usage{
-genesUmi(data.folder = getwd(), counts.matrix, umiXgene = 3)
+genesUmi(data.folder, counts.matrix, umiXgene = 3)
 }
 \arguments{
 \item{data.folder, }{a character string indicating the folder where output will be saved.}
@@ -18,4 +18,12 @@ pdf with the cells counts distributions: genes.umi.pdf
 }
 \description{
 This function create a plot in which genes are plotted with respect to total counts UMI for each cell.
+}
+\examples{
+\dontrun{
+    #downloading fastq files
+    system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
+    system("gzip -d singlecells_counts.txt.gz")
+    genesUmi(data.folder=getwd(), counts.matrix="singlecells_counts.txt", umiXgene=3)
+}
 }

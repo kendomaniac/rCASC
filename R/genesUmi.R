@@ -6,7 +6,15 @@
 #' @return pdf with the cells counts distributions: genes.umi.pdf
 #'
 #' @export
-genesUmi <- function(data.folder=getwd(), counts.matrix, umiXgene=3){
+#'
+#' @examples
+#' \dontrun{
+#'     #downloading fastq files
+#'     system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
+#'     system("gzip -d singlecells_counts.txt.gz")
+#'     genesUmi(data.folder=getwd(), counts.matrix="singlecells_counts.txt", umiXgene=3)
+#' }
+genesUmi <- function(data.folder, counts.matrix, umiXgene=3){
 
   #running time 1
   ptm <- proc.time()
