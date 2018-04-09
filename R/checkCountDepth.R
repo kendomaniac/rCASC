@@ -4,6 +4,9 @@
 #' @param data.folder, a character string indicating the folder where output will be saved.
 #' @param counts.matrix, a character string indicating the the name of tab delimited file  of cells un-normalized expression counts.
 #' @param conditions, vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.
+#' @param FilterCellProportion, a value indicating the proportion of non-zero expression estimates required to include the genes into the evaluation. Default is .10, and will not go below a proportion which uses less than 10 total cells/samples
+#' @param FilterExpression, a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots
+#' @param ditherCounts, whether to dither/jitter the counts, may be used for data with many ties, default is FALSE
 #' @param outputName, specify the path and/or name of output files.
 #' @param nCores, number of cores to use, default is detectCores() - 1.
 #' @return pdf with the cells counts distributions
@@ -18,7 +21,7 @@
 #'     outputName="singlecells_counts", nCores=8)
 #' }
 #' @export
-checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), counts.matrix, conditions=NULL, outputName, nCores=8){
+checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), counts.matrix, conditions=NULL, FilterCellProportion=0.1, FilterExpression=0, ditherCounts=FALSE, outputName, nCores=8){
 
   #running time 1
   ptm <- proc.time()
@@ -35,10 +38,10 @@ checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), count
     conditions <- paste(conditions, collapse = "_")
   }
   if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scnorm.2018.01 Rscript /bin/checkCountDepth.R ",counts.matrix," ",conditions," ",outputName," ",nCores, sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scnorm.2018.01 Rscript /bin/checkCountDepth.R ",counts.matrix," ",conditions," ", FilterCellProportion, " ", FilterExpression," ", ditherCounts, " ", outputName," ",nCores, sep="")
     resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/scnorm.2018.01", params=params)
   }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scnorm.2018.01 Rscript /bin/checkCountDepth.R ",counts.matrix," ",conditions," ",outputName," ",nCores, sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scnorm.2018.01 Rscript /bin/checkCountDepth.R ",counts.matrix," ",conditions," ",FilterCellProportion, " ", FilterExpression," ", ditherCounts, " ", outputName," ",nCores, sep="")
     resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/scnorm.2018.01", params=params)
   }
 
