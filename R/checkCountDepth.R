@@ -18,6 +18,7 @@
 #'     conditions=rep(1,288)
 #'     checkCountDepth(group="docker", data.folder=getwd(),
 #'     counts.matrix="singlecells_counts.txt", conditions=conditions,
+#'     FilterCellProportion=0.1, FilterExpression=0, ditherCounts=FALSE,
 #'     outputName="singlecells_counts", nCores=8)
 #' }
 #' @export
@@ -45,7 +46,7 @@ checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), count
     resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/scnorm.2018.01", params=params)
   }
 
-  if(resultRun=="false"){
+  if(resultRun==0){
     cat("\ncheckCountDepth test is finished\n")
   }
 
@@ -72,15 +73,16 @@ checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), count
 
   #saving log and removing docker container
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
-  system(paste("docker logs ", container.id, " >& ", substr(container.id,1,12),".log", sep=""))
+  system(paste("docker logs ", container.id, " >& ", "checkCountDepth_",substr(container.id,1,12),".log", sep=""))
+  system(paste("docker rm ", container.id, sep=""))
 
   #removing temporary folder
-  cat("\n\nRemoving the temporary file ....\n")
-  system("rm -fR anno.info")
-  system("rm -fR dockerID")
-#  system("rm  -fR tempFolderID")
+  cat("\n\nRemoving the checkCountDepth temporary file ....\n")
+  system(paste("rm -R ",scrat_tmp.folder))
+  system(paste("rm  -f ",data.folderr,"/dockerID", sep=""))
+  system(paste("rm  -f ",data.folder,"/tempFolderID", sep=""))
   system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
 
-  system(paste("docker rm ", container.id, sep=""))
+#  system(paste("docker rm ", container.id, sep=""))
 
 }
