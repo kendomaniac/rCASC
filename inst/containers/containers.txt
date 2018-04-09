@@ -8,4 +8,6 @@ docker.io/rcaloger/clustereorg
 docker.io/rcaloger/clusteridentification
 docker.io/rcaloger/crosslabel
 docker.io/rcaloger/permutationmovie
+docker.io/repbioinfo/scnorm.2018.01
+
 

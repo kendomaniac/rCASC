@@ -2,7 +2,7 @@
 #' @description This function plots the zeros distributions in cells and removes genes without counts
 #' @param data.folder, a character string indicating the folder where filtered sel file will be saved. The saved file will have the prefix *filtered*.
 #' @param counts.matrix, a character string indicating the the name of tab delimited file of cells un-normalized expression counts
-#' @param threshold, an number from 0 to 1 indicating the fraction of max accepted zeros in each gene
+#' @param threshold, an number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes which do not ave any expression in any cell.
 #' @return a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *fltered* in which the filtered data are saved.
 #' @examples
 #' \dontrun{
@@ -12,7 +12,7 @@
 #'     filterZeros(data.folder=getwd(),counts.matrix="singlecells_counts.txt", threshold=0.1)
 #' }
 #' @export
-filterZeros <- function(data.folder=getwd(), counts.matrix, threshold){
+filterZeros <- function(data.folder=getwd(), counts.matrix, threshold=0){
   counts <- read.table(counts.matrix, sep="\t", header=T, row.names = 1)
   counts.sum <- apply(counts, 1, function(x){
     length(which(x > 0))
