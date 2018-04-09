@@ -74,7 +74,7 @@ checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), count
   #saving log and removing docker container
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
   system(paste("docker logs ", container.id, " >& ", "checkCountDepth_",substr(container.id,1,12),".log", sep=""))
-  system(paste("docker rm ", container.id, sep=""))
+  # system(paste("docker rm ", container.id, sep=""))
 
   #removing temporary folder
   cat("\n\nRemoving the checkCountDepth temporary file ....\n")
