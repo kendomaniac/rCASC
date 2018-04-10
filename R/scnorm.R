@@ -18,8 +18,8 @@
 #'     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 #'     unzip("example_UMI.txt.zip")
 #'     conditions=rep(1,12)
-#'     scnorm(group="docker", data.folder=getwd(),counts.matrix="example.txt",
-#'     conditions=conditions,outputName="example.txt", nCores=8, filtercellNum=10,
+#'     scnorm(group="docker", data.folder=getwd(),counts.matrix="example_UMI.txt",
+#'     conditions=conditions,outputName="example_UMI", nCores=8, filtercellNum=10,
 #'     ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=1)
 
 #' }

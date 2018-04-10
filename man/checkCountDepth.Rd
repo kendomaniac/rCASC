@@ -35,7 +35,7 @@ This function executes a check on the data count-depth relationship used by SCno
 }
 \examples{
 \dontrun{
-    #downloading fastq files
+    #C1 data whole transcript
     system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
     system("gzip -d singlecells_counts.txt.gz")
     conditions=rep(1,288)
@@ -43,5 +43,14 @@ This function executes a check on the data count-depth relationship used by SCno
     counts.matrix="singlecells_counts.txt", conditions=conditions,
     FilterCellProportion=0.1, FilterExpression=0, ditherCounts=FALSE,
     outputName="singlecells_counts", nCores=8)
+
+    #an other example with UMI 3' end analysis
+    system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+    unzip("example_UMI.txt.zip")
+    conditions=rep(1,12)
+    checkCountDepth(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
+    conditions=conditions, FilterCellProportion=0.1, FilterExpression=0,
+    ditherCounts=TRUE, outputName="example_UMI", nCores=8)
+
 }
 }
