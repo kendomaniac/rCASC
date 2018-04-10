@@ -76,7 +76,7 @@ filterZeros(data.folder=getwd(),counts.matrix="singlecells_counts.txt", threshol
 
 SCnorm (as detailed in Bacher et al.) performs a quantile-regression based approach for robust normalization of single-cell RNA-seq data.  SCnorm groups genes based on their count-depth relationship then applies a quantile regression to each group in order to estimate scaling factors which will remove the effect of sequencing depth from the counts.
 
-IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, often K will not converge in these situations. In our test ditherCounts = TRUE parameter frequently generate an error. If 1000 of more cells are 
+IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, often K will not converge in these situations. 
 
 #### Check counts-depth relationship
 
@@ -91,7 +91,10 @@ ratio in the DESeq package or TMM in edgeR will also be adequate. However, when 
 system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
 system("gzip -d singlecells_counts.txt.gz")
 conditions=rep(1,288)
-checkCountDepth(group="docker", data.folder=getwd(), counts.matrix="singlecells_counts.txt", conditions=conditions, outputName="singlecells_counts", nCores=8)
+checkCountDepth(group="docker", data.folder=getwd(), counts.matrix="singlecells_counts.txt", 
+                conditions=conditions, FilterCellProportion=0.1, 
+                FilterExpression=0, ditherCounts=FALSE, 
+                outputName="singlecells_counts", nCores=8)
 
 ```
 

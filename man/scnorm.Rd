@@ -6,7 +6,8 @@
 \usage{
 scnorm(group = c("sudo", "docker"), data.folder = getwd(), counts.matrix,
   conditions = NULL, outputName, nCores = 8, filtercellNum = 10,
-  ditherCount = FALSE, PropToUse = 0.1)
+  ditherCount = FALSE, PropToUse = 0.1, PrintProgressPlots = FALSE,
+  FilterExpression = 0)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -23,9 +24,13 @@ scnorm(group = c("sudo", "docker"), data.folder = getwd(), counts.matrix,
 
 \item{filtercellNum, }{the number of non-zero expression estimate required to include the genes into the SCnorm fitting (default = 10). The initial grouping fits a quantile regression to each gene, making this value too low gives unstable fits.}
 
-\item{ditherCount, }{FALSE of TRUE. Setting to TRUE might improve results with UMI data. NOTE fequently if ditherCount is set to TRUE you get an error.}
+\item{ditherCount, }{FALSE of TRUE. Setting to TRUE might improve results with UMI data.}
 
 \item{PropToUse, }{as default is set to 0.25, but to increase speed with large data set could be reduced, e.g. 0.1}
+
+\item{PrintProgressPlots, }{producesa  plot as SCnorm determines the optimal number of groups}
+
+\item{FilterExpression, }{a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots}
 }
 \value{
 a PDF providing a view of effects of normalization, a Rda file containing the full output of **SCnorm** and a tab delimited file containing the normalized data.
@@ -41,6 +46,6 @@ This function is a wrapper for SCnorm: robust normalization of single-cell RNA-s
     conditions=rep(1,288)
     scnorm(group="docker", data.folder=getwd(),counts.matrix="singlecells_counts.txt",
        conditions=conditions,outputName="singlecells_counts",
-       nCores=8, filtercellNum=10, ditherCount=TRUE, PropToUse=0.1)
+       nCores=8, filtercellNum=10, ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=0)
 }
 }
