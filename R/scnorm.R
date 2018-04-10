@@ -11,7 +11,7 @@
 #' @param PropToUse, as default is set to 0.25, but to increase speed with large data set could be reduced, e.g. 0.1
 #' @param PrintProgressPlots, producesa  plot as SCnorm determines the optimal number of groups
 #' @param FilterExpression, a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots
-#' @return a PDF providing a view of effects of normalization, a Rda file containing the full output of **SCnorm** and a tab delimited file containing the normalized data.
+#' @return  a tab delimited file containing the normalized data and a list of the discarded genes.
 #' @examples
 #' \dontrun{
 #'     #downloading fastq files
@@ -88,7 +88,7 @@ scnorm <- function(group=c("sudo","docker"), data.folder=getwd(), counts.matrix,
 
   #saving log and removing docker container
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
-  system(paste("docker logs ", substr(container.id,1,12), " >& ", substr(container.id,1,12),".log", sep=""))
+  system(paste("docker logs ", substr(container.id,1,12), " >& ", "SCnorm_", substr(container.id,1,12),".log", sep=""))
 
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")

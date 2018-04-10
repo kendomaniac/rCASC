@@ -33,7 +33,7 @@ scnorm(group = c("sudo", "docker"), data.folder = getwd(), counts.matrix,
 \item{FilterExpression, }{a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots}
 }
 \value{
-a PDF providing a view of effects of normalization, a Rda file containing the full output of **SCnorm** and a tab delimited file containing the normalized data.
+a tab delimited file containing the normalized data and a list of the discarded genes.
 }
 \description{
 This function is a wrapper for SCnorm: robust normalization of single-cell RNA-seq data (Bacher et al. Nature Methods 2017, 14:584–586)

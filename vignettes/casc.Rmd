@@ -74,11 +74,19 @@ filterZeros(data.folder=getwd(),counts.matrix="singlecells_counts.txt", threshol
 
 ### Data normalization
 
+[The best way to normalize single-cell RNA-seq data has not yet been resolved](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5549838/), expecially for UMI data. We inserted in our workflow two possible options:
+
+- [SCnorm](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473255/), which works best with whole transcript data.
+
+- [scone](https://www.biorxiv.org/content/early/2017/12/16/235382), which provides different global scaling methods that can be applyed to UMI single-cell data.
+
+#### SCnorm
+
 SCnorm (as detailed in Bacher et al.) performs a quantile-regression based approach for robust normalization of single-cell RNA-seq data.  SCnorm groups genes based on their count-depth relationship then applies a quantile regression to each group in order to estimate scaling factors which will remove the effect of sequencing depth from the counts.
 
 IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, often K will not converge in these situations. 
 
-#### Check counts-depth relationship
+##### Check counts-depth relationship
 
 Before normalizing using **scnorm**, it is advised to check the data count-depth relationship.
 If all genes have a similar relationship then a global normalization strategy such as median-by-
@@ -87,18 +95,16 @@ ratio in the DESeq package or TMM in edgeR will also be adequate. However, when 
 **checkCountDepth** provides a wrapper, in CASC, for the checkCountDepth of the [**SCnorm package**](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
 
 ```{r, echo=TRUE, eval=FALSE}
-#downloading fastq files
-system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
-system("gzip -d singlecells_counts.txt.gz")
-conditions=rep(1,288)
-checkCountDepth(group="docker", data.folder=getwd(), counts.matrix="singlecells_counts.txt", 
-                conditions=conditions, FilterCellProportion=0.1, 
-                FilterExpression=0, ditherCounts=FALSE, 
-                outputName="singlecells_counts", nCores=8)
+system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+unzip("example_UMI.txt.zip")
+conditions=rep(1,12)
+checkCountDepth(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
+     conditions=conditions, FilterCellProportion=0.1, FilterExpression=0,
+     ditherCounts=TRUE, outputName="example_UMI", nCores=8)
 
 ```
 
-The output is a PDF that provides a view of the counts distribution of the data.
+The output is a PDF that provides a view of the counts distribution of the data and a file selected.genes.txt, which contains the genes selected to run the analysis.
 
 
 
@@ -107,22 +113,47 @@ The output is a PDF that provides a view of the counts distribution of the data.
 the **scnorm** function execute SCnorm of the [**SCnorm package**](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  return  the  normalized expression count.
 
 ```{r, echo=TRUE, eval=FALSE}
-#downloading fastq files
-system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
-system("gzip -d singlecells_counts.txt.gz")
-conditions=rep(1,288)
-scnorm(group="docker", data.folder=getwd(),counts.matrix="singlecells_counts.txt", conditions=conditions,outputName="singlecells_counts", nCores=8, filtercellNum=10, PropToUse=0.1)
+system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+unzip("example_UMI.txt.zip")
+conditions=rep(1,12)
+scnorm(group="docker", data.folder=getwd(),counts.matrix="example_UMI.txt",
+     conditions=conditions,outputName="example_UMI", nCores=8, filtercellNum=10,
+     ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=1)
 
 ```
 
-The output is a PDF that provides a view of effects of normalization, and Rda file containing the full output of **SCnorm** and a tab delimited file containing the normalized data.
-
-Setting PropToUse to 0.1 was particularly useful with large UMI based datasets. Proportion of genes closest to the slope mode used for the group fitting. This number affects a lot speed.
-
-**IMPORTANT NOTE:** for large number of cells, e.g. 1000 or more, setting filtercellNum to low numbers, e.g. 10, makes the scnorm running to an indefinite time. We suggest to make various tests to see which is a suitable number of non-zero genes passed via filtercellNum parameter.
+The output is file, *discarded_genes.txt*, which contains the discarded genes and a tab delimited file containing the normalized data, with the prefix *normalized_*.
 
 
-### Imputing dropouts
+
+#### scone
+
+scone package embeds:
+
+- Centered log-ratio (CLR) normalization 
+
+- Relative log-expression (RLE; DESeq) scaling normalization 
+
+- Full-quantile normalization 
+
+- Simple deconvolution normalization 
+
+- Sum scaling normalization
+
+- Weighted trimmed mean of M-values (TMM) scaling normalization
+
+- Upper-quartile (UQ) scaling normalization
+
+
+```{r, echo=TRUE, eval=FALSE}
+
+
+```
+
+
+
+
+### Imputing dropouts (useful to refine analysis after clustering)
 
 the **cascImpute** function execute scImpute of the [**scImpute package**](https://github.com/Vivianstats/scImpute), which impute the dropout values in scRNA-seq data.
 
