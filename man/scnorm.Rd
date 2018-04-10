@@ -41,11 +41,11 @@ This function is a wrapper for SCnorm: robust normalization of single-cell RNA-s
 \examples{
 \dontrun{
     #downloading fastq files
-    system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
-    system("gzip -d singlecells_counts.txt.gz")
-    conditions=rep(1,288)
-    scnorm(group="docker", data.folder=getwd(),counts.matrix="singlecells_counts.txt",
-       conditions=conditions,outputName="singlecells_counts",
-       nCores=8, filtercellNum=10, ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=0)
+    system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+    unzip("example_UMI.txt.zip")
+    conditions=rep(1,12)
+    scnorm(group="docker", data.folder=getwd(),counts.matrix="example.txt",
+    conditions=conditions,outputName="example.txt", nCores=8, filtercellNum=10,
+    ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=1)
 }
 }
