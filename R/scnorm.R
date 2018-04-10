@@ -39,6 +39,19 @@ scnorm <- function(group=c("sudo","docker"), data.folder=getwd(), counts.matrix,
   }else{
     conditions <- paste(conditions, collapse = "_")
   }
+
+  #checking eligibility to scnorm
+  tmp <- read.table(paste(data.folder, counts.matrix, sep="/"), sep="\t", header=T, col.names=1)
+  tmp.sum <- apply(tmp,2,sum)
+  if(min(tmp.sum) < 10000){
+
+    cat("\n There are ",length(which(tmp.sum) < 10000), " samples out of ", length(tmp.sum), " with less than 10000 counts\n")
+    cat("Remove them before applying scnorm\n")
+    return("\nERROR: some of the cells have less than 10000 counts\n")
+
+  }
+
+
   if(group=="sudo"){
         params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scnorm.2018.01 Rscript /bin/scnorm.R ",counts.matrix," ",conditions," ",outputName," ",nCores," ",filtercellNum, " ",ditherCount," ",PropToUse," ", PrintProgressPlots," ", FilterExpression, sep="")
         resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/scnorm.2018.01", params=params)
