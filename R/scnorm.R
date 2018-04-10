@@ -42,7 +42,7 @@ scnorm <- function(group=c("sudo","docker"), data.folder=getwd(), counts.matrix,
   }
 
   #checking eligibility to scnorm
-  tmp <- read.table(paste(data.folder, counts.matrix, sep="/"), sep="\t", header=T, col.names=1)
+  tmp <- read.table(paste(data.folder, counts.matrix, sep="/"), sep="\t", header=T, row.names=1)
   tmp.sum <- apply(tmp,2,sum)
   if(min(tmp.sum) < 10000){
 
