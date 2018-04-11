@@ -51,6 +51,7 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 
 - **Counts manipulation**:
     + Removing non informative genes: **filterZeros**
+    + Checking the genes versus total number of UMI: **genesUmi**
     + Removing low quality cells: **lorenzFilter**
     
     + Data normalization: **scnorm**, minimal requirements 10K counts/cell, works best with whole transcripts sequencing
@@ -72,8 +73,33 @@ system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
 system("gzip -d singlecells_counts.txt.gz")
 filterZeros(data.folder=getwd(),counts.matrix="singlecells_counts.txt", threshold=0)
 
+system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+unzip("testSCumi_mm10.csv.zip")
+tmp <- read.table("testSCumi_mm10.csv", sep=",", heqder=T, row.names=1)
+dim(tmp)
+#27998   806
+write.table(tmp, "testSCumi_mm10.txt", sep="\t", col.names=NA)
+filterZeros(data.folder=getwd(),counts.matrix="testSCumi_mm10.txt", threshold=0)
+#Out of 27998 genes 11255 are left after removing genes with no counts
+#output is filtered_testSCumi_mm10.txt
+
+
+
 ```
 
+![Zeros distribution in testSCumi_mm10.txt](../inst/img/filterZero.jpeg)
+
+
+## Plotting genes numbers versus total UMIs in each cell
+
+The function *genesUmi* produces a plot of the genes number detected, e.g. 1 gene at least 3 UMI, with respect to total number of UMI
+
+```{r, echo=TRUE, eval=FALSE}
+library(casc)
+genesUmi(data.folder=getwd(), counts.matrix="filtered_testSCumi_mm10.txt", umiXgene=3)
+
+
+```
 
 ## Cell filtering
 
@@ -88,8 +114,10 @@ unzip("testSCumi_mm10.csv.zip")
 
 library(casc)
 lorenzFilter(group="docker",scratch.folder="/data/scratch/",
-           data.folder=getwd(),matrixName="test_mm10",
+           data.folder=getwd(),matrixName="testSCumi_mm10",
            p_value=0.05,format="csv",separator=',')
+
+#24 cells are removed because of low quality
 
 ```
 

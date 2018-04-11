@@ -10,14 +10,14 @@ indropIndex(group = c("sudo", "docker"), index.folder, ensembl.urlgenome,
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
-\item{index.folder, }{a character string indicating the folder where input data are located and where output will be written}
+\item{index.folder, }{a character string indicating the folder where the index will be created. The index will have the prefix genome.}
 
 \item{ensembl.urlgenome, }{a character string indicating the URL from ENSEMBL ftp for the unmasked genome sequence of interest}
 
 \item{ensembl.urlgtf, }{a character string indicating the URL from ENSEMBL ftp for the GTF for genome of interest}
 }
 \description{
-This function executes a docker that produces as output the single cell index for V2 indrop single cell sequencing
+This function executes a docker that produces as output the genome index index for bowtie
 }
 \examples{
 \dontrun{

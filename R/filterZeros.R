@@ -19,9 +19,15 @@ filterZeros <- function(data.folder=getwd(), counts.matrix, threshold=0){
   })
   max.zeros <- dim(counts)[2]*threshold
   counts.n0 <- counts[which(counts.sum > max.zeros),]
+  counts.sum0 <- apply(counts.n0, 1, function(x){
+    length(which(x > 0))
+  })
+
   cat("\n",paste("Out of ", dim(counts)[1]," genes ",dim(counts.n0)[1]," are left after removing genes with no counts", sep=""),"\n")
-  pdf(paste("zeros_distribution_",sub(".txt$","",counts.matrix),".pdf",sep=""))
-      hist(log10(counts.sum), xlab="log10 # cells wo zeros")
+  pdf(paste("Non-zeros_distribution_",sub(".txt$","",counts.matrix),".pdf",sep=""))
+      hist(counts.sum, col=rgb(1,0,0,0.5), main="",  xlab="log10 # cells without zeros")
+      hist(counts.sum0, col=rgb(0,0,1,0.5), add=T)
+      box()
   dev.off()
   write.table(counts.n0, paste("filtered_",counts.matrix,sep=""), sep="\t", col.names=NA)
 

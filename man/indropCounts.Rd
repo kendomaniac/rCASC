@@ -22,7 +22,7 @@ indropCounts(group = c("sudo", "docker"), scratch.folder, fastq.folder,
 
 \item{split.affixes, }{the string separating SAMPLENAME for the Rz_001.fastq.gz}
 
-\item{bowtie.index.prefix, }{the prefix name of the bowtie index}
+\item{bowtie.index.prefix, }{the prefix name of the bowtie index. If genome was generated with indropIndex function the bowtie index is genome.}
 
 \item{M, }{Ignore reads with more than M alignments, after filtering on distance from transcript end.}
 
@@ -45,7 +45,7 @@ library(casc)
 #running indropCounts
 indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
        index.folder="/data/genomes/mm10indrop", sample.name="testMm",
-       split.affixes="S0_L001", bowtie.index.prefix="Mus_musculus.GRCm38.85.index",
+       split.affixes="S0_L001", bowtie.index.prefix="genome",
        M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=5)
 }
 
