@@ -11,7 +11,7 @@
 
 #' library(docker4seq)
 #' #running indropCounts index build
-#' indropIndex(group="docker", index.folder="/data/genomes/mm10indrop",
+#' indropIndex(group="docker", index.folder=getwd(),
 #'     ensembl.urlgenome="ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
 #'     ensembl.urlgtf="ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.gtf.gz")
 #' }
@@ -99,10 +99,10 @@ indropIndex <- function(group=c("sudo","docker"), index.folder, ensembl.urlgenom
   system(paste("chmod 777 -R", file.path(index.folder)))
 
   if(group=="sudo"){
-    params <- paste("--cidfile ",index.folder,"/dockerID -v ", index.folder,":/index -d docker.io/repbioinfo/indrop.2017.01 sh /bin/indropIndex.sh ", sep="")
+    params <- paste("--cidfile ",index.folder,"/dockerID -v ", index.folder,":/index -d docker.io/repbioinfo/indrop.2017.01 sh /bin/indropIndex.sh ", ensembl.urlgenome, " ", ensembl.urlgtf, sep="")
     resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/indrop.2017.01", params=params)
   }else{
-    params <- paste("--cidfile ",index.folder,"/dockerID -v ", index.folder,":/index -d docker.io/repbioinfo/indrop.2017.01 sh /bin/indropIndex.sh ", sep="")
+    params <- paste("--cidfile ",index.folder,"/dockerID -v ", index.folder,":/index -d docker.io/repbioinfo/indrop.2017.01 sh /bin/indropIndex.sh ", ensembl.urlgenome, " ", ensembl.urlgtf, sep="")
     resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/indrop.2017.01", params=params)
   }
 
