@@ -133,7 +133,7 @@ indropIndex <- function(group=c("sudo","docker"), index.folder, ensembl.urlgenom
   }
 
   #saving log and removing docker container
-  container.id <- readLines(paste(fastq.folder,"/dockerID", sep=""), warn = FALSE)
+  container.id <- readLines(paste(index.folder,"/dockerID", sep=""), warn = FALSE)
   system(paste("docker logs ", substr(container.id,1,12), " &> ",index.folder,"/inDropIndex_", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
 

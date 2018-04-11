@@ -23,7 +23,7 @@ This function executes a docker that produces as output the single cell index fo
 \dontrun{
 library(docker4seq)
 #running indropCounts index build
-indropIndex(group="docker", index.folder="/data/genomes/mm10indrop",
+indropIndex(group="docker", index.folder=getwd(),
     ensembl.urlgenome="ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
     ensembl.urlgtf="ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.gtf.gz")
 }
