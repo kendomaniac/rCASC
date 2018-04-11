@@ -6,7 +6,7 @@
 #' @param index.folder, a character string indicating the folder where transcriptome index was created with salmonIndex.
 #' @param sample.name, the name to be associated to the fastq files, e.g. C2 for C2_S2_L001_R1_001.fastq.gz, IMPORTANT input fastq should have the format SAMPLENAME_Sx_L00y_Rz_001.fastq.gz, where x is an integer, y is an integer, z is 1 or 2
 #' @param split.affixes, the string separating SAMPLENAME for the Rz_001.fastq.gz
-#' @param bowtie.index.prefix, the prefix name of the bowtie index
+#' @param bowtie.index.prefix, the prefix name of the bowtie index. If genome was generated with indropIndex function the bowtie index is genome.
 #' @param M, Ignore reads with more than M alignments, after filtering on distance from transcript end.
 #' @param U, Ignore counts from UMI that should be split among more than U genes.
 #' @param D, Maximal distance from transcript end, NOT INCLUDING THE POLYA TAIL.
@@ -22,7 +22,7 @@
 #' #running indropCounts
 #' indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
 #'        index.folder="/data/genomes/mm10indrop", sample.name="testMm",
-#'        split.affixes="S0_L001", bowtie.index.prefix="Mus_musculus.GRCm38.85.index",
+#'        split.affixes="S0_L001", bowtie.index.prefix="genome",
 #'        M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=5)
 #' }
 #'
@@ -206,7 +206,7 @@ indropCounts <- function(group=c("sudo","docker"), scratch.folder, fastq.folder,
 
   #saving log and removing docker container
   container.id <- readLines(paste(fastq.folder,"/dockerID", sep=""), warn = FALSE)
-  system(paste("docker logs ", substr(container.id,1,12), " &> ",fastq.folder,"/inDrop_", substr(container.id,1,12),".log", sep=""))
+  system(paste("docker logs ", substr(container.id,1,12), " &> ",fastq.folder,"/indrop_", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
 
   cat("\n\nRemoving the temporary file ....\n")

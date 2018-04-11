@@ -28,7 +28,7 @@ and the second made to analyze counts for the identification of cell sub-populat
 ## Counts generation
 
 - **inDropseq**:
-    + Creating a reference genome for inDrop V2:
+    + Creating a reference genome for inDrop V2: **indropIndex**
     + From fastq to UMI counts using inDrop workflow: **indropCounts**
 
 ## inDrop seq
@@ -36,10 +36,12 @@ and the second made to analyze counts for the identification of cell sub-populat
 The function indropCounts starts from inDrop V2 library fastqs and generates UMI counts.
 
 ```{r, echo=TRUE, eval=FALSE}
-
+system("wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz")
+system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
+library(casc)
 indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
-        index.folder="/data/genomes/mm10indrop", sample.name="C2", split.affixes="S2_L001",
-        bowtie.index.prefix="Mus_musculus.GRCm38.85.index", M=10, U=2, D=400, low.complexity.mask="False")
+        index.folder="/data/genomes/indropMm10", sample.name="C2", split.affixes="S2_L001",
+        bowtie.index.prefix="genome", M=10, U=2, D=400, low.complexity.mask="False")
 
 ```
 
@@ -58,13 +60,11 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
     + Imputing dropouts: **cascImpute**
 
 
-
-
 ## Counts manipulation
 
 ### Removing non informative genes
 
-The function **filterZeros** retains all genes that have cells without counts, given a theshold fraction (between 0 and 1, where 1 indicate only gens without 0s are retained) and plot the frequency distribution of genes with counts in the cells. If threshold is set to 0 only genes that do not have any expression in any of the cells are removed.
+The function **filterZeros** retains all genes that have cells without counts, given a theshold fraction (between 0 and 1, where 1 indicate only gens without 0s are retained) and plot the frequency distribution of genes with counts in the cells. If threshold is set to 0 only genes, having any expression in any of the cells are removed.
 
 ```{r, echo=TRUE, eval=FALSE}
 #downloading fastq files
@@ -83,9 +83,13 @@ To identify outlier libraries, [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pm
 
 ```{r, echo=TRUE,eval=FALSE}
 
-lorenzFilter(group="docker",scratch.folder="path/of/scratch/folder",
-           data.folder="path/of/data/folder",matrixName="matrixName",
-           p_value=0.05,format="txt",separator='\t')
+system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+unzip("testSCumi_mm10.csv.zip")
+
+library(casc)
+lorenzFilter(group="docker",scratch.folder="/data/scratch/",
+           data.folder=getwd(),matrixName="test_mm10",
+           p_value=0.05,format="csv",separator=',')
 
 ```
 

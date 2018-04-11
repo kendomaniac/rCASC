@@ -1,7 +1,7 @@
 #' @title A function to create a genome index for indrop V2 single cell data
-#' @description This function executes a docker that produces as output the single cell index for V2 indrop single cell sequencing
+#' @description This function executes a docker that produces as output the genome index index for bowtie
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
-#' @param index.folder, a character string indicating the folder where input data are located and where output will be written
+#' @param index.folder, a character string indicating the folder where the index will be created. The index will have the prefix genome.
 #' @param ensembl.urlgenome, a character string indicating the URL from ENSEMBL ftp for the unmasked genome sequence of interest
 #' @param ensembl.urlgtf, a character string indicating the URL from ENSEMBL ftp for the GTF for genome of interest
 #' @author Raffaele Calogero and Riccardo Panero, raffaele.calogero [at] unito [dot] it, Bioinformatics and Genomics unit, University of Torino Italy
@@ -134,7 +134,7 @@ indropIndex <- function(group=c("sudo","docker"), index.folder, ensembl.urlgenom
 
   #saving log and removing docker container
   container.id <- readLines(paste(index.folder,"/dockerID", sep=""), warn = FALSE)
-  system(paste("docker logs ", substr(container.id,1,12), " &> ",index.folder,"/inDropIndex_", substr(container.id,1,12),".log", sep=""))
+  system(paste("docker logs ", substr(container.id,1,12), " &> ",index.folder,"/indropIndex_", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
 
   cat("\n\nRemoving the temporary file ....\n")
