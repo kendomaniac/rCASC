@@ -18,7 +18,7 @@
 #' \dontrun{
 #' system("wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz")
 #' system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
-#' library(docker4seq)
+#' library(casc)
 #' #running indropCounts
 #' indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
 #'        index.folder="/data/genomes/mm10indrop", sample.name="testMm",
@@ -77,7 +77,7 @@ indropCounts <- function(group=c("sudo","docker"), scratch.folder, fastq.folder,
       system(paste("cp ",fastq.folder,"/",i, " ",paste(file.path(scrat_tmp.folder), "/input", sep=""),"/",i, sep=""))
   }
 
-  yaml.file=paste(path.package(package="docker4seq"),"extras/indrop.yaml",sep="/")
+  yaml.file=paste(path.package(package="casc"),"extras/indrop.yaml",sep="/")
   system(paste("cp ",yaml.file," ", file.path(scrat_tmp.folder),sep=""))
   system(paste("chmod 777 -R", file.path(scrat_tmp.folder)))
   setwd(scrat_tmp.folder)
@@ -155,7 +155,7 @@ indropCounts <- function(group=c("sudo","docker"), scratch.folder, fastq.folder,
   }
 
 
-  if(resultRun=="false"){
+  if(resultRun==0){
     cat("\n inDrop analysis is finished\n")
     system(paste("cp -R ", project.folder, "/", sample.name, " ", fastq.folder, sep=""))
     system(paste("cp -R ", project.folder, "/output ", fastq.folder, sep=""))
@@ -213,7 +213,7 @@ indropCounts <- function(group=c("sudo","docker"), scratch.folder, fastq.folder,
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
   system(paste("rm -fR ", project.folder, sep=""))
-  system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",fastq.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",fastq.folder, sep=""))
   setwd(home)
 
 }

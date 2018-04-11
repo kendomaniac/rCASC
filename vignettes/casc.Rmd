@@ -33,7 +33,7 @@ and the second made to analyze counts for the identification of cell sub-populat
 
 ## inDrop seq
 
-The function indropCounts start for inDrop V2 library and convert fastq to UMI counts.
+The function indropCounts starts from inDrop V2 library fastqs and generates UMI counts.
 
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -49,11 +49,14 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 
 - **Counts manipulation**:
     + Removing non informative genes: **filterZeros**
-    + Data normalization: **scnorm**
-    + Imputing dropouts: **cascImpute**
-    + Converting a count table in log10: **counts2log**
-- **Cell filtering**:
     + Removing low quality cells: **lorenzFilter**
+    
+    + Data normalization: **scnorm**, minimal requirements 10K counts/cell, works best with whole transcripts sequencing
+    + Data normalization: **umiNorm**, global normalization methods TMM and RLE are suitable for UMI data
+    + Converting a count table in log10: **counts2log**
+    + Removing cell cycle genes: **ccremove**
+    + Imputing dropouts: **cascImpute**
+
 
 
 
@@ -70,6 +73,22 @@ system("gzip -d singlecells_counts.txt.gz")
 filterZeros(data.folder=getwd(),counts.matrix="singlecells_counts.txt", threshold=0)
 
 ```
+
+
+## Cell filtering
+
+### Identifying outlier libraries
+
+To identify outlier libraries, [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/) developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Furthermore, this statistics correlates with live-dead staining, Pearson-correlation 0.7 [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/).  
+
+```{r, echo=TRUE,eval=FALSE}
+
+lorenzFilter(group="docker",scratch.folder="path/of/scratch/folder",
+           data.folder="path/of/data/folder",matrixName="matrixName",
+           p_value=0.05,format="txt",separator='\t')
+
+```
+
 
 
 ### Data normalization
@@ -132,28 +151,43 @@ scone package embeds:
 
 - Centered log-ratio (CLR) normalization 
 
-- Relative log-expression (RLE; DESeq) scaling normalization 
+- Relative log-expression (RLE; DESeq) scaling normalization
 
-- Full-quantile normalization 
+    + the scaling factors are calculated for each lane as median of the ratio, for each gene, of its read count of its geometric mean across all lanes. 
+
+- Full-quantile normalization
+
+    + quantile normalization is a technique for making two or more distributions identical in statistical properties. To quantile normalize two or more samples to each other, sort the samples, then set to the average (usually, arithmetic mean) of the samples. So the highest value in all cases becomes the mean of the highest values, the second highest value becomes the mean of the second highest values, and so on.
 
 - Simple deconvolution normalization 
 
 - Sum scaling normalization
 
-- Weighted trimmed mean of M-values (TMM) scaling normalization
+    + Gene counts are divided by the total number of mapped reads (or library size) associated with their lane and multiplied by the mean total count across all the samples of the dataset.
+
+- Weighted trimmed mean of M-values (TMM, edgeR) scaling normalization
+
+    + to compute the TMM factor, one lane is considered a reference sample and the others test samples, with TMM being the weighted mean of log ratios between test and reference, after excluding the most expressed genes and the genes with the largest log ratios. 
 
 - Upper-quartile (UQ) scaling normalization
+
+    + the total counts are replaced by the upper quartile of counts different from 0 in the computation of the normalization factors.
 
 
 ```{r, echo=TRUE, eval=FALSE}
 
+#Weighted trimmed mean of M-values (TMM) scaling normalization
+system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+unzip("example_UMI.txt.zip")
+umiNorm(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
+     outputName="example_UMI", normMethod="TMM_FN")
 
 ```
 
 
 
 
-### Imputing dropouts (useful to refine analysis after clustering)
+### Imputing dropouts 
 
 the **cascImpute** function execute scImpute of the [**scImpute package**](https://github.com/Vivianstats/scImpute), which impute the dropout values in scRNA-seq data.
 
@@ -173,7 +207,7 @@ The output is a matrix file containing the imputed data.
 
 ### Converting a count table in log10
 
-The function **counts2log** can convert a count table in a log10 values saved in a comma separated file which is the input of CASC.
+The function **counts2log** can convert a count table in a log10 values saved in a comma separated or tab delimited file.
 
 ```{r, echo=TRUE, eval=FALSE}
 #downloading fastq files
@@ -184,20 +218,6 @@ counts2log(counts.matrix="singlecells_counts.txt", data.folder=getwd(),
 ```
 
 
-
-## Cell filtering
-
-### Identifying outlier libraries
-
-To identify outlier libraries, [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/) developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Furthermore, this statistics correlates with live-dead staining, Pearson-correlation 0.7 [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/).  
-
-```{r, echo=TRUE,eval=FALSE}
-
-lorenzFilter(group="docker",scratch.folder="path/of/scratch/folder",
-           data.folder="path/of/data/folder",matrixName="matrixName",
-           p_value=0.05,format="txt",separator='\t')
-
-```
 
 
 

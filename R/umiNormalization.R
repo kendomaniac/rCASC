@@ -4,14 +4,13 @@
 #' @param data.folder, a character string indicating the folder where comma separated file of cells log10 counts is saved
 #' @param counts.matrix, a character string indicating the the name of tab delimited file  file of cells un-normalized expression counts
 #' @param outputName, specify the path and/or name of output files.
-#' @param normMethod, a string identifying the normalization method: CLR_FN, DESEQ_FN, FQ_FN, SCRAN_FN, SUM_FN, TMM_FN, UQ_FN
+#' @param normMethod, a string identifying the normalization method: CLR_FN, DESEQ_FN, FQ_FN, SCRAN_FN, SUM_FN, TMM_FN, UQ_FN, more info on the vignette.
 #' @return a tab delimited file containing the normalized data.
 #' @examples
 #' \dontrun{
 #'     #downloading fastq files
 #'     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 #'     unzip("example_UMI.txt.zip")
-#'     conditions=rep(1,12)
 #'     umiNorm(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
 #'     outputName="example_UMI", normMethod="TMM_FN")
 #' }

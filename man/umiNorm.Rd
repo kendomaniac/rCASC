@@ -17,7 +17,7 @@ umiNorm(group = c("sudo", "docker"), data.folder = getwd(), counts.matrix,
 
 \item{outputName, }{specify the path and/or name of output files.}
 
-\item{normMethod, }{a string identifying the normalization method: CLR_FN, DESEQ_FN, FQ_FN, SCRAN_FN, SUM_FN, TMM_FN, UQ_FN}
+\item{normMethod, }{a string identifying the normalization method: CLR_FN, DESEQ_FN, FQ_FN, SCRAN_FN, SUM_FN, TMM_FN, UQ_FN, more info on the vignette.}
 }
 \value{
 a tab delimited file containing the normalized data.
@@ -30,7 +30,6 @@ This function is a wrapper for SCnorm: robust normalization of single-cell RNA-s
     #downloading fastq files
     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
     unzip("example_UMI.txt.zip")
-    conditions=rep(1,12)
     umiNorm(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
     outputName="example_UMI", normMethod="TMM_FN")
 }
