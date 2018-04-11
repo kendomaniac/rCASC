@@ -14,7 +14,7 @@ filterZeros(data.folder = getwd(), counts.matrix, threshold = 0)
 \item{threshold, }{an number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes which do not ave any expression in any cell.}
 }
 \value{
-a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *fltered* in which the filtered data are saved.
+a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *filtered* in which the filtered data are saved.
 }
 \description{
 This function plots the zeros distributions in cells and removes genes without counts

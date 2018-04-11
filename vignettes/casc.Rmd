@@ -1,6 +1,7 @@
 ---
 title: "Single Cell workflow"
 author: "Luca Alessadri, Francesca Cordero, Marco Beccuti and Raffaele A Calogero"
+
 output: 
   rmarkdown::html_vignette
 vignette: >
@@ -87,7 +88,7 @@ filterZeros(data.folder=getwd(),counts.matrix="testSCumi_mm10.txt", threshold=0)
 
 ```
 
-![Zeros distribution in testSCumi_mm10.txt](../inst/img/filterZero.jpeg)
+![Non zeros distribution in testSCumi_mm10.txt, orange, and in filtered_testSCumi_mm10.txt, blue](../inst/img/filterZero.jpg)
 
 
 ## Plotting genes numbers versus total UMIs in each cell

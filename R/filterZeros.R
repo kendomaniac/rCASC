@@ -25,7 +25,7 @@ filterZeros <- function(data.folder=getwd(), counts.matrix, threshold=0){
 
   cat("\n",paste("Out of ", dim(counts)[1]," genes ",dim(counts.n0)[1]," are left after removing genes with no counts", sep=""),"\n")
   pdf(paste("Non-zeros_distribution_",sub(".txt$","",counts.matrix),".pdf",sep=""))
-      hist(counts.sum, col=rgb(1,0,0,0.5), main="",  xlab="# genes without zeros")
+      hist(counts.sum, col=rgb(1,0,0,0.5), main="",  xlab="# of cells", ylab="Frequency of genes with more than 0 counts")
       hist(counts.sum0, col=rgb(0,0,1,0.5), add=T)
       box()
   dev.off()
