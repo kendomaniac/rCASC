@@ -3,7 +3,7 @@
 #' @param data.folder, a character string indicating the folder where filtered sel file will be saved. The saved file will have the prefix *filtered*.
 #' @param counts.matrix, a character string indicating the the name of tab delimited file of cells un-normalized expression counts
 #' @param threshold, an number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes which do not ave any expression in any cell.
-#' @return a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *fltered* in which the filtered data are saved.
+#' @return a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *filtered* in which the filtered data are saved.
 #' @examples
 #' \dontrun{
 #'     #downloading fastq files
@@ -25,7 +25,7 @@ filterZeros <- function(data.folder=getwd(), counts.matrix, threshold=0){
 
   cat("\n",paste("Out of ", dim(counts)[1]," genes ",dim(counts.n0)[1]," are left after removing genes with no counts", sep=""),"\n")
   pdf(paste("Non-zeros_distribution_",sub(".txt$","",counts.matrix),".pdf",sep=""))
-      hist(counts.sum, col=rgb(1,0,0,0.5), main="",  xlab="log10 # cells without zeros")
+      hist(counts.sum, col=rgb(1,0,0,0.5), main="",  xlab="# genes without zeros")
       hist(counts.sum0, col=rgb(0,0,1,0.5), add=T)
       box()
   dev.off()
