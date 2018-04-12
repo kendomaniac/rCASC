@@ -67,10 +67,12 @@ separator="tab"
     resultRun <- runDocker(group="docker",container="docker.io/rcaloger/lorenz", params=params)
   }
   #waiting for the end of the container work
-  if(resultRun=="false"){
+  if(resultRun==0){
     system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
   }
-
+  if(separator=="tab"){
+    separator="\t"
+  }
   dir <- dir(data.folder)
   files <- dir[grep(matrixName, dir)]
   if(length(files) == 2){
