@@ -11,7 +11,7 @@
 #'
 #' @author Name Family name, myemail [at] somewhere [dot] org, Affiliation
 #'
-#' @return output will be in the same format and with the same separator of input. It also returns a PDF with the genes vs UMI plot. In blue discarded cells are shown.
+#' @return output will be in the same format and with the same separator of input. It also returns a PDF with the genes vs UMI plot, discarded_cells.pdf. In blue discarded cells are shown.
 #'
 #' @examples
 #' \dontrun{

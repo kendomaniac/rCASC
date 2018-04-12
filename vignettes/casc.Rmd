@@ -125,32 +125,9 @@ lorenzFilter(group="docker",scratch.folder="/data/scratch/",
 
 tmp0 <- read.table("filtered_testSCumi_mm10.txt", sep="\t", header=T, row.names=1)
 #806 cells
-genes <- list()
-for(i in 1:dim(tmp0)[2]){
-    x = rep(0, dim(tmp0)[1])
-    x[which(tmp0[,i] >=  3)] <- 1
-    genes[[i]] <- x
-}
-genes <- as.data.frame(genes)
-genes.sum <-  apply(genes,2, sum)
-umi.sum <- apply(tmp0,2, sum)
-
-plot(log10(umi.sum), genes.sum, xlab="log10 UMI", ylab="# of genes")
-points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="blue")
 
 tmp <- read.table("lorenz_filtered_testSCumi_mm10.txt", sep="\t", header=T, row.names=1)
 #785 cells
-genes <- list()
-for(i in 1:dim(tmp)[2]){
-    x = rep(0, dim(tmp)[1])
-    x[which(tmp[,i] >=  3)] <- 1
-    genes[[i]] <- x
-}
-genes <- as.data.frame(genes)
-genes.sum <-  apply(genes,2, sum)
-umi.sum <- apply(tmp,2, sum)
-points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="red")
-
 
 ```
 
