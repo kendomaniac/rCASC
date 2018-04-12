@@ -4,13 +4,14 @@
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
+#' @param umiXgene, a integer defining how many UMI are required to call a gene as present. default: 3
 #' @param p_value, threshold to be used for the filtering
 #' @param format, counts file extension, "txt", "csv"
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #'
 #' @author Name Family name, myemail [at] somewhere [dot] org, Affiliation
 #'
-#' @return output will be in the same format and with the same separator of input.
+#' @return output will be in the same format and with the same separator of input. It also returns a PDF with the genes vs UMI plot. In blue discarded cells are shown.
 #'
 #' @examples
 #' \dontrun{
@@ -18,12 +19,12 @@
 #'  unzip("lorenz.zip")
 #'  setwd("./lorenz")
 #'  library("CASC")
-#'  lorenzFilter(group="docker",scratch.folder="/data/scratch",
-#'           data.folder=getwd(),matrixName="Buettner",p_value=0.05,format="csv",separator=',')
+#'  lorenzFilter(group="docker", scratch.folder="/data/scratch",
+#'           data.folder=getwd(), matrixName="Buettner", p_value=0.05, umiXgene=3, format="csv", separator=',')
 #' }
 #'
 #' @export
-lorenzFilter <- function(group=c("sudo","docker"), scratch.folder, data.folder, matrixName, p_value, format, separator){
+lorenzFilter <- function(group=c("sudo","docker"), scratch.folder, data.folder, matrixName, p_value, umiXgene=3, format, separator){
   #testing if docker is running
   test <- dockerTest()
   if(!test){
@@ -69,6 +70,43 @@ separator="tab"
   if(resultRun=="false"){
     system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
   }
+
+  dir <- dir(data.folder)
+  files <- dir[grep(matrixName, dir)]
+  if(length(files) == 2){
+      files.lorenz <- dir[grep("^lorenz", dir)]
+      output <- intersect(files, files.lorenz)
+      input <- setdiff(files, files.lorenz)
+      #plotting the genes vs umi all cells
+      tmp0 <- read.table(input, sep=separator, header=T, row.names=1)
+      genes <- list()
+      for(i in 1:dim(tmp0)[2]){
+        x = rep(0, dim(tmp0)[1])
+        x[which(tmp0[,i] >=  umiXgene)] <- 1
+        genes[[i]] <- x
+      }
+      genes <- as.data.frame(genes)
+      genes.sum <-  apply(genes,2, sum)
+      umi.sum <- apply(tmp0,2, sum)
+
+      plot(log10(umi.sum), genes.sum, xlab="log10 UMI", ylab="# of genes")
+      points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="blue")
+
+      tmp <- read.table(output, sep=separator, header=T, row.names=1)
+      genes <- list()
+      for(i in 1:dim(tmp)[2]){
+        x = rep(0, dim(tmp)[1])
+        x[which(tmp[,i] >=  umiXgene)] <- 1
+        genes[[i]] <- x
+      }
+      genes <- as.data.frame(genes)
+      genes.sum <-  apply(genes,2, sum)
+      umi.sum <- apply(tmp,2, sum)
+      points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="red")
+
+  }
+
+
   #running time 2
   ptm <- proc.time() - ptm
   dir <- dir(data.folder)

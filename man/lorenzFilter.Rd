@@ -5,7 +5,7 @@
 \title{A function to handle sigle cell Lorenz Quality filter for Single-cells}
 \usage{
 lorenzFilter(group = c("sudo", "docker"), scratch.folder, data.folder,
-  matrixName, p_value, format, separator)
+  matrixName, p_value, umiXgene = 3, format, separator)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -18,12 +18,14 @@ lorenzFilter(group = c("sudo", "docker"), scratch.folder, data.folder,
 
 \item{p_value, }{threshold to be used for the filtering}
 
+\item{umiXgene, }{a integer defining how many UMI are required to call a gene as present. default: 3}
+
 \item{format, }{counts file extension, "txt", "csv"}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
-output will be in the same format and with the same separator of input.
+output will be in the same format and with the same separator of input. It also returns a PDF with the genes vs UMI plot. In blue discarded cells are shown.
 }
 \description{
 This function executes a docker that produces ....
@@ -34,8 +36,8 @@ This function executes a docker that produces ....
  unzip("lorenz.zip")
  setwd("./lorenz")
  library("CASC")
- lorenzFilter(group="docker",scratch.folder="/data/scratch",
-          data.folder=getwd(),matrixName="Buettner",p_value=0.05,format="csv",separator=',')
+ lorenzFilter(group="docker", scratch.folder="/data/scratch",
+          data.folder=getwd(), matrixName="Buettner", p_value=0.05, umiXgene=3, format="csv", separator=',')
 }
 
 }
