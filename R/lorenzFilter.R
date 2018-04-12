@@ -88,7 +88,7 @@ separator="tab"
       genes <- as.data.frame(genes)
       genes.sum <-  apply(genes,2, sum)
       umi.sum <- apply(tmp0,2, sum)
-
+      pdf("discarded-cells.pdf")
       plot(log10(umi.sum), genes.sum, xlab="log10 UMI", ylab="# of genes")
       points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="blue")
 
@@ -103,6 +103,7 @@ separator="tab"
       genes.sum <-  apply(genes,2, sum)
       umi.sum <- apply(tmp,2, sum)
       points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="red")
+      dev.off()
 
   }
 
