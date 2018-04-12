@@ -66,7 +66,7 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 
 ### Removing non informative genes
 
-The function **filterZeros** retains all genes that have cells without counts, given a theshold fraction (between 0 and 1, where 1 indicate only gens without 0s are retained) and plot the frequency distribution of genes with counts in the cells. If threshold is set to 0 only genes, having any expression in any of the cells are removed.
+The function **filterZeros** retains all genes that have cells without a user defined fraction of zeros (between 0 and 1, where 1 indicate only genes without 0s are retained, and 0 insted indicates that genes without any value different from zero are discarded) and plot the frequency distribution of genes with counts in the cells. 
 
 ```{r, echo=TRUE, eval=FALSE}
 #downloading fastq files
@@ -102,6 +102,11 @@ genesUmi(data.folder=getwd(), counts.matrix="filtered_testSCumi_mm10.txt", umiXg
 
 ```
 
+In the figure below is shown the distribution of genes in cells for filtered_testSCumi_mm10.txt, i.e. a gene is called if it is supported by at least 3 UMIs.
+
+![genesUmi output](../inst/img/genesUMI.jpg)
+
+
 ## Cell filtering
 
 ### Identifying outlier libraries
@@ -115,12 +120,42 @@ unzip("testSCumi_mm10.csv.zip")
 
 library(casc)
 lorenzFilter(group="docker",scratch.folder="/data/scratch/",
-           data.folder=getwd(),matrixName="testSCumi_mm10",
-           p_value=0.05,format="csv",separator=',')
+           data.folder=getwd(),matrixName="filtered_testSCumi_mm10",
+           p_value=0.05,format="txt",separator='\t')
 
-#24 cells are removed because of low quality
+tmp0 <- read.table("filtered_testSCumi_mm10.txt", sep="\t", header=T, row.names=1)
+#806 cells
+genes <- list()
+for(i in 1:dim(tmp0)[2]){
+    x = rep(0, dim(tmp0)[1])
+    x[which(tmp0[,i] >=  3)] <- 1
+    genes[[i]] <- x
+}
+genes <- as.data.frame(genes)
+genes.sum <-  apply(genes,2, sum)
+umi.sum <- apply(tmp0,2, sum)
+
+plot(log10(umi.sum), genes.sum, xlab="log10 UMI", ylab="# of genes")
+points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="blue")
+
+tmp <- read.table("lorenz_filtered_testSCumi_mm10.txt", sep="\t", header=T, row.names=1)
+#785 cells
+genes <- list()
+for(i in 1:dim(tmp)[2]){
+    x = rep(0, dim(tmp)[1])
+    x[which(tmp[,i] >=  3)] <- 1
+    genes[[i]] <- x
+}
+genes <- as.data.frame(genes)
+genes.sum <-  apply(genes,2, sum)
+umi.sum <- apply(tmp,2, sum)
+points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="red")
+
 
 ```
+
+
+![Effect of Lorenz filtering. Cells shown in blue have been discarded because of their too low quality](../inst/img/lorenz_filter.jpg)
 
 
 
@@ -134,7 +169,7 @@ lorenzFilter(group="docker",scratch.folder="/data/scratch/",
 
 #### SCnorm
 
-SCnorm (as detailed in Bacher et al.) performs a quantile-regression based approach for robust normalization of single-cell RNA-seq data.  SCnorm groups genes based on their count-depth relationship then applies a quantile regression to each group in order to estimate scaling factors which will remove the effect of sequencing depth from the counts.
+[SCnorm](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473255/) performs a quantile-regression based approach for robust normalization of single-cell RNA-seq data.  SCnorm groups genes based on their count-depth relationship then applies a quantile regression to each group in order to estimate scaling factors which will remove the effect of sequencing depth from the counts.
 
 IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, often K will not converge in these situations. 
 
@@ -159,6 +194,7 @@ checkCountDepth(group="docker", data.folder=getwd(), counts.matrix="example_UMI.
 The output is a PDF that provides a view of the counts distribution of the data and a file selected.genes.txt, which contains the genes selected to run the analysis.
 
 
+![checkCountDepth output](../inst/img/checkCountDepth0.jpg)
 
 #### scnorm
 
@@ -167,16 +203,17 @@ the **scnorm** function execute SCnorm of the [**SCnorm package**](https://githu
 ```{r, echo=TRUE, eval=FALSE}
 system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 unzip("example_UMI.txt.zip")
+#this specific example is an UMI sequence but all 12 cells have at least 10000 UMI.
 conditions=rep(1,12)
 scnorm(group="docker", data.folder=getwd(),counts.matrix="example_UMI.txt",
      conditions=conditions,outputName="example_UMI", nCores=8, filtercellNum=10,
-     ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=1)
+     ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=TRUE, FilterExpression=1)
 
 ```
 
 The output is file, *discarded_genes.txt*, which contains the discarded genes and a tab delimited file containing the normalized data, with the prefix *normalized_*.
 
-
+![SCnorm effect.](../inst/img/scnorm.jpg)
 
 #### scone
 
