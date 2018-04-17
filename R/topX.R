@@ -1,5 +1,5 @@
 #' @title A function to selectec top X on the basis of gene/transcript expression
-#' @description This function select the X top genes give a user defined threshold
+#' @description This function select the X top genes givea a user defined threshold
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param file.name, counts table name, tab delimited. Matrix data file must be in data.folder.
 #' @param threshold, integer used for filtering indicate the number of top expressed genes to be selected

@@ -12,7 +12,7 @@
 #'     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 #'     unzip("example_UMI.txt.zip")
 #'     umiNorm(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
-#'     outputName="example_UMI", normMethod="TMM_FN")
+#'     outputName="example_UMI.txt", normMethod="TMM_FN")
 #' }
 #' @export
 umiNorm <- function(group=c("sudo","docker"), data.folder=getwd(), counts.matrix, outputName, normMethod=c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN", "SUM_FN", "TMM_FN", "UQ_FN")){

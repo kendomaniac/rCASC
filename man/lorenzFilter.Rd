@@ -25,7 +25,7 @@ lorenzFilter(group = c("sudo", "docker"), scratch.folder, data.folder,
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
-output will be in the same format and with the same separator of input. It also returns a PDF with the genes vs UMI plot. In blue discarded cells are shown.
+output will be in the same format and with the same separator of input. It also returns a PDF with the genes vs UMI plot, discarded_cells.pdf. In blue discarded cells are shown.
 }
 \description{
 This function executes a docker that produces ....

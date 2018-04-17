@@ -34,9 +34,23 @@ and the second made to analyze counts for the identification of cell sub-populat
 
 ## inDrop seq
 
+inDrop was originally pulished in Cell 161, 1187–1201 (2015). Then, two year after that, the authors published the detailed protocol in Nature Protocols 12, 44–73 (2017), which has different primer design comparing to the orginal paper. 
+
+![inDrop library structure](../inst/img/indrop_v2.jpg)
+
+The workflow shown here is based on the protocol in Nature Protocols 12, 44–73 (2017), which seems to be the version 2 of the inDrop technology. According to the inDrop github page, there is a version 3, but the oligos and library structures are exactly the same as version 2, except the sequencing mode changed.
+In version 2, three different reads are generated: 
+
+![inDrop V2](../inst/img/indropv2.jpg)
+
+In version 3, four different reads are generated:
+
+![inDrop V3](../inst/img/indropv3.jpg)
+
 The function indropCounts starts from inDrop V2 library fastqs and generates UMI counts.
 
 ```{r, echo=TRUE, eval=FALSE}
+
 system("wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz")
 system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
 library(casc)
@@ -64,12 +78,17 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 
 ## Counts manipulation
 
+We provide a set of functions allowing specific manipulation of a counts table.
+
 ### Removing non informative genes
 
 The function **filterZeros** retains all genes that have cells without a user defined fraction of zeros (between 0 and 1, where 1 indicate only genes without 0s are retained, and 0 insted indicates that genes without any value different from zero are discarded) and plot the frequency distribution of genes with counts in the cells. 
 
+- **IMPORTANT**: In case user would like to apply cell quality filter, e.g. *lorenzFilter*, it is covenient to remove only genes with 0 counts in all cells.
+
 ```{r, echo=TRUE, eval=FALSE}
-#downloading fastq files
+
+#removing genes without counts in all cells
 system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
 system("gzip -d singlecells_counts.txt.gz")
 filterZeros(data.folder=getwd(),counts.matrix="singlecells_counts.txt", threshold=0)
@@ -84,8 +103,6 @@ filterZeros(data.folder=getwd(),counts.matrix="testSCumi_mm10.txt", threshold=0)
 #Out of 27998 genes 11255 are left after removing genes with no counts
 #output is filtered_testSCumi_mm10.txt
 
-
-
 ```
 
 ![Non zeros distribution in testSCumi_mm10.txt, orange, and in filtered_testSCumi_mm10.txt, blue](../inst/img/filterZero.jpg)
@@ -93,16 +110,18 @@ filterZeros(data.folder=getwd(),counts.matrix="testSCumi_mm10.txt", threshold=0)
 
 ## Plotting genes numbers versus total UMIs in each cell
 
-The function *genesUmi* produces a plot of the genes number detected, e.g. 1 gene at least 3 UMI, with respect to total number of UMI
+To estimate the overall amount of genes detectable in each cell, the function *genesUmi* produces a plot of the genes number with respect to total number of UMI for each cell. The number of UMI/reads required to indicate that a gene is detected in a cell are defined by user. We suggest to use 3 UMI/reads as minimal threshold to consider a gene called present in a cell.
 
 ```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+unzip("testSCumi_mm10.csv.zip")
 library(casc)
 genesUmi(data.folder=getwd(), counts.matrix="filtered_testSCumi_mm10.txt", umiXgene=3)
 
-
 ```
 
-In the figure below is shown the distribution of genes in cells for filtered_testSCumi_mm10.txt, i.e. a gene is called if it is supported by at least 3 UMIs.
+In the figure below it is shown the distribution of genes in cells for filtered_testSCumi_mm10.txt counts table. 
 
 ![genesUmi output](../inst/img/genesUMI.jpg)
 
@@ -111,7 +130,9 @@ In the figure below is shown the distribution of genes in cells for filtered_tes
 
 ### Identifying outlier libraries
 
-To identify outlier libraries, [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/) developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Furthermore, this statistics correlates with live-dead staining, Pearson-correlation 0.7 [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/).  
+To identify outlier libraries, [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/) developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic. Furthermore, this statistics correlates with live-dead staining, Pearson-correlation 0.7 [Diaz et al.2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/).
+
+
 
 ```{r, echo=TRUE,eval=FALSE}
 
@@ -135,6 +156,20 @@ tmp <- read.table("lorenz_filtered_testSCumi_mm10.txt", sep="\t", header=T, row.
 ![Effect of Lorenz filtering. Cells shown in blue have been discarded because of their too low quality](../inst/img/lorenz_filter.jpg)
 
 
+## Top expressed genes
+
+For clustering purposes user might decide to use the top expressed genes. The function *topX* select the X top expressed genes given a user defined threshold. The function also produces a pdf file gene_expression_distribution.pdf showing the changes in the UMIs/reads expression distribution upon *topX* filtering.
+
+```{r, echo=TRUE, eval=FALSE}
+ 
+library(casc)
+genesUmi(data.folder=getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10.txt", umiXgene=3)
+topx(data.folder=getwd(),file.name="lorenz_filtered_testSCumi_mm10.txt",threshold=10000, logged=FALSE)
+genesUmi(data.folder=getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10_10000.txt", umiXgene=3)
+
+```
+
+AGGIUNGERE FIGURA
 
 ### Data normalization
 
@@ -142,23 +177,29 @@ tmp <- read.table("lorenz_filtered_testSCumi_mm10.txt", sep="\t", header=T, row.
 
 - [SCnorm](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473255/), which works best with whole transcript data.
 
+    + **IMPORTANT**: SCnorm requires at least 10K UMI/reads in each cell to be applied.
+
 - [scone](https://www.biorxiv.org/content/early/2017/12/16/235382), which provides different global scaling methods that can be applyed to UMI single-cell data.
+
+    + **IMPORTANT**: Only log10 conversion is required when SIMLR clustering is performed.
 
 #### SCnorm
 
 [SCnorm](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473255/) performs a quantile-regression based approach for robust normalization of single-cell RNA-seq data.  SCnorm groups genes based on their count-depth relationship then applies a quantile regression to each group in order to estimate scaling factors which will remove the effect of sequencing depth from the counts.
 
-IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, often K will not converge in these situations. 
+IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, because of lack of algoritm convergency in these situations. 
 
 ##### Check counts-depth relationship
 
 Before normalizing using **scnorm**, it is advised to check the data count-depth relationship.
 If all genes have a similar relationship then a global normalization strategy such as median-by-
-ratio in the DESeq package or TMM in edgeR will also be adequate. However, when the count-depth relationship varies among genes using global scaling strategies leads to poor normalization. In these cases the normalization provided by SCnorm is reccomanded.
+ratio in the DESeq package or TMM in edgeR will also be adequate. However, when the count-depth relationship varies among genes using global scaling strategies leads to poor normalization. In these cases the normalization provided by SCnorm is recommended.
 
 **checkCountDepth** provides a wrapper, in CASC, for the checkCountDepth of the [**SCnorm package**](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
 
 ```{r, echo=TRUE, eval=FALSE}
+
+#this specific example is an UMI counts table made of 12 cells having at least 10K UMIs/cell.
 system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 unzip("example_UMI.txt.zip")
 conditions=rep(1,12)
@@ -178,9 +219,10 @@ The output is a PDF that provides a view of the counts distribution of the data 
 the **scnorm** function execute SCnorm of the [**SCnorm package**](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  return  the  normalized expression count.
 
 ```{r, echo=TRUE, eval=FALSE}
+
 system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 unzip("example_UMI.txt.zip")
-#this specific example is an UMI sequence but all 12 cells have at least 10000 UMI.
+#this specific example is an UMI counts table made of 12 cells having at least 10K UMIs/cell.
 conditions=rep(1,12)
 scnorm(group="docker", data.folder=getwd(),counts.matrix="example_UMI.txt",
      conditions=conditions,outputName="example_UMI", nCores=8, filtercellNum=10,
@@ -196,9 +238,9 @@ The output is file, *discarded_genes.txt*, which contains the discarded genes an
 
 scone package embeds:
 
-- Centered log-ratio (CLR) normalization 
+- Centered log-ratio (**CLR**) normalization 
 
-- Relative log-expression (RLE; DESeq) scaling normalization
+- Relative log-expression (**RLE**; DESeq) scaling normalization
 
     + the scaling factors are calculated for each lane as median of the ratio, for each gene, of its read count of its geometric mean across all lanes. 
 
@@ -212,11 +254,11 @@ scone package embeds:
 
     + Gene counts are divided by the total number of mapped reads (or library size) associated with their lane and multiplied by the mean total count across all the samples of the dataset.
 
-- Weighted trimmed mean of M-values (TMM, edgeR) scaling normalization
+- Weighted trimmed mean of M-values (**TMM**, edgeR) scaling normalization
 
     + to compute the TMM factor, one lane is considered a reference sample and the others test samples, with TMM being the weighted mean of log ratios between test and reference, after excluding the most expressed genes and the genes with the largest log ratios. 
 
-- Upper-quartile (UQ) scaling normalization
+- Upper-quartile (**UQ**) scaling normalization
 
     + the total counts are replaced by the upper quartile of counts different from 0 in the computation of the normalization factors.
 
@@ -227,14 +269,37 @@ scone package embeds:
 system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 unzip("example_UMI.txt.zip")
 umiNorm(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
-     outputName="example_UMI", normMethod="TMM_FN")
+     outputName="example_UMI.txt", normMethod="TMM_FN")
+
+```
+
+**IMPORTANT**: Only log10 conversion is required for the counts table when SIMLR clustering is performed.
+
+
+### Converting a count table in log10
+
+The function **counts2log** can convert a count table in a log10 values saved in a comma separated or tab delimited file.
+
+```{r, echo=TRUE, eval=FALSE}
+#downloading fastq files
+system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
+system("gzip -d singlecells_counts.txt.gz")
+counts2log(counts.matrix="singlecells_counts.txt", data.folder=getwd(), 
+           log.base=10, type="txt")
+
+#an other example
+counts2log(counts.matrix="normalized_example_UMI.txt", data.folder=getwd(), 
+           log.base=10, type="txt")
+
+#return a comma separated file
 
 ```
 
 
 
-
 ### Imputing dropouts 
+
+VEDERE SE VALE LA PENA SPOSTARLO PER MIGLIORARE LE HEATMAP DOPO FEATURE SELECTION
 
 the **cascImpute** function execute scImpute of the [**scImpute package**](https://github.com/Vivianstats/scImpute), which impute the dropout values in scRNA-seq data.
 
@@ -252,22 +317,6 @@ The output is a matrix file containing the imputed data.
 
 
 
-### Converting a count table in log10
-
-The function **counts2log** can convert a count table in a log10 values saved in a comma separated or tab delimited file.
-
-```{r, echo=TRUE, eval=FALSE}
-#downloading fastq files
-system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
-system("gzip -d singlecells_counts.txt.gz")
-counts2log(counts.matrix="singlecells_counts.txt", data.folder=getwd(), 
-           log.base=10, type="txt")
-```
-
-
-
-
-
 #### Defining the optimal number of clusters
 
 An important step in the single-cell transcriptome analysis is to group cells that belong to the same type based on gene expression patterns [Usoskin et al, Pollen et al, Kolodziejczyk et al].
@@ -278,12 +327,15 @@ This can be done using supervised and unsupervised clustering. A lot of tools ar
 system("wget http://130.192.119.59/public/log10_singlecells_counts.csv.gz")
 system("gzip -d log10_singlecells_counts.csv.gz")
 
-cascKoptimization(group="docker", scratch.folder="/Users/raffaelecalogero/Desktop/scratch", data.folder=getwd(),
-counts.matrix="log10_singlecells_counts.csv", permutations=20, blocks.permutations=2, core=0, bootstrap.fraction=10, k.min=2, k.max=4, totIdentity=80, clusterIdentity=80)
+permutationClustering("docker", scratch.folder="/data/scratch", data.folder=getwd(), 
+                      matrixName="normalized_example_UMI", nPerm=36, permAtTime=8,
+                      percent=10, range1=4, range2=7, format="txt", separator="\t", 
+                      logTen=0, clustering="SIMLR", perplexity=10)
+
 
 ```
 
-The function **cascKoptimization** run SIMLR [Wang et al] using a range of clusters and produces as output two violin plots:
+The function **permutationClustering** run [SIMLR](https://www.ncbi.nlm.nih.gov/pubmed/28263960) using a range of clusters and produces as output two violin plots:
 
 - silhouette.pdf: Silhouette refers to a method of interpretation and validation of consistency within clusters of data. The technique provides a succinct graphical representation of how well each object lies within its cluster. Here instead of using the average silhouette we represent the silhouette values distribution using a violin plot. Thus, silhouette distributions being skewed to the positive values and with short negative tail is representative of a consistent cluster. In the example below, fig. A, it seems that 4 clusters are the most consistent by silhouette analysis.
 
