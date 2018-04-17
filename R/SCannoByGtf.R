@@ -61,26 +61,26 @@ SCannoByGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.ta
   con <- file("run.info", "r")
   tmp.run <- readLines(con)
   close(con)
-    tmp.run[length(tmp.run)+1] <- paste("rsemannoByGtf user run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("rsemannoByGtf system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("rsemannoByGtf elapsed run time mins ",ptm[3]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("scannoByGtf user run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("scannoByGtf system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("scannoByGtf elapsed run time mins ",ptm[3]/60, sep="")
     writeLines(tmp.run,"run.info")
   }else{
     tmp.run <- NULL
-    tmp.run[1] <- paste("rsemannoByGtf user run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("rsemannoByGtf system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("rsemannoByGtf elapsed run time mins ",ptm[3]/60, sep="")
+    tmp.run[1] <- paste("scannoByGtf user run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("scannoByGtf system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("scannoByGtf elapsed run time mins ",ptm[3]/60, sep="")
 
     writeLines(tmp.run,"run.info")
   }
 
   #saving log and removing docker container
-  container.id <- readLines(paste(rsem.folder,"/dockerID", sep=""), warn = FALSE)
+  container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
   system(paste("docker logs ", container.id, " >& ", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
   system("rm -fR anno.info")
   system("rm -fR dockerID")
-  system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",rsem.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
 
   setwd(home)
 }
