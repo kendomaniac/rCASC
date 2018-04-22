@@ -5,8 +5,10 @@
 #' @param counts.table, a character string indicating the counts table file
 #' @param gtf.name, a character string indicating the ENSEMBL gtf file
 #' @param biotype, a character string the biotypes of interest
-#' @param mt, a boolean to define if mitocondrial genes have to be removed
+#' @param mt, a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed
+#' @param ribo.proteins, a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed
 #' @param file.type, type of file: txt tab separated columns csv comma separated columns
+#' @param umiXgene,  a integer defining how many UMI are required to call a gene as present. default: 3
 #' @author Raffaele Calogero
 
 #' @return one file: annotated_counts table, where ensembl ids are linked to gene symbols
@@ -20,12 +22,12 @@
 #'     #running rsemannoByGtf
 #'     SCannoByGtf(group="docker", data.folder=getwd(), counts.table="GSM2833284_Naive_WT_Rep1.csv",
 #'                   gtf.name="Mus_musculus.GRCm38.92.gtf",
-#'                   biotype, mt=TRUE, file.type="csv")
+#'                   biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="csv", umiXgene=3)
 #' }
 #'
 #' @export
 SCannoByGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.table, gtf.name,
-                        biotype, mt=c(TRUE, FALSE), file.type=c("txt","csv")){
+                        biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), file.type=c("txt","csv"), umiXgene=3){
 
   #remembering actual folder
   home <- getwd()
@@ -42,15 +44,58 @@ SCannoByGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.ta
   }
 
   if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -v -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", file.type, sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -v -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type, sep="")
     resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/r332.2017.01", params=params)
   }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -v -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", file.type, sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -v -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type, sep="")
     resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/r332.2017.01", params=params)
   }
 
   if(resultRun==0){
     cat("\nGTF based annotation is finished is finished\n")
+  }
+  dir <- dir(data.folder)
+  files <- dir[grep(counts.table, dir)]
+  if(length(files) == 2){
+    files.annotated <- dir[grep("^annotated", dir)]
+    output <- intersect(files, files.annotated)
+    input <- setdiff(files, files.annotated)
+    #plotting the genes vs umi all cells
+    if(file.type=="txt"){
+       tmp0 <- read.table(input, sep="\t", header=T, row.names=1)
+       tmp <- read.table(output, sep="\t", header=T, row.names=1)
+    }else{
+       tmp0 <- read.table(input, sep=",", header=T, row.names=1)
+       tmp <- read.table(output, sep=",", header=T, row.names=1)
+    }
+    genes0 <- list()
+    for(i in 1:dim(tmp0)[2]){
+      x = rep(0, dim(tmp0)[1])
+      x[which(tmp0[,i] >=  umiXgene)] <- 1
+      genes0[[i]] <- x
+    }
+    genes0 <- as.data.frame(genes0)
+    genes.sum0 <-  apply(genes0,2, sum)
+    umi.sum0 <- apply(tmp0,2, sum)
+
+    genes <- list()
+    for(i in 1:dim(tmp)[2]){
+      x = rep(0, dim(tmp)[1])
+      x[which(tmp[,i] >=  umiXgene)] <- 1
+      genes[[i]] <- x
+    }
+    genes <- as.data.frame(genes)
+    genes.sum <-  apply(genes,2, sum)
+    umi.sum <- apply(tmp,2, sum)
+
+    pdf("annotated_genes.pdf")
+    plot(log10(umi.sum0), genes.sum0, xlab="log10 UMI", ylab="# of genes",
+         xlim=c(log10(min(c(umi.sum0 + 1, umi.sum +1))), log10(max(c(umi.sum0 + 1, umi.sum + 1)))),
+         ylim=c(min(c(genes.sum0, genes.sum)), max(c(genes.sum0, genes.sum))), type="n")
+    points(log10(umi.sum0 + 1), genes.sum0, pch=19, cex=0.2, col="blue")
+    points(log10(umi.sum + 1), genes.sum, pch=19, cex=0.2, col="red")
+    legend("topleft",legend=c("All","Filtered & annotated"), pch=c(15,15), col=c("blue", "red"))
+    dev.off()
   }
 
   #running time 2
@@ -80,7 +125,7 @@ SCannoByGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.ta
   system(paste("docker rm ", container.id, sep=""))
   system("rm -fR anno.info")
   system("rm -fR dockerID")
-  system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
 
   setwd(home)
 }

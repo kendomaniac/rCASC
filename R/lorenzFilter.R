@@ -105,6 +105,7 @@ separator="tab"
       genes.sum <-  apply(genes,2, sum)
       umi.sum <- apply(tmp,2, sum)
       points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="red")
+      legend("topleft",legend=c("All","Filtered"), pch=c(15,15), col=c("blue", "red"))
       dev.off()
 
   }

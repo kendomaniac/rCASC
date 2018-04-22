@@ -5,8 +5,9 @@
 \title{Annotating single cell counts table using ENSEMBL gtf and refGenome CRAN package}
 \usage{
 SCannoByGtf(group = c("docker", "sudo"), data.folder = getwd(),
-  counts.table, gtf.name, biotype, mt = c(TRUE, FALSE), file.type = c("txt",
-  "csv"))
+  counts.table, gtf.name, biotype = NULL, mt = c(TRUE, FALSE),
+  ribo.proteins = c(TRUE, FALSE), file.type = c("txt", "csv"),
+  umiXgene = 3)
 }
 \arguments{
 \item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}
@@ -19,9 +20,13 @@ SCannoByGtf(group = c("docker", "sudo"), data.folder = getwd(),
 
 \item{biotype, }{a character string the biotypes of interest}
 
-\item{mt, }{a boolean to define if mitocondrial genes have to be removed}
+\item{mt, }{a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed}
+
+\item{ribo.proteins, }{a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed}
 
 \item{file.type, }{type of file: txt tab separated columns csv comma separated columns}
+
+\item{umiXgene, }{a integer defining how many UMI are required to call a gene as present. default: 3}
 }
 \value{
 one file: annotated_counts table, where ensembl ids are linked to gene symbols
@@ -37,7 +42,7 @@ This function executes the docker container annotate.1, where refGenome is used 
     #running rsemannoByGtf
     SCannoByGtf(group="docker", data.folder=getwd(), counts.table="GSM2833284_Naive_WT_Rep1.csv",
                   gtf.name="Mus_musculus.GRCm38.92.gtf",
-                  biotype, mt=TRUE, file.type="csv")
+                  biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="csv", umiXgene=3)
 }
 
 }
