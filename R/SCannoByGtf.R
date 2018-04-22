@@ -97,6 +97,8 @@ SCannoByGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.ta
     dev.off()
   }
 
+  cat("\nannotated_genes.pdf is ready\n")
+
   #running time 2
   ptm <- proc.time() - ptm
   dir <- dir(rsem.folder)

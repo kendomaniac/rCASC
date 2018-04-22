@@ -175,6 +175,7 @@ The main function of mitochondria is to produce energy through aerobic respirati
 
 ```{r, echo=TRUE, eval=FALSE}
 
+library(casc)
 SCannoByGtf(group="docker", data.folder=getwd(), counts.table="GSM2833284_Naive_WT_Rep1.csv",
            gtf.name="Mus_musculus.GRCm38.92.gtf",
           biotype="protein_coding", mt=FALSE, ribo.proteins=TRUE, file.type="csv", umiXgene=3)
@@ -188,6 +189,7 @@ Morover, ribosomal RNA and ribosomal proteins represent a significant part of th
 
 ```{r, echo=TRUE, eval=FALSE}
 
+library(casc)
 SCannoByGtf(group="docker", data.folder=getwd(), counts.table="GSM2833284_Naive_WT_Rep1.csv",
            gtf.name="Mus_musculus.GRCm38.92.gtf",
           biotype="protein_coding", mt=FALSE, ribo.proteins=FALSE, file.type="csv", umiXgene=3)
