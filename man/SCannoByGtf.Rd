@@ -36,12 +36,18 @@ This function executes the docker container annotate.1, where refGenome is used 
 }
 \examples{
 \dontrun{
-    system("wget http://130.192.119.59/public/genes.results.gz")
-    system("gzip -d genes.results.gz")
-    #running rsemannoByGtf
-    SCannoByGtf(group="docker", data.folder=getwd(), counts.table="GSM2833284_Naive_WT_Rep1.csv",
+    system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+    library(casc)
+    #filtering low quality cells
+    lorenzFilter(group="docker",scratch.folder="/data/scratch/",
+                 data.folder=getwd(),matrixName="filtered_testSCumi_mm10",
+                 p_value=0.05,format="txt",separator='\\t')
+    #running annotation and removal of mit and ribo proteins genes
+    #download mouse GTF for mm10
+    system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
+    SCannoByGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
                   gtf.name="Mus_musculus.GRCm38.92.gtf",
-                  biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="csv", umiXgene=3)
+                  biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="txt", umiXgene=3)
 }
 
 }

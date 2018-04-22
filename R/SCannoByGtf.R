@@ -107,7 +107,7 @@ SCannoByGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.ta
 
   #running time 2
   ptm <- proc.time() - ptm
-  dir <- dir(rsem.folder)
+  dir <- dir(data.folder)
   dir <- dir[grep("run.info",dir)]
   if(length(dir)>0){
   con <- file("run.info", "r")
