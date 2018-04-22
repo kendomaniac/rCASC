@@ -16,7 +16,6 @@
 #' @import utils
 #' @examples
 #' \dontrun{
-#'     #downloading fastq files
 #'     system("wget http://130.192.119.59/public/genes.results.gz")
 #'     system("gzip -d genes.results.gz")
 #'     #running rsemannoByGtf
