@@ -47,7 +47,22 @@ In version 3, four different reads are generated:
 
 ![inDrop V3](../inst/img/indropv3.jpg)
 
-The function indropCounts starts from inDrop V2 library fastqs and generates UMI counts.
+### inDrop data analysis
+
+The function *indropIndex* is available to generate the index files required for reads mapping and annotation.
+
+```{r, echo=TRUE, eval=FALSE}
+
+library(casc)
+#running indropCounts index build
+indropIndex(group="docker", index.folder=getwd(),
+ ensembl.urlgenome="ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
+ensembl.urlgtf="ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.gtf.gz")
+
+```
+
+
+The function *indropCounts* starts from inDrop V2 library fastqs and generates UMI counts.
 
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -68,9 +83,9 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
     + Removing non informative genes: **filterZeros**
     + Checking the genes versus total number of UMI: **genesUmi**
     + Removing low quality cells: **lorenzFilter**
-    
     + Data normalization: **scnorm**, minimal requirements 10K counts/cell, works best with whole transcripts sequencing
     + Data normalization: **umiNorm**, global normalization methods TMM and RLE are suitable for UMI data
+    + ENSEMBL annotaiton and mitochodrial/ribosomal protein genes removal: scannobyGtf
     + Converting a count table in log10: **counts2log**
     + Removing cell cycle genes: **ccremove**
     + Imputing dropouts: **cascImpute**

@@ -25,13 +25,13 @@
 #'     #running annotation and removal of mit and ribo proteins genes
 #'     #download mouse GTF for mm10
 #'     system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
-#'     SCannoByGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
+#'     scannobyGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
 #'                   gtf.name="Mus_musculus.GRCm38.92.gtf",
 #'                   biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="txt", umiXgene=3)
 #' }
 #'
 #' @export
-SCannoByGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.table, gtf.name,
+scannobyGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.table, gtf.name,
                         biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), file.type=c("txt","csv"), umiXgene=3){
 
   #remembering actual folder
