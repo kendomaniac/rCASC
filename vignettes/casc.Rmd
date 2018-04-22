@@ -161,12 +161,10 @@ The function *SCannoByGtf* allows the annotation of single-cell matrix if ENSEMB
 
 ```{r, echo=TRUE, eval=FALSE}
 
-system("wget http://130.192.119.59/public/genes.results.gz")
-system("gzip -d genes.results.gz")
-#running rsemannoByGtf
-SCannoByGtf(group="docker", data.folder=getwd(), counts.table="GSM2833284_Naive_WT_Rep1.csv",
+#running annotation and removal of mit and ribo proteins genes
+SCannoByGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
            gtf.name="Mus_musculus.GRCm38.92.gtf",
-          biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="csv", umiXgene=3)
+          biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="txt", umiXgene=3)
 
 ```
 
@@ -176,9 +174,9 @@ The main function of mitochondria is to produce energy through aerobic respirati
 ```{r, echo=TRUE, eval=FALSE}
 
 library(casc)
-SCannoByGtf(group="docker", data.folder=getwd(), counts.table="GSM2833284_Naive_WT_Rep1.csv",
+SCannoByGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
            gtf.name="Mus_musculus.GRCm38.92.gtf",
-          biotype="protein_coding", mt=FALSE, ribo.proteins=TRUE, file.type="csv", umiXgene=3)
+          biotype="protein_coding", mt=FALSE, ribo.proteins=TRUE, file.type="txt", umiXgene=3)
 
 ```
 
@@ -190,9 +188,9 @@ Morover, ribosomal RNA and ribosomal proteins represent a significant part of th
 ```{r, echo=TRUE, eval=FALSE}
 
 library(casc)
-SCannoByGtf(group="docker", data.folder=getwd(), counts.table="GSM2833284_Naive_WT_Rep1.csv",
+SCannoByGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
            gtf.name="Mus_musculus.GRCm38.92.gtf",
-          biotype="protein_coding", mt=FALSE, ribo.proteins=FALSE, file.type="csv", umiXgene=3)
+          biotype="protein_coding", mt=FALSE, ribo.proteins=FALSE, file.type="txt", umiXgene=3)
 
 ```
 

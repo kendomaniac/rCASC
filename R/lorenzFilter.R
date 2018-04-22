@@ -15,12 +15,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'  system("wget http://130.192.119.59/public/lorenz.zip")
-#'  unzip("lorenz.zip")
-#'  setwd("./lorenz")
+#'  system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+#'  unzip("testSCumi_mm10.csv.zip")
 #'  library("CASC")
 #'  lorenzFilter(group="docker", scratch.folder="/data/scratch",
-#'           data.folder=getwd(), matrixName="Buettner", p_value=0.05, umiXgene=3, format="csv", separator=',')
+#'           data.folder=getwd(), matrixName="testSCumi_mm10", p_value=0.05, umiXgene=3, format="csv", separator=',')
 #' }
 #'
 #' @export
