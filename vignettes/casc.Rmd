@@ -176,20 +176,32 @@ The function *SCannoByGtf* allows the annotation of single-cell matrix if ENSEMB
 
 ```{r, echo=TRUE, eval=FALSE}
 
+system("wget http://130.192.119.59/public/test_umi_mm10.txt.zip")
+unzip("test_umi_mm10.txt.zip")
+filterZeros(data.folder=getwd(),counts.matrix="test_umi_mm10.txt", threshold=0)
+# output filtered_test_umi_mm10
+lorenzFilter(group="docker",scratch.folder="/data/scratch/",
+           data.folder=getwd(),matrixName="filtered_test_umi_mm10",
+           p_value=0.05,format="txt",separator='\t')
+# output lorenz_filtered_test_umi_mm10.txt
 #running annotation and removal of mit and ribo proteins genes
-SCannoByGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
+scannobyGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_test_umi_mm10.txt",
            gtf.name="Mus_musculus.GRCm38.92.gtf",
           biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="txt", umiXgene=3)
 
 ```
 
-The main function of mitochondria is to produce energy through aerobic respiration. The number of mitochondria a cell possesses depends on its metabolic demands. This might strongly affect clustering favoring the separation between active and dormient cells with respect to functional differences between subpopulations.
-*SCannoByGtf* allows also the removal of mitocondrial genes.
+![Protein coding biotype](../inst/img/all.jpg)
+
+The above figure shows in red only protein coding biotype.
+
+The main function of mitochondria is to produce energy through aerobic respiration. The number of mitochondria a cell possesses depends on its metabolic demands. This might affect clustering favoring the separation between active and dormient cells with respect to functional differences between subpopulations.
+*scannobyGtf* allows also the removal of mitocondrial genes.
 
 ```{r, echo=TRUE, eval=FALSE}
 
 library(casc)
-SCannoByGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
+scannobyGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_test_umi_mm10.txt",
            gtf.name="Mus_musculus.GRCm38.92.gtf",
           biotype="protein_coding", mt=FALSE, ribo.proteins=TRUE, file.type="txt", umiXgene=3)
 
@@ -197,13 +209,13 @@ SCannoByGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_t
 
 ![Removing mithocondrial genes](../inst/img/noMT.jpg)
 
-Morover, ribosomal RNA and ribosomal proteins represent a significant part of the cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis. Thus, ribosomal proteins expression might represent a confunding factor in cluster formation between active and dormient cells.
-*SCannoByGtf* allows also the removal of ribosomal proteins genes.
+Morover, ribosomal RNA and ribosomal proteins represent a significant part of the cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis. Thus, ribosomal proteins expression might represent a major confunding factor in cluster formation between active and dormient cells.
+*scannobyGtf* allows also the removal of ribosomal proteins genes.
 
 ```{r, echo=TRUE, eval=FALSE}
 
 library(casc)
-SCannoByGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
+scannobyGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_test_umi_mm10.txt",
            gtf.name="Mus_musculus.GRCm38.92.gtf",
           biotype="protein_coding", mt=FALSE, ribo.proteins=FALSE, file.type="txt", umiXgene=3)
 
@@ -211,7 +223,7 @@ SCannoByGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_t
 
 ![Removing mithocondrial and ribosomal proteins genes](../inst/img/noMT-rib.jpg)
 
-It is notable how bigger is the effect of the removal of ribosomal protein genes with respect to the mithocondrial component.
+It is notable how important is the effect of the removal of ribosomal protein genes with respect to the mithocondrial component.
 
 
 ## Top expressed genes

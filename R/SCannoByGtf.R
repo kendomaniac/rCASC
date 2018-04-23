@@ -99,7 +99,7 @@ scannobyGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.ta
          ylim=c(min(c(genes.sum0, genes.sum)), max(c(genes.sum0, genes.sum))), type="n")
     points(log10(umi.sum0 + 1), genes.sum0, pch=19, cex=0.2, col="blue")
     points(log10(umi.sum + 1), genes.sum, pch=19, cex=0.2, col="red")
-    legend("topleft",legend=c("All","Filtered & annotated"), pch=c(15,15), col=c("blue", "red"))
+    legend("topleft",legend=c("All","Retained & annotated"), pch=c(15,15), col=c("blue", "red"))
     dev.off()
   }
 
