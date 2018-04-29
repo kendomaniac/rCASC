@@ -5,7 +5,7 @@
 #' @param counts.table, a character string indicating the counts table file
 #' @param gtf.name, a character string indicating the ENSEMBL gtf file
 #' @param biotype, a character string the biotypes of interest
-#' @param mt, a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed
+#' @param mt, a boolean to define if mitochondrial genes have to be removed, FALSE mean that mt genes are removed
 #' @param ribo.proteins, a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed
 #' @param file.type, type of file: txt tab separated columns csv comma separated columns
 #' @param umiXgene,  a integer defining how many UMI are required to call a gene as present. default: 3

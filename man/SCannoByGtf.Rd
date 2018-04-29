@@ -20,7 +20,7 @@ scannobyGtf(group = c("docker", "sudo"), data.folder = getwd(),
 
 \item{biotype, }{a character string the biotypes of interest}
 
-\item{mt, }{a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed}
+\item{mt, }{a boolean to define if mitochondrial genes have to be removed, FALSE mean that mt genes are removed}
 
 \item{ribo.proteins, }{a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed}
 
