@@ -67,18 +67,20 @@ separator="tab"
   }
   #waiting for the end of the container work
   if(resultRun==0){
-    system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
+     cat("\nLorenz analysis is finished, filtered data are saved with prefix lorenz_ in the working folder\n")
+#    system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
   }
   if(separator=="tab"){
     separator="\t"
   }
   dir <- dir(data.folder)
-  files.tmp <- dir[grep(format, dir)]
+  files.tmp <- dir[grep(paste(format,'$',sep=""), dir)]
+
   files <- dir[grep(matrixName, files.tmp)]
   if(length(files) == 2){
       files.lorenz <- dir[grep("^lorenz", dir)]
-      output <- intersect(files, files.lorenz)
-      input <- setdiff(files, files.lorenz)
+      output <- intersect(files.tmp, files.lorenz)
+      input <- setdiff(files.tmp, files.lorenz)
       #plotting the genes vs umi all cells
       tmp0 <- read.table(input, sep=separator, header=T, row.names=1)
       tmp0 <- tmp0[grep("^ENS", rownames(tmp0)),]
