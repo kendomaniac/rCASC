@@ -81,6 +81,7 @@ separator="tab"
       input <- setdiff(files, files.lorenz)
       #plotting the genes vs umi all cells
       tmp0 <- read.table(input, sep=separator, header=T, row.names=1)
+      tmp0 <- tmp0[grep("^ENS", rownames(tmp0)),]
       genes <- list()
       for(i in 1:dim(tmp0)[2]){
         x = rep(0, dim(tmp0)[1])
@@ -91,10 +92,11 @@ separator="tab"
       genes.sum <-  apply(genes,2, sum)
       umi.sum <- apply(tmp0,2, sum)
       pdf("discarded-cells.pdf")
-      plot(log10(umi.sum), genes.sum, xlab="log10 UMI", ylab="# of genes")
+      plot(log10(umi.sum), genes.sum, xlab="log10 UMI", ylab="# of genes", type="n")
       points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="blue")
 
       tmp <- read.table(output, sep=separator, header=T, row.names=1)
+      tmp <- tmp[grep("^ENS", rownames(tmp0)),]
       genes <- list()
       for(i in 1:dim(tmp)[2]){
         x = rep(0, dim(tmp)[1])
