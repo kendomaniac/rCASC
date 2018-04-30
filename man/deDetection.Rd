@@ -36,7 +36,9 @@ This function executes in a docker edgeR for the idnetification of differentiall
                  biotype="protein_coding", mt=FALSE, ribo.proteins=FALSE,
                  file.type="txt", umiXgene=3)
 
-    deDetection(group="docker", data.folder=getwd(), counts.table, file.type)
+    deDetection(group="docker", data.folder=getwd(),
+               counts.table="annotated_lorenz_buettner_counts_noSymb.txt",
+               file.type="txt")
 }
 
 }

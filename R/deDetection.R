@@ -79,9 +79,9 @@ deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, fil
     writeLines(tmp.run,"run.info")
   }else{
     tmp.run <- NULL
-    tmp.run[1] <- paste("run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("elapsed run time mins ",ptm[3]/60, sep="")
+    tmp.run[1] <- paste("DE detection run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("DE detection system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("DE detection elapsed run time mins ",ptm[3]/60, sep="")
 
     writeLines(tmp.run,"run.info")
   }
@@ -92,10 +92,7 @@ deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, fil
   system(paste("docker rm ", container.id, sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
-  system(paste("rm -R ",scrat_tmp.folder))
-  system("rm -fR out.info")
   system("rm -fR dockerID")
-  system("rm  -fR tempFolderID")
-  system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }
