@@ -5,7 +5,8 @@
 \title{A function allowing the identification of differentially expressed genes.}
 \usage{
 deDetection(group = c("sudo", "docker"), data.folder, counts.table,
-  file.type = c("txt", "csv"))
+  file.type = c("txt", "csv"), logFC.threshold = 1, FDR.threshold,
+  logCPM.threshold = 4)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -15,6 +16,12 @@ deDetection(group = c("sudo", "docker"), data.folder, counts.table,
 \item{counts.table, }{a character string indicating the counts table file. IMPORTANT in the header of the file the covariate group MUST be associated to the column name using underscore, e.g. cell1_cov1}
 
 \item{file.type, }{type of file: txt tab separated columns csv comma separated columns}
+
+\item{FDR.threshold, }{minimal FDR present in at least one of the comparisons with respect to reference covariate}
+
+\item{log2FC.threshold, }{minimal logFC present in at least one of the comparisons with respect to reference covariate}
+
+\item{log2CPM.threshold, }{minimal average abundance}
 }
 \description{
 This function executes in a docker edgeR for the idnetification of differentially expressed genes in single-cells RNAseq
@@ -38,7 +45,7 @@ This function executes in a docker edgeR for the idnetification of differentiall
 
     deDetection(group="docker", data.folder=getwd(),
                counts.table="annotated_lorenz_buettner_counts_noSymb.txt",
-               file.type="txt")
+               file.type="txt", logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4)
 }
 
 }

@@ -4,6 +4,9 @@
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param counts.table, a character string indicating the counts table file. IMPORTANT in the header of the file the covariate group MUST be associated to the column name using underscore, e.g. cell1_cov1
 #' @param file.type, type of file: txt tab separated columns csv comma separated columns
+#' @param log2FC.threshold, minimal logFC present in at least one of the comparisons with respect to reference covariate
+#' @param FDR.threshold, minimal FDR present in at least one of the comparisons with respect to reference covariate
+#' @param log2CPM.threshold,  minimal average abundance
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino, Italy
 #'
 #' @examples
@@ -25,11 +28,11 @@
 #'
 #'     deDetection(group="docker", data.folder=getwd(),
 #'                counts.table="annotated_lorenz_buettner_counts_noSymb.txt",
-#'                file.type="txt")
+#'                file.type="txt", logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4)
 #' }
 #'
 #' @export
-deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, file.type=c("txt","csv")){
+deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, file.type=c("txt","csv"), logFC.threshold=1, FDR.threshold, logCPM.threshold=4){
 
 
 
@@ -65,6 +68,26 @@ deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, fil
   if(resultRun==0){
     cat("\nDifferential expression analysis is finished\n")
   }
+
+  tmp0 <- read.table(paste("DE_", counts.table, sep=""), sep="\t", header=T, row.names=1)
+  max0.logfc <- apply(tmp0[,grep("logFC", names(tmp0))], 1, function(x) unique(x[which(abs(x)== max(abs(x)))]))
+
+  tmp <- tmp0[which(tmp0$logCPM >= logCPM.threshold),]
+  max.logfc <- apply(tmp[,grep("logFC", names(tmp))], 1, function(x) max(abs(x)))
+  tmp <- tmp[which(max.logfc >= logFC.threshold),]
+  tmp <- tmp[which(tmp$FDR <= FDR.threshold),]
+  max1.logfc <- apply(tmp[,grep("logFC", names(tmp))], 1, function(x){
+    x[which(abs(x)== max(abs(x)))]
+  })
+  pdf("filteredDE.pdf")
+    plot(tmp0$logCPM, max0.logfc, xlab="log2CPM", ylab="log2FC", type="n")
+    points(tmp$logCPM, max1.logfc, pch=19, cex=0.5, col="red")
+    points(tmp0$logCPM, max0.logfc, pch=".", col="black")
+    abline(h=0, col="black", lty=2)
+  dev.off()
+
+write.table(tmp, paste("filtered_DE_", counts.table, sep=""), sep="\t", col.names=NA)
+
   #running time 2
   ptm <- proc.time() - ptm
   dir <- dir(data.folder)
