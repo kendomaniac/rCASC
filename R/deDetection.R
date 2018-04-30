@@ -23,7 +23,9 @@
 #'                  biotype="protein_coding", mt=FALSE, ribo.proteins=FALSE,
 #'                  file.type="txt", umiXgene=3)
 #'
-#'     deDetection(group="docker", data.folder=getwd(), counts.table="annotated_lorenz_buettner_counts_noSymb.txt", file.type="txt")
+#'     deDetection(group="docker", data.folder=getwd(),
+#'                counts.table="annotated_lorenz_buettner_counts_noSymb.txt",
+#'                file.type="txt")
 #' }
 #'
 #' @export
@@ -56,7 +58,7 @@ deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, fil
   }
 
   #executing the docker job
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/desc.2018.01 sh /bin/desc.R ", counts.table, " ", file.type, sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/desc.2018.01 Rscript /bin/desc.R ", counts.table, " ", file.type, sep="")
   resultRun <- runDocker(group=group, params=params)
 
   #waiting for the end of the container work
