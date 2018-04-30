@@ -23,7 +23,7 @@
 #'                  biotype="protein_coding", mt=FALSE, ribo.proteins=FALSE,
 #'                  file.type="txt", umiXgene=3)
 #'
-#'     deDetection(group="docker", data.folder=getwd(), counts.table, file.type)
+#'     deDetection(group="docker", data.folder=getwd(), counts.table="annotated_lorenz_buettner_counts_noSymb.txt", file.type="txt")
 #' }
 #'
 #' @export
@@ -55,15 +55,6 @@ deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, fil
     return(10)
   }
 
-
-
-  #check  if scratch folder exist
-  if (!file.exists(scratch.folder)){
-    cat(paste("\nIt seems that the ",scratch.folder, " folder does not exist\n"))
-    system("echo 3 >& ExitStatusFile")
-    setwd(data.folder)
-    return(3)
-  }
   #executing the docker job
   params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/desc.2018.01 sh /bin/desc.R ", counts.table, " ", file.type, sep="")
   resultRun <- runDocker(group=group, params=params)
