@@ -65,7 +65,7 @@ scannobyGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.ta
   if(length(files) == 2){
     files.annotated <- dir[grep("^annotated", dir)]
     output <- intersect(files.tmp, files.annotated)
-    input <- setdiff(files.tmp, files.annotated)
+    input <- counts.table
     #plotting the genes vs umi all cells
     if(file.type=="txt"){
        tmp0 <- read.table(input, sep="\t", header=T, row.names=1)

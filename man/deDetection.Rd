@@ -29,6 +29,7 @@ This function executes in a docker edgeR for the idnetification of differentiall
                 p_value=0.05, format="txt", separator='\\t')
 
     system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
+    system("gzip -d Mus_musculus.GRCm38.92.gtf.gz")
     scannobyGtf(group="docker", data.folder=getwd(),
                  counts.table="lorenz_buettner_counts_noSymb.txt",
                  gtf.name="Mus_musculus.GRCm38.92.gtf",
