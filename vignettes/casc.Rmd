@@ -85,7 +85,7 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
     + Removing low quality cells: **lorenzFilter**
     + Data normalization: **scnorm**, minimal requirements 10K counts/cell, works best with whole transcripts sequencing
     + Data normalization: **umiNorm**, global normalization methods TMM and RLE are suitable for UMI data
-    + ENSEMBL annotaiton and mitochodrial/ribosomal protein genes removal: **scannobyGtf**
+    + ENSEMBL annotation and mitochodrial/ribosomal protein genes removal: **scannobyGtf**
     + Converting a count table in log10: **counts2log**
     + Removing cell cycle genes: **ccremove**
     + Imputing dropouts: **cascImpute**
@@ -209,7 +209,7 @@ scannobyGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_t
 
 ![Removing mithocondrial genes](../inst/img/noMT.jpg)
 
-Morover, ribosomal RNA and ribosomal proteins represent a significant part of the cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis. Thus, ribosomal proteins expression might represent a major confunding factor in cluster formation between active and dormient cells.
+Moreover, ribosomal RNA and ribosomal proteins represent a significant part of the cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis. Thus, ribosomal proteins expression might represent a major confunding factor in cluster formation between active and dormient cells.
 *scannobyGtf* allows also the removal of ribosomal proteins genes.
 
 ```{r, echo=TRUE, eval=FALSE}
