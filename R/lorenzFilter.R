@@ -8,6 +8,7 @@
 #' @param p_value, threshold to be used for the filtering
 #' @param format, counts file extension, "txt", "csv"
 #' @param separator, separator used in count file, e.g. '\\t', ','
+#' @param genes.format, two options ensemblGeneID:symbol or symbol only
 #'
 #' @author Name Family name, myemail [at] somewhere [dot] org, Affiliation
 #'
@@ -23,7 +24,7 @@
 #' }
 #'
 #' @export
-lorenzFilter <- function(group=c("sudo","docker"), scratch.folder, data.folder, matrixName, p_value, umiXgene=3, format, separator){
+lorenzFilter <- function(group=c("sudo","docker"), scratch.folder, data.folder, matrixName, p_value, umiXgene=3, format, separator, genes.format=c("ens_symb","symb")){
   #testing if docker is running
   test <- dockerTest()
   if(!test){
@@ -83,7 +84,9 @@ separator="tab"
       input <- setdiff(files, files.lorenz)
       #plotting the genes vs umi all cells
       tmp0 <- read.table(input, sep=separator, header=T, row.names=1)
-      tmp0 <- tmp0[grep("^ENS", rownames(tmp0)),]
+      if(genes.format=="ens_symb"){
+           tmp0 <- tmp0[grep("^ENS", rownames(tmp0)),]
+      }
       genes <- list()
       for(i in 1:dim(tmp0)[2]){
         x = rep(0, dim(tmp0)[1])
@@ -98,7 +101,9 @@ separator="tab"
       points(log10(umi.sum), genes.sum, pch=19, cex=0.5, col="blue")
 
       tmp <- read.table(output, sep=separator, header=T, row.names=1)
-      tmp <- tmp[grep("^ENS", rownames(tmp0)),]
+      if(genes.format=="ens_symb"){
+        tmp <- tmp[grep("^ENS", rownames(tmp0)),]
+      }
       genes <- list()
       for(i in 1:dim(tmp)[2]){
         x = rep(0, dim(tmp)[1])
@@ -123,15 +128,15 @@ separator="tab"
     con <- file("run.info", "r")
     tmp.run <- readLines(con)
     close(con)
-    tmp.run[length(tmp.run)+1] <- paste("user run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("elapsed run time mins ",ptm[3]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("lorenz user run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("lorenz system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("lorenz elapsed run time mins ",ptm[3]/60, sep="")
     writeLines(tmp.run,"run.info")
   }else{
     tmp.run <- NULL
-    tmp.run[1] <- paste("run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("elapsed run time mins ",ptm[3]/60, sep="")
+    tmp.run[1] <- paste("lorenz run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("lorenz system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("lorenz elapsed run time mins ",ptm[3]/60, sep="")
 
     writeLines(tmp.run,"run.info")
   }
