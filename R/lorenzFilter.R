@@ -76,7 +76,7 @@ separator="tab"
   dir <- dir(data.folder)
   files.tmp <- dir[grep(paste(format,'$',sep=""), dir)]
 
-  files <- dir[grep(matrixName, files.tmp)]
+  files <- files.tmp[grep(matrixName, files.tmp)]
   if(length(files) == 2){
       files.lorenz <- dir[grep("^lorenz", dir)]
       output <- intersect(files.tmp, files.lorenz)
