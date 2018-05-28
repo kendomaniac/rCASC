@@ -78,7 +78,7 @@ separator="tab"
 
   files <- files.tmp[grep(matrixName, files.tmp)]
   if(length(files) == 2){
-      files.lorenz <- dir[grep("^lorenz", dir)]
+      files.lorenz <- files.tmp[grep("^lorenz", files.tmp)]
       output <- intersect(files.tmp, files.lorenz)
       input <- setdiff(files.tmp, files.lorenz)
       #plotting the genes vs umi all cells
