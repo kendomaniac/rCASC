@@ -8,7 +8,7 @@ docker.io/rcaloger/ccremove
 docker.io/rcaloger/cellcycle_1
 docker.io/rcaloger/cellcycle_2
 docker.io/rcaloger/clusteridentification
-docker.io/rcaloger/clulstereorg
+docker.io/rcaloger/clustereorg
 docker.io/rcaloger/crosslabel
 docker.io/rcaloger/hfc
 docker.io/rcaloger/lorenz
