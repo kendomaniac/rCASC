@@ -157,7 +157,7 @@ unzip("testSCumi_mm10.csv.zip")
 library(casc)
 lorenzFilter(group="docker",scratch.folder="/data/scratch/",
            data.folder=getwd(),matrixName="filtered_testSCumi_mm10",
-           p_value=0.05,format="txt",separator='\t')
+           p_value=0.05,format="txt",separator='\t', genes.format="ens_symb")
 
 tmp0 <- read.table("filtered_testSCumi_mm10.txt", sep="\t", header=T, row.names=1)
 #806 cells

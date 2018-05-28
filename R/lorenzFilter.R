@@ -20,7 +20,7 @@
 #'  unzip("testSCumi_mm10.csv.zip")
 #'  library("CASC")
 #'  lorenzFilter(group="docker", scratch.folder="/data/scratch",
-#'           data.folder=getwd(), matrixName="testSCumi_mm10", p_value=0.05, umiXgene=3, format="csv", separator=',')
+#'           data.folder=getwd(), matrixName="testSCumi_mm10", p_value=0.05, umiXgene=3, format="csv", separator=',', genes.format="ens_symb")
 #' }
 #'
 #' @export
