@@ -400,7 +400,7 @@ system("gzip -d log10_singlecells_counts.csv.gz")
 permutationClustering("docker", scratch.folder="/data/scratch", data.folder=getwd(), 
                       matrixName="normalized_example_UMI", nPerm=36, permAtTime=8,
                       percent=10, range1=4, range2=7, format="txt", separator="\t", 
-                      logTen=0, clustering="SIMLR", perplexity=10)
+                      logTen=0, clustering="SIMLR", perplexity=10, seed=1111)
 
 
 ```

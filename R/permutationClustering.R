@@ -3,33 +3,28 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
 #' @param nPerm, number of permutations to perform the pValue to evaluate clustering
 #' @param permAtTime, number of permutations that can be computes in parallel
 #' @param percent, percentage of random cells that has to be removed in each permutation
-#' @param range1, first number of cluster for k means algorithm
-#' @param range2, last number of cluster for k means algorithm
+#' @param range1, first number of cluster for k means algorithm  
+#' @param range2, last number of cluster for k means algorithm 
 #' @param format, count matrix format "csv", "txt"..
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
-#' @param clustering, clustering method to use : "SIMLR" , "tsne", "griph"
+#' @param clustering, clustering method to use : "SIMLR" , "tSne", "griph"
 #' @param perplexity, Number of close neighbors for each point
+#' @param seed, important value to reproduce the same results with same input
+
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
+#' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.  
 #' @examples
-#' \dontrun{
-#'  system("wget http://130.192.119.59/public/permutationclustering.zip")
-#'  unzip("permutationclustering.zip")
-#'  setwd("./permutationclustering)
-#'  library("CASC")
-#'  permutationClustering("docker", scratch.folder="/data/scratch, data.folder=getwd(),
-#'      matrixName="lorenz_Buettner", nPerm=8, permAtTime=4, percent=10, range1=4, range2=5,
-#'      format="csv", separator=",", logTen=0, clustering="SIMLR", perplexity=10)
+#'\dontrun{
+#'  permutationClustering("sudo","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/","TOTAL",4,2,10,3,4,"csv",",",0,"SIMLR",0)# 
 #'}
 #' @export
-permutationClustering <- function(group=c("sudo","docker"), scratch.folder, data.folder, matrixName, nPerm, permAtTime,
-                                  percent, range1, range2,format, separator, logTen, clustering, perplexity){
+permutationClustering <- function(group=c("sudo","docker"), scratch.folder, data.folder,matrixName,nPerm,permAtTime,percent,range1,range2,format,separator,logTen,clustering,perplexity,seed=1111){
 
 
 
@@ -39,9 +34,9 @@ permutationClustering <- function(group=c("sudo","docker"), scratch.folder, data
     cat("\nERROR: Docker seems not to be installed in your system\n")
     return()
   }
-  #storing the position of the home folder
+  #storing the position of the home folder  
   home <- getwd()
-
+  
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -60,7 +55,7 @@ permutationClustering <- function(group=c("sudo","docker"), scratch.folder, data
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-
+  
 if(separator=="\t"){
 separator="tab"
 }
@@ -72,10 +67,10 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/
 
   #executing the docker job
   if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationclustering Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",range1," ",range2," ",format," ",separator," ",logTen," ",clustering," ",perplexity,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationclustering Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",range1," ",range2," ",format," ",separator," ",logTen," ",clustering," ",perplexity," ",seed,sep="")
     resultRun <- runDocker(group="sudo",container="docker.io/rcaloger/permutationclustering", params=params)
   }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationclustering Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",range1," ",range2," ",format," ",separator," ",logTen," ",clustering," ",perplexity,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationclustering Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",range1," ",range2," ",format," ",separator," ",logTen," ",clustering," ",perplexity," ",seed,sep="")
     resultRun <- runDocker(group="docker",container="docker.io/rcaloger/permutationclustering", params=params)
   }
   #waiting for the end of the container work
@@ -115,6 +110,6 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
-  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }
