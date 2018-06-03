@@ -6,7 +6,7 @@
 \usage{
 deDetection(group = c("sudo", "docker"), data.folder, counts.table,
   file.type = c("txt", "csv"), logFC.threshold = 1, FDR.threshold,
-  logCPM.threshold = 4)
+  logCPM.threshold = 4, plot = c(TRUE, FALSE))
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -18,6 +18,8 @@ deDetection(group = c("sudo", "docker"), data.folder, counts.table,
 \item{file.type, }{type of file: txt tab separated columns csv comma separated columns}
 
 \item{FDR.threshold, }{minimal FDR present in at least one of the comparisons with respect to reference covariate}
+
+\item{plot, }{TRUE if differentially expressed genes are represented in a plot.}
 
 \item{log2FC.threshold, }{minimal logFC present in at least one of the comparisons with respect to reference covariate}
 
