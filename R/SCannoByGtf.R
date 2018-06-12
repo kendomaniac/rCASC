@@ -40,6 +40,7 @@ scannobyGtf <- function(group=c("docker","sudo"),file, gtf.name,
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
 counts.table=paste(matrixNameC[seq(1,positions-1)],collapse="")
+  matrixName=counts.table
 file.type=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 scratch.folder=data.folder
   counts.table=paste(counts.table,".",file.type,sep="") 
@@ -126,7 +127,7 @@ resultRun <- runDocker(group=group, params=params)
     genes.sum <-  apply(genes,2, sum)
     umi.sum <- apply(tmp,2, sum)
 
-    pdf("annotated_genes.pdf")
+    pdf(paste(matrixName,"_annotated_genes.pdf",sep=""))
     plot(log10(umi.sum0), genes.sum0, xlab="log10 UMI", ylab="# of genes",
          xlim=c(log10(min(c(umi.sum0 + 1, umi.sum +1))), log10(max(c(umi.sum0 + 1, umi.sum + 1)))),
          ylim=c(min(c(genes.sum0, genes.sum)), max(c(genes.sum0, genes.sum))), type="n")
