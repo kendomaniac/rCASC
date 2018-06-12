@@ -1,13 +1,11 @@
 #' @title Annotating single cell counts table using ENSEMBL gtf and refGenome CRAN package
 #' @description This function executes the docker container annotate.1, where refGenome is used to annotate a single cell counts table with ensembl gene ids on first column using ENSEMBL GTF annotation
 #' @param group, a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs
-#' @param data.folder, a character string indicating where counts file is located
-#' @param counts.table, a character string indicating the counts table file
+#' @param file, a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv"
 #' @param gtf.name, a character string indicating the ENSEMBL gtf file
 #' @param biotype, a character string the biotypes of interest
-#' @param mt, a boolean to define if mitochondrial genes have to be removed, FALSE mean that mt genes are removed
+#' @param mt, a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed
 #' @param ribo.proteins, a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed
-#' @param file.type, type of file: txt tab separated columns csv comma separated columns
 #' @param umiXgene,  a integer defining how many UMI are required to call a gene as present. default: 3
 #' @author Raffaele Calogero
 
@@ -25,47 +23,77 @@
 #'     #running annotation and removal of mit and ribo proteins genes
 #'     #download mouse GTF for mm10
 #'     system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
-#'     scannobyGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
+#'     scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.txt",sep="/"),
 #'                   gtf.name="Mus_musculus.GRCm38.92.gtf",
-#'                   biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="txt", umiXgene=3)
+#'                   biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
 #' }
 #'
 #' @export
-scannobyGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.table, gtf.name,
-                        biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), file.type=c("txt","csv"), umiXgene=3){
+scannobyGtf <- function(group=c("docker","sudo"),file, gtf.name,
+                        biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), umiXgene=3){
 
-  #remembering actual folder
-  home <- getwd()
-  #setting rsem output folder as working dir
-  setwd(data.folder)
+  
+  data.folder=dirname(file)
+positions=length(strsplit(basename(file),"\\.")[[1]])
+matrixNameC=strsplit(basename(a),"\\.")[[1]]
+counts.table=paste(matrixNameC[seq(1,positions-1)],collapse="")
+file.type=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 
+  
+  
   #running time 1
   ptm <- proc.time()
-  #running time 1
+  #setting the data.folder as working folder
+  if (!file.exists(data.folder)){
+    cat(paste("\nIt seems that the ",data.folder, " folder does not exist\n"))
+    return(2)
+  }
+  
+  #storing the position of the home folder  
+  home <- getwd()
+  setwd(data.folder)
+  #initialize status
+  system("echo 0 > ExitStatusFile 2>&1")
+  
+  #testing if docker is running
   test <- dockerTest()
   if(!test){
     cat("\nERROR: Docker seems not to be installed in your system\n")
-    return()
+    system("echo 10 > ExitStatusFile 2>&1") 
+    setwd(home)
+    return(10)
   }
+  
 
-  if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -v -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type, sep="")
-    resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/r332.2017.01", params=params)
-  }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -v -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type, sep="")
-    resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/r332.2017.01", params=params)
+  
+  #check  if scratch folder exist
+  if (!file.exists(scratch.folder)){
+    cat(paste("\nIt seems that the ",scratch.folder, " folder does not exist\n"))
+    system("echo 3 > ExitStatusFile 2>&1")
+    setwd(data.folder)
+    return(3)
   }
+  tmp.folder <- gsub(":","-",gsub(" ","-",date()))
+  scrat_tmp.folder=file.path(scratch.folder, tmp.folder)
+  writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
+  cat("\ncreating a folder in scratch folder\n")
+  dir.create(file.path(scrat_tmp.folder))
+  #preprocess matrix and copying files 
 
+  #executing the docker job
+ params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -v -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type, sep="")
+resultRun <- runDocker(group=group, params=params)
+  
+  #waiting for the end of the container work
   if(resultRun==0){
     cat("\nGTF based annotation is finished is finished\n")
   }
-  dir <- dir(data.folder)
+   dir <- dir(data.folder)
   files <- dir[grep(counts.table, dir)]
-  files.tmp <- dir[grep(paste(file.type,'$',sep=""), dir)]
   if(length(files) == 2){
     files.annotated <- dir[grep("^annotated", dir)]
-    output <- intersect(files.tmp, files.annotated)
-    input <- counts.table
+    output <- intersect(files, files.annotated)
+    input <- setdiff(files, files.annotated)
     #plotting the genes vs umi all cells
     if(file.type=="txt"){
        tmp0 <- read.table(input, sep="\t", header=T, row.names=1)
@@ -101,39 +129,70 @@ scannobyGtf <- function(group=c("docker","sudo"), data.folder=getwd(), counts.ta
     points(log10(umi.sum0 + 1), genes.sum0, pch=19, cex=0.2, col="blue")
     points(log10(umi.sum + 1), genes.sum, pch=19, cex=0.2, col="red")
     legend("topleft",legend=c("All","Retained & annotated"), pch=c(15,15), col=c("blue", "red"))
+    
+    #/////////////////////////////////////////////
+    
+xCoord=log10(colSums(tmp))
+b=tmp
+b[b<3]=0
+b[b>=3]=1
+yCoord=colSums(b)
+
+
+xCoord2=log10(colSums(tmp0))
+b2=tmp0
+b2[b2<3]=0
+b2[b2>=3]=1
+yCoord2=colSums(b2)
+
+
+ plot(yCoord2,yCoord2-yCoord,cex=0.2,pch=19,col="purple",xlab="# of genes", ylab="genesWMT&rib - genes-MT-RB")
+
+    
+    
+    
+    #////////////////////////////////////////////////
     dev.off()
   }
 
   cat("\nannotated_genes.pdf is ready\n")
-
+  
+  
   #running time 2
   ptm <- proc.time() - ptm
   dir <- dir(data.folder)
   dir <- dir[grep("run.info",dir)]
   if(length(dir)>0){
-  con <- file("run.info", "r")
-  tmp.run <- readLines(con)
-  close(con)
-    tmp.run[length(tmp.run)+1] <- paste("scannoByGtf user run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("scannoByGtf system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("scannoByGtf elapsed run time mins ",ptm[3]/60, sep="")
+    con <- file("run.info", "r")
+    tmp.run <- readLines(con)
+    close(con)
+    tmp.run[length(tmp.run)+1] <- paste("user run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("elapsed run time mins ",ptm[3]/60, sep="")
     writeLines(tmp.run,"run.info")
   }else{
     tmp.run <- NULL
-    tmp.run[1] <- paste("scannoByGtf user run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("scannoByGtf system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("scannoByGtf elapsed run time mins ",ptm[3]/60, sep="")
+    tmp.run[1] <- paste("run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("elapsed run time mins ",ptm[3]/60, sep="")
 
     writeLines(tmp.run,"run.info")
   }
 
   #saving log and removing docker container
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
-  system(paste("docker logs ", container.id, " >& ", substr(container.id,1,12),".log", sep=""))
+  system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
-  system("rm -fR anno.info")
-  system("rm -fR dockerID")
-  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  
+  
 
+  
+  #removing temporary folder
+  cat("\n\nRemoving the temporary file ....\n")
+  system(paste("rm -R ",scrat_tmp.folder))
+  system("rm -fR out.info")
+  system("rm -fR dockerID")
+  system("rm  -fR tempFolderID")
+ # system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }

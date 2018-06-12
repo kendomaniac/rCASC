@@ -1,40 +1,29 @@
 #' @title Permutation Movie
-#' @description This function executes a ubuntu docker that create a video showing the cluster changing of all the cells
+#' @description This function executes a ubuntu docker that create a video showing the cluster changing of all the cells 
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
-#' @param nCluster, number of Cluster used in Kmeans to generate the clusters that you want to merge
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
 #' @param format, count matrix format "csv", "txt"..
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param framePP, Number of frame for each permutation
-#' @param permutationNumber, Number of random permutation,have to be less or the same then the total permutation
+#' @param permutationNumber, Number of random permutation,have to be less or the same then the total permutation 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return Csv file with correct cluster name
+#' @return Csv file with correct cluster name 
 #' @examples
-#' \dontrun{
-#'  system("wget http://130.192.119.59/public/permutationmovie.zip")
-#'  unzip("permutationmovie.zip")
-#'  setwd("./permutationmovie")
-#'  library("CASC")
-#'  permutationMovie("docker",scratch.folder="/data/scratch", data.folder=getwd(),
-#'         matrixName="lorenz_Buettner", nCluster=4, format="csv", separator=",",
-#'         framePP=200, permutationNumber=3)
+#'\dontrun{
+#'  permutationMovie("sudo","/home/lucastormreig/CASC5.0/5_permutationMovie/scratch/",file,7,",",200,5)# 
 #'}
 #' @export
-permutationMovie <- function(group=c("sudo","docker"), scratch.folder, data.folder,matrixName,nCluster,format,separator,framePP,permutationNumber){
+permutationMovie <- function(group=c("sudo","docker"), scratch.folder,file,nCluster,separator,framePP,permutationNumber){
 
 
-
-  #testing if docker is running
-  test <- dockerTest()
-  if(!test){
-    cat("\nERROR: Docker seems not to be installed in your system\n")
-    return()
-  }
-  #storing the position of the home folder
-  home <- getwd()
+  data.folder=dirname(file)
+positions=length(strsplit(basename(file),"\\.")[[1]])
+matrixNameC=strsplit(basename(a),"\\.")[[1]]
+matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
+format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 
   #running time 1
   ptm <- proc.time()
@@ -43,10 +32,29 @@ permutationMovie <- function(group=c("sudo","docker"), scratch.folder, data.fold
     cat(paste("\nIt seems that the ",data.folder, " folder does not exist\n"))
     return(2)
   }
+  
+  #storing the position of the home folder  
+  home <- getwd()
   setwd(data.folder)
+  #initialize status
+  system("echo 0 > ExitStatusFile 2>&1")
+  
+  #testing if docker is running
+  test <- dockerTest()
+  if(!test){
+    cat("\nERROR: Docker seems not to be installed in your system\n")
+    system("echo 10 > ExitStatusFile 2>&1") 
+    setwd(home)
+    return(10)
+  }
+  
+
+  
   #check  if scratch folder exist
   if (!file.exists(scratch.folder)){
     cat(paste("\nIt seems that the ",scratch.folder, " folder does not exist\n"))
+    system("echo 3 > ExitStatusFile 2>&1")
+    setwd(data.folder)
     return(3)
   }
   tmp.folder <- gsub(":","-",gsub(" ","-",date()))
@@ -54,25 +62,21 @@ permutationMovie <- function(group=c("sudo","docker"), scratch.folder, data.fold
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-
+  #preprocess matrix and copying files 
+ 
 if(separator=="\t"){
 separator="tab"
 }
 
 system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
 
-
   #executing the docker job
-  if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationmovie Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator," ",framePP," ",permutationNumber,sep="")
-    resultRun <- runDocker(group="sudo",container="docker.io/rcaloger/permutationmovie", params=params)
-  }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationmovie Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator," ",framePP," ",permutationNumber,sep="")
-    resultRun <- runDocker(group="docker",container="docker.io/rcaloger/permutationmovie", params=params)
-  }
+ params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationmovie Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator," ",framePP," ",permutationNumber,sep="") 
+resultRun <- runDocker(group=group, params=params)
+  
   #waiting for the end of the container work
-  if(resultRun=="false"){
-    #system(paste("cp -r ", scrat_tmp.folder, "/* ", data.folder,"Results", sep=""))
+  if(resultRun==0){
+  #  system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
   }
   #running time 2
   ptm <- proc.time() - ptm
@@ -99,15 +103,19 @@ system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
   system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
-  #removing temporary folder
-  cat("Copying Result Folder")
+  
+  
+  #Copy result folder
+ cat("Copying Result Folder")
   system(paste("rm -r ",scrat_tmp.folder,"/graph ",sep=""))
   system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results",sep=""))
+  
+  #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
-  system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+ # system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }

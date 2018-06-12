@@ -1,24 +1,24 @@
-#' @title Permutation Analysis 
-#' @description This function analyze the data that came up from permutationClustering script.
+#' @title hfc, heatmap for clustering
+#' @description This function generate heatmap and other plot based on clustering and on a specific gene list
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
-#' @param range1, First number of cluster that has to be analyzed 
-#' @param range2, Last number of cluster that has to be analyzed
 #' @param format, matrix count format, "csv", "txt"
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster. 
-#' @param clusterPermErr, error that can be done by each permutation in cluster number depicting.Default = 0.05
+#' @param nCluster, nCluster interested for the analysis
+#' @param lfn, name of the list of genes
+#' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL code.1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ensamble name you have to run SCannoByGtf before start using this script.
+#' @param status, 0 if is raw count, 1 otherwise
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return stability plot for each nCluster,two files with score information for each cell for each permutation. 
 #' @examples
 #'\dontrun{
-#'permAnalysis("sudo","path/to/scratch","path/to/data/TOTAL",3,4,",",0.8)# 
+#'hfc("sudo","/home/lucastormreig/scratch/","/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0",6,",","naive")# 
 #'}
 #' @export
-permAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,range1,range2,separator,sp,clusterPermErr=0.05){
+hfc <- function(group=c("sudo","docker"), scratch.folder,file,nCluster,separator,lfn,geneNameControl=1,status){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -65,21 +65,33 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
   dir.create(file.path(scrat_tmp.folder))
   #preprocess matrix and copying files 
 
+  
  
 if(separator=="\t"){
-separator="tab"
+separator2="tab"
+}else{separator2=separator}
+
+
+if(geneNameControl==0){
+system(paste("cp ",data.folder,"/",matrixName,".",format," ",data.folder,"/",matrixName,"_old.",format,sep=""))
+mainMatrix=read.table(paste(data.folder,"/",matrixName,".",format,sep=""),header=TRUE,row.names=1,sep=separator)
+rownames(mainMatrix)=paste(seq(1,nrow(mainMatrix)),":",rownames(mainMatrix),sep="")
+write.table(mainMatrix,paste(data.folder,"/",matrixName,".",format,sep=""),sep=separator,col.names=NA)
 }
+
+
 system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
 system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,sep=""))
+system(paste("cp ",data.folder,"/",lfn,".",format," ",scrat_tmp.folder,sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationanalysis Rscript /home/main.R ",matrixName," ",range1," ",range2," ",format," ",separator," ",sp," ",clusterPermErr, sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/hfc Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator2," ",lfn," ",status, sep="")
  
 resultRun <- runDocker(group=group, params=params)
   
   #waiting for the end of the container work
   if(resultRun==0){
-  #  system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
+    #system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
   }
   #running time 2
   ptm <- proc.time() - ptm
@@ -109,8 +121,8 @@ resultRun <- runDocker(group=group, params=params)
   
   
   #Copy result folder
- cat("Copying Result Folder")
-  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results",sep=""))
+  cat("Copying Result Folder")
+  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results/",sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))

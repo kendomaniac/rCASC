@@ -2,7 +2,6 @@
 #' @description This is an internal function executing a docker container. Not to be used by users.
 #' @param group, a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs
 #' @param params, a character string containing all parameters needed to tun the docker container
-#' @param container, a character string downloading the docker container. If no value is inserted the container is already present on the local server
 #' @param DockerSwarm, a bolean value used to enable docker execution in swarm mode.
 #' @return 0 if success, 1 if parameters are missing, 2 if the group is neither sudo or docker, 3 if docker execution fails.
 #' @author Raffaele Calogero
@@ -10,17 +9,15 @@
 #' @examples
 #'\dontrun{
 ##'     #running runDocker
-#'      runDocker(group="docker", container="docker.io/rcaloger/bwa.2017.01", params=NULL)
+#'      runDocker(group="docker", params=NULL)
 #'
 #' }
 #' @export
-runDocker <- function(group="docker",container=NULL, params=NULL, DockerSwarm=FALSE){
-  if(is.null(container)){
-    cat("\nNo url to download the container was provided. Thus, container should be already located in the server\n")
-  }
+runDocker <- function(group="docker", params=NULL, DockerSwarm=FALSE){
+
   if(is.null(params)){
     cat("\nNo parameters where provided!\n")
-    system("echo 1 >& ExitStatusFile")
+    system("echo 1 > ExitStatusFile 2>&1")
     return(1)
   }
   
@@ -29,7 +26,7 @@ runDocker <- function(group="docker",container=NULL, params=NULL, DockerSwarm=FA
     # to obtain the Docker ID by file
     if (file.exists("dockerID")){
       cat("\n\nDocker does not start, there is already a docker container running che dockerID file!!!\n\n")
-      system("echo 2 >& ExitStatusFile")
+      system("echo 2 > ExitStatusFile 2>&1")
       return(2)
     }
     
@@ -41,7 +38,7 @@ runDocker <- function(group="docker",container=NULL, params=NULL, DockerSwarm=FA
       system(paste("docker run --privileged=true ",params, sep=""))
     }else{
       cat("\nThe group provides is neither sudo or docker\n")
-      system("echo 2 >& ExitStatusFile")
+      system("echo 2 > ExitStatusFile 2>&1")
       return(2)
     }
     
@@ -68,7 +65,7 @@ runDocker <- function(group="docker",container=NULL, params=NULL, DockerSwarm=FA
                   the description of the function you were using and the following error log file,\n
                   which is saved in your working folder:\n", substr(dockerid,1,12),"_error.log\n", sep=""))
         
-        system("echo 3 >& ExitStatusFile")
+        system("echo 3 > ExitStatusFile 2>&1")
         return(3)
     }
     
@@ -97,7 +94,7 @@ runDocker <- function(group="docker",container=NULL, params=NULL, DockerSwarm=FA
     }
     cat(".\n\n")
   }#Swarm Docker execution
-  system("echo 0 >& ExitStatusFile")
+  system("echo 0 > ExitStatusFile 2>&1")
   return(0)
   
-    }
+} 

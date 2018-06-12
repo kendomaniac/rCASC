@@ -1,30 +1,35 @@
-#' @title Permutation Analysis 
-#' @description This function analyze the data that came up from permutationClustering script.
+#' @title Cell Cycle 
+#' @description This function executes a ubuntu docker that associates to each cell a cell cycle stage
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
-#' @param range1, First number of cluster that has to be analyzed 
-#' @param range2, Last number of cluster that has to be analyzed
-#' @param format, matrix count format, "csv", "txt"
+#' @param format, matrix count format, "csv", "txt"#' @param B, second Cluster that has to be merged
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster. 
-#' @param clusterPermErr, error that can be done by each permutation in cluster number depicting.Default = 0.05
+#' @param G1_a, starting point in time series for G1 phase
+#' @param G1_b, ending point in time series for G1 phase
+#' @param S_a, starting point in time series for S phase
+#' @param S_b, ending point in time series for S phase
+#' @param G2M_a, starting point in time series for G2M phase
+#' @param G2M_b, ending point in time series for G2M phase
+#' @param seed, important parameter for reproduce the same result with the same input
+
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return stability plot for each nCluster,two files with score information for each cell for each permutation. 
+#' @return will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/
 #' @examples
 #'\dontrun{
-#'permAnalysis("sudo","path/to/scratch","path/to/data/TOTAL",3,4,",",0.8)# 
+#' cellCycle(group,scratch.folder,data.folder,mainMatrix,format,separator)
 #'}
 #' @export
-permAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,range1,range2,separator,sp,clusterPermErr=0.05){
+cellCycle2 <- function(group=c("sudo","docker"), scratch.folder, file,separator,G1_a,G1_b,S_a,S_b,G2M_a,G2M_b,seed=111){
 
-  data.folder=dirname(file)
+    data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(a),"\\.")[[1]]
 matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
 format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
+
   
   #running time 1
   ptm <- proc.time()
@@ -65,16 +70,17 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
   dir.create(file.path(scrat_tmp.folder))
   #preprocess matrix and copying files 
 
- 
 if(separator=="\t"){
 separator="tab"
 }
-system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
-system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,sep=""))
 
+#gene Name Control
+
+
+
+system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,sep=""))
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationanalysis Rscript /home/main.R ",matrixName," ",range1," ",range2," ",format," ",separator," ",sp," ",clusterPermErr, sep="")
- 
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/cellcycle_2 Rscript /home/main.R ",matrixName," ",format," ",separator," ",G1_a," ",G1_b," ",S_a," ",S_b," ",G2M_a," ",G2M_b," ",seed,sep="")
 resultRun <- runDocker(group=group, params=params)
   
   #waiting for the end of the container work
@@ -109,8 +115,12 @@ resultRun <- runDocker(group=group, params=params)
   
   
   #Copy result folder
- cat("Copying Result Folder")
-  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results",sep=""))
+   cat("Copying Result Folder")
+  system(paste("cp ",scrat_tmp.folder,"/*.",format," ",data.folder,"/Results/",matrixName,sep=""))
+    system(paste("cp ",scrat_tmp.folder,"/*.",format," ",data.folder,"/Results/",sep=""))
+    system(paste("cp ",scrat_tmp.folder,"/bayesPlot.","pdf"," ",data.folder,"/Results/",matrixName,sep=""))
+
+
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))
