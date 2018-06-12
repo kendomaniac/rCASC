@@ -72,17 +72,17 @@ scratch.folder=data.folder
 
   
   #check  if scratch folder exist
-  if (!file.exists(scratch.folder)){
-    cat(paste("\nIt seems that the ",scratch.folder, " folder does not exist\n"))
-    system("echo 3 > ExitStatusFile 2>&1")
+#  if (!file.exists(scratch.folder)){
+#    cat(paste("\nIt seems that the ",scratch.folder, " folder does not exist\n"))
+#    system("echo 3 > ExitStatusFile 2>&1")
     setwd(data.folder)
-    return(3)
-  }
+ #   return(3)
+ # }
   tmp.folder <- gsub(":","-",gsub(" ","-",date()))
   scrat_tmp.folder=file.path(scratch.folder, tmp.folder)
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
-  cat("\ncreating a folder in scratch folder\n")
-  dir.create(file.path(scrat_tmp.folder))
+ # cat("\ncreating a folder in scratch folder\n")
+  #dir.create(file.path(scrat_tmp.folder))
   #preprocess matrix and copying files 
 
   #executing the docker job
