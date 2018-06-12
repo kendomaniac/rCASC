@@ -22,7 +22,7 @@ cellCycle1 <- function(group=c("sudo","docker"), scratch.folder, file,separator,
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
-matrixNameC=strsplit(basename(a),"\\.")[[1]]
+matrixNameC=strsplit(basename(file),"\\.")[[1]]
 matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
 format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 
