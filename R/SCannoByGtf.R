@@ -39,7 +39,7 @@ matrixNameC=strsplit(basename(file),"\\.")[[1]]
 counts.table=paste(matrixNameC[seq(1,positions-1)],collapse="")
 file.type=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 scratch.folder=data.folder
-  counts.table=paste(counts.table,format,sep=".") 
+  counts.table=paste(counts.table,".",file.type,sep="") 
  
   
   #running time 1
