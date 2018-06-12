@@ -14,18 +14,21 @@
 #' @import utils
 #' @examples
 #' \dontrun{
-#'     system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
-#'     library(casc)
-#'     #filtering low quality cells
-#'     lorenzFilter(group="docker",scratch.folder="/data/scratch/",
-#'                  data.folder=getwd(),matrixName="filtered_testSCumi_mm10",
-#'                  p_value=0.05,format="txt",separator='\t')
-#'     #running annotation and removal of mit and ribo proteins genes
-#'     #download mouse GTF for mm10
-#'     system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
-#'     scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.txt",sep="/"),
-#'                   gtf.name="Mus_musculus.GRCm38.92.gtf",
-#'                   biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+#'         system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+#'      library(casc)
+#'      system("unzip testSCumi_mm10.csv.zip")
+#'      #filtering low quality cells
+#'      lorenzFilter(group="docker",scratch.folder="/data/scratch/",
+#'                   file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
+#'                   p_value=0.05,separator=',')
+#'      #running annotation and removal of mit and ribo proteins genes
+#'      #download mouse GTF for mm10
+#'      system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
+#'      system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
+#'      scannobyGtf(group="docker", file=paste(getwd(),"lorenz_testSCumi_mm10.csv",sep="/"),
+#'                    gtf.name="Mus_musculus.GRCm38.92.gtf",
+#' biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3) 
+
 #' }
 #'
 #' @export
