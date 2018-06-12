@@ -86,6 +86,7 @@ scratch.folder=data.folder
   #preprocess matrix and copying files 
 
   #executing the docker job
+  if(file.type=="\t"){file.type="\\t"}
  params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type, sep="")
 resultRun <- runDocker(group=group, params=params)
   
