@@ -88,7 +88,8 @@ scratch.folder=data.folder
   #executing the docker job
  print(file.type)
  params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type, sep="")
-resultRun <- runDocker(group=group, params=params)
+print(params)
+  resultRun <- runDocker(group=group, params=params)
   
   #waiting for the end of the container work
   if(resultRun==0){
