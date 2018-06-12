@@ -38,7 +38,7 @@ positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
 counts.table=paste(matrixNameC[seq(1,positions-1)],collapse="")
 file.type=strsplit(basename(basename(file)),"\\.")[[1]][positions]
-
+scratch.folder=data.folder
   
   
   #running time 1
