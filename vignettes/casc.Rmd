@@ -120,7 +120,7 @@ filterZeros(data.folder=getwd(),counts.matrix="testSCumi_mm10.txt", threshold=0)
 
 ```
 
-![Non zeros distribution in testSCumi_mm10.txt, orange, and in filtered_testSCumi_mm10.txt, blue](../inst/img/filterZero.jpg)
+![Non zeros distribution in testSCumi_mm10.txt, orange, and in filtered_testSCumi_mm10.txt, blue](../inst/img/filterZero.jpeg)
 
 
 ## Plotting genes numbers versus total UMIs in each cell
