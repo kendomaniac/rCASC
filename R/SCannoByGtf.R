@@ -201,4 +201,6 @@ yCoord2=colSums(b2)
   system("rm  -fR tempFolderID")
  # system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
+  rm(list=ls())
+  gc()
 }
