@@ -16,7 +16,7 @@
 #'
 #' @export
 
-deltaFilter=function(minDelta,minNGene,original,menoRibo,separator,format){
+deltaFilter <- function(minDelta,minNGene,original,menoRibo,separator,format){
 
 mainMatrix=read.table(paste(original,".",format,sep=""),sep=separator,header=TRUE,row.names=1)
 menoRibo=read.table(paste(menoRibo,".",format,sep=""),sep=separator,header=TRUE,row.names=1)
