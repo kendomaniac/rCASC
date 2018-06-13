@@ -2,9 +2,7 @@
 #' @description This function executes a ubuntu docker that associates to each cell a cell cycle stage
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
-#' @param format, matrix count format, "csv", "txt"#' @param B, second Cluster that has to be merged
+#' @param file, a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv"
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL code.1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ensamble name you have to run SCannoByGtf before start using this script.
 #' @param window, this parameters let you see the cell cycle algorithm plot in block.  
@@ -14,7 +12,11 @@
 #' @return will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/
 #' @examples
 #'\dontrun{
-#' cellCycle(group,scratch.folder,data.folder,mainMatrix,format,separator,window,seed)
+#' #getwd(link)
+#' #unzipFolder 
+#' scratch.folder=paste(getwd(),"/scratch",sep="")
+#' file=paste(getwd(),"/data/annotated_lorenz_testSCumi_mm10.csv",sep="")
+#' cellCycle1(group="docker",scratch.folder,file,separator=",",geneNameControl=1,window=10,seed=111)
 #'}
 #' @export
 
