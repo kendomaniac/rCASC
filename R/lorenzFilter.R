@@ -13,11 +13,14 @@
 #' @return output will be in the same format and with the same separator of input.
 #' 
 #' @examples
-#'\dontrun{
-#'
-#'  lorenzFilter(group="docker",scratch.folder="path/of/scratch/folder",
-#'           file="path/of/data/folder/matrixName",p_value=0.05,separator='\t')
-#' }
+#' \dontrun{
+#'         system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+#'      library(casc)
+#'      system("unzip testSCumi_mm10.csv.zip")
+#'      #filtering low quality cells
+#'      lorenzFilter(group="docker",scratch.folder="/data/scratch/",
+#'                   file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
+#'                   p_value=0.05,separator=',')
 #' 
 #' @export
 lorenzFilter <- function(group=c("sudo","docker"), scratch.folder, file, p_value, separator){
