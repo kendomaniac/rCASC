@@ -152,7 +152,7 @@ b2[b2>=3]=1
 yCoord2=colSums(b2)
 
 
- plot(yCoord2,yCoord2-yCoord,cex=0.2,pch=19,col="purple",xlab="# of genes", ylab="genesWMT&rib - genes-MT-RB")
+ plot(yCoord,yCoord2-yCoord,cex=0.2,pch=19,col="purple",xlab="# of genes", ylab="genesWMT&rib - genes-MT-RB")
 
     
     
