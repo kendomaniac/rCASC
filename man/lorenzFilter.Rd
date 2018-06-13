@@ -4,42 +4,35 @@
 \alias{lorenzFilter}
 \title{A function to handle sigle cell Lorenz Quality filter for Single-cells}
 \usage{
-lorenzFilter(group = c("sudo", "docker"), scratch.folder, data.folder,
-  matrixName, p_value, umiXgene = 3, format, separator,
-  genes.format = c("ens_symb", "symb"))
+lorenzFilter(group = c("sudo", "docker"), scratch.folder, file, p_value,
+  separator)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
+\item{p_value, }{threshold to be used for the filtering}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
 \item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
 
 \item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
 
-\item{p_value, }{threshold to be used for the filtering}
-
-\item{umiXgene, }{a integer defining how many UMI are required to call a gene as present. default: 3}
-
 \item{format, }{counts file extension, "txt", "csv"}
-
-\item{separator, }{separator used in count file, e.g. '\\t', ','}
-
-\item{genes.format, }{two options ensemblGeneID:symbol or symbol only}
 }
 \value{
-output will be in the same format and with the same separator of input. It also returns a PDF with the genes vs UMI plot, discarded_cells.pdf. In blue discarded cells are shown.
+output will be in the same format and with the same separator of input.
 }
 \description{
 This function executes a docker that produces ....
 }
 \examples{
 \dontrun{
- system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
- unzip("testSCumi_mm10.csv.zip")
- library("CASC")
- lorenzFilter(group="docker", scratch.folder="/data/scratch",
-          data.folder=getwd(), matrixName="testSCumi_mm10", p_value=0.05, umiXgene=3, format="csv", separator=',', genes.format="ens_symb")
+
+ lorenzFilter(group="docker",scratch.folder="path/of/scratch/folder",
+          file="path/of/data/folder/matrixName",p_value=0.05,separator='\\t')
 }
 
 }
