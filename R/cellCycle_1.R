@@ -15,7 +15,7 @@
 #' #getwd(link)
 #' #unzipFolder 
 #' scratch.folder=paste(getwd(),"/scratch",sep="")
-#' file=paste(getwd(),"/data/annotated_lorenz_testSCumi_mm10.csv",sep="")
+#' file=paste(getwd(),"/data/Buettner.csv",sep="")
 #' cellCycle1(group="docker",scratch.folder,file,separator=",",geneNameControl=1,window=10,seed=111)
 #'}
 #' @export
