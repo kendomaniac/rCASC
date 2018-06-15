@@ -7,15 +7,17 @@
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param seed, is important to reproduce the same results with the same input
 #' @param cutoff, larger p-value to use.3 is almost equal to 0.05
+#' @param species, human or mouse
+#' @param rawCount, 1 for raw 0 otherwise
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/
 #' @examples
 #'\dontrun{
 #' ccRemove(group,scratch.folder,file,separator)
-#'}
+#' }
 #' @export
-ccRemove <- function(group=c("sudo","docker"), scratch.folder,file,separator,seed=111,cutoff=3){
+ccRemove <- function(group=c("sudo","docker"), scratch.folder,file,separator,seed=111,cutoff=3,species,rawCount){
 
 data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -77,7 +79,7 @@ system(paste("cp -r ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder
   
   
   #executing the docker job
-   params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/ccremove Rscript /home/main.R ",matrixName," ",format," ",separator," ",cutoff," ",seed,sep="")
+   params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/ccremove Rscript /home/main.R ",matrixName," ",format," ",separator," ",cutoff," ",seed," ",species," ",rawCount,sep="")
    resultRun <- runDocker(group=group, params=params)
   
   #waiting for the end of the container work
