@@ -11,16 +11,13 @@ fastqc(group = c("sudo", "docker"), data.folder)
 
 \item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
 }
-\value{
-fastqc html file and fastqc data in z zipped archive
-}
 \description{
 This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files
 }
 \examples{
 \dontrun{
     system("wget http://130.192.119.59/public/test_R1.fastq.gz")
-    #running skeleton
+    #running fastqc
     fastqc(group="docker", data.folder=getwd())
 }
 

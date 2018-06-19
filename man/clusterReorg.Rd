@@ -36,7 +36,7 @@ This function executes a ubuntu docker that merge two clusters
 }
 \examples{
 \dontrun{
-clusterReorg("sudo","/home/lucastormreig/CASC2.0/2.1_clusterReorg/scratch/","/home/lucastormreig/CASC2.0/2.1_clusterReorg/Data/TOTAL.csv",3,1,3,",")# 
+clusterReorg("docker","/home/lucastormreig/CASC2.0/2.1_clusterReorg/scratch/","/home/lucastormreig/CASC2.0/2.1_clusterReorg/Data/TOTAL.csv",3,1,3,",")#
 }
 }
 \author{

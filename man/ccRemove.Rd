@@ -5,7 +5,7 @@
 \title{Cc remove}
 \usage{
 ccRemove(group = c("sudo", "docker"), scratch.folder, file, separator,
-  seed = 111, cutoff = 3)
+  seed = 111, cutoff = 3, species, rawCount)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -19,6 +19,10 @@ ccRemove(group = c("sudo", "docker"), scratch.folder, file, separator,
 \item{seed, }{is important to reproduce the same results with the same input}
 
 \item{cutoff, }{larger p-value to use.3 is almost equal to 0.05}
+
+\item{species, }{human or mouse}
+
+\item{rawCount, }{1 for raw 0 otherwise}
 }
 \value{
 will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/

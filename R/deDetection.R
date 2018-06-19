@@ -4,9 +4,9 @@
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param counts.table, a character string indicating the counts table file. IMPORTANT in the header of the file the covariate group MUST be associated to the column name using underscore, e.g. cell1_cov1
 #' @param file.type, type of file: txt tab separated columns csv comma separated columns
-#' @param log2FC.threshold, minimal logFC present in at least one of the comparisons with respect to reference covariate
+#' @param logFC.threshold, minimal logFC present in at least one of the comparisons with respect to reference covariate
 #' @param FDR.threshold, minimal FDR present in at least one of the comparisons with respect to reference covariate
-#' @param log2CPM.threshold,  minimal average abundance
+#' @param logCPM.threshold,  minimal average abundance
 #' @param plot, TRUE if differentially expressed genes are represented in a plot.
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino, Italy
 #'

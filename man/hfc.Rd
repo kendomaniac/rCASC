@@ -36,7 +36,7 @@ This function generate heatmap and other plot based on clustering and on a speci
 }
 \examples{
 \dontrun{
-hfc("sudo","/home/lucastormreig/scratch/","/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0",6,",","naive")# 
+hfc("docker","/home/lucastormreig/scratch/","/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0",6,",","naive")#
 }
 }
 \author{

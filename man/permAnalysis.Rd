@@ -36,7 +36,7 @@ This function analyze the data that came up from permutationClustering script.
 }
 \examples{
 \dontrun{
-permAnalysis("sudo","path/to/scratch","path/to/data/TOTAL",3,4,",",0.8)# 
+permAnalysis("docker","path/to/scratch","path/to/data/TOTAL",3,4,",",0.8)#
 }
 }
 \author{

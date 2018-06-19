@@ -17,13 +17,13 @@ deDetection(group = c("sudo", "docker"), data.folder, counts.table,
 
 \item{file.type, }{type of file: txt tab separated columns csv comma separated columns}
 
+\item{logFC.threshold, }{minimal logFC present in at least one of the comparisons with respect to reference covariate}
+
 \item{FDR.threshold, }{minimal FDR present in at least one of the comparisons with respect to reference covariate}
 
+\item{logCPM.threshold, }{minimal average abundance}
+
 \item{plot, }{TRUE if differentially expressed genes are represented in a plot.}
-
-\item{log2FC.threshold, }{minimal logFC present in at least one of the comparisons with respect to reference covariate}
-
-\item{log2CPM.threshold, }{minimal average abundance}
 }
 \description{
 This function executes in a docker edgeR for the idnetification of differentially expressed genes in single-cells RNAseq

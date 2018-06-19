@@ -30,7 +30,7 @@ This function executes a ubuntu docker that normalize all the permutation findin
 }
 \examples{
 \dontrun{
- clusterIdentification(group,scratch.folder,file,nCluster,separator)# 
+ clusterIdentification(group,scratch.folder,file,nCluster,separator)#
 }
 }
 \author{

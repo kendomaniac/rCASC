@@ -30,11 +30,14 @@ This function executes a docker that produces ....
 }
 \examples{
 \dontrun{
-
- lorenzFilter(group="docker",scratch.folder="path/of/scratch/folder",
-          file="path/of/data/folder/matrixName",p_value=0.05,separator='\\t')
+        system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+     library(casc)
+     system("unzip testSCumi_mm10.csv.zip")
+     #filtering low quality cells
+     lorenzFilter(group="docker",scratch.folder="/data/scratch/",
+                  file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
+                  p_value=0.05,separator=',')
 }
-
 }
 \author{
 Name Family name, myemail [at] somewhere [dot] org, Affiliation

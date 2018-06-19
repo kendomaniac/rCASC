@@ -24,9 +24,9 @@ This function convert raw counts in log format
 }
 \examples{
 \dontrun{
-    system("wget http://130.192.119.59/public/test_R1.fastq.gz")
+    system("wget http://130.192.119.59/public/TO BE INSERTED")
     #running skeleton
-    fastqc(group="docker", data.folder=getwd())
+    counts2log(group="docker", counts.matrix, data.folder=getwd(), log.base=10, type="txt")
 }
 
 }

@@ -30,7 +30,7 @@ This function executes a ubuntu docker that produces informations about the true
 }
 \examples{
 \dontrun{
- crossLabel("sudo","/home/lucastormreig/CASC5.0/7_crossLabel/scratch/","/home/lucastormreig/CASC5.0/7_crossLabel/Data/New_Buettner",3,",")# 
+ crossLabel("docker","/home/lucastormreig/CASC5.0/7_crossLabel/scratch/","/home/lucastormreig/CASC5.0/7_crossLabel/Data/New_Buettner",3,",")#
 }
 }
 \author{

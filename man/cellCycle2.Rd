@@ -12,6 +12,8 @@ cellCycle2(group = c("sudo", "docker"), scratch.folder, file, separator, G1_a,
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
+\item{file, }{a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv"}
+
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
 \item{G1_a, }{starting point in time series for G1 phase}
@@ -27,12 +29,6 @@ cellCycle2(group = c("sudo", "docker"), scratch.folder, file, separator, G1_a,
 \item{G2M_b, }{ending point in time series for G2M phase}
 
 \item{seed, }{important parameter for reproduce the same result with the same input}
-
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
-
-\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
-
-\item{format, }{matrix count format, "csv", "txt"#' @param B, second Cluster that has to be merged}
 }
 \value{
 will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/
@@ -42,7 +38,11 @@ This function executes a ubuntu docker that associates to each cell a cell cycle
 }
 \examples{
 \dontrun{
-cellCycle(group,scratch.folder,data.folder,mainMatrix,format,separator)
+#getwd(link)
+#unzipFolder
+scratch.folder=paste(getwd(),"/scratch",sep="")
+file=paste(getwd(),"/data/annotated_Buettner.csv",sep="")
+ cellCycle2(group="docker",scratch.folder,file,separator=",",G1_a=22,G1_b=23,S_a=22,S_b=23,G2M_a=85,G2M_b=86,seed=111)
 }
 }
 \author{

@@ -1,4 +1,4 @@
-#' @title Cell Cycle 
+#' @title Cell Cycle
 #' @description This function executes a ubuntu docker that associates to each cell a cell cycle stage
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
@@ -18,7 +18,7 @@
 #' @examples
 #'\dontrun{
 #' #getwd(link)
-#' #unzipFolder 
+#' #unzipFolder
 #' scratch.folder=paste(getwd(),"/scratch",sep="")
 #' file=paste(getwd(),"/data/annotated_Buettner.csv",sep="")
 #'  cellCycle2(group="docker",scratch.folder,file,separator=",",G1_a=22,G1_b=23,S_a=22,S_b=23,G2M_a=85,G2M_b=86,seed=111)
@@ -32,7 +32,7 @@ matrixNameC=strsplit(basename(file),"\\.")[[1]]
 matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
 format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 
-  
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -40,24 +40,24 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
     cat(paste("\nIt seems that the ",data.folder, " folder does not exist\n"))
     return(2)
   }
-  
-  #storing the position of the home folder  
+
+  #storing the position of the home folder
   home <- getwd()
   setwd(data.folder)
   #initialize status
   system("echo 0 > ExitStatusFile 2>&1")
-  
+
   #testing if docker is running
   test <- dockerTest()
   if(!test){
     cat("\nERROR: Docker seems not to be installed in your system\n")
-    system("echo 10 > ExitStatusFile 2>&1") 
+    system("echo 10 > ExitStatusFile 2>&1")
     setwd(home)
     return(10)
   }
-  
 
-  
+
+
   #check  if scratch folder exist
   if (!file.exists(scratch.folder)){
     cat(paste("\nIt seems that the ",scratch.folder, " folder does not exist\n"))
@@ -70,7 +70,7 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-  #preprocess matrix and copying files 
+  #preprocess matrix and copying files
 
 if(separator=="\t"){
 separator="tab"
@@ -84,7 +84,7 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,se
   #executing the docker job
   params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/cellcycle_2 Rscript /home/main.R ",matrixName," ",format," ",separator," ",G1_a," ",G1_b," ",S_a," ",S_b," ",G2M_a," ",G2M_b," ",seed,sep="")
 resultRun <- runDocker(group=group, params=params)
-  
+
   #waiting for the end of the container work
   if(resultRun==0){
   #  system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
@@ -114,8 +114,8 @@ resultRun <- runDocker(group=group, params=params)
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
   system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
-  
-  
+
+
   #Copy result folder
    cat("Copying Result Folder")
   system(paste("cp ",scrat_tmp.folder,"/*.",format," ",data.folder,"/Results/",matrixName,sep=""))
@@ -129,6 +129,6 @@ resultRun <- runDocker(group=group, params=params)
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
-  #system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  #system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }

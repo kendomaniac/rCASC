@@ -98,13 +98,16 @@ indropIndex <- function(group=c("sudo","docker"), index.folder, ensembl.urlgenom
 
   system(paste("chmod 777 -R", file.path(index.folder)))
 
-  if(group=="sudo"){
-    params <- paste("--cidfile ",index.folder,"/dockerID -v ", index.folder,":/index -d docker.io/repbioinfo/indrop.2017.01 sh /bin/indropIndex.sh ", ensembl.urlgenome, " ", ensembl.urlgtf, sep="")
-    resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/indrop.2017.01", params=params)
-  }else{
-    params <- paste("--cidfile ",index.folder,"/dockerID -v ", index.folder,":/index -d docker.io/repbioinfo/indrop.2017.01 sh /bin/indropIndex.sh ", ensembl.urlgenome, " ", ensembl.urlgtf, sep="")
-    resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/indrop.2017.01", params=params)
-  }
+  params <- paste("--cidfile ",index.folder,"/dockerID -v ", index.folder,":/index -d docker.io/repbioinfo/indrop.2017.01 sh /bin/indropIndex.sh ", ensembl.urlgenome, " ", ensembl.urlgtf, sep="")
+  resultRun <- runDocker(group=group, params=params)
+
+#  if(group=="sudo"){
+#    params <- paste("--cidfile ",index.folder,"/dockerID -v ", index.folder,":/index -d docker.io/repbioinfo/indrop.2017.01 sh /bin/indropIndex.sh ", ensembl.urlgenome, " ", ensembl.urlgtf, sep="")
+#    resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/indrop.2017.01", params=params)
+#  }else{
+#    params <- paste("--cidfile ",index.folder,"/dockerID -v ", index.folder,":/index -d docker.io/repbioinfo/indrop.2017.01 sh /bin/indropIndex.sh ", ensembl.urlgenome, " ", ensembl.urlgtf, sep="")
+#    resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/indrop.2017.01", params=params)
+#  }
 
 
   if(resultRun==0){

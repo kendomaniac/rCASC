@@ -27,7 +27,7 @@ This function filter matrix raw count
 }
 \examples{
 \dontrun{
-   
+   TOO BE MADE
 }
 
 }

@@ -32,7 +32,7 @@ This function executes a ubuntu docker that create a video showing the cluster c
 }
 \examples{
 \dontrun{
- permutationMovie("sudo","/home/lucastormreig/CASC5.0/5_permutationMovie/scratch/",file,7,",",200,5)# 
+ permutationMovie("docker","/home/lucastormreig/CASC5.0/5_permutationMovie/scratch/",file,7,",",200,5)#
 }
 }
 \author{
