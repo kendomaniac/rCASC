@@ -50,7 +50,7 @@ pdf(paste(menoRiboName,"_geneIntersection.pdf",sep=""))
  #////////////////
  
  cat(paste("filtered_",menoRiboName,".",format,sep=""))
- write.table(menoRibo[,cells],paste("filtered_",menoRiboName,".",format,sep=""),sep=separator)
+ write.table(menoRibo[,cells],paste("filtered_",menoRiboName,".",format,sep=""),sep=separator,col.names=NA)
 }else{
 
 
@@ -68,7 +68,7 @@ yCoord2=colSums(b2)
 
 sorted=sort(yCoord,decreasing=TRUE,index.return=TRUE)
 menoRibo2=menoRibo[,head(sorted$ix,wf)]
- write.table(menoRibo2,paste("filtered_",menoRiboName,".",format,sep=""),sep=separator)
+ write.table(menoRibo2,paste("filtered_",menoRiboName,".",format,sep=""),sep=separator,col.names=NA)
 
  pdf(paste(menoRiboName,"_geneIntersection.pdf",sep=""))
 
