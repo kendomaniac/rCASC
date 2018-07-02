@@ -10,6 +10,8 @@
 #' @param lfn, name of the list of genes
 #' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL code.1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ensamble name you have to run SCannoByGtf before start using this script.
 #' @param status, 0 if is raw count, 1 otherwise
+#' @param b1,first break set b1 and b2 as 0 if you dont want to use some filtering on heatmap breaks
+#' @param b2,last break set b1 and b2 as 0 if you dont want to use some filtering on heatmap breaks
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return stability plot for each nCluster,two files with score information for each cell for each permutation.
@@ -18,7 +20,7 @@
 #'hfc("docker","/home/lucastormreig/scratch/","/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0",6,",","naive")#
 #'}
 #' @export
-hfc <- function(group=c("sudo","docker"), scratch.folder,file,nCluster,separator,lfn,geneNameControl=1,status){
+hfc <- function(group=c("sudo","docker"), scratch.folder,file,nCluster,separator,lfn,geneNameControl=1,status,b1,b2){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -85,7 +87,7 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,se
 system(paste("cp ",data.folder,"/",lfn,".",format," ",scrat_tmp.folder,sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/hfc Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator2," ",lfn," ",status, sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/hfc Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator2," ",lfn," ",status," ",b1," ",b2, sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
