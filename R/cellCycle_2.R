@@ -121,7 +121,7 @@ resultRun <- runDocker(group=group, params=params)
     dir.create(paste(data.folder,"/Results/",sep=""))
     dir.create(paste(data.folder,"/Results/",matrixName,sep=""))
   system(paste("cp ",scrat_tmp.folder,"/*.",format," ",data.folder,"/Results/",matrixName,sep=""))
-    system(paste("cp ",scrat_tmp.folder,"/*.",format," ",data.folder,"/Results/",sep=""))
+    system(paste("cp ",scrat_tmp.folder,"/",matrixName,".",format," ",data.folder,"/Results/",sep=""))
     system(paste("cp ",scrat_tmp.folder,"/bayesPlot.","pdf"," ",data.folder,"/Results/",matrixName,sep=""))
 
 
