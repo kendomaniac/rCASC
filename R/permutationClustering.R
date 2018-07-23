@@ -24,7 +24,7 @@
 #'  permutationClustering("docker","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",4,2,10,3,4,separator=",",logTen=0,clustering="SIMLR",perplexity=0)
 #'}
 #' @export
-permutationClustering <- function(group=c("sudo","docker"), scratch.folder,file,nPerm,permAtTime,percent,range1,range2,separator,logTen,clustering,perplexity,seed=1111){
+permutationClustering <- function(group=c("sudo","docker"), scratch.folder,file,nPerm,permAtTime,percent,range1,range2,separator,logTen,clustering,perplexity,seed=1111,rK){
 
 
   data.folder=dirname(file)
@@ -83,7 +83,7 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/
 
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationclustering Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",range1," ",range2," ",format," ",separator," ",logTen," ",clustering," ",perplexity," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationclustering Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",range1," ",range2," ",format," ",separator," ",logTen," ",clustering," "rK," ",perplexity," ",seed,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
