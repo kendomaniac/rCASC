@@ -15,6 +15,7 @@
 #' @param clustering, clustering method to use : "SIMLR" , "tSne", "griph"
 #' @param perplexity, Number of close neighbors for each point
 #' @param seed, important value to reproduce the same results with same input
+#' @param rK, 1 for rankGene algorithm 0 otherwise WARNING, very slow with this feature
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
