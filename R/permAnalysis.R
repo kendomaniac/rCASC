@@ -18,7 +18,7 @@
 #'permAnalysis("docker","path/to/scratch","path/to/data/TOTAL",3,4,",",0.8)#
 #'}
 #' @export
-permAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,range1,range2,separator,sp,clusterPermErr=0.05){
+permAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,range1,range2,separator,sp,clusterPermErr=0.05,maxDeltaConfidence,minLogMean){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -73,7 +73,7 @@ system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
 system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationanalysis Rscript /home/main.R ",matrixName," ",range1," ",range2," ",format," ",separator," ",sp," ",clusterPermErr, sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationanalysis Rscript /home/main.R ",matrixName," ",range1," ",range2," ",format," ",separator," ",sp," ",clusterPermErr," ",maxDeltaConfidence," ",minLogMean,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
