@@ -10,6 +10,8 @@
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.
 #' @param clusterPermErr, error that can be done by each permutation in cluster number depicting.Default = 0.05
+#' @param maxDeltaConfidence, max value for Delta confidence for genes feature selection
+#' @param minLogMean, min value for Log mean for genes feature selection
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return stability plot for each nCluster,two files with score information for each cell for each permutation.
