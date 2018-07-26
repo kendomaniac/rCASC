@@ -60,7 +60,7 @@
 #'
 #' @export
 
-cellranger_count <- function(group=c("sudo","docker"), id, transcriptome.folder, fastq.folder, sample, expect.cells=NULL, force.cells=NULL, nosecondary=NULL, chemistry=NULL, r1.length=NULL, r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL, indices=NULL, scratch.folder){
+cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder,  fastq.folder,  sample, expect.cells=NULL, force.cells=NULL, nosecondary=NULL, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  indices=NULL, scratch.folder){
 
   #docker image
   dockerImage="docker.io/grromano/cellranger"
@@ -112,48 +112,58 @@ cellranger_count <- function(group=c("sudo","docker"), id, transcriptome.folder,
 
 
 
-  #executing the docker job
 
-  params <- paste("--cidfile ",fastq.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", fastq.folder, ":/data -d ",dockerImage, " /bin/cellranger.sh  --id ",id," --transcriptome=",transcriptome.folder, "--sample=", sample,"/scratch"  ,sep="")
+  #executing the docker job
+  #Le directory vanno montate tutte con il -v  user:doker
+  #modifica qui /bin/checkscript.sh
+  params <- paste("--cidfile ",fastq.folder,"/dockerID -v ",transcriptome.folder,":/transcr -v ", fastq.folder, ":/data -d ",dockerImage, " /bin/cellranger count  --id=",id," --transcriptome=/transcr --fastqs=/data", sep="")
+
+  cat(params,"\n")
+
+  if(!is.null(sample)){
+
+    params<-paste(params,"--sample",sample)
+
+  }
 
   if (!is.null(expect.cells)){
-   params<-paste(params,"--expect-cell=",expect.cells)
+   params<-paste(params," --expect-cell=",expect.cells)
   }
 
   if (!is.null(force.cells)){
-   params<-paste(params,"--force-cells=",force.cells)
+   params<-paste(params," --force-cells=",force.cells)
   }
 
-  if (!is.null(noseconday)){
-   params<-paste(params,"--nosecondary=",nosecondary)
+  if (!is.null(nosecondary)){
+   params<-paste(params," --nosecondary=",nosecondary)
   }
 
   if (!is.null(chemistry)){
-   params<-paste(params,"--chemistry",chemistry)
+   params<-paste(params," --chemistry=",chemistry)
   }
 
   if (!is.null(r1.length)){
-   params<-paste(params,"--r1-length=",r1.length)
+   params<-paste(params," --r1-length=",r1.length)
   }
 
   if (!is.null(r2.length)){
-   params<-paste(params,"--r2-length",r2.length)
+   params<-paste(params," --r2-length=",r2.length)
   }
 
   if (!is.null(lanes)){
-   params<-paste(params,"--lanes=",lanes)
+   params<-paste(params," --lanes=",lanes)
   }
 
   if (!is.null(localcores)){
-   params<-paste(params,"--localcores=",localcores)
+   params<-paste(params," --localcores=",localcores)
   }
 
   if (!is.null(localmem)){
-   params<-paste(params,"--localmem=", localmem)
+   params<-paste(params," --localmem=", localmem)
   }
 
   if (!is.null(indices)){
-   params<-paste(params,"--indices=",indices)
+   params<-paste(params," --indices=",indices)
   }
 
 
