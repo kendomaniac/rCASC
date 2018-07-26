@@ -3,28 +3,29 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
 #' @param nPerm, number of permutations to perform the pValue to evaluate clustering
 #' @param permAtTime, number of permutations that can be computes in parallel
 #' @param percent, percentage of random cells that has to be removed in each permutation
-#' @param range1, first number of cluster for k means algorithm  
-#' @param range2, last number of cluster for k means algorithm 
+#' @param range1, first number of cluster for k means algorithm
+#' @param range2, last number of cluster for k means algorithm
 #' @param format, count matrix format "csv", "txt"..
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
 #' @param clustering, clustering method to use : "SIMLR" , "tSne", "griph"
 #' @param perplexity, Number of close neighbors for each point
 #' @param seed, important value to reproduce the same results with same input
+#' @param rK, 1 for rankGene algorithm 0 otherwise WARNING, very slow with this feature
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.  
+#' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
 #' @examples
-#'\dontrun{
-#'  permutationClustering("sudo","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",4,2,10,3,4,",0,"SIMLR",0)# 
+#' \dontrun{
+#'  permutationClustering("docker","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",4,2,10,3,4,separator=",",logTen=0,clustering="SIMLR",perplexity=0)
 #'}
 #' @export
-permutationClustering <- function(group=c("sudo","docker"), scratch.folder,file,nPerm,permAtTime,percent,range1,range2,separator,logTen,clustering,perplexity,seed=1111){
+permutationClustering <- function(group=c("sudo","docker"), scratch.folder,file,nPerm,permAtTime,percent,range1,range2,separator,logTen,clustering,perplexity,seed=1111,rK){
 
 
   data.folder=dirname(file)
@@ -33,7 +34,7 @@ matrixNameC=strsplit(basename(file),"\\.")[[1]]
 matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
 format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 
-  
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -41,24 +42,24 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
     cat(paste("\nIt seems that the ",data.folder, " folder does not exist\n"))
     return(2)
   }
-  
-  #storing the position of the home folder  
+
+  #storing the position of the home folder
   home <- getwd()
   setwd(data.folder)
   #initialize status
   system("echo 0 > ExitStatusFile 2>&1")
-  
+
   #testing if docker is running
   test <- dockerTest()
   if(!test){
     cat("\nERROR: Docker seems not to be installed in your system\n")
-    system("echo 10 > ExitStatusFile 2>&1") 
+    system("echo 10 > ExitStatusFile 2>&1")
     setwd(home)
     return(10)
   }
-  
 
-  
+
+
   #check  if scratch folder exist
   if (!file.exists(scratch.folder)){
     cat(paste("\nIt seems that the ",scratch.folder, " folder does not exist\n"))
@@ -71,7 +72,7 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-  #preprocess matrix and copying files 
+  #preprocess matrix and copying files
 
 if(separator=="\t"){
 separator="tab"
@@ -83,10 +84,10 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/
 
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationclustering Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",range1," ",range2," ",format," ",separator," ",logTen," ",clustering," ",perplexity," ",seed,sep="")
- 
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationclustering Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",range1," ",range2," ",format," ",separator," ",logTen," ",clustering," ",rK," ",perplexity," ",seed,sep="")
+
 resultRun <- runDocker(group=group, params=params)
-  
+
   #waiting for the end of the container work
   if(resultRun==0){
     #system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
@@ -116,8 +117,8 @@ resultRun <- runDocker(group=group, params=params)
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
   system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
-  
-  
+
+
   #Copy result folder
   cat("Copying Result Folder")
   system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results",sep=""))
@@ -127,6 +128,6 @@ resultRun <- runDocker(group=group, params=params)
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
-  #system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  #system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }

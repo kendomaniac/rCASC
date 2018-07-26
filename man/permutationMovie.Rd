@@ -4,27 +4,25 @@
 \alias{permutationMovie}
 \title{Permutation Movie}
 \usage{
-permutationMovie(group = c("sudo", "docker"), scratch.folder, data.folder,
-  matrixName, nCluster, format, separator, framePP, permutationNumber)
+permutationMovie(group = c("sudo", "docker"), scratch.folder, file, nCluster,
+  separator, framePP, permutationNumber)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
-
-\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
-
-\item{nCluster, }{number of Cluster used in Kmeans to generate the clusters that you want to merge}
-
-\item{format, }{count matrix format "csv", "txt"..}
-
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
 \item{framePP, }{Number of frame for each permutation}
 
 \item{permutationNumber, }{Number of random permutation,have to be less or the same then the total permutation}
+
+\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
+
+\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
+
+\item{format, }{count matrix format "csv", "txt"..}
 }
 \value{
 Csv file with correct cluster name
@@ -34,13 +32,7 @@ This function executes a ubuntu docker that create a video showing the cluster c
 }
 \examples{
 \dontrun{
- system("wget http://130.192.119.59/public/permutationmovie.zip")
- unzip("permutationmovie.zip")
- setwd("./permutationmovie")
- library("CASC")
- permutationMovie("docker",scratch.folder="/data/scratch", data.folder=getwd(),
-        matrixName="lorenz_Buettner", nCluster=4, format="csv", separator=",",
-        framePP=200, permutationNumber=3)
+ permutationMovie("docker","/home/lucastormreig/CASC5.0/5_permutationMovie/scratch/",file,7,",",200,5)#
 }
 }
 \author{

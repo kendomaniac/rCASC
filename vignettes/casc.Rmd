@@ -36,7 +36,7 @@ and the second made to analyze counts for the identification of cell sub-populat
 
 inDrop was originally pulished in Cell 161, 1187–1201 (2015). Then, two year after that, the authors published the detailed protocol in Nature Protocols 12, 44–73 (2017), which has different primer design comparing to the orginal paper. 
 
-![inDrop library structure](../inst/img/indrop_v2.jpg)
+![inDrop library structure](../inst/img/indrop_v2.jpeg)
 
 The workflow shown here is based on the protocol in Nature Protocols 12, 44–73 (2017), which seems to be the version 2 of the inDrop technology. According to the inDrop github page, there is a version 3, but the oligos and library structures are exactly the same as version 2, except the sequencing mode changed.
 In version 2, three different reads are generated: 
@@ -191,9 +191,6 @@ scannobyGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_t
 
 ```
 
-![Protein coding biotype](../inst/img/all.jpg)
-
-The above figure shows in red only protein coding biotype.
 
 The main function of mitochondria is to produce energy through aerobic respiration. The number of mitochondria a cell possesses depends on its metabolic demands. This might affect clustering favoring the separation between active and dormient cells with respect to functional differences between subpopulations.
 *scannobyGtf* allows also the removal of mitocondrial genes.
@@ -302,7 +299,7 @@ scnorm(group="docker", data.folder=getwd(),counts.matrix="example_UMI.txt",
 
 The output is file, *discarded_genes.txt*, which contains the discarded genes and a tab delimited file containing the normalized data, with the prefix *normalized_*.
 
-![SCnorm effect.](../inst/img/scnorm.jpg)
+![SCnorm effect.](../inst/img/scnorm.jpeg)
 
 #### scone
 

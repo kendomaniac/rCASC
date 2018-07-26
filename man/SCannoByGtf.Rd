@@ -4,27 +4,21 @@
 \alias{scannobyGtf}
 \title{Annotating single cell counts table using ENSEMBL gtf and refGenome CRAN package}
 \usage{
-scannobyGtf(group = c("docker", "sudo"), data.folder = getwd(),
-  counts.table, gtf.name, biotype = NULL, mt = c(TRUE, FALSE),
-  ribo.proteins = c(TRUE, FALSE), file.type = c("txt", "csv"),
-  umiXgene = 3)
+scannobyGtf(group = c("docker", "sudo"), file, gtf.name, biotype = NULL,
+  mt = c(TRUE, FALSE), ribo.proteins = c(TRUE, FALSE), umiXgene = 3)
 }
 \arguments{
 \item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}
 
-\item{data.folder, }{a character string indicating where counts file is located}
-
-\item{counts.table, }{a character string indicating the counts table file}
+\item{file, }{a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv"}
 
 \item{gtf.name, }{a character string indicating the ENSEMBL gtf file}
 
 \item{biotype, }{a character string the biotypes of interest}
 
-\item{mt, }{a boolean to define if mitochondrial genes have to be removed, FALSE mean that mt genes are removed}
+\item{mt, }{a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed}
 
 \item{ribo.proteins, }{a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed}
-
-\item{file.type, }{type of file: txt tab separated columns csv comma separated columns}
 
 \item{umiXgene, }{a integer defining how many UMI are required to call a gene as present. default: 3}
 }
@@ -36,18 +30,20 @@ This function executes the docker container annotate.1, where refGenome is used 
 }
 \examples{
 \dontrun{
-    system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
-    library(casc)
-    #filtering low quality cells
-    lorenzFilter(group="docker",scratch.folder="/data/scratch/",
-                 data.folder=getwd(),matrixName="filtered_testSCumi_mm10",
-                 p_value=0.05,format="txt",separator='\\t')
-    #running annotation and removal of mit and ribo proteins genes
-    #download mouse GTF for mm10
-    system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
-    scannobyGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
-                  gtf.name="Mus_musculus.GRCm38.92.gtf",
-                  biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="txt", umiXgene=3)
+        system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+     library(casc)
+     system("unzip testSCumi_mm10.csv.zip")
+     #filtering low quality cells
+     lorenzFilter(group="docker",scratch.folder="/data/scratch/",
+                  file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
+                  p_value=0.05,separator=',')
+     #running annotation and removal of mit and ribo proteins genes
+     #download mouse GTF for mm10
+     system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
+     system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
+     scannobyGtf(group="docker", file=paste(getwd(),"lorenz_testSCumi_mm10.csv",sep="/"),
+                   gtf.name="Mus_musculus.GRCm38.92.gtf",
+biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
 }
 
 }

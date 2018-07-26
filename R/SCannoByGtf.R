@@ -27,7 +27,7 @@
 #'      system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
 #'      scannobyGtf(group="docker", file=paste(getwd(),"lorenz_testSCumi_mm10.csv",sep="/"),
 #'                    gtf.name="Mus_musculus.GRCm38.92.gtf",
-#' biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3) 
+#' biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
 
 #' }
 #'
@@ -35,7 +35,7 @@
 scannobyGtf <- function(group=c("docker","sudo"),file, gtf.name,
                         biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), umiXgene=3){
 
-  
+
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
@@ -43,9 +43,9 @@ counts.table=paste(matrixNameC[seq(1,positions-1)],collapse="")
   matrixName=counts.table
 file.type=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 scratch.folder=data.folder
-  counts.table=paste(counts.table,".",file.type,sep="") 
- 
-  
+  counts.table=paste(counts.table,".",file.type,sep="")
+
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -53,42 +53,43 @@ scratch.folder=data.folder
     cat(paste("\nIt seems that the ",data.folder, " folder does not exist\n"))
     return(2)
   }
-  
-  #storing the position of the home folder  
+
+  #storing the position of the home folder
   home <- getwd()
   setwd(data.folder)
   #initialize status
   system("echo 0 > ExitStatusFile 2>&1")
-  
+
   #testing if docker is running
   test <- dockerTest()
   if(!test){
     cat("\nERROR: Docker seems not to be installed in your system\n")
-    system("echo 10 > ExitStatusFile 2>&1") 
+    system("echo 10 > ExitStatusFile 2>&1")
     setwd(home)
     return(10)
   }
-  
 
-  
+
+
   #check  if scratch folder exist
-  if (!file.exists(scratch.folder)){
-    cat(paste("\nIt seems that the ",scratch.folder, " folder does not exist\n"))
-    system("echo 3 > ExitStatusFile 2>&1")
+#  if (!file.exists(scratch.folder)){
+#    cat(paste("\nIt seems that the ",scratch.folder, " folder does not exist\n"))
+#    system("echo 3 > ExitStatusFile 2>&1")
     setwd(data.folder)
-    return(3)
-  }
+ #   return(3)
+ # }
   tmp.folder <- gsub(":","-",gsub(" ","-",date()))
   scrat_tmp.folder=file.path(scratch.folder, tmp.folder)
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
-  cat("\ncreating a folder in scratch folder\n")
-  dir.create(file.path(scrat_tmp.folder))
-  #preprocess matrix and copying files 
+ # cat("\ncreating a folder in scratch folder\n")
+  #dir.create(file.path(scrat_tmp.folder))
+  #preprocess matrix and copying files
 
   #executing the docker job
  params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type, sep="")
-resultRun <- runDocker(group=group, params=params)
-  
+
+  resultRun <- runDocker(group=group, params=params)
+
   #waiting for the end of the container work
   if(resultRun==0){
     cat("\nGTF based annotation is finished is finished\n")
@@ -134,9 +135,9 @@ resultRun <- runDocker(group=group, params=params)
     points(log10(umi.sum0 + 1), genes.sum0, pch=19, cex=0.2, col="blue")
     points(log10(umi.sum + 1), genes.sum, pch=19, cex=0.2, col="red")
     legend("topleft",legend=c("All","Retained & annotated"), pch=c(15,15), col=c("blue", "red"))
-    
+
     #/////////////////////////////////////////////
-    
+
 xCoord=log10(colSums(tmp))
 b=tmp
 b[b<3]=0
@@ -151,18 +152,18 @@ b2[b2>=3]=1
 yCoord2=colSums(b2)
 
 
- plot(yCoord2,yCoord2-yCoord,cex=0.2,pch=19,col="purple",xlab="# of genes", ylab="genesWMT&rib - genes-MT-RB")
+ plot(yCoord,yCoord2-yCoord,cex=0.2,pch=19,col="purple",xlab="# of genes", ylab="genesWMT&rib - genes-MT-RB")
 
-    
-    
-    
+
+
+
     #////////////////////////////////////////////////
     dev.off()
   }
 
   cat("\nannotated_genes.pdf is ready\n")
-  
-  
+
+
   #running time 2
   ptm <- proc.time() - ptm
   dir <- dir(data.folder)
@@ -188,16 +189,18 @@ yCoord2=colSums(b2)
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
   system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
-  
-  
 
-  
+
+
+
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
-  system(paste("rm -R ",scrat_tmp.folder))
+ # system(paste("rm -R ",scrat_tmp.folder))
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
- # system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+ # system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
+  #rm(list=ls())
+  #gc()
 }

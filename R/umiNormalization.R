@@ -27,13 +27,16 @@ umiNorm <- function(group=c("sudo","docker"), data.folder=getwd(), counts.matrix
   }
   setwd(data.folder)
 
-  if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scone.2018.01 Rscript /bin/scone.R ",counts.matrix," ", outputName," ", normMethod, sep="")
-    resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/scone.2018.01", params=params)
-  }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scone.2018.01 Rscript /bin/scone.R ",counts.matrix," ", outputName," ",normMethod, sep="")
-    resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/scone.2018.01", params=params)
-  }
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scone.2018.01 Rscript /bin/scone.R ",counts.matrix," ", outputName," ", normMethod, sep="")
+  resultRun <- runDocker(group=group, params=params)
+
+#  if(group=="sudo"){
+#    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scone.2018.01 Rscript /bin/scone.R ",counts.matrix," ", outputName," ", normMethod, sep="")
+#    resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/scone.2018.01", params=params)
+#  }else{
+#    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scone.2018.01 Rscript /bin/scone.R ",counts.matrix," ", outputName," ",normMethod, sep="")
+#    resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/scone.2018.01", params=params)
+#  }
 
   if(resultRun==0){
     cat("\nScone is finished\n")

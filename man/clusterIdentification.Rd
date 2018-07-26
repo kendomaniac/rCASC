@@ -4,23 +4,23 @@
 \alias{clusterIdentification}
 \title{Cluster identification}
 \usage{
-clusterIdentification(group = c("sudo", "docker"), scratch.folder,
-  data.folder, matrixName, nCluster, format, separator)
+clusterIdentification(group = c("sudo", "docker"), scratch.folder, file,
+  nCluster, separator)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
+\item{nCluster, }{which nCluster ins interesting to use for this analysis}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
 \item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
 
 \item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
 
-\item{nCluster, }{number of Cluster used in Kmeans to generate the clusters that you want to merge}
-
 \item{format, }{count matrix format "csv", "txt"..}
-
-\item{separator, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
 Csv file with correct cluster name
@@ -30,14 +30,8 @@ This function executes a ubuntu docker that normalize all the permutation findin
 }
 \examples{
 \dontrun{
- system("wget http://130.192.119.59/public/clusteridentification.zip")
- unzip("clusteridentification.zip")
- setwd("./clusteridentification")
- library("CASC")
- clusterIdentification("docker",scratch.folder="/data/scratch", data.folder=getwd(),
-         matrixName="lorenz_Buettner", nCluster=4, format="csv", separator=",")
+ clusterIdentification(group,scratch.folder,file,nCluster,separator)#
 }
-
 }
 \author{
 Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino

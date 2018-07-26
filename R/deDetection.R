@@ -4,10 +4,11 @@
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param counts.table, a character string indicating the counts table file. IMPORTANT in the header of the file the covariate group MUST be associated to the column name using underscore, e.g. cell1_cov1
 #' @param file.type, type of file: txt tab separated columns csv comma separated columns
-#' @param log2FC.threshold, minimal logFC present in at least one of the comparisons with respect to reference covariate
+#' @param logFC.threshold, minimal logFC present in at least one of the comparisons with respect to reference covariate
 #' @param FDR.threshold, minimal FDR present in at least one of the comparisons with respect to reference covariate
-#' @param log2CPM.threshold,  minimal average abundance
+#' @param logCPM.threshold,  minimal average abundance
 #' @param plot, TRUE if differentially expressed genes are represented in a plot.
+#' @param shrinking.threshold, log2FC shrinking parameter that is used to generate cluster specific signatures, more info in the CASC vignette.
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino, Italy
 #'
 #' @examples
@@ -29,12 +30,33 @@
 #'
 #'     deDetection(group="docker", data.folder=getwd(),
 #'                counts.table="annotated_lorenz_buettner_counts_noSymb.txt",
-#'                file.type="txt", logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4)
+#'                file.type="txt", logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, shrinking.threshold=1, plot=TRUE)
 #' }
 #'
 #' @export
-deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, file.type=c("txt","csv"), logFC.threshold=1, FDR.threshold, logCPM.threshold=4, plot=c(TRUE, FALSE)){
+deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, file.type=c("txt","csv"), logFC.threshold=1, FDR.threshold, logCPM.threshold=4, plot=c(TRUE, FALSE), shrinking.threshold=1){
 
+  .unique.signature <- function(de.mod){
+    tmp <- apply(de.mod, 1, function(x){
+      if(length(which(x >= 1)) == 1){
+        return(1)
+      }else{
+        return(0)
+      }
+    })
+  }
+
+
+  .clusterSignature <- function(de.file, threshold=1){
+    de.mod <- read.table(de.file, sep="\t", header=T, row.names = 1, stringsAsFactors = F)
+    last <- dim(de.mod)[2]
+    my.last <- (last - 4)
+    de.mod <- de.mod[,1:my.last]
+    de.mod1 <- .cleaning(de.mod)
+    which.mod1 <- .unique.signature(de.mod1)
+    de.mod1w <- de.mod1[which(which.mod1 == 1),]
+    write.table(de.mod1w,paste("signature_",de.file), sep="\t", col.names=NA)
+  }
 
 
 
@@ -91,6 +113,8 @@ deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, fil
   	  dev.off()
  }
 write.table(tmp, paste("filtered_DE_", counts.table, sep=""), sep="\t", col.names=NA)
+
+.clusterSignature(paste("filtered_DE_", counts.table, sep=""), threshold=threshold)
 
   #running time 2
   ptm <- proc.time() - ptm

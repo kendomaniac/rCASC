@@ -3,25 +3,22 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
-#' @return fastqc html file and fastqc data in z zipped archive
+#'
 #' @examples
 #' \dontrun{
 #'     system("wget http://130.192.119.59/public/test_R1.fastq.gz")
-#'     #running skeleton
+#'     #running fastqc
 #'     fastqc(group="docker", data.folder=getwd())
 #' }
 #'
 #' @export
 fastqc <- function(group=c("sudo","docker"), data.folder){
 
-  #testing if docker is running
-  test <- dockerTest()
-  if(!test){
-    cat("\nERROR: Docker seems not to be installed in your system\n")
-    return()
-  }
+
   #storing the position of the home folder
   home <- getwd()
+
+
 
   #running time 1
   ptm <- proc.time()
@@ -30,17 +27,29 @@ fastqc <- function(group=c("sudo","docker"), data.folder){
     cat(paste("\nIt seems that the ",data.folder, " folder does not exist\n"))
     return(2)
   }
+
   setwd(data.folder)
-  #executing the docker job
-  if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -d docker.io/repbioinfo/r340.2017.01 sh /bin/fastqc.sh", sep="")
-    resultRun <- runDocker(group="sudo",container="docker.io/repbioinfo/r340.2017.01", params=params)
-  }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -d docker.io/repbioinfo/r340.2017.01 sh /bin/fastqc.sh", sep="")
-    resultRun <- runDocker(group="docker",container="docker.io/repbioinfo/r340.2017.01", params=params)
+
+  #initialize status
+  system("echo 0 > ExitStatusFile 2>&1")
+
+
+  #testing if docker is running
+  test <- dockerTest()
+  if(!test){
+    cat("\nERROR: Docker seems not to be installed in your system\n")
+    system("echo 10 > ExitStatusFile 2>&1")
+    setwd(home)
+    return(10)
   }
+
+
+  #executing the docker job
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -d docker.io/repbioinfo/r340.2017.01 bash /bin/fastqc.sh", sep="")
+ resultRun <- runDocker(group=group, params=params)
+
   #waiting for the end of the container work
-  if(resultRun=="false"){
+  if(resultRun==0){
     cat("\nFastQC analysis is finished\n")
   }
   #running time 2

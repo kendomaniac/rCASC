@@ -4,23 +4,23 @@
 \alias{crossLabel}
 \title{Cross Label}
 \usage{
-crossLabel(group = c("sudo", "docker"), scratch.folder, data.folder,
-  matrixName, nCluster, format, separator)
+crossLabel(group = c("sudo", "docker"), scratch.folder, file, nCluster,
+  separator, finalName)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
 \item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
 
 \item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
 
-\item{nCluster, }{number of Cluster used in Kmeans to generate the clusters that you want to merge}
+\item{format, }{count matrix format "csv", "txt"..}
 
-\item{format, }{count matrix format "csv", "txt".}
-
-\item{separator, }{separator used in count file, e.g. '\\t', ','}
+\item{fileName, }{name of the result label plot}
 }
 \value{
 Csv file with cluster component informations and dataPlot and pie chart based on true Label
@@ -28,17 +28,9 @@ Csv file with cluster component informations and dataPlot and pie chart based on
 \description{
 This function executes a ubuntu docker that produces informations about the true clusters
 }
-\note{
-In the Results folder a file with the name XXXX_Label.csv, where XXXX is the name of count matrix, must be present.
-}
 \examples{
 \dontrun{
- system("wget http://130.192.119.59/public/crosslabel.zip")
- unzip("crosslabel.zip")
- setwd("./crosslabel")
- library("CASC")
- crossLabel("docker",scratch.folder="/data/scratch", data.folder=getwd(),
-      matrixName"lorenz_Buettner", nCluster=4, format="csv", separator=",")
+ crossLabel("docker","/home/lucastormreig/CASC5.0/7_crossLabel/scratch/","/home/lucastormreig/CASC5.0/7_crossLabel/Data/New_Buettner",3,",")#
 }
 }
 \author{

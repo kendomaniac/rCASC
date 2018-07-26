@@ -1,18 +1,18 @@
 #' @title Cross Label
-#' @description This function executes a ubuntu docker that produces informations about the true clusters 
+#' @description This function executes a ubuntu docker that produces informations about the true clusters
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc. 
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
 #' @param format, count matrix format "csv", "txt"..
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param fileName, name of the result label plot
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return Csv file with cluster component informations and dataPlot and pie chart based on true Label   
+#' @return Csv file with cluster component informations and dataPlot and pie chart based on true Label
 #' @examples
 #'\dontrun{
-#'  crossLabel("sudo","/home/lucastormreig/CASC5.0/7_crossLabel/scratch/","/home/lucastormreig/CASC5.0/7_crossLabel/Data/New_Buettner",3,",")# 
+#'  crossLabel("docker","/home/lucastormreig/CASC5.0/7_crossLabel/scratch/","/home/lucastormreig/CASC5.0/7_crossLabel/Data/New_Buettner",3,",")#
 #'}
 #' @export
 crossLabel <- function(group=c("sudo","docker"), scratch.folder,file,nCluster,separator,finalName){
@@ -25,7 +25,7 @@ matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
 format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 
 
-  
+
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -33,24 +33,24 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
     cat(paste("\nIt seems that the ",data.folder, " folder does not exist\n"))
     return(2)
   }
-  
-  #storing the position of the home folder  
+
+  #storing the position of the home folder
   home <- getwd()
   setwd(data.folder)
   #initialize status
   system("echo 0 > ExitStatusFile 2>&1")
-  
+
   #testing if docker is running
   test <- dockerTest()
   if(!test){
     cat("\nERROR: Docker seems not to be installed in your system\n")
-    system("echo 10 > ExitStatusFile 2>&1") 
+    system("echo 10 > ExitStatusFile 2>&1")
     setwd(home)
     return(10)
   }
-  
 
-  
+
+
   #check  if scratch folder exist
   if (!file.exists(scratch.folder)){
     cat(paste("\nIt seems that the ",scratch.folder, " folder does not exist\n"))
@@ -63,9 +63,9 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
-  #preprocess matrix and copying files 
+  #preprocess matrix and copying files
 
-  
+
 if(separator=="\t"){
 separator="tab"
 }
@@ -75,9 +75,9 @@ system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
 
   #executing the docker job
  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/crosslabel Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator," ",finalName,sep="")
- 
+
 resultRun <- runDocker(group=group, params=params)
-  
+
   #waiting for the end of the container work
   if(resultRun==0){
   #  system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
@@ -107,8 +107,8 @@ resultRun <- runDocker(group=group, params=params)
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
   system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
-  
-  
+
+
   #Copy result folder
   cat("Copying Result Folder")
   system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results/",sep=""))
@@ -118,6 +118,6 @@ resultRun <- runDocker(group=group, params=params)
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
-  #system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  #system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }

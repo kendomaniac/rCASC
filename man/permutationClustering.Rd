@@ -4,18 +4,14 @@
 \alias{permutationClustering}
 \title{Permutations and Clustering}
 \usage{
-permutationClustering(group = c("sudo", "docker"), scratch.folder,
-  data.folder, matrixName, nPerm, permAtTime, percent, range1, range2, format,
-  separator, logTen, clustering, perplexity, seed = 1111)
+permutationClustering(group = c("sudo", "docker"), scratch.folder, file,
+  nPerm, permAtTime, percent, range1, range2, separator, logTen, clustering,
+  perplexity, seed = 1111)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
-
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
-
-\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
 
 \item{nPerm, }{number of permutations to perform the pValue to evaluate clustering}
 
@@ -27,8 +23,6 @@ permutationClustering(group = c("sudo", "docker"), scratch.folder,
 
 \item{range2, }{last number of cluster for k means algorithm}
 
-\item{format, }{count matrix format "csv", "txt"..}
-
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
 \item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
@@ -38,6 +32,12 @@ permutationClustering(group = c("sudo", "docker"), scratch.folder,
 \item{perplexity, }{Number of close neighbors for each point}
 
 \item{seed, }{important value to reproduce the same results with same input}
+
+\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
+
+\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
+
+\item{format, }{count matrix format "csv", "txt"..}
 }
 \value{
 VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
@@ -47,7 +47,7 @@ This function executes a ubuntu docker that produces a specific number of permut
 }
 \examples{
 \dontrun{
- permutationClustering("sudo","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/","TOTAL",4,2,10,3,4,"csv",",",0,"SIMLR",0)# 
+ permutationClustering("docker","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",4,2,10,3,4,separator=",",logTen=0,clustering="SIMLR",perplexity=0)
 }
 }
 \author{

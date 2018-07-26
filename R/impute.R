@@ -20,15 +20,19 @@
 #' @export
 impute <- function(group=c("sudo","docker"), data.folder, counts.matrix, drop.thre, cores, refining=FALSE){
 
-  if(group=="sudo"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/r340.2017.01 Rscript /bin/scimpute.R ",counts.matrix," ",drop.thre," ",cores," ", refining, sep="")
-    runDocker(group="sudo",container="docker.io/repbioinfo/r340.2017.01", params=params)
-  }else{
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/r340.2017.01 Rscript /bin/scimpute.R ",counts.matrix," ",drop.thre," ",cores," ", refining, sep="")
-    runDocker(group="docker",container="docker.io/repbioinfo/r340.2017.01", params=params)
-  }
 
-  if(resultRun=="false"){
+  resultRun <- runDocker(group=group, params=params)
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/r340.2017.01 Rscript /bin/scimpute.R ",counts.matrix," ",drop.thre," ",cores," ", refining, sep="")
+
+#  if(group=="sudo"){
+#    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/r340.2017.01 Rscript /bin/scimpute.R ",counts.matrix," ",drop.thre," ",cores," ", refining, sep="")
+#    runDocker(group="sudo",container="docker.io/repbioinfo/r340.2017.01", params=params)
+#  }else{
+#    params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/r340.2017.01 Rscript /bin/scimpute.R ",counts.matrix," ",drop.thre," ",cores," ", refining, sep="")
+#    runDocker(group="docker",container="docker.io/repbioinfo/r340.2017.01", params=params)
+#  }
+
+  if(resultRun==0){
     cat("\nscImpute is finished\n")
   }
 
@@ -65,7 +69,7 @@ impute <- function(group=c("sudo","docker"), data.folder, counts.matrix, drop.th
   cat("\n\nRemoving the temporary file ....\n")
   system("rm -fR anno.info")
   system("rm -fR dockerID")
-  system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
 
 
 }
