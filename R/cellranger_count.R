@@ -112,7 +112,6 @@ cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder
 
 
 
-
   #executing the docker job
   #Le directory vanno montate tutte con il -v  user:doker
   #modifica qui /bin/checkscript.sh
