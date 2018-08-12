@@ -2,10 +2,12 @@
 #' @description This function filter your matrix count on a specific gene house keepin list
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
+#' @param file, a character string indicating the folder where input data are located and where output will be written
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 0 if is raw count, 1 otherwise
+#' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL code.1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ensamble name you have to run SCannoByGtf before start using this script.
+#' @param houseK, housekeepin genes file name 
+#' @param topCell, number of top cells ranked on houseK gene expression you would like to keep
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return return matrix filtered by the best cells that have housekeepin genes most expressed
