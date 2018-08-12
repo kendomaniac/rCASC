@@ -1,4 +1,4 @@
-#' @title houseKeep Filtering
+#' @title houseKeep
 #' @description This function filter your matrix count on a specific gene house keepin list
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
@@ -14,6 +14,7 @@
 #'housekeep("docker","/home/lucastormreig/scratch/","/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0",6,",","naive")#
 #'}
 #' @export
+
 houseKeep <- function(group=c("sudo","docker"), scratch.folder,file,separator,logTen,geneNameControl=1,houseK,topCell){
 
   data.folder=dirname(file)
