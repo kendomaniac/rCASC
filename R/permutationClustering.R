@@ -27,7 +27,7 @@
 #' @export
 permutationClustering <- function(group=c("sudo","docker"), scratch.folder,file,nPerm,permAtTime,percent,range1,range2,separator,logTen,clustering,perplexity,seed=1111,rK){
 
-#aaaa
+test=60000
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
