@@ -13,7 +13,11 @@
 #' @return return matrix filtered by the best cells that have housekeepin genes most expressed
 #' @examples
 #'\dontrun{
-#'housekeep("docker","/home/lucastormreig/scratch/","/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0",6,",","naive")#
+#' #getwd(link)
+#' #unzipFolder
+#' scratch.folder=paste(getwd(),"/scratch",sep="")
+#' file=paste(getwd(),"/data/annotated_Buettner.csv",sep="")
+#' houseKeep(group="docker",scratch.folder,file,separator=",",geneNameControl=1,window=10,seed=111)
 #'}
 #' @export
 
