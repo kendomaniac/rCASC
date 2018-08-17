@@ -2,9 +2,7 @@
 #' @description This function executes a ubuntu docker that create a video showing the cluster changing of all the cells
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
-#' @param format, count matrix format "csv", "txt"..
+#' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param framePP, Number of frame for each permutation
 #' @param permutationNumber, Number of random permutation,have to be less or the same then the total permutation
