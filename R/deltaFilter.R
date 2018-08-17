@@ -1,14 +1,14 @@
 
 #' @title Filterin
 #' @description This function filter matrix raw count
-#' @param threshold value to estimate if a gene is significatively expressed
-#' @param minDelta filtering value for the minimun difference value between genes WMT&rib and genes without MT and without RB
-#' @param minNGene filtering value for the minimun number of gene
-#' @param original matrix name without annotation
-#' @param menoRibo matrix name with annotation
-#' @param separator matrix separator value
-#' @param format matrix format
-#' @param wf ,if this parameter is setted to 0 your filtering will be minDelta and minNGene based, otherwise it will take the top wf cells with the higher number of genes significatively expressed 
+#' @param threshold, value to estimate if a gene is significatively expressed
+#' @param minDelta, filtering value for the minimun difference value between genes WMT&rib and genes without MT and without RB
+#' @param minNGene, filtering value for the minimun number of gene
+#' @param original, matrix name without annotation
+#' @param menoRibo, matrix name with annotation
+#' @param separator, matrix separator value
+#' @param format, matrix format
+#' @param wf, if this parameter is setted to 0 your filtering will be minDelta and minNGene based, otherwise it will take the top wf cells with the higher number of genes significatively expressed 
 #' @author Luca Alessandri, alessandri.luca [at] gmail [dot] com, University of Torino
 #' @return filtered matrix table
 #' @examples
