@@ -2,9 +2,8 @@
 #' @description This function executes a ubuntu docker that produces informations about the true clusters
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
-#' @param format, count matrix format "csv", "txt"..
+#' @param file, a character string indicating the path of the file, with file name and extension included
+#' @param nCluster, number of interested cluster used for analysis
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param fileName, name of the result label plot
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
