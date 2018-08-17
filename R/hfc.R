@@ -2,11 +2,9 @@
 #' @description This function generate heatmap and other plot based on clustering and on a specific gene list
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
-#' @param format, matrix count format, "csv", "txt"
-#' @param separator, separator used in count file, e.g. '\\t', ','
+#' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param nCluster, nCluster interested for the analysis
+#' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param lfn, name of the list of genes
 #' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL code.1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ensamble name you have to run SCannoByGtf before start using this script.
 #' @param status, 0 if is raw count, 1 otherwise
