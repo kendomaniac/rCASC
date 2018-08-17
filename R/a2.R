@@ -18,7 +18,7 @@
 #'
 #' @export
 
-deltaFilter2 <- function(threshold,minDelta,minNGene,original,menoRibo,separator,format,wf){
+a2 <- function(threshold,minDelta,minNGene,original,menoRibo,separator,format,wf){
 menoRiboName=menoRibo
 mainMatrix=read.table(paste(original,".",format,sep=""),sep=separator,header=TRUE,row.names=1)
 menoRibo=read.table(paste(menoRibo,".",format,sep=""),sep=separator,header=TRUE,row.names=1)
