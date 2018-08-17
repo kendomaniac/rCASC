@@ -2,11 +2,9 @@
 #' @description This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
-#' @param format, count matrix format "csv", "txt"..
-#' @param separator, separator used in count file, e.g. '\\t', ','
+#' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param nCluster, which nCluster ins interesting to use for this analysis
+#' @param separator, separator used in count file, e.g. '\\t', ','
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return Csv file with correct cluster name
