@@ -2,11 +2,9 @@
 #' @description This function analyze the data that came up from permutationClustering script.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
+#' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param range1, First number of cluster that has to be analyzed
 #' @param range2, Last number of cluster that has to be analyzed
-#' @param format, matrix count format, "csv", "txt"
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.
 #' @param clusterPermErr, error that can be done by each permutation in cluster number depicting.Default = 0.05
