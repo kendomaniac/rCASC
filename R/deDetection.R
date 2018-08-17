@@ -6,7 +6,7 @@
 #' @param file.type, type of file: txt tab separated columns csv comma separated columns
 #' @param logFC.threshold, minimal logFC present in at least one of the comparisons with respect to reference covariate
 #' @param FDR.threshold, minimal FDR present in at least one of the comparisons with respect to reference covariate
-#' @param logCPM.threshold,  minimal average abundance
+#' @param logCPM.threshold, minimal average abundance
 #' @param plot, TRUE if differentially expressed genes are represented in a plot.
 #' @param shrinking.threshold, log2FC shrinking parameter that is used to generate cluster specific signatures, more info in the CASC vignette.
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino, Italy
