@@ -5,12 +5,14 @@
 \title{hfc, heatmap for clustering}
 \usage{
 hfc(group = c("sudo", "docker"), scratch.folder, file, nCluster, separator,
-  lfn, geneNameControl = 1, status)
+  lfn, geneNameControl = 1, status, b1, b2)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
 
 \item{nCluster, }{nCluster interested for the analysis}
 
@@ -22,11 +24,9 @@ hfc(group = c("sudo", "docker"), scratch.folder, file, nCluster, separator,
 
 \item{status, }{0 if is raw count, 1 otherwise}
 
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
+\item{b1, }{first break set b1 and b2 as 0 if you dont want to use some filtering on heatmap breaks,for negative value write "/-5"}
 
-\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
-
-\item{format, }{matrix count format, "csv", "txt"}
+\item{b2, }{last break set b1 and b2 as 0 if you dont want to use some filtering on heatmap breaks,for negative value write "/-5"}
 }
 \value{
 stability plot for each nCluster,two files with score information for each cell for each permutation.

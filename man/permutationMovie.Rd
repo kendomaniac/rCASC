@@ -12,17 +12,13 @@ permutationMovie(group = c("sudo", "docker"), scratch.folder, file, nCluster,
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
 \item{framePP, }{Number of frame for each permutation}
 
 \item{permutationNumber, }{Number of random permutation,have to be less or the same then the total permutation}
-
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
-
-\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
-
-\item{format, }{count matrix format "csv", "txt"..}
 }
 \value{
 Csv file with correct cluster name

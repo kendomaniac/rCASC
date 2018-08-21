@@ -5,12 +5,15 @@
 \title{Permutation Analysis}
 \usage{
 permAnalysis(group = c("sudo", "docker"), scratch.folder, file, range1,
-  range2, separator, sp, clusterPermErr = 0.05)
+  range2, separator, sp, clusterPermErr = 0.05, maxDeltaConfidence,
+  minLogMean)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
 
 \item{range1, }{First number of cluster that has to be analyzed}
 
@@ -22,11 +25,9 @@ permAnalysis(group = c("sudo", "docker"), scratch.folder, file, range1,
 
 \item{clusterPermErr, }{error that can be done by each permutation in cluster number depicting.Default = 0.05}
 
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
+\item{maxDeltaConfidence, }{max value for Delta confidence for genes feature selection}
 
-\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
-
-\item{format, }{matrix count format, "csv", "txt"}
+\item{minLogMean, }{min value for Log mean for genes feature selection}
 }
 \value{
 stability plot for each nCluster,two files with score information for each cell for each permutation.

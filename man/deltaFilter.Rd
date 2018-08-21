@@ -8,21 +8,21 @@ deltaFilter(threshold, minDelta, minNGene, original, menoRibo, separator,
   format, wf)
 }
 \arguments{
-\item{threshold}{value to estimate if a gene is significatively expressed}
+\item{threshold, }{value to estimate if a gene is significatively expressed}
 
-\item{minDelta}{filtering value for the minimun difference value between genes WMT&rib and genes without MT and without RB}
+\item{minDelta, }{filtering value for the minimun difference value between genes WMT&rib and genes without MT and without RB}
 
-\item{minNGene}{filtering value for the minimun number of gene}
+\item{minNGene, }{filtering value for the minimun number of gene}
 
-\item{original}{matrix name without annotation}
+\item{original, }{matrix name without annotation}
 
-\item{menoRibo}{matrix name with annotation}
+\item{menoRibo, }{matrix name with annotation}
 
-\item{separator}{matrix separator value}
+\item{separator, }{matrix separator value}
 
-\item{format}{matrix format}
+\item{format, }{matrix format}
 
-\item{wf}{,if this parameter is setted to 0 your filtering will be minDelta and minNGene based, otherwise it will take the top wf cells with the higher number of genes significatively expressed}
+\item{wf, }{if this parameter is setted to 0 your filtering will be minDelta and minNGene based, otherwise it will take the top wf cells with the higher number of genes significatively expressed}
 }
 \value{
 filtered matrix table

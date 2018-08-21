@@ -12,6 +12,8 @@ clusterReorg(group = c("sudo", "docker"), scratch.folder, file, nCluster, A,
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
 \item{nCluster, }{number of Cluster used in Kmeans to generate the clusters that you want to merge}
 
 \item{A, }{first Cluster that has to be merged}
@@ -21,12 +23,6 @@ clusterReorg(group = c("sudo", "docker"), scratch.folder, file, nCluster, A,
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
 \item{sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
-
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
-
-\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
-
-\item{format, }{matrix count format, "csv", "txt"#' @param B, second Cluster that has to be merged}
 }
 \value{
 will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/

@@ -12,15 +12,11 @@ lorenzFilter(group = c("sudo", "docker"), scratch.folder, file, p_value,
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
 \item{p_value, }{threshold to be used for the filtering}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
-
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
-
-\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
-
-\item{format, }{counts file extension, "txt", "csv"}
 }
 \value{
 output will be in the same format and with the same separator of input.

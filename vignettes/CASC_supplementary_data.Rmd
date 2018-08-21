@@ -1,0 +1,145 @@
+---
+title: "CASC supplementary data"
+author: "Luca Alessandrì, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Francesca Cordero and Raffaele A Calogero"
+date: "8/21/2018"
+output: pdf_document
+
+toc: yes
+header-includes:
+- \usepackage{makeidx}
+- \makeindex
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.pos = 'h')
+```
+
+## CASC: a single cell analysis workflow designed to provide data reproducibility
+
+Because of the massive data generation given by the omics platforms the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important point to guarantee robust and reliable results to the research community [[*Nature, 6 July 2018*](https://www.nature.com/collections/prbfkwmwvz)].
+\newline
+Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the date is stored). For this reason we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [*Kulkarni et al. BMC Bioinformatics, in press*] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al. Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
+\newline
+CASC, Cluster Analysis of Single Cells, is part of the [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [[*PLoS Comp Biol. 2013*](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285)]. CASC is designed to provide a complete workflow (Figure \ref{fig:fig.1}) for cell-subpopulation discovery. 
+
+```{r fig.1, fig.cap="CASC workflow", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+
+include_graphics('../inst/img/casc_workflow.jpeg')
+
+```
+
+
+The workflow allow the direct analysis of fastq files generated with [*10X Genomics platform*](https://www.10xgenomics.com/) or [*InDrop technology*](https://1cell-bio.com/) or a count matrix having as column cell identifier and as row gene annotation in the format: gene symbol:ENSEMBL gene ID. In the following paragraphs we will describe the fuctionalities of CASC workflow.
+\newline
+
+
+## Minimal hardware requirements to run CASC
+The RAM and cores requirements are dependent on the data set under analysis, e.g. 500-600 cells can be effectively analysed using the hardware described by Beccuti [[*Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]: 32 Gb RAM and 2.6 GHz Core i7 6700HQ with 8 threads. The analysis time can be significantly improved increasing the number of cores using a multi-core achitecture system, cluster implementation of the workflow using [*swarm*](https://docs.docker.com/engine/swarm/) is under implementation. 
+
+## Installation
+
+The installation for the package is shown below.
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("devtools")
+library(devtools)
+install_github("kendomaniac/casc")
+
+# downloading the required containers
+library(casc)
+downloadContainers()
+
+
+```
+
+
+## Counts generation
+
+### inDrop seq
+
+inDrop was originally pulished by Klein [[*Cell 2015*](https://www.ncbi.nlm.nih.gov/pubmed/26000487)]. Then, two year after that, the authors published the detailed protocol in [[*Zilionis et al. Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which has different primer design comparing to the orginal paper. 
+
+```{r fig.2, fig.cap="inDrop library structure", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/indrop_v2.jpeg')
+```
+
+
+The workflow shown here is based on the protocol in Zilionis [[*Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which seems to be the version 2 of the inDrop technology. According to the [*inDrop github page*](https://github.com/indrops/indrops), there is a version 3, but the oligos and library structures are exactly the same as version 2, except the sequencing mode changed.
+
+In version 2, three different reads are generated: 
+
+```{r fig.3, fig.cap="inDrop v2", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/indropv2.jpg')
+```
+
+
+In version 3, four different reads are generated:
+
+```{r fig.4, fig.cap="inDrop v3", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/indropv3.jpg')
+```
+
+
+
+#### inDrop data analysis
+
+- **inDropseq**:
+    + Creating a reference genome for inDrop V2: **indropIndex**
+    + From fastq to UMI counts using inDrop workflow: **indropCounts**
+
+
+The function *indropIndex* is available to generate the index files required for reads mapping and annotation.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+library(casc)
+#running indropCounts index build
+indropIndex(group="docker", index.folder=getwd(),
+ ensembl.urlgenome="ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
+ensembl.urlgtf="ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.gtf.gz")
+
+```
+
+\fontsize{10}{10}\selectfont
+The function *indropCounts* starts from inDrop V2 library fastqs and generates UMI counts.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz")
+system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
+library(casc)
+indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
+        index.folder="/data/genomes/indropMm10", sample.name="testMm", split.affixes="S0_L001",
+        bowtie.index.prefix="genome", M=10, U=2, D=400, low.complexity.mask="False")
+
+```
+\fontsize{10}{10}\selectfont
+
+### 10XGenomics
+
+Cellranger is the 10xGenomics tool that allow thew conversion of the fastq generated from 10XGenomics platform into a count matrix. 
+
+Genome indexes can be downloaded from 10Xgenomics repository:
+```{r, echo=TRUE, eval=FALSE}
+setwd("/data/genomes/cellranger_hg38")
+#getting the hg38 human genome cellranger index 
+system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-GRCh38-2.1.0.tar.gz")
+setwd("/data/genomes/cellranger_hg19")
+#getting the hg19 human genome cellranger index
+system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-2.1.0.tar.gz")
+setwd("/data/genomes/cellranger_mm10")
+#getting the mm10 mouse genome cellranger index
+system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-mm10-2.1.0.tar.gz")
+setwd("/data/genomes/cellranger_hg19mm10")
+#getting the human and mouse cellranger index
+system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
+```
+
+ 
+

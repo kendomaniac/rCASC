@@ -6,12 +6,14 @@
 \usage{
 permutationClustering(group = c("sudo", "docker"), scratch.folder, file,
   nPerm, permAtTime, percent, range1, range2, separator, logTen, clustering,
-  perplexity, seed = 1111)
+  perplexity, seed = 1111, rK)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
 
 \item{nPerm, }{number of permutations to perform the pValue to evaluate clustering}
 
@@ -33,11 +35,7 @@ permutationClustering(group = c("sudo", "docker"), scratch.folder, file,
 
 \item{seed, }{important value to reproduce the same results with same input}
 
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
-
-\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
-
-\item{format, }{count matrix format "csv", "txt"..}
+\item{rK, }{1 for rankGene algorithm 0 otherwise WARNING, very slow with this feature}
 }
 \value{
 VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
