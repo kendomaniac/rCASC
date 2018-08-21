@@ -66,7 +66,7 @@
 #'
 #' @export
 
-cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder,  fastq.folder,  sample, expect.cells=NULL, force.cells=NULL, nosecondary=NULL, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  indices=NULL, scratch.folder){
+cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder,  fastq.folder,  sample, expect.cells=NULL, force.cells=NULL, nosecondary=FALSE, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  indices=NULL, scratch.folder){
 
   #docker image
   dockerImage="docker.io/grromano/cellranger"
@@ -123,7 +123,7 @@ cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder
   #modifica qui /bin/checkscript.sh
   params <- paste("--cidfile ",fastq.folder,"/dockerID -v ",transcriptome.folder,":/transcr -v ", fastq.folder, ":/data -d ",dockerImage, " /bin/cellranger count  --id=",id," --transcriptome=/transcr --fastqs=/data", sep="")
 
-  cat(params,"\n")
+
 
   if(!is.null(sample)){
 
@@ -139,8 +139,8 @@ cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder
    params<-paste(params," --force-cells=",force.cells)
   }
 
-  if (!is.null(nosecondary)){
-   params<-paste(params," --nosecondary=",nosecondary)
+  if (nosecondary){
+   params<-paste(params," --nosecondary")
   }
 
   if (!is.null(chemistry)){
@@ -171,6 +171,7 @@ cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder
    params<-paste(params," --indices=",indices)
   }
 
+  cat(params,"\n")
 
   #Run docker
   resultRun <- runDocker(group=group, params=params)

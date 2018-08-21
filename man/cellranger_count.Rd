@@ -6,7 +6,7 @@
 \usage{
 cellranger_count(group = c("sudo", "docker"), id, transcriptome.folder,
   fastq.folder, sample, expect.cells = NULL, force.cells = NULL,
-  nosecondary = NULL, chemistry = NULL, r1.length = NULL,
+  nosecondary = FALSE, chemistry = NULL, r1.length = NULL,
   r2.length = NULL, lanes = NULL, localcores = NULL, localmem = NULL,
   indices = NULL, scratch.folder)
 }
