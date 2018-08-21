@@ -47,10 +47,16 @@
 #'
 #' @examples
 #' \dontrun{
+#' home <- getwd()
 #' library(casc)
-#' downloadContainers(group="docker","?????")
-#' system("wget ??????")
-#' AGGIUNGERE ESEMPIO CON POSSIBILITA' DI SCARICARE DATO
+#' downloadContainers()
+#' setwd("/data/genomes/cellranger_hg19mm10")
+#' #getting the human and mouse cellranger index
+#' system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
+#' setwd(home)
+#' # 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
+#' system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
+#' cellranger_count(group="docker",  id="hgmm", transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder="/data/test_cell_ranger/fastqs",  sample="hgmm", expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
 #'
 #'
 #'
