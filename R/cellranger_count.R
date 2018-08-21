@@ -127,7 +127,7 @@ cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder
 
   if(!is.null(sample)){
 
-    params<-paste(params,"--sample=",sample, sep="")
+    params<-paste(params," --sample=",sample, sep="")
 
   }
 
