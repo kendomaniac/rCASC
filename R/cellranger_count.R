@@ -127,48 +127,48 @@ cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder
 
   if(!is.null(sample)){
 
-    params<-paste(params,"--sample=",sample)
+    params<-paste(params,"--sample=",sample, sep="")
 
   }
 
   if (!is.null(expect.cells)){
-   params<-paste(params," --expect-cell=",expect.cells)
+   params<-paste(params," --expect-cell=",expect.cells, sep="")
   }
 
   if (!is.null(force.cells)){
-   params<-paste(params," --force-cells=",force.cells)
+   params<-paste(params," --force-cells=",force.cells, sep="")
   }
 
   if (nosecondary){
-   params<-paste(params," --nosecondary")
+   params<-paste(params," --nosecondary", sep="")
   }
 
   if (!is.null(chemistry)){
-   params<-paste(params," --chemistry=",chemistry)
+   params<-paste(params," --chemistry=",chemistry, sep="")
   }
 
   if (!is.null(r1.length)){
-   params<-paste(params," --r1-length=",r1.length)
+   params<-paste(params," --r1-length=",r1.length, sep="")
   }
 
   if (!is.null(r2.length)){
-   params<-paste(params," --r2-length=",r2.length)
+   params<-paste(params," --r2-length=",r2.length, sep="")
   }
 
   if (!is.null(lanes)){
-   params<-paste(params," --lanes=",lanes)
+   params<-paste(params," --lanes=",lanes, sep="")
   }
 
   if (!is.null(localcores)){
-   params<-paste(params," --localcores=",localcores)
+   params<-paste(params," --localcores=",localcores, sep="")
   }
 
   if (!is.null(localmem)){
-   params<-paste(params," --localmem=", localmem)
+   params<-paste(params," --localmem=", localmem, sep="")
   }
 
   if (!is.null(indices)){
-   params<-paste(params," --indices=",indices)
+   params<-paste(params," --indices=",indices, sep="")
   }
 
   cat(params,"\n")
