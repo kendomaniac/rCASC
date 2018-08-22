@@ -14,7 +14,7 @@
 #' @author Greta Romano, romano [dot] greta [at] gmail [dot] com, University of Torino
 #'
 #'
-#' @return a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for furhter use.
+#' @return a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for further use.
 #'
 #' @examples
 #' \dontrun{
@@ -28,7 +28,7 @@
 #' # 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
 #' system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
 #' cellranger_count(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
-#' # This analysis took 56.4 mins on an Intel NUC6I7KYK with 32 Gb RAM, Intel i7-6770HQ 8 threads, 1Tb SSD.
+#'
 #'
 #'
 #'
@@ -37,7 +37,7 @@
 #'
 #' @export
 
-cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=FALSE, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder){
+cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=FALSE, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder){
 
   id="results_cellranger"
   #docker image
@@ -143,7 +143,7 @@ cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  f
   params1[2] <- params.split[2]
   params1[3] <- paste("chmod 777 -R /data/", id, sep="")
   params1[4] <- paste("/bin/cellranger mat2csv /data/", id,"/outs/filtered_gene_bc_matrices ",id,".csv", sep="")
-  params1[5] <- paste("sed \'s|,|\t|g\' /data/", id,"/outs/filtered_gene_bc_matrices ",id,".csv > /data/", id,"/outs/filtered_gene_bc_matrices ",id,".txt", sep="")
+  params1[5] <- paste("sed \'s|,|\t|g\' ",scrat_tmp.folder,"/",id,".csv > ", scrat_tmp.folder,"/",id,".txt", sep="")
 
 
   fileConn<-file(paste(scrat_tmp.folder,"/script.sh", sep=""), "w")
@@ -157,6 +157,7 @@ cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  f
   #waiting for the end of the container work
   if(resultRun==0){
     system(paste("cp -R ", scrat_tmp.folder, "/", id, " ", home, sep=""))
+    system(paste("cp ", scrat_tmp.folder, "/results_cellranger.* ", home, sep=""))
     cat("\nCellranger analysis is finished\n")
   }
 
@@ -186,8 +187,8 @@ cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  f
   system(paste("docker logs ", substr(container.id,1,12), " &> ",fastq.folder,"/", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
   #removing temporary folder
-#  cat("\n\nRemoving the temporary file ....\n")
-#  system(paste("rm -fR ",scrat_tmp.folder))
+  cat("\n\nRemoving the temporary file ....\n")
+  system(paste("rm -fR ",scrat_tmp.folder))
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")

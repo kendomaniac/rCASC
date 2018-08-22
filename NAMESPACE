@@ -3,7 +3,7 @@
 export(ccRemove)
 export(cellCycle1)
 export(cellCycle2)
-export(cellranger_count)
+export(cellrangerCount)
 export(checkCountDepth)
 export(clusterIdentification)
 export(clusterReorg)
