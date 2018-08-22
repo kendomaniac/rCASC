@@ -86,7 +86,7 @@ cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  f
   dir.create(scrat_tmp.folder)
 
   #cp fastq folder in the scrat_tmp.folder
-  system(paste("cp ", fastq.folder, "/*.gz ", scrat_tmp.folder))
+  system(paste("cp ", fastq.folder, "/*.gz ", scrat_tmp.folder, sep=""))
 
   #executing the docker job
   #Le directory vanno montate tutte con il -v  user:doker
