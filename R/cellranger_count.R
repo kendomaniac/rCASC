@@ -141,6 +141,7 @@ cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  f
   params1 <- NULL
   params1[1] <- "cd /data"
   params1[2] <- params.split[[2]]
+  params1[3] <- paste("chmod 777 -R /data/", id, sep="")
 
 
   fileConn<-file(paste(scrat_tmp.folder,"/script.sh"))
