@@ -150,7 +150,7 @@ cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  f
 
 
   #Run docker
-  resultRun <- runDocker(group=group, params=params)
+  resultRun <- runDocker(group=group, params=params0)
   #waiting for the end of the container work
   if(resultRun==0){
     system(paste("cp -R ", scrat_tmp.folder, "/", id, " ", home, sep=""))
