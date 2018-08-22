@@ -136,7 +136,7 @@ cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  f
   }
 
   params.split <- unlist(strsplit(params, dockerImage))
-  params0 <- paste(params.split[1], " ", dockerImage, " /data/script.sh", sep="")
+  params0 <- paste(params.split[1], " ", dockerImage, " /bin/sh /data/script.sh", sep="")
   cat(params0,"\n")
   params1 <- NULL
   params1[1] <- "cd /data"
