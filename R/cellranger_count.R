@@ -187,8 +187,8 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   system(paste("docker logs ", substr(container.id,1,12), " &> ",fastq.folder,"/", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
   #removing temporary folder
-  cat("\n\nRemoving the temporary file ....\n")
-  system(paste("rm -fR ",scrat_tmp.folder))
+#  cat("\n\nRemoving the temporary file ....\n")
+#  system(paste("rm -fR ",scrat_tmp.folder))
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
