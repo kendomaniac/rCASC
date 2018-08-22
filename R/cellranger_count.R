@@ -14,7 +14,7 @@
 #' @author Greta Romano, romano [dot] greta [at] gmail [dot] com, University of Torino
 #'
 #'
-#' @return a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview
+#' @return a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for furhter use.
 #'
 #' @examples
 #' \dontrun{
@@ -142,6 +142,8 @@ cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  f
   params1[1] <- "cd /data"
   params1[2] <- params.split[2]
   params1[3] <- paste("chmod 777 -R /data/", id, sep="")
+  params1[4] <- paste("/bin/cellranger mat2csv /data/", id,"/outs/filtered_gene_bc_matrices ",id,".csv", sep="")
+  params1[5] <- paste("sed \'s|,|\t|g\' /data/", id,"/outs/filtered_gene_bc_matrices ",id,".csv > /data/", id,"/outs/filtered_gene_bc_matrices ",id,".txt", sep="")
 
 
   fileConn<-file(paste(scrat_tmp.folder,"/script.sh", sep=""), "w")

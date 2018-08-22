@@ -34,7 +34,7 @@ cellranger_count(group = c("sudo", "docker"), transcriptome.folder,
 \item{r2-length, }{optional hard-trim the input R2 sequence to this length.}
 }
 \value{
-a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview
+a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for furhter use.
 }
 \description{
 This function takes FASTQ files from cellranger mkfastq and performs alignment, filtering, barcode counting, and UMI counting.
