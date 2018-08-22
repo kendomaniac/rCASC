@@ -1,6 +1,5 @@
 #' @title Cellranger count
 #' @description This function takes FASTQ files from cellranger mkfastq and performs alignment, filtering, barcode counting, and UMI counting. It uses the Chromium cellular barcodes to generate gene-barcode matrices, determine clusters, and perform gene expression analysis. The count pipeline can take input from multiple sequencing runs on the same library.
-
 #' @param fastq,  path of the fastq_path folder
 #' @param transcriptome,  path to the Cell Ranger compatible transcriptome reference e.g. for a human and mouse mixture sample, use refdata-cellranger-hg19-and-mm10-1.2.0
 #' @param expect-cells,  (optional) Expected number of recovered cells. Default: 3,000 cells.
@@ -12,10 +11,10 @@
 #' @param lanes,  (optional) Lanes associated with this sample
 #' @param localcores,  restricts cellranger to use specified number of cores to execute pipeline stages. By default, cellranger will use all of the cores available on your system.
 #' @param localmem,  restricts cellranger to use specified amount of memory (in GB) to execute pipeline stages. By default, cellranger will use 90% of the memory available on your system. Please note that cellranger requires at least 16 GB of memory to run all pipeline stages.
-
-
-
 #' @author Greta Romano, romano [dot] greta [at] gmail [dot] com, University of Torino
+#'
+#'
+#' @return a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview
 #'
 #' @examples
 #' \dontrun{
@@ -40,7 +39,7 @@
 
 cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=FALSE, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder){
 
-  id="results"
+  id="results_cellranger"
   #docker image
   dockerImage="docker.io/grromano/cellranger"
 
@@ -136,14 +135,25 @@ cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  f
    params<-paste(params," --localmem=", localmem, sep="")
   }
 
-  params0 <- params
+  params.split <- strsplit(params, dockerImage)
+  params0 <- paste(params.split[[1]], " ", dockerImage, "/data/script.sh", sep="")
+  cat(params0,"\n")
+  params1 <- NULL
+  params1[1] <- "cd /data"
+  params1[2] <- params.split[[2]]
 
-  cat(params,"\n")
+
+  fileConn<-file(paste(scrat_tmp.folder,"/script.sh"))
+  writeLines(params1, fileConn)
+  close(fileConn)
+  system(paste("chmod +x ", scrat_tmp.folder,"/script.sh", sep=""))
+
 
   #Run docker
   resultRun <- runDocker(group=group, params=params)
   #waiting for the end of the container work
   if(resultRun==0){
+    system(paste("cp -R ", scrat_tmp.folder, "/", id, " ", home, sep=""))
     cat("\nCellranger analysis is finished\n")
   }
 

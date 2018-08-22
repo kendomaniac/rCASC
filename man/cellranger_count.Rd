@@ -33,6 +33,9 @@ cellranger_count(group = c("sudo", "docker"), transcriptome.folder,
 
 \item{r2-length, }{(optional) Hard-trim the input R2 sequence to this length.}
 }
+\value{
+a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview
+}
 \description{
 This function takes FASTQ files from cellranger mkfastq and performs alignment, filtering, barcode counting, and UMI counting. It uses the Chromium cellular barcodes to generate gene-barcode matrices, determine clusters, and perform gene expression analysis. The count pipeline can take input from multiple sequencing runs on the same library.
 }
