@@ -4,15 +4,13 @@
 \alias{cellranger_count}
 \title{Cellranger count}
 \usage{
-cellranger_count(group = c("sudo", "docker"), id, transcriptome.folder,
+cellranger_count(group = c("sudo", "docker"), transcriptome.folder,
   fastq.folder, sample = NULL, expect.cells = NULL, force.cells = NULL,
   nosecondary = FALSE, chemistry = NULL, r1.length = NULL,
   r2.length = NULL, lanes = NULL, localcores = NULL, localmem = NULL,
   scratch.folder)
 }
 \arguments{
-\item{id, }{a unique run ID string: e.g. sample345}
-
 \item{nosecondary, }{(optional) Add this flag to skip secondary analysis of the gene-barcode matrix (dimensionality reduction, clustering and visualization). Set this if you plan to use cellranger reanalyze or your own custom analysis.}
 
 \item{chemistry, }{(optional) Assay configuration. One of: auto for autodetection (default), threeprime for Single Cell 3′, fiveprime for Single Cell 5′, SC3Pv1 for Single Cell 3′ v1, SC3Pv2 for Single Cell 3′ v2, SC5P-PE for Single Cell 5′ paired-end (both R1 and R2 are used for alignment),SC5P-R2 for Single Cell 5′ R2-only (where only R2 is used for alignment).}
@@ -49,7 +47,7 @@ system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and
 setwd(home)
 # 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
 system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
-cellranger_count(group="docker",  id="hgmm", transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
+cellranger_count(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
 # This analysis took 56.4 mins on an Intel NUC6I7KYK with 32 Gb RAM, Intel i7-6770HQ 8 threads, 1Tb SSD.
 
 

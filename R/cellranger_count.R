@@ -1,7 +1,6 @@
 #' @title Cellranger count
 #' @description This function takes FASTQ files from cellranger mkfastq and performs alignment, filtering, barcode counting, and UMI counting. It uses the Chromium cellular barcodes to generate gene-barcode matrices, determine clusters, and perform gene expression analysis. The count pipeline can take input from multiple sequencing runs on the same library.
 
-#' @param id,  a unique run ID string: e.g. sample345
 #' @param fastq,  path of the fastq_path folder
 #' @param transcriptome,  path to the Cell Ranger compatible transcriptome reference e.g. for a human and mouse mixture sample, use refdata-cellranger-hg19-and-mm10-1.2.0
 #' @param expect-cells,  (optional) Expected number of recovered cells. Default: 3,000 cells.
@@ -29,7 +28,7 @@
 #' setwd(home)
 #' # 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
 #' system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
-#' cellranger_count(group="docker",  id="hgmm", transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
+#' cellranger_count(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
 #' # This analysis took 56.4 mins on an Intel NUC6I7KYK with 32 Gb RAM, Intel i7-6770HQ 8 threads, 1Tb SSD.
 #'
 #'
@@ -39,8 +38,9 @@
 #'
 #' @export
 
-cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=FALSE, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder){
+cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=FALSE, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder){
 
+  id="results"
   #docker image
   dockerImage="docker.io/grromano/cellranger"
 
@@ -86,17 +86,13 @@ cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder
   scrat_tmp.folder=file.path(scrat_tmp.folder)
   dir.create(scrat_tmp.folder)
 
-
-
-
-
+  #cp fastq folder in the scrat_tmp.folder
+  system(paste("cp ", fastq.folder, "/*.gz ", scrat_tmp.folder))
 
   #executing the docker job
   #Le directory vanno montate tutte con il -v  user:doker
   #modifica qui /bin/checkscript.sh
-  params <- paste("--cidfile ",fastq.folder,"/dockerID -v ",transcriptome.folder,":/transcr -v ", fastq.folder, ":/data -d ",dockerImage, " /bin/cellranger count  --id=",id," --transcriptome=/transcr --fastqs=/data", sep="")
-
-
+  params <- paste("--cidfile ",fastq.folder,"/dockerID -v ",transcriptome.folder,":/transcr -v ", scrat_tmp.folder, ":/data -d ",dockerImage, " /bin/cellranger count  --id=",id," --transcriptome=/transcr --fastqs=/data", sep="")
 
   if(!is.null(sample)){
 
@@ -140,6 +136,7 @@ cellranger_count <- function(group=c("sudo","docker"),  id, transcriptome.folder
    params<-paste(params," --localmem=", localmem, sep="")
   }
 
+  params0 <- params
 
   cat(params,"\n")
 
