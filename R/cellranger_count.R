@@ -135,16 +135,16 @@ cellranger_count <- function(group=c("sudo","docker"),  transcriptome.folder,  f
    params<-paste(params," --localmem=", localmem, sep="")
   }
 
-  params.split <- strsplit(params, dockerImage)
-  params0 <- paste(params.split[[1]], " ", dockerImage, "/data/script.sh", sep="")
+  params.split <- unlist(strsplit(params, dockerImage))
+  params0 <- paste(params.split[1], " ", dockerImage, " /data/script.sh", sep="")
   cat(params0,"\n")
   params1 <- NULL
   params1[1] <- "cd /data"
-  params1[2] <- params.split[[2]]
+  params1[2] <- params.split[2]
   params1[3] <- paste("chmod 777 -R /data/", id, sep="")
 
 
-  fileConn<-file(paste(scrat_tmp.folder,"/script.sh"))
+  fileConn<-file(paste(scrat_tmp.folder,"/script.sh", sep=""), "w")
   writeLines(params1, fileConn)
   close(fileConn)
   system(paste("chmod +x ", scrat_tmp.folder,"/script.sh", sep=""))
