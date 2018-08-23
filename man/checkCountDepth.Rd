@@ -4,16 +4,14 @@
 \alias{checkCountDepth}
 \title{Running SCnorm  checkCountDepth test.}
 \usage{
-checkCountDepth(group = c("sudo", "docker"), data.folder = getwd(),
-  counts.matrix, conditions = NULL, FilterCellProportion = 0.1,
-  FilterExpression = 0, ditherCounts = FALSE, outputName, nCores = 8)
+checkCountDepth(group = c("sudo", "docker"), file, conditions = NULL,
+  FilterCellProportion = 0.1, FilterExpression = 0, ditherCounts = FALSE,
+  outputName, nCores = 8)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs.}
 
-\item{data.folder, }{a character string indicating the folder where output will be saved.}
-
-\item{counts.matrix, }{a character string indicating the the name of tab delimited file  of cells un-normalized expression counts.}
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported}
 
 \item{conditions, }{vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.}
 
@@ -26,6 +24,8 @@ checkCountDepth(group = c("sudo", "docker"), data.folder = getwd(),
 \item{outputName, }{specify the path and/or name of output files.}
 
 \item{nCores, }{number of cores to use, default is detectCores() - 1.}
+
+\item{data.folder, }{a character string indicating the folder where output will be saved.}
 }
 \value{
 pdf with the cells counts distributions
@@ -48,7 +48,7 @@ This function executes a check on the data count-depth relationship used by SCno
     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
     unzip("example_UMI.txt.zip")
     conditions=rep(1,12)
-    checkCountDepth(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
+    checkCountDepth(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
     conditions=conditions, FilterCellProportion=0.1, FilterExpression=0,
     ditherCounts=TRUE, outputName="example_UMI", nCores=8)
 

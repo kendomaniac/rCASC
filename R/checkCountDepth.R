@@ -1,8 +1,7 @@
 #' @title Running SCnorm  checkCountDepth test.
 #' @description This function executes a check on the data count-depth relationship used by SCnorm.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs.
-#' @param data.folder, a character string indicating the folder where output will be saved.
-#' @param counts.matrix, a character string indicating the the name of tab delimited file  of cells un-normalized expression counts.
+#' @param file, a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported
 #' @param conditions, vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.
 #' @param FilterCellProportion, a value indicating the proportion of non-zero expression estimates required to include the genes into the evaluation. Default is .10, and will not go below a proportion which uses less than 10 total cells/samples
 #' @param FilterExpression, a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots
@@ -12,26 +11,30 @@
 #' @return pdf with the cells counts distributions
 #' @examples
 #' \dontrun{
-#'     #C1 data whole transcript
-#'     system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
-#'     system("gzip -d singlecells_counts.txt.gz")
-#'     conditions=rep(1,288)
-#'     checkCountDepth(group="docker", data.folder=getwd(),
-#'     counts.matrix="singlecells_counts.txt", conditions=conditions,
-#'     FilterCellProportion=0.1, FilterExpression=0, ditherCounts=FALSE,
-#'     outputName="singlecells_counts", nCores=8)
-#'
-#'     #an other example with UMI 3' end analysis
+#'     #UMI 3' end analysis
 #'     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 #'     unzip("example_UMI.txt.zip")
 #'     conditions=rep(1,12)
-#'     checkCountDepth(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
+#'     checkCountDepth(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 #'     conditions=conditions, FilterCellProportion=0.1, FilterExpression=0,
 #'     ditherCounts=TRUE, outputName="example_UMI", nCores=8)
 #'
 #' }
 #' @export
-checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), counts.matrix, conditions=NULL, FilterCellProportion=0.1, FilterExpression=0, ditherCounts=FALSE, outputName, nCores=8){
+checkCountDepth <- function(group=c("sudo","docker"), file, conditions=NULL, FilterCellProportion=0.1, FilterExpression=0, ditherCounts=FALSE, outputName, nCores=8){
+
+  data.folder=dirname(file)
+
+  positions=length(strsplit(basename(file),"\\.")[[1]])
+  matrixNameC=strsplit(basename(file),"\\.")[[1]]
+  matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
+  format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
+  if(format=="txt"){
+       counts.matrix <- paste(matrixName, format, sep=".")
+  }else{
+       cat("\nOnly tab delimited files with extention txt are supported\n")
+       return("Not a tab delimited file")
+  }
 
   #running time 1
   ptm <- proc.time()
@@ -41,6 +44,8 @@ checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), count
     cat("\nERROR: Docker seems not to be installed in your system\n")
     return()
   }
+
+  home <- getwd()
   setwd(data.folder)
   if(is.null(conditions)){
     cat("\nERROR: Conditions are missing\n")
@@ -94,6 +99,6 @@ checkCountDepth <- function(group=c("sudo","docker"), data.folder=getwd(), count
   cat("\n\nRemoving the checkCountDepth temporary file ....\n")
   system(paste("rm  -f ",data.folder,"/dockerID", sep=""))
   system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
-
+  setwd(home)
 
 }

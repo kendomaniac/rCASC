@@ -265,9 +265,11 @@ The function *scannoByGtf* allows the annotation of single-cell matrix, if ENSEM
 ```{r, echo=TRUE, eval=FALSE}
 
 #running annotation and removal of mit and ribo proteins genes
-scannobyGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_testSCumi_mm10.txt",
-           gtf.name="Mus_musculus.GRCm38.92.gtf",
-          biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE, file.type="txt", umiXgene=3)
+system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
+system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
+scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.txt",sep="/"),
+                    gtf.name="Mus_musculus.GRCm38.92.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
 
 ```
 
@@ -278,9 +280,9 @@ Ribosomal RNA and ribosomal proteins represent a significant part of the cell ca
 ```{r, echo=TRUE, eval=FALSE}
 
 library(casc)
-scannobyGtf(group="docker", data.folder=getwd(), counts.table="lorenz_filtered_test_umi_mm10.txt",
-           gtf.name="Mus_musculus.GRCm38.92.gtf",
-          biotype="protein_coding", mt=FALSE, ribo.proteins=FALSE, file.type="txt", umiXgene=3)
+scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.txt",sep="/"),
+                    gtf.name="Mus_musculus.GRCm38.92.gtf", biotype="protein_coding", 
+                    mt=FALSE, ribo.proteins=FALSE,umiXgene=3)
 
 ```
 

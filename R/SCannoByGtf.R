@@ -1,7 +1,7 @@
 #' @title Annotating single cell counts table using ENSEMBL gtf and refGenome CRAN package
 #' @description This function executes the docker container annotate.1, where refGenome is used to annotate a single cell counts table with ensembl gene ids on first column using ENSEMBL GTF annotation
 #' @param group, a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs
-#' @param file, a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv"
+#' @param file, a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv". The system recognize automatically csv as comma separated files and txt as tab separated file
 #' @param gtf.name, a character string indicating the ENSEMBL gtf file
 #' @param biotype, a character string the biotypes of interest
 #' @param mt, a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed
@@ -9,7 +9,7 @@
 #' @param umiXgene,  a integer defining how many UMI are required to call a gene as present. default: 3
 #' @author Raffaele Calogero
 
-#' @return one file: annotated_counts table, where ensembl ids are linked to gene symbols
+#' @return one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.
 
 #' @import utils
 #' @examples
