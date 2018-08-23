@@ -66,7 +66,7 @@ scnorm <- function(group=c("sudo","docker"), file, conditions=NULL, outputName, 
 
   }
 
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scnorm.2018.01 Rscript /bin/scnorm.R ",counts.matrix," ",conditions," ",outputName," ",nCores," ",filtercellNum, " ",ditherCount," ",PropToUse," ", PrintProgressPlots," ", FilterExpression, sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scnorm.2018.01 Rscript /bin/scnorm.R ",counts.matrix," ",conditions," ",paste(outputName, format, sep=".")," ",nCores," ",filtercellNum, " ",ditherCount," ",PropToUse," ", PrintProgressPlots," ", FilterExpression, sep="")
   resultRun <- runDocker(group=group, params=params)
 
   if(resultRun==0){
