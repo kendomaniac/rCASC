@@ -5,8 +5,8 @@
 \title{Permutations and Clustering}
 \usage{
 permutationClustering(group = c("sudo", "docker"), scratch.folder, file,
-  nPerm, permAtTime, percent, range1, range2, separator, logTen, clustering,
-  perplexity, seed = 1111, rK)
+  nPerm, permAtTime, percent, range1 = 3, range2 = 3, separator,
+  logTen = 0, clustering, perplexity = 10, seed = 1111, rK = 0)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

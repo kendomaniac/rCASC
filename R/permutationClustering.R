@@ -23,7 +23,7 @@
 #'  permutationClustering("docker","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",4,2,10,3,4,separator=",",logTen=0,clustering="SIMLR",perplexity=0)
 #'}
 #' @export
-permutationClustering <- function(group=c("sudo","docker"), scratch.folder,file,nPerm,permAtTime,percent,range1,range2,separator,logTen,clustering,perplexity,seed=1111,rK){
+permutationClustering <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, range1=3, range2=3, separator, logTen=0, clustering, perplexity=10 , seed=1111, rK=0){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])

@@ -18,7 +18,7 @@ ccRemove(group = c("sudo", "docker"), scratch.folder, file, separator,
 
 \item{seed, }{is important to reproduce the same results with the same input}
 
-\item{cutoff, }{larger p-value to use.3 is almost equal to 0.05}
+\item{cutoff, }{larger p-value to use 3 is almost equal to 0.05}
 
 \item{species, }{human or mouse}
 
@@ -32,7 +32,11 @@ This function executes a ubuntu docker that remove the effect of cell cycle
 }
 \examples{
 \dontrun{
-ccRemove(group,scratch.folder,file,separator)
+system("wget http://130.192.119.59/public/annotated_lorenz_testSCumi_mm10.csv.zip")
+unzip("annotated_lorenz_testSCumi_mm10.csv.zip")
+ccRemove(group="docker" , scratch.folder="/data/scratch",
+       file=paste(getwd(),"annotated_lorenz_testSCumi_mm10.csv", sep="/"), separator=",",
+       seed=111, cutoff=3, species="mouse", rawCount=1)
 }
 }
 \author{
