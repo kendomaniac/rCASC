@@ -25,6 +25,7 @@
 #' @export
 scnorm <- function(group=c("sudo","docker"), file, conditions=NULL, outputName, nCores=8, filtercellNum = 10, ditherCount=FALSE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=0){
 
+  home <- getwd()
   data.folder=dirname(file)
 
   positions=length(strsplit(basename(file),"\\.")[[1]])
