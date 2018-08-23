@@ -115,7 +115,7 @@ resultRun <- runDocker(group=group, params=params)
 #  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results/",sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
-  #system(paste("rm -R ",scrat_tmp.folder))
+  system(paste("rm -R ",scrat_tmp.folder))
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
