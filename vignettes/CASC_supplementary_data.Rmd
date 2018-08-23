@@ -420,7 +420,7 @@ The function **counts2log** can convert a count table in a log10 values saved in
 \newline
 ```{r, echo=TRUE, eval=FALSE}
 
-counts2log(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
+counts2log(file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
 
 ```
 
