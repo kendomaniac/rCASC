@@ -11,7 +11,7 @@
 #'     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 #'     unzip("example_UMI.txt.zip")
 #'     umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
-#'     outputName="example_UMI.txt", normMethod="TMM_FN")
+#'     outputName="example_UMI", normMethod="TMM_FN")
 #' }
 #' @export
 umiNorm <- function(group=c("sudo","docker"), file, outputName, normMethod=c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN", "SUM_FN", "TMM_FN", "UQ_FN")){
@@ -42,7 +42,7 @@ umiNorm <- function(group=c("sudo","docker"), file, outputName, normMethod=c("CL
   }
   setwd(data.folder)
 
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scone.2018.01 Rscript /bin/scone.R ",counts.matrix," ", outputName," ", normMethod, sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder,":/data -d docker.io/repbioinfo/scone.2018.01 Rscript /bin/scone.R ",counts.matrix," ", paste(outputName, format, sep=".")," ", normMethod, sep="")
   resultRun <- runDocker(group=group, params=params)
 
 #  if(group=="sudo"){
