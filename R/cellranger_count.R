@@ -143,7 +143,7 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   params1[2] <- params.split[2]
   params1[3] <- paste("chmod 777 -R /data/", id, sep="")
   params1[4] <- paste("/bin/cellranger mat2csv /data/", id,"/outs/filtered_gene_bc_matrices ",id,".csv", sep="")
-  params1[5] <- paste("sed \'s|,|\t|g\' ",scrat_tmp.folder,"/",id,".csv > ", scrat_tmp.folder,"/",id,".txt", sep="")
+
 
 
   fileConn<-file(paste(scrat_tmp.folder,"/script.sh", sep=""), "w")
@@ -157,7 +157,8 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   #waiting for the end of the container work
   if(resultRun==0){
     system(paste("cp -R ", scrat_tmp.folder, "/", id, " ", home, sep=""))
-    system(paste("cp ", scrat_tmp.folder, "/results_cellranger.* ", home, sep=""))
+    system(paste("cp ", scrat_tmp.folder, "/results_cellranger.csv ", home, sep=""))
+    system(paste("sed \'s|,|\t|g\' ",home,"/",id,".csv > ", home,"/",id,".txt", sep=""))
     cat("\nCellranger analysis is finished\n")
   }
 
