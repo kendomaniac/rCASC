@@ -47,7 +47,7 @@ scnorm <- function(group=c("sudo","docker"), file, conditions=NULL, outputName, 
     cat("\nERROR: Docker seems not to be installed in your system\n")
     return()
   }
-  home <- setwd()
+
   setwd(data.folder)
   if(is.null(conditions)){
     cat("\nERROR: Conditions are missing\n")
