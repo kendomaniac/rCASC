@@ -24,8 +24,6 @@ checkCountDepth(group = c("sudo", "docker"), file, conditions = NULL,
 \item{outputName, }{specify the path and/or name of output files.}
 
 \item{nCores, }{number of cores to use, default is detectCores() - 1.}
-
-\item{data.folder, }{a character string indicating the folder where output will be saved.}
 }
 \value{
 pdf with the cells counts distributions
@@ -35,16 +33,7 @@ This function executes a check on the data count-depth relationship used by SCno
 }
 \examples{
 \dontrun{
-    #C1 data whole transcript
-    system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
-    system("gzip -d singlecells_counts.txt.gz")
-    conditions=rep(1,288)
-    checkCountDepth(group="docker", data.folder=getwd(),
-    counts.matrix="singlecells_counts.txt", conditions=conditions,
-    FilterCellProportion=0.1, FilterExpression=0, ditherCounts=FALSE,
-    outputName="singlecells_counts", nCores=8)
-
-    #an other example with UMI 3' end analysis
+    #UMI 3' end analysis
     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
     unzip("example_UMI.txt.zip")
     conditions=rep(1,12)

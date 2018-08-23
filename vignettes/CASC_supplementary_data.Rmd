@@ -336,7 +336,7 @@ ratio in the DESeq package or TMM in edgeR will also be adequate. However, when 
 system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 unzip("example_UMI.txt.zip")
 conditions=rep(1,12)
-checkCountDepth(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
+checkCountDepth(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
      conditions=conditions, FilterCellProportion=0.1, FilterExpression=0,
      ditherCounts=TRUE, outputName="example_UMI", nCores=8)
 
@@ -360,9 +360,9 @@ system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 unzip("example_UMI.txt.zip")
 #this specific example is an UMI counts table made of 12 cells having at least 10K UMIs/cell.
 conditions=rep(1,12)
-scnorm(group="docker", data.folder=getwd(),counts.matrix="example_UMI.txt",
+scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
      conditions=conditions,outputName="example_UMI", nCores=8, filtercellNum=10,
-     ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=TRUE, FilterExpression=1)
+     ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=1)
 
 ```
 

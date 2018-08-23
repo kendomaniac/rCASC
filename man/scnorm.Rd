@@ -4,17 +4,14 @@
 \alias{scnorm}
 \title{Running SCnorm  normalization}
 \usage{
-scnorm(group = c("sudo", "docker"), data.folder = getwd(), counts.matrix,
-  conditions = NULL, outputName, nCores = 8, filtercellNum = 10,
-  ditherCount = FALSE, PropToUse = 0.1, PrintProgressPlots = FALSE,
-  FilterExpression = 0)
+scnorm(group = c("sudo", "docker"), file, conditions = NULL, outputName,
+  nCores = 8, filtercellNum = 10, ditherCount = FALSE, PropToUse = 0.1,
+  PrintProgressPlots = FALSE, FilterExpression = 0)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
-\item{data.folder, }{a character string indicating the folder where comma separated file of cells log10 counts is saved}
-
-\item{counts.matrix, }{a character string indicating the the name of tab delimited file  file of cells un-normalized expression counts}
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported}
 
 \item{conditions, }{vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.}
 
@@ -44,7 +41,7 @@ This function is a wrapper for SCnorm: robust normalization of single-cell RNA-s
     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
     unzip("example_UMI.txt.zip")
     conditions=rep(1,12)
-    scnorm(group="docker", data.folder=getwd(),counts.matrix="example_UMI.txt",
+    scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
     conditions=conditions,outputName="example_UMI", nCores=8, filtercellNum=10,
     ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=1)
 }
