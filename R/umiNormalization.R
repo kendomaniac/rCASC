@@ -11,11 +11,27 @@
 #'     #downloading fastq files
 #'     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 #'     unzip("example_UMI.txt.zip")
-#'     umiNorm(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
+#'     umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 #'     outputName="example_UMI.txt", normMethod="TMM_FN")
 #' }
 #' @export
-umiNorm <- function(group=c("sudo","docker"), data.folder=getwd(), counts.matrix, outputName, normMethod=c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN", "SUM_FN", "TMM_FN", "UQ_FN")){
+umiNorm <- function(group=c("sudo","docker"), file, outputName, normMethod=c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN", "SUM_FN", "TMM_FN", "UQ_FN")){
+
+  home <- getwd()
+  data.folder=dirname(file)
+
+  positions=length(strsplit(basename(file),"\\.")[[1]])
+  matrixNameC=strsplit(basename(file),"\\.")[[1]]
+  matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
+  format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
+  if(format=="txt"){
+    counts.matrix <- paste(matrixName, format, sep=".")
+  }else{
+    cat("\nOnly tab delimited files with extention txt are supported\n")
+    return("Not a tab delimited file")
+  }
+
+
 
   #running time 1
   ptm <- proc.time()
@@ -74,5 +90,5 @@ umiNorm <- function(group=c("sudo","docker"), data.folder=getwd(), counts.matrix
   system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
 
   system(paste("docker rm ", container.id, sep=""))
-
+  setwd(home)
 }

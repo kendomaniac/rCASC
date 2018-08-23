@@ -4,20 +4,20 @@
 \alias{umiNorm}
 \title{Running SCnorm  normalization}
 \usage{
-umiNorm(group = c("sudo", "docker"), data.folder = getwd(), counts.matrix,
-  outputName, normMethod = c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN",
-  "SUM_FN", "TMM_FN", "UQ_FN"))
+umiNorm(group = c("sudo", "docker"), file, outputName,
+  normMethod = c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN", "SUM_FN",
+  "TMM_FN", "UQ_FN"))
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
-\item{data.folder, }{a character string indicating the folder where comma separated file of cells log10 counts is saved}
-
-\item{counts.matrix, }{a character string indicating the the name of tab delimited file  file of cells un-normalized expression counts}
-
 \item{outputName, }{specify the path and/or name of output files.}
 
 \item{normMethod, }{a string identifying the normalization method: CLR_FN, DESEQ_FN, FQ_FN, SCRAN_FN, SUM_FN, TMM_FN, UQ_FN, more info on the vignette.}
+
+\item{data.folder, }{a character string indicating the folder where comma separated file of cells log10 counts is saved}
+
+\item{counts.matrix, }{a character string indicating the the name of tab delimited file  file of cells un-normalized expression counts}
 }
 \value{
 a tab delimited file containing the normalized data.
@@ -30,7 +30,7 @@ This function is a wrapper for SCnorm: robust normalization of single-cell RNA-s
     #downloading fastq files
     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
     unzip("example_UMI.txt.zip")
-    umiNorm(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
+    umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
     outputName="example_UMI.txt", normMethod="TMM_FN")
 }
 }
