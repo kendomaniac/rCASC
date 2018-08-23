@@ -23,7 +23,7 @@ This function convert raw counts in log format
 \dontrun{
     system("wget http://130.192.119.59/public/TO BE INSERTED")
     #running skeleton
-    counts2log(group="docker", counts.matrix, data.folder=getwd(), log.base=10)
+    counts2log(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
 }
 
 }

@@ -29,6 +29,6 @@ This function is a wrapper for SCnorm: robust normalization of single-cell RNA-s
     system("wget http://130.192.119.59/public/example_UMI.txt.zip")
     unzip("example_UMI.txt.zip")
     umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
-    outputName="example_UMI.txt", normMethod="TMM_FN")
+    outputName="example_UMI", normMethod="TMM_FN")
 }
 }
