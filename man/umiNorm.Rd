@@ -11,13 +11,11 @@ umiNorm(group = c("sudo", "docker"), file, outputName,
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported}
+
 \item{outputName, }{specify the path and/or name of output files.}
 
 \item{normMethod, }{a string identifying the normalization method: CLR_FN, DESEQ_FN, FQ_FN, SCRAN_FN, SUM_FN, TMM_FN, UQ_FN, more info on the vignette.}
-
-\item{data.folder, }{a character string indicating the folder where comma separated file of cells log10 counts is saved}
-
-\item{counts.matrix, }{a character string indicating the the name of tab delimited file  file of cells un-normalized expression counts}
 }
 \value{
 a tab delimited file containing the normalized data.

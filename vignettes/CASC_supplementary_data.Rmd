@@ -362,7 +362,7 @@ unzip("example_UMI.txt.zip")
 conditions=rep(1,12)
 scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
      conditions=conditions,outputName="example_UMI", nCores=8, filtercellNum=10,
-     ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=1)
+     ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=TRUE, FilterExpression=1)
 
 ```
 
@@ -412,24 +412,16 @@ umiNorm(group="docker", data.folder=getwd(), counts.matrix="example_UMI.txt",
 
 ```
 
-**IMPORTANT**: Only log10 conversion is required for the counts table when SIMLR clustering is performed.
+**IMPORTANT**: Only log10 conversion is required for the counts table when [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) clustering is performed.
 
 ### Converting a count table in log10
 
 The function **counts2log** can convert a count table in a log10 values saved in a comma separated or tab delimited file.
 \newline
 ```{r, echo=TRUE, eval=FALSE}
-#downloading fastq files
-system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
-system("gzip -d singlecells_counts.txt.gz")
-counts2log(counts.matrix="singlecells_counts.txt", data.folder=getwd(), 
-           log.base=10, type="txt")
 
-#an other example
 counts2log(counts.matrix="normalized_example_UMI.txt", data.folder=getwd(), 
            log.base=10, type="txt")
-
-
 
 ```
 

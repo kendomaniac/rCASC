@@ -4,13 +4,10 @@
 \alias{counts2log}
 \title{A function to convert raw count in log counts}
 \usage{
-counts2log(counts.matrix, data.folder = getwd(), log.base = c(2, 10),
-  type = c("txt", "csv"))
+counts2log(file, log.base = c(2, 10))
 }
 \arguments{
-\item{counts.matrix, }{a character string indicating the name of the input raw counts file.}
-
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included.}
 
 \item{log.base, }{the base of the log to be used for the transformation}
 
@@ -26,7 +23,7 @@ This function convert raw counts in log format
 \dontrun{
     system("wget http://130.192.119.59/public/TO BE INSERTED")
     #running skeleton
-    counts2log(group="docker", counts.matrix, data.folder=getwd(), log.base=10, type="txt")
+    counts2log(group="docker", counts.matrix, data.folder=getwd(), log.base=10)
 }
 
 }

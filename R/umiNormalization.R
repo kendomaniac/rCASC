@@ -1,8 +1,7 @@
 #' @title Running SCnorm  normalization
 #' @description This function is a wrapper for SCnorm: robust normalization of single-cell RNA-seq data (Bacher et al. Nature Methods 2017, 14:584–586)
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
-#' @param data.folder, a character string indicating the folder where comma separated file of cells log10 counts is saved
-#' @param counts.matrix, a character string indicating the the name of tab delimited file  file of cells un-normalized expression counts
+#' @param file, a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported
 #' @param outputName, specify the path and/or name of output files.
 #' @param normMethod, a string identifying the normalization method: CLR_FN, DESEQ_FN, FQ_FN, SCRAN_FN, SUM_FN, TMM_FN, UQ_FN, more info on the vignette.
 #' @return a tab delimited file containing the normalized data.
