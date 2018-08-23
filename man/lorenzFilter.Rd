@@ -12,9 +12,9 @@ lorenzFilter(group = c("sudo", "docker"), scratch.folder, file, p_value,
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
-\item{file, }{a character string indicating the path of the file, with file name and extension included}
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included}
 
-\item{p_value, }{threshold to be used for the filtering}
+\item{p_value, }{lorenz statistics threshold, suggest value 0.05, i.e. 5\% probability that the cell of low quality is selected}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 }

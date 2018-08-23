@@ -2,8 +2,8 @@
 #' @description This function executes a docker that produces ....
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param file, a character string indicating the path of the file, with file name and extension included
-#' @param p_value, threshold to be used for the filtering
+#' @param file, a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included
+#' @param p_value, lorenz statistics threshold, suggest value 0.05, i.e. 5\% probability that the cell of low quality is selected
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #'
 #' @author Name Family name, myemail [at] somewhere [dot] org, Affiliation
@@ -115,10 +115,10 @@ resultRun <- runDocker(group=group, params=params)
   system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results/",sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
-  system(paste("rm -R ",scrat_tmp.folder))
+  #system(paste("rm -R ",scrat_tmp.folder))
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
-  #system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }

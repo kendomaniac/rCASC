@@ -237,10 +237,11 @@ To identify outlier libraries, [*Diaz et al.2016*](https://www.ncbi.nlm.nih.gov/
 \newline
 ```{r, echo=TRUE,eval=FALSE}
 
+#IMPORTANT: full path to the file MUST be cell count file included!
 library(casc)
-lorenzFilter(group="docker",scratch.folder="/data/scratch/",
-           data.folder=getwd(),matrixName="filtered_testSCumi_mm10",
-           p_value=0.05,format="txt",separator='\t', genes.format="ens_symb")
+lorenzFilter(group="docker",scratch.folder="/data/scratch/", 
+               file=paste(getwd(),"filtered_testSCumi_mm10.txt", sep="/"),
+               p_value=0.05, separator='\t')
 
 tmp0 <- read.table("filtered_testSCumi_mm10.txt", sep="\t", header=T, row.names=1)
 #806 cells
