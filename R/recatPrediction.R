@@ -16,11 +16,11 @@
 #' #unzipFolder
 #' scratch.folder=paste(getwd(),"/scratch",sep="")
 #' file=paste(getwd(),"/data/annotated_Buettner.csv",sep="")
-#' cellCycle1(group="docker",scratch.folder,file,separator=",",geneNameControl=1,window=10,seed=111)
+#' recatPrediction(group="docker",scratch.folder,file,separator=",",geneNameControl=1,window=10,seed=111)
 #'}
 #' @export
 
-cellCycle1 <- function(group=c("sudo","docker"), scratch.folder, file,separator,geneNameControl=0,window=1,seed=111){
+recatPrediction <- function(group=c("sudo","docker"), scratch.folder, file,separator,geneNameControl=0,window=1,seed=111){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])

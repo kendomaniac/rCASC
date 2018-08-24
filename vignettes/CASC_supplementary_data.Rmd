@@ -436,17 +436,17 @@ Single-cell RNA-Sequencing measurement of expression often suffers from large sy
 \newline
 ```{r, echo=TRUE, eval=FALSE}
 
- system("wget http://130.192.119.59/public/buettner_20cells_G1G2MS_counts.txt.zip")
- unzip("buettner_20cells_G1G2MS_counts.txt.zip")
+ system("wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip")
+ unzip("buettner_G1G2MS_counts.txt.zip")
 
-scannobyGtf(group="docker", file=paste(getwd(),"buettner_20cells_G1G2MS_counts.txt",sep="/"),
+scannobyGtf(group="docker", file=paste(getwd(),"buettner_G1G2MS_counts.txt",sep="/"),
                     gtf.name="Mus_musculus.GRCm38.92.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
 
-topx(data.folder=getwd(),file.name="annotated_buettner_20cells_G1G2MS_counts.txt",threshold=10000, logged=FALSE)
+topx(data.folder=getwd(),file.name="annotated_buettner_G1G2MS_counts.txt",threshold=10000, logged=FALSE)
 
 ccRemove(group="docker" , scratch.folder="/data/scratch",
-        file=paste(getwd(),"annotated_buettner_20cells_G1G2MS_counts_10000.txt", sep="/"), separator="\t",
+        file=paste(getwd(),"annotated_buettner_G1G2MS_counts_10000.txt", sep="/"), separator="\t",
         seed=111, cutoff=3, species="mouse", rawCount=1)
 
 permutationClustering(group="docker", scratch.folder="/data/scratch", file=paste(getwd(), "annotated_buettner_20cells_G1G2MS_counts_10000.txt", sep="/"), nPerm=8, permAtTime=8, percent=10, range1=3, range2=3, separator="\t", logTen=0, clustering="tSne", perplexity=10, seed=1111, rK=0)
