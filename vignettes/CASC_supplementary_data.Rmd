@@ -431,17 +431,21 @@ counts2log(file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
 
 Single-cell RNA-Sequencing measurement of expression often suffers from large systematic bias. A major source of this bias is the cell cycle, which introduces large within-cell-type heterogeneity that can obscure the differences in expression between cell types. [*Barron and Li*](https://www.nature.com/articles/srep33892) developed in 2016 a R package called [*ccRemover*](https://cran.r-project.org/web/packages/ccRemover/index.html) which removes cell cycle effects and preserves other biological signals of interest (Figure \ref{fig:fig.11}).
 
+
 ```{r fig.11, fig.cap="Removal of cell cycle bias as described in Barron and Li. (Sci. Rep. 2016). A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemover cell-cycle normalized dataset. Figure edited from supplementary data in Barron and Li (Sci. Rep. 2016).", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/barron2016.jpeg')
 ```
 
+
 However, the critical point is if it is really needed the removal of cell cycle effect. [*reCAT*](https://www.nature.com/articles/s41467-017-00039-z) is a modelling framework for unsynchronized single-cell transcriptome data that can reconstruct cell cycle time-series.  Thus, we use reCAT cell cycle prediction step to check if we can detect a clear cell cycle effect in a dataset (Figure \ref{fig:fig.12}). In such case, we use ccRemover to eliminate such bias.
+
 
 ```{r fig.12, fig.cap="reCAT prediction of cell cycle in Buettner et al. (Nat.Biotechnol. 2015) dataset. Figure extracted from reCAT github", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/ola_2i_bayes.png')
 ```
+
 
 - **Removing cell cycle bias**:
     + Reconstructing cell cycle time-series: **recatPrediction**
@@ -453,8 +457,10 @@ include_graphics('../inst/img/ola_2i_bayes.png')
 
 As example of this approach we used the dataset published by [*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176), which contains naive-T-cells and T-helper2-cells mixed togheter and sorted on the basis of the cell cycle state.
 
+
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
+
 #preparing the data for the analysis
  system("wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip")
  unzip("buettner_G1G2MS_counts.txt.zip")
@@ -482,4 +488,45 @@ ccRemove(group="docker" , scratch.folder="/data/scratch",
 The analysis above took respectively XXX mins for recatPrediction and 28 mins for ccRemove on a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. 
 
 ccRemover analysis produces a data normalized matrix, ready for clustering. The matrix can be identify by the prefix **LS_cc_**.
+
+```{r, echo=TRUE, eval=FALSE}
+
+#reformat the matrix header to be suotable with docker4seq PCA plotting function
+tmp <- read.table("annotated_buettner_G1G2MS_counts_10000.txt", sep="\t", header=T, row.names=1)
+tmp.n1 <- sapply(tmp.n, function(x)x[1])
+tmp.n2 <- sapply(tmp.n, function(x)x[2])
+names(tmp) <- paste(tmp.n2, tmp.n1, sep="_")
+write.table(tmp, "annotated_buettner_G1G2MS_counts_10000bis.txt", sep="\t", col.names=NA)
+
+library(devtools)
+install_github("kendomaniac/docker4seq", ref="master")
+library(docker4seq)
+
+pca(experiment.table="annotated_buettner_G1G2MS_counts_10000bis.txt", type="counts", 
+      legend.position="topright", covariatesInNames=TRUE, samplesName=FALSE,
+      principal.components=c(1,2), pdf = TRUE, 
+      output.folder=getwd())
+#reformat the matrix header to be suotable with docker4seq PCA plotting function
+tmp <- read.table("LS_cc_annotated_buettner_G1G2MS_counts_10000.txt", sep="\t", header=T, row.names=1)
+tmp.n1 <- sapply(tmp.n, function(x)x[1])
+tmp.n2 <- sapply(tmp.n, function(x)x[2])
+names(tmp) <- paste(tmp.n2, tmp.n1, sep="_")
+write.table(tmp, "LS_cc_annotated_buettner_G1G2MS_counts_10000bis.txt", sep="\t", col.names=NA)
+
+pca(experiment.table="LS_cc_annotated_buettner_G1G2MS_counts_10000bis.txt", type="TPM", 
+      legend.position="topright", covariatesInNames=TRUE, samplesName=FALSE,
+      principal.components=c(1,2), pdf = TRUE, 
+      output.folder=getwd())
+
+
+```
+
+
+In Figure \ref{fig:fig.13} are shown the results obtained using the ccRemove implementation in CASC, using the Buettner dataset. The removal of the cell cycle effect (Figure \ref{fig:fig.13}B) is clearly shown by a reduction of the variance explained by PC1 and PC2 in the PCA plot.
+
+```{r fig.13, fig.cap="As Figure 11, but done with CASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemover cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/buettner_raw_ccremover.jpeg')
+```
+
 
