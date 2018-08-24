@@ -4,7 +4,7 @@
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv"
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL code.1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ensamble name you have to run SCannoByGtf before start using this script.
+#' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL code. 1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ensamble name you have to run SCannoByGtf before start using this script.
 #' @param window, this parameters let you see the cell cycle algorithm plot in block.
 #' @param seed, important parameter for reproduce the same result with the same input
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino

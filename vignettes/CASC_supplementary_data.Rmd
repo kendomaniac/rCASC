@@ -419,41 +419,64 @@ umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 ### Converting a count table in log10
 
 The function **counts2log** can convert a count table in a log10 values saved in a comma separated or tab delimited file.
-\newline
+
 ```{r, echo=TRUE, eval=FALSE}
 
 counts2log(file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
 
 ```
 
-### Removing cell cycle genes
+### Removing cell cycle bias
 
-Single-cell RNA-Sequencing measurement of expression often suffers from large systematic bias. A major source of this bias is the cell cycle, which introduces large within-cell-type heterogeneity that can obscure the differences in expression between cell types. [*Barron and Li*](https://www.nature.com/articles/srep33892) developed in 2016 a R package called [*ccRemover*](https://cran.r-project.org/web/packages/ccRemover/index.html) which removes cell cycle effects and preserves other biological signals of interest. 
+Single-cell RNA-Sequencing measurement of expression often suffers from large systematic bias. A major source of this bias is the cell cycle, which introduces large within-cell-type heterogeneity that can obscure the differences in expression between cell types. [*Barron and Li*](https://www.nature.com/articles/srep33892) developed in 2016 a R package called [*ccRemover*](https://cran.r-project.org/web/packages/ccRemover/index.html) which removes cell cycle effects and preserves other biological signals of interest (Figure \ref{fig:fig.11}).
 
-**ccRemover** is implmented in CASC in the function **ccRemove**, which require a data set annotated using scannobyGtf. As toy example we used 80 cells respectively from G1 G2M and S cells from the dataset published by [*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176), which contains naive-T-cells and T-helper2-cells mixed togheter and sorted on the basis of the cell cycle condition.
+```{r fig.11, fig.cap="Removal of cell cycle bias as described in Barron and Li. (Sci. Rep. 2016). A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemover cell-cycle normalized dataset. Figure edited from supplementary data in Barron and Li (Sci. Rep. 2016).", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/barron2016.jpeg')
+```
 
-**IMPORTANT**: The output of ccRemover does not require log transformation to be used in clustering analysis.
-\newline
+However, the critical point is if it is really needed the removal of cell cycle effect. [*reCAT*](https://www.nature.com/articles/s41467-017-00039-z) is a modelling framework for unsynchronized single-cell transcriptome data that can reconstruct cell cycle time-series.  Thus, we use reCAT cell cycle prediction step to check if we can detect a clear cell cycle effect in a dataset (Figure \ref{fig:fig.12}). In such case, we use ccRemover to eliminate such bias.
+
+```{r fig.12, fig.cap="reCAT prediction of cell cycle in Buettner et al. (Nat.Biotechnol. 2015) dataset. Figure extracted from reCAT github", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/ola_2i_bayes.png')
+```
+
+- **Removing cell cycle bias**:
+    + Reconstructing cell cycle time-series: **recatPrediction**
+    + Removing cell cycle effect: **ccRemover**
+
+**reCAT** prediction step is implemented in CASC in the function **recatPrediction** which require a data set annotated using scannobyGtf.
+
+**ccRemover** is implemented in CASC in the function **ccRemove**, which require a data set annotated using scannobyGtf. **IMPORTANT**: The output of ccRemover does not require log transformation to be used in clustering analysis.
+
+As example of this approach we used the dataset published by [*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176), which contains naive-T-cells and T-helper2-cells mixed togheter and sorted on the basis of the cell cycle state.
+
+
 ```{r, echo=TRUE, eval=FALSE}
-
+#preparing the data for the analysis
  system("wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip")
  unzip("buettner_G1G2MS_counts.txt.zip")
 
+#annotatiing the data set to obtain the gene names in the format ensemblID:symbol 
 scannobyGtf(group="docker", file=paste(getwd(),"buettner_G1G2MS_counts.txt",sep="/"),
                     gtf.name="Mus_musculus.GRCm38.92.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
 
+#selecting the top 10000 most expressed genes
 topx(data.folder=getwd(),file.name="annotated_buettner_G1G2MS_counts.txt",threshold=10000, logged=FALSE)
 
+#running cell cycle prediction
+recatPrediction(group="docker",scratch.folder,file=paste(getwd(), "annotated_buettner_G1G2MS_counts_10000.txt", sep="/"), separator="\t", geneNameControl=1, window=10, seed=111)
+
+#removing cell cycle effect
 ccRemove(group="docker" , scratch.folder="/data/scratch",
         file=paste(getwd(),"annotated_buettner_G1G2MS_counts_10000.txt", sep="/"), separator="\t",
         seed=111, cutoff=3, species="mouse", rawCount=1)
 
-permutationClustering(group="docker", scratch.folder="/data/scratch", file=paste(getwd(), "annotated_buettner_20cells_G1G2MS_counts_10000.txt", sep="/"), nPerm=8, permAtTime=8, percent=10, range1=3, range2=3, separator="\t", logTen=0, clustering="tSne", perplexity=10, seed=1111, rK=0)
-
-
-permutationClustering(group="docker", scratch.folder="/data/scratch", file=paste(getwd(), "LS_cc_annotated_buettner_20cells_G1G2MS_counts_10000.txt", sep="/"), nPerm=80, permAtTime=8, percent=10, range1=3, range2=3, separator="\t", logTen=1, clustering="tSne", perplexity=10, seed=1111, rK=0)
-
 ```
 
-The analysis done above took 1.5 mins on an [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. 
+The analysis above took XXX mins on an [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. 
+
+ccRemover analysis produces a data normalized matrix, ready for clustering. The matrix can be identify by the prefix **LS_cc_**.
+
