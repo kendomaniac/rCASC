@@ -30,11 +30,19 @@ This function executes a ubuntu docker that associates to each cell a cell cycle
 }
 \examples{
 \dontrun{
-#getwd(link)
-#unzipFolder
-scratch.folder=paste(getwd(),"/scratch",sep="")
-file=paste(getwd(),"/data/annotated_Buettner.csv",sep="")
-recatPrediction(group="docker",scratch.folder,file,separator=",",geneNameControl=1,window=10,seed=111)
+#preparing the data for the analysis
+system("wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip")
+unzip("buettner_G1G2MS_counts.txt.zip")
+#annotatiing the data set to obtain the gene names in the format ensemblID:symbol
+scannobyGtf(group="docker", file=paste(getwd(),"buettner_G1G2MS_counts.txt",sep="/"),
+           gtf.name="Mus_musculus.GRCm38.92.gtf", biotype="protein_coding",
+           mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+#selecting the top 10000 most expressed genes
+topx(data.folder=getwd(),file.name="annotated_buettner_G1G2MS_counts_10000.txt",threshold=10000, logged=FALSE)
+#running cell cycle prediction
+recatPrediction(group="docker",scratch.folder="/data/scratch",
+                 file=paste(getwd(), "annotated_buettner_G1G2MS_counts_10000.txt", sep="/"),
+                 separator="\\t", geneNameControl=1, window=10, seed=111)
 }
 }
 \author{
