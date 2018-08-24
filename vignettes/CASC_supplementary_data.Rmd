@@ -18,7 +18,7 @@ knitr::opts_chunk$set(fig.pos = 'h')
 
 Because of the massive data generation given by the omics platforms the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important point to guarantee robust and reliable results to the research community [[*Nature, 6 July 2018*](https://www.nature.com/collections/prbfkwmwvz)].
 \newline
-Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the date is stored). For this reason we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [*Kulkarni et al. BMC Bioinformatics, in press*] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al. Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
+Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [*Kulkarni et al. BMC Bioinformatics, in press*] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al. Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
 \newline
 CASC, Cluster Analysis of Single Cells, is part of the [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [[*PLoS Comp Biol. 2013*](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285)]. CASC is designed to provide a complete workflow (Figure \ref{fig:fig.1}) for cell-subpopulation discovery. 
 
@@ -30,7 +30,7 @@ include_graphics('../inst/img/casc_workflow.jpeg')
 ```
 
 
-The workflow allow the direct analysis of fastq files generated with [*10X Genomics platform*](https://www.10xgenomics.com/) or [*InDrop technology*](https://1cell-bio.com/) or a count matrix having as column cell identifier and as row gene annotation in the format: gene symbol:ENSEMBL gene ID. In the following paragraphs we will describe the fuctionalities of CASC workflow.
+The workflow allows the direct analysis of fastq files generated with [*10X Genomics platform*](https://www.10xgenomics.com/) or [*InDrop technology*](https://1cell-bio.com/) or a count matrix having as column cell identifier and as row names ENSEMBL gene annotation. In the following paragraphs we will describe the fuctionalities of CASC workflow.
 \newline
 
 
@@ -66,7 +66,7 @@ include_graphics('../inst/img/indrop_v2.jpeg')
 ```
 
 
-The workflow shown here is based on the protocol in Zilionis [[*Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which seems to be the version 2 of the inDrop technology. According to the [*inDrop github page*](https://github.com/indrops/indrops), there is a version 3, but the oligos and library structures are exactly the same as version 2, except the sequencing mode changed.
+The analysis shown below is based on the protocol in Zilionis [[*Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which is the version 2 of the inDrop technology. According to the [*inDrop github page*](https://github.com/indrops/indrops), there is a version 3, but the oligos and library structures are exactly the same as version 2, except the sequencing mode changed.
 
 In version 2, three different reads are generated: 
 
@@ -125,7 +125,7 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 
 - **10XGenomics**:
     + Downloading a reference genome for 10XGenomics
-    + From fastq to UMI counts using cellranger: **cellranger_count**
+    + Converting fastq in UMI counts matrix using cellranger: **cellrangerCount**
 
 
 [Cellranger](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview) is the 10xGenomics tool allowing the conversion of the fastq generated from 10XGenomics platform into a count matrix. 
@@ -172,7 +172,7 @@ cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_
  
 The analysis done above took 56.4 mins on an [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD.
 
-Assuming the above example paths, the cell counts matrices **results_cellranger.cvs** and **results_cellranger.txt** are located in /data/test_cell_ranger/results_cellranger/outs/filtered_gene_bc_matrices folder.
+The output of the above analysis are two cell counts matrices **results_cellranger.cvs** and **results_cellranger.txt** an a folder called **results_cellranger**, which contain the full cellranger output.
 
 ## Counts matrix editing
 
@@ -186,13 +186,13 @@ This paragraph describes a set of functions that can be used to remove low quali
     + Data normalization: **umiNorm**, global normalization methods TMM and RLE are suitable for UMI data
     + ENSEMBL annotation and mitochodrial/ribosomal protein genes removal: **scannobyGtf**
     + Converting a count table in log10: **counts2log**
-    + Removing cell cycle genes: **ccremove**
+    + Removing cell cycle bias: **recatPrediction**/**ccremove**
 
 
 
 ### Removing non informative genes
 
-The function **filterZeros** retains all genes that have cells without a user defined fraction of zeros (between 0 and 1, where 1 indicate only genes without 0s are retained, and 0 insted indicates that genes with at least a value different from zero are retained) and plot the frequency distribution of genes with counts in the cells. 
+The function **filterZeros** retains all genes that have cells without a user defined fraction of zeros (between 0 and 1, where 1 indicate only genes without 0s are retained, and 0 insted indicates that genes with at least a value different from zero are retained) and plots the frequency distribution of genes with counts in the cells. 
 
 **IMPORTANT**: In case user would like to apply cell quality filter, e.g. *lorenzFilter*, it is covenient to remove only genes with 0 counts in all cells, i.e. threshold=0 (Figure \ref{fig:fig.5}).
 \newline
@@ -217,7 +217,7 @@ include_graphics('../inst/img/filterZero.jpeg')
 
 ### Plotting genes numbers versus total UMIs in each cell
 
-To estimate the overall amount of genes detectable in each cell, the function *genesUmi* produces a plot of the genes number with respect to total number of UMI for each cell. The number of UMIs required to indicate that a gene is detected in a cell are defined by user. We suggest to use 3 UMI as minimal threshold to consider a gene called present in a cell.
+To estimate the overall amount of genes detectable in each cell, the function *genesUmi* produces a plot of the genes number with respect to total number of UMI for each cell. The number of UMIs required to indicate that a gene is detected in a cell are defined by user. We suggest to use at least 3 UMI as minimal threshold to consider a gene called present in a cell.
 
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -235,12 +235,13 @@ include_graphics('../inst/img/genesUMI.jpg')
 
 ### Identifying and removing cell low-quality outliers
 
-To identify outlier libraries, [*Diaz et al.2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/) developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic [*Diaz et al.2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/). Furthermore, Lorenz statistics correlates with live-dead staining, Pearson-correlation 0.7 [*Diaz et al.2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/).
+To identify outlier libraries, [*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/) developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic [*Diaz et al.2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/). Furthermore, Lorenz statistics correlates with live-dead staining, Pearson-correlation 0.7 [*Diaz et al.2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/). We have implemented the Lorenz statistics in CASC **lorenzFilter** function.
 \newline
 ```{r, echo=TRUE,eval=FALSE}
 
 #IMPORTANT: full path to the file MUST be cell count file included!
 library(casc)
+# the p_value indicate the probability that a low quality cell is retained in the dataset filtered on the basis of Lorenz Statistics.
 lorenzFilter(group="docker",scratch.folder="/data/scratch/", 
                file=paste(getwd(),"filtered_testSCumi_mm10.txt", sep="/"),
                p_value=0.05, separator='\t')
@@ -260,7 +261,7 @@ library(knitr)
 include_graphics('../inst/img/lorenz_filter.jpg')
 ```
 
-### Annotation and mitocondrial and ribosomal protein genes removal
+### Annotation and mitocondrial/ribosomal protein genes removal
 
 The function *scannoByGtf* allows the annotation of single-cell matrix, if ENSEMBL gene ids are provided. The function requires the ENSEMBL GTF of the organism under analysis and allows the selection of specific annotation biotypes, e.g. protein_coding.
 \newline
@@ -288,9 +289,9 @@ scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.t
 
 ```
 
-In figure \ref{fig:fig.8} is shown the effect of the removal of both mitocondrial and ribosomal protein genes. It is notable that, in this specific experiment, in cells with less than 1000 UMI nearly all detected genes were only mitocondrial and ribosomal protein genes. This filter is suitable to identify cells which do not contain any informative gene other the mitocondrial and ribosomal proteins. However, in case the difference between resting and actively proliferating cells are an important element of cell sub-population discovery this filter shold not be applied.
+In figure \ref{fig:fig.8} is shown the effect of the removal of both mitocondrial and ribosomal protein genes. It is notable that, in this specific experiment, in cells with less than 1000 UMI nearly all detected genes were only mitocondrial and ribosomal protein genes. This filter is suitable to identify cells which do not contain any informative gene other the mitocondrial and ribosomal proteins. However, in case the difference between resting and actively proliferating cells are an important element of cell sub-population discovery this filter should not be applied.
 
-```{r fig.8, fig.cap="Removing mithocondrial and ribosomal proteins genes, in blue is shown the dataset after removal of mitocondrial and ribosomal protein genes", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+```{r fig.8, fig.cap="Removing mithocondrial and ribosomal proteins genes, in blue is shown the dataset after removal of mitocondrial and ribosomal protein genes.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/noMT-rib.jpg')
 ```
@@ -312,7 +313,7 @@ genesUmi(data.folder=getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10_1000
 
 ### Data normalization
 
-[*The best way to normalize single-cell RNA-seq data has not yet been resolved*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5549838/), expecially for UMI data. We inserted in our workflow two possible options:
+[*The best way to normalize single-cell RNA-seq data has not yet been resolved*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5549838/), expecially in the case of UMI data. We inserted in our workflow two possible options:
 
 - [SCnorm](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473255/), which works best with whole transcript data.
 
@@ -354,7 +355,7 @@ include_graphics('../inst/img/checkCountDepth0.jpg')
 
 #### scnorm
 
-the **scnorm** function execute SCnorm of the [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  return  the  normalized expression count.
+the **scnorm** function execute SCnorm from [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  return  the  normalized expression count.
 \newline
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -368,9 +369,9 @@ scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 
 ```
 
-The output is file, **discarded_genes.txt**, which contains the discarded genes and a tab delimited file containing the normalized data, with the prefix **normalized_**.
+The output files are a tab delimited file containing the normalized data, with the prefix **normalized_**, and **discarded_genes.txt**, which contains the discarded genes.
 
-```{r fig.10, fig.cap="Effect of the SCnorm on the dataset in Figure \ref{fig:fig.9}", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+```{r fig.10, fig.cap="Effect of the SCnorm on the dataset in Figure 9", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/scnorm.jpeg')
 ```
@@ -437,7 +438,7 @@ include_graphics('../inst/img/barron2016.jpeg')
 
 However, the critical point is if it is really needed the removal of cell cycle effect. [*reCAT*](https://www.nature.com/articles/s41467-017-00039-z) is a modelling framework for unsynchronized single-cell transcriptome data that can reconstruct cell cycle time-series.  Thus, we use reCAT cell cycle prediction step to check if we can detect a clear cell cycle effect in a dataset (Figure \ref{fig:fig.12}). In such case, we use ccRemover to eliminate such bias.
 
-```{r fig.12, fig.cap="reCAT prediction of cell cycle in Buettner et al. (Nat.Biotechnol. 2015) dataset. Figure extracted from reCAT github", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+```{r fig.12, fig.cap="reCAT prediction of cell cycle in Buettner et al. (Nat.Biotechnol. 2015) dataset. Figure extracted from reCAT github", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/ola_2i_bayes.png')
 ```
@@ -446,13 +447,13 @@ include_graphics('../inst/img/ola_2i_bayes.png')
     + Reconstructing cell cycle time-series: **recatPrediction**
     + Removing cell cycle effect: **ccRemover**
 
-**reCAT** prediction step is implemented in CASC in the function **recatPrediction** which require a data set annotated using scannobyGtf.
+**reCAT** prediction step is implemented in CASC in the function **recatPrediction**, which requires a data set annotated using scannobyGtf.
 
-**ccRemover** is implemented in CASC in the function **ccRemove**, which require a data set annotated using scannobyGtf. **IMPORTANT**: The output of ccRemover does not require log transformation to be used in clustering analysis.
+**ccRemover** is implemented in CASC in the function **ccRemove**, which also requires a data set annotated using scannobyGtf. **IMPORTANT**: The output of ccRemover does not require log transformation to be used in clustering analysis.
 
 As example of this approach we used the dataset published by [*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176), which contains naive-T-cells and T-helper2-cells mixed togheter and sorted on the basis of the cell cycle state.
 
-
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 #preparing the data for the analysis
  system("wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip")
@@ -467,7 +468,8 @@ scannobyGtf(group="docker", file=paste(getwd(),"buettner_G1G2MS_counts.txt",sep=
 topx(data.folder=getwd(),file.name="annotated_buettner_G1G2MS_counts.txt",threshold=10000, logged=FALSE)
 
 #running cell cycle prediction
-recatPrediction(group="docker",scratch.folder,file=paste(getwd(), "annotated_buettner_G1G2MS_counts_10000.txt", sep="/"), separator="\t", geneNameControl=1, window=10, seed=111)
+recatPrediction(group="docker",scratch.folder,file=paste(getwd(), "annotated_buettner_G1G2MS_counts_10000.txt", sep="/"), 
+                separator="\t", geneNameControl=1, window=10, seed=111)
 
 #removing cell cycle effect
 ccRemove(group="docker" , scratch.folder="/data/scratch",
@@ -476,7 +478,8 @@ ccRemove(group="docker" , scratch.folder="/data/scratch",
 
 ```
 
-The analysis above took XXX mins on an [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. 
+\fontsize{10}{10}\selectfont
+The analysis above took XXX mins on a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. 
 
 ccRemover analysis produces a data normalized matrix, ready for clustering. The matrix can be identify by the prefix **LS_cc_**.
 
