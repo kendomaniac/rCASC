@@ -11,9 +11,9 @@
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
 #' @param clustering, clustering method to use : "SIMLR" , "tSne", "griph"
-#' @param perplexity, Number of close neighbors for each point
+#' @param perplexity, Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.Setting this parameter when use a clustering method different by tSne will be ignored.
 #' @param seed, important value to reproduce the same results with same input
-#' @param rK, 1 for rankGene algorithm 0 otherwise WARNING, very slow with this feature
+#' @param rK, 1 for rankGene algorithm 0 otherwise WARNING, very slow with this feature. This parameter is specific for SIMLR. Setting this parameter to 1 with other clustering methods will not give any different result to set the parameter to 0.
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
