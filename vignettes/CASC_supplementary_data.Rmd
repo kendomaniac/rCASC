@@ -233,6 +233,15 @@ library(knitr)
 include_graphics('../inst/img/genesUMI.jpg')
 ```
 
+#### Some considerations about the number of reads/UMI to be used in a single-cell sequencing experiment.
+
+[*Ziegenhain and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28212749) published a comparison between single cell sequencing protocols and they show that, in a simulated experiment, at least 250K reads/UMI are requested for detecting at least 80% of differentially expressed genes between two groups (Figure \ref{fig:fig.6.1}). 
+
+```{r fig.6.1, fig.cap="Modified from Figure 6. Power of scRNA-Seq Methods of Ziegenhain et al. (Mol. Cell 2017). For mor einfo on the experiment please see Ziegenhain et al. (Mol. Cell 2017)", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/Ziegenhain2017.jpeg')
+```
+
 ### Identifying and removing cell low-quality outliers
 
 To identify outlier libraries, [*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/) developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic [*Diaz et al.2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/). Furthermore, Lorenz statistics correlates with live-dead staining, Pearson-correlation 0.7 [*Diaz et al.2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/). We have implemented the Lorenz statistics in CASC **lorenzFilter** function.
@@ -491,7 +500,8 @@ ccRemover analysis produces a data normalized matrix, ready for clustering. The 
 
 ```{r, echo=TRUE, eval=FALSE}
 
-#reformat the matrix header to be suotable with docker4seq PCA plotting function
+#visualizing the dataset before and after cell cycle bias removal
+#reformat the matrix header to be suitable with docker4seq PCA plotting function
 tmp <- read.table("annotated_buettner_G1G2MS_counts_10000.txt", sep="\t", header=T, row.names=1)
 tmp.n1 <- sapply(tmp.n, function(x)x[1])
 tmp.n2 <- sapply(tmp.n, function(x)x[2])
@@ -506,7 +516,8 @@ pca(experiment.table="annotated_buettner_G1G2MS_counts_10000bis.txt", type="coun
       legend.position="topright", covariatesInNames=TRUE, samplesName=FALSE,
       principal.components=c(1,2), pdf = TRUE, 
       output.folder=getwd())
-#reformat the matrix header to be suotable with docker4seq PCA plotting function
+
+#reformat the matrix header to be suitable with docker4seq PCA plotting function
 tmp <- read.table("LS_cc_annotated_buettner_G1G2MS_counts_10000.txt", sep="\t", header=T, row.names=1)
 tmp.n1 <- sapply(tmp.n, function(x)x[1])
 tmp.n2 <- sapply(tmp.n, function(x)x[2])
@@ -524,7 +535,7 @@ pca(experiment.table="LS_cc_annotated_buettner_G1G2MS_counts_10000bis.txt", type
 
 In Figure \ref{fig:fig.13} are shown the results obtained using the ccRemove implementation in CASC, using the Buettner dataset. The removal of the cell cycle effect (Figure \ref{fig:fig.13}B) is clearly shown by a reduction of the variance explained by PC1 and PC2 in the PCA plot.
 
-```{r fig.13, fig.cap="As Figure 11, but done with CASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemover cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.13, fig.cap="As Figure 11, but done with CASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemove cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/buettner_raw_ccremover.jpeg')
 ```

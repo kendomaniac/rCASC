@@ -31,11 +31,11 @@ permutationClustering(group = c("sudo", "docker"), scratch.folder, file,
 
 \item{clustering, }{clustering method to use : "SIMLR" , "tSne", "griph"}
 
-\item{perplexity, }{Number of close neighbors for each point}
+\item{perplexity, }{Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.Setting this parameter when use a clustering method different by tSne will be ignored.}
 
 \item{seed, }{important value to reproduce the same results with same input}
 
-\item{rK, }{1 for rankGene algorithm 0 otherwise WARNING, very slow with this feature}
+\item{rK, }{1 for rankGene algorithm 0 otherwise WARNING, very slow with this feature. This parameter is specific for SIMLR. Setting this parameter to 1 with other clustering methods will not give any different result to set the parameter to 0.}
 }
 \value{
 VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
