@@ -20,7 +20,7 @@
 #' @export
 clusterNgriph <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0, seed=111){
 
-  permutationClustering(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, range1=NULL,
-                        range2=NULL, separator=separator, logTen=logTen, clustering="griph", perplexity=0, seed=seed, rK=0)
+  permutationClustering(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, range1="null",
+                        range2="null", separator=separator, logTen=logTen, clustering="griph", perplexity=0, seed=seed, rK=0)
 
 }
