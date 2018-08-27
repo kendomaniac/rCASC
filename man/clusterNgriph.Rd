@@ -34,7 +34,7 @@ This function executes a ubuntu docker that produces a specific number of permut
 }
 \examples{
 \dontrun{
- clusterNgriph("docker",scratch.folder="/data/scratch/",file=paste(getwd(), "b.m.s.nk.n_5x100cells.txt", sep="/"), nPerm=16, permAtTime=8, percent=10, separator="\\t",logTen=0, seed=111)
+ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=16, permAtTime=8, percent=10, separator="\\t",logTen=0, seed=111)
 }
 }
 \author{
