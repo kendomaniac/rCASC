@@ -1,6 +1,6 @@
 ---
 title: "CASC supplementary data"
-author: "Luca Alessandrì, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Francesca Cordero and Raffaele A Calogero"
+author: "Luca Alessandrì, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Luigia Pace, Francesca Cordero and Raffaele A Calogero"
 date: "8/21/2018"
 output: pdf_document
 
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(fig.pos = 'h')
 
 ## CASC: a single cell analysis workflow designed to provide data reproducibility
 
-Because of the massive data generation given by the omics platforms the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important point to guarantee robust and reliable results to the research community [[*Nature, 6 July 2018*](https://www.nature.com/collections/prbfkwmwvz)].
+Because of the massive data generation given by the omics platforms the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important issue [[*Nature, 6 July 2018*](https://www.nature.com/collections/prbfkwmwvz)] and there is a mandatory need to to guarantee robust and reliable results to the research community [[*Global Engage Blog*](http://www.global-engage.com/life-science/reproducibility-computational-biology/)].
 \newline
 Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [*Kulkarni et al. BMC Bioinformatics, in press*] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al. Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
 \newline
@@ -132,6 +132,7 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 
 Genome indexes downloadable from 10Xgenomics repository:
 \newline
+fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 setwd("/data/genomes/cellranger_hg38")
 #getting the hg38 human genome cellranger index 
@@ -172,7 +173,7 @@ cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_
  
 The analysis done above took 56.4 mins on an [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD.
 
-The output of the above analysis are two cell counts matrices **results_cellranger.cvs** and **results_cellranger.txt** an a folder called **results_cellranger**, which contain the full cellranger output.
+The output of the above analysis are two cell counts matrices **results_cellranger.cvs** and **results_cellranger.txt** and a folder called **results_cellranger**, which contains the full cellranger output.
 
 ## Counts matrix editing
 
@@ -182,7 +183,7 @@ This paragraph describes a set of functions that can be used to remove low quali
     + Removing non informative genes: **filterZeros**
     + Checking the genes versus total number of UMI: **genesUmi**
     + Removing low quality cells: **lorenzFilter**
-    + Data normalization: **scnorm**, minimal requirements 10K counts/cell, works best with whole transcripts sequencing
+    + Data normalization: **scnorm**, minimal requirements 10K counts/cell, works best with whole transcriptome sequencing
     + Data normalization: **umiNorm**, global normalization methods TMM and RLE are suitable for UMI data
     + ENSEMBL annotation and mitochodrial/ribosomal protein genes removal: **scannobyGtf**
     + Converting a count table in log10: **counts2log**
@@ -235,22 +236,63 @@ include_graphics('../inst/img/genesUMI.jpg')
 
 #### Some considerations about the number of reads/UMI to be used in a single-cell sequencing experiment.
 
-[*Ziegenhain and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28212749) published a comparison between single cell sequencing protocols and they show that, in a simulated experiment, at least 250K reads/UMI are requested for detecting at least 80% of differentially expressed genes between two groups (Figure \ref{fig:fig.6.1}). 
+[*Ziegenhain and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28212749) published a comparison between single cell sequencing protocols and they show that, in a simulated experiment, at least 250K reads/UMI are requested for detecting at least 80% of differentially expressed genes between two groups (Figure \ref{fig:fig.6.1}). This information is clearly very important in case we are interested to cluster cells to detect differences between sub-populations. The choise of the sequencing method and of the sequencing depth might strongly affect the ability to discriminate between sub-populations.
 
-```{r fig.6.1, fig.cap="Modified from Figure 6. Power of scRNA-Seq Methods of Ziegenhain et al. (Mol. Cell 2017). For mor einfo on the experiment please see Ziegenhain et al. (Mol. Cell 2017)", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+```{r fig.6.1, fig.cap="Modified from Figure 6. Power of scRNA-Seq Methods of Ziegenhain et al. (Mol. Cell 2017). For more information on the experiment please see Ziegenhain et al. (Mol. Cell 2017)", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/Ziegenhain2017.jpeg')
 ```
 
+The sequencing depth affects the number of detectable genes, which are the key element to discriminate between sub-populations. In Figure \ref{fig:fig.6.2} we show the effect of sequencing depth on the number of detectable genes in 10XGenomics sequencing experiments at different depths (25K reads/cell extracted from CD19 B-cells [[*Zheng et al*](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)],  83K reads/cell fextracted from GSM2833284_Naive_WT_Rep1 [[*Pace et al. 2018*](https://www.ncbi.nlm.nih.gov/pubmed/29326266)] and 250K reads/cell from an unpublished mouse experiment) and one whole transcriptome sequencing experiment [[*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176)] with a 3.5 milion median reads/cell. To make the datasets comparable we run the analysis on 288 randomly selected cells from each data set. We use  3 UMI as minimal threshold to consider a gene called present in 10XGenomics experiments and 5 reads [[*Tarazona et al. 2011*](https://genome.cshlp.org/content/21/12/2213.long)] as minimal threshold to consider a gene called present in a cell whole trasncriptome experiment.  
+
+
+
+```{r, echo=TRUE, eval=FALSE}
+system("wget http://130.192.119.59/public/Zheng_cd19_288cells.txt.zip")
+unzip("Zheng_cd19_288cells.txt.zip")
+library(casc)
+genesUmi(data.folder=getwd(), counts.matrix="Zheng_cd19_288cells.txt", umiXgene=3)
+system("mv genes.umi.pdf genes.umi_25k.pdf")
+
+system("wget http://130.192.119.59/public/GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
+unzip("GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
+library(casc)
+genesUmi(data.folder=getwd(), counts.matrix="GSM2833284_Naive_WT_Rep1_288cell.txt", umiXgene=3)
+system("mv genes.umi.pdf genes.umi_86k.pdf")
+
+system("wget http://130.192.119.59/public/brain_unpublished_288cells.txt.zip")
+unzip("brain_unpublished_288cells.txt.zip")
+library(casc)
+genesUmi(data.folder=getwd(), counts.matrix="brain_unpublished_288cells.txt", umiXgene=3)
+system("mv genes.umi.pdf genes.umi_250k.pdf")
+
+
+system("wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip")
+unzip("buettner_G1G2MS_counts.txt.zip")
+library(casc)
+genesUmi(data.folder=getwd(), counts.matrix="buettner_G1G2MS_counts.txt", umiXgene=5)
+system("mv genes.umi.pdf genes.umi_3.5M.pdf")
+
+```
+
+Figure \ref{fig:fig.6.2} clearly show that the number of detectable genes that can be obtained by 10XGenomics sequencing is, even with 250K reads/cell (Figure \ref{fig:fig.6.2}C), far less of those detectable using a whole transcriptome experiment (Figure \ref{fig:fig.6.2}D). Furthermore, it is clear that a depth below 250K reads/cell will allow efficent cell clustering only if large differences exists between cell sub-populations.
+
+```{r fig.6.2, fig.cap="Number of detected genes with respect to mapped reads. A) 25K reads/cell 10XGenomics platform, 3\' end sequencing. B) 86K reads/cell 10XGenomics platform, 3\' end sequencing. C) 250K reads/cell 10XGenomics platform, 3\' end sequencing. D) 3.5 milion reads/cell C1 platform, whole transcriptome sequencing", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/seq_depth.jpeg')
+```
+
+
 ### Identifying and removing cell low-quality outliers
 
-To identify outlier libraries, [*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/) developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic [*Diaz et al.2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/). Furthermore, Lorenz statistics correlates with live-dead staining, Pearson-correlation 0.7 [*Diaz et al.2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/). We have implemented the Lorenz statistics in CASC **lorenzFilter** function.
+To identify outlier libraries, Diaz and coworkers [[*2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)] developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. Furthermore, Lorenz statistics correlates with live-dead staining, Pearson-correlation 0.7 [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. We have implemented the Lorenz statistics in CASC **lorenzFilter** function.
 \newline
 ```{r, echo=TRUE,eval=FALSE}
 
 #IMPORTANT: full path to the file MUST be cell count file included!
 library(casc)
-# the p_value indicate the probability that a low quality cell is retained in the dataset filtered on the basis of Lorenz Statistics.
+# the p_value indicate the probability that a low quality cell is retained in the 
+# dataset filtered on the basis of Lorenz Statistics.
 lorenzFilter(group="docker",scratch.folder="/data/scratch/", 
                file=paste(getwd(),"filtered_testSCumi_mm10.txt", sep="/"),
                p_value=0.05, separator='\t')
@@ -276,7 +318,7 @@ The function *scannoByGtf* allows the annotation of single-cell matrix, if ENSEM
 \newline
 ```{r, echo=TRUE, eval=FALSE}
 
-#running annotation and removal of mit and ribo proteins genes
+#running annotation and removal of mito and ribo proteins genes
 system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
 system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
 scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.txt",sep="/"),
@@ -300,7 +342,7 @@ scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.t
 
 In figure \ref{fig:fig.8} is shown the effect of the removal of both mitocondrial and ribosomal protein genes. It is notable that, in this specific experiment, in cells with less than 1000 UMI nearly all detected genes were only mitocondrial and ribosomal protein genes. This filter is suitable to identify cells which do not contain any informative gene other the mitocondrial and ribosomal proteins. However, in case the difference between resting and actively proliferating cells are an important element of cell sub-population discovery this filter should not be applied.
 
-```{r fig.8, fig.cap="Removing mithocondrial and ribosomal proteins genes, in blue is shown the dataset after removal of mitocondrial and ribosomal protein genes.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+```{r fig.8, fig.cap="Removing mithocondrial and ribosomal proteins genes, in red is shown the dataset after removal of mitocondrial and ribosomal protein genes.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/noMT-rib.jpg')
 ```
@@ -362,6 +404,7 @@ include_graphics('../inst/img/checkCountDepth0.jpg')
 ```
 
 
+
 #### scnorm
 
 the **scnorm** function execute SCnorm from [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  return  the  normalized expression count.
@@ -378,12 +421,14 @@ scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 
 ```
 
-The output files are a tab delimited file containing the normalized data, with the prefix **normalized_**, and **discarded_genes.txt**, which contains the discarded genes.
+The output files are a tab delimited file containing the normalized data, with the prefix **normalized_**, **discarded_genes.txt**, which contains the discarded genes, and a plot of the normalization effects ((Figure \ref{fig:fig.10})).
 
 ```{r fig.10, fig.cap="Effect of the SCnorm on the dataset in Figure 9", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/scnorm.jpeg')
 ```
+
+**scnorm** is compliant with [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool.
 
 #### scone
 
@@ -405,7 +450,7 @@ scone package embeds:
 
     + Gene counts are divided by the total number of mapped reads (or library size) associated with their lane and multiplied by the mean total count across all the samples of the dataset.
 
-- Weighted trimmed mean of M-values (**TMM**, edgeR) scaling normalization
+- Weighted trimmed mean of M-values (**TMM**, edgeR) scaling normalization (suitable for single-cell)
 
     + to compute the TMM factor, one lane is considered a reference sample and the others test samples, with TMM being the weighted mean of log ratios between test and reference, after excluding the most expressed genes and the genes with the largest log ratios. 
 
@@ -424,7 +469,7 @@ umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 
 ```
 
-**IMPORTANT**: Only log10 conversion is required for the counts table when [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) clustering is performed.
+**IMPORTANT**: In case sub-population discovery is the analysis task, it is important to check if a specific normalization is compliant with the clustering approach in use. For example in the case of [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool, the normalizations provided in **scone** remove some of the features required to run the multikernel learning analysis. TMM is instead compliant with the CASC implementation of [**tSne**](https://lvdmaaten.github.io/tsne/).
 
 ### Converting a count table in log10
 
@@ -441,13 +486,13 @@ counts2log(file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
 Single-cell RNA-Sequencing measurement of expression often suffers from large systematic bias. A major source of this bias is the cell cycle, which introduces large within-cell-type heterogeneity that can obscure the differences in expression between cell types. [*Barron and Li*](https://www.nature.com/articles/srep33892) developed in 2016 a R package called [*ccRemover*](https://cran.r-project.org/web/packages/ccRemover/index.html) which removes cell cycle effects and preserves other biological signals of interest (Figure \ref{fig:fig.11}).
 
 
-```{r fig.11, fig.cap="Removal of cell cycle bias as described in Barron and Li. (Sci. Rep. 2016). A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemover cell-cycle normalized dataset. Figure edited from supplementary data in Barron and Li (Sci. Rep. 2016).", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+```{r fig.11, fig.cap="Removal of cell cycle bias as described in Barron and Li. [Sci. Rep. 2016]. A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemover cell-cycle normalized dataset. Figure edited from supplementary data in Barron and Li [Sci. Rep. 2016].", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/barron2016.jpeg')
 ```
 
 
-However, the critical point is if it is really needed the removal of cell cycle effect. [*reCAT*](https://www.nature.com/articles/s41467-017-00039-z) is a modelling framework for unsynchronized single-cell transcriptome data that can reconstruct cell cycle time-series.  Thus, we use reCAT cell cycle prediction step to check if we can detect a clear cell cycle effect in a dataset (Figure \ref{fig:fig.12}). In such case, we use ccRemover to eliminate such bias.
+However, the critical point is if it is really needed the removal of cell cycle effect. [*reCAT*](https://www.nature.com/articles/s41467-017-00039-z) is a modelling framework for unsynchronized single-cell transcriptome data that can reconstruct cell cycle time-series.  Thus, reCAT cell cycle prediction step can be used to check if  a clear cell cycle effect in a dataset (Figure \ref{fig:fig.12}) can be detected and therefore ccRemover normalization approach will be needed.
 
 
 ```{r fig.12, fig.cap="reCAT prediction of cell cycle in Buettner et al. (Nat.Biotechnol. 2015) dataset. Figure extracted from reCAT github", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
@@ -458,13 +503,26 @@ include_graphics('../inst/img/ola_2i_bayes.png')
 
 - **Removing cell cycle bias**:
     + Reconstructing cell cycle time-series: **recatPrediction**
-    + Removing cell cycle effect: **ccRemover**
+    + Removing cell cycle effect: **ccRemove**
 
-**reCAT** prediction step is implemented in CASC in the function **recatPrediction**, which requires a data set annotated using scannobyGtf.
+**reCAT** prediction step is implemented in CASC in the function **recatPrediction**, which requires a data set annotated using **scannobyGtf**.
 
-**ccRemover** is implemented in CASC in the function **ccRemove**, which also requires a data set annotated using scannobyGtf. **IMPORTANT**: The output of ccRemover does not require log transformation to be used in clustering analysis.
+**ccRemover** software is implemented in CASC in the function **ccRemove**, which also requires a data set annotated using **scannobyGtf**.
 
-As example of this approach we used the dataset published by [*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176), which contains naive-T-cells and T-helper2-cells mixed togheter and sorted on the basis of the cell cycle state.
+**IMPORTANT**: The output of ccRemover does not require log transformation to be used in clustering analysis.
+
+To show the differences existing between a dataset characterized by cell clycle bias and one that is not, we used two datasets:
+
+- the dataset published by [*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176), containing naive-T-cells and T-helper2-cells mixed togheter and sorted on the basis of the cell cycle state. 
+
+- The quescent naive T-cell dataset part of the pubblication of [*Pace et al. Science 2018*](https://www.ncbi.nlm.nih.gov/pubmed/?term=29326266), expected to be in G0. 
+
+To execute the analysis on the same number of cells, 288 cells were randomly selected from quescent naive T-cell dataset. In Figure \ref{fig:fig.13}A the presence of oscillatory behaviour is evident in the predicted cells time serie and the G1 and G2M trends are indicated respectively in blue and red dashed courves. On the other hand the oscillatory behaviour is totally absent (Figure \ref{fig:fig.13}B) in the naive T-cells, which are expected to be quiescent in G0.
+
+```{r fig.13, fig.cap="Cell cycle assigment to the cells. A) Buettner et al. (Nat.Biotechnol. 2015) raw dataset, cells are expected to be distributed in G1, S and G2M, B) Naive T-cells, expected to be mainly in G0.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/recat1.jpeg')
+```
 
 
 \fontsize{8}{8}\selectfont
@@ -491,12 +549,21 @@ ccRemove(group="docker" , scratch.folder="/data/scratch",
         file=paste(getwd(),"annotated_buettner_G1G2MS_counts_10000.txt", sep="/"), separator="\t",
         seed=111, cutoff=3, species="mouse", rawCount=1)
 
+#same analysis as above on 10XGenomix data of quescent naive-T cells
+system("wget http://130.192.119.59/public/GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
+unzip("GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
+scannobyGtf(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1_288cell.txt",sep="/"),
+                    gtf.name="Mus_musculus.GRCm38.92.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+topx(data.folder=getwd(),file.name="annotated_GSM2833284_Naive_WT_Rep1_288cell.txt",threshold=10000, logged=FALSE)
+recatPrediction(group="docker",scratch.folder="/data/scratch",file=paste(getwd(), "annotated_GSM2833284_Naive_WT_Rep1_288cell_10000.txt", sep="/"), separator="\t", geneNameControl=1, window=10, seed=111)
+
+
 ```
 
 \fontsize{10}{10}\selectfont
-The analysis above took respectively XXX mins for recatPrediction and 28 mins for ccRemove on a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. 
-
-ccRemover analysis produces a data normalized matrix, ready for clustering. The matrix can be identify by the prefix **LS_cc_**.
+The analyses above were done using using a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. They took  54 and 40 mins for recatPrediction respectively on Buettner and the naive T-cell datasets. 28 mins were needed by ccRemove on Buettner data set. ccRemover analysis produces a data normalized matrix, ready for clustering. The matrix can be identify by the prefix **LS_cc_**.
+**ccRemove** output is compliant with [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool. **ccRemove** output does not require log transformation when applied to SIMLR.
 
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -533,11 +600,27 @@ pca(experiment.table="LS_cc_annotated_buettner_G1G2MS_counts_10000bis.txt", type
 ```
 
 
-In Figure \ref{fig:fig.13} are shown the results obtained using the ccRemove implementation in CASC, using the Buettner dataset. The removal of the cell cycle effect (Figure \ref{fig:fig.13}B) is clearly shown by a reduction of the variance explained by PC1 and PC2 in the PCA plot.
+In Figure \ref{fig:fig.14} are shown the results obtained using the ccRemove implementation in CASC, using the Buettner dataset. The removal of the cell cycle effect (Figure \ref{fig:fig.14}B) is clearly shown by a reduction of the variance explained by PC1 and PC2 in the PCA plot.
 
-```{r fig.13, fig.cap="As Figure 11, but done with CASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemove cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.14, fig.cap="As Figure 11, but done with CASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemove cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/buettner_raw_ccremover.jpeg')
 ```
 
+## Estimating the number of cluster to be used for cell sub-population discovery.
+
+The CASC core clustering tool is [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), which requires that the user provides the number of clusters in the cells under analysis will aggregate. Unfortunately, there is no definitive answer to this question and it represents the [*weakest aspects of performing cluster analysis*](https://hlab.stanford.edu/brian/number_of_clusters_.html). [*There are various way to try to address this issue*](http://www.sthda.com/english/articles/29-cluster-validation-essentials/96-determining-the-optimal-number-of-clusters-3-must-know-methods/), we tested [*silhouette*](https://www.sciencedirect.com/science/article/pii/0377042787901257?via%3Dihub) and [gap statistics](http://web.stanford.edu/~hastie/Papers/gap.pdf), but none of the two approches resulted to be particularly effective also because we are non simply interested in the fine the optimal numver o clusters, but we also want to know if any perturbation in the dataset, e.g. removal of a random subset of cells, is affecting the number of clusters.
+Now a day the best approach we could find is the use of [*griph*](https://ppapasaikas.github.io/griph/), which is a hierarchical clustering algorithm. In brief, griph build a dendrogram and defines the place in which dendrogram is cut, i.e. defining the number of clusters, running a top-down similarity analysis. As indicated above we are interested to identify not only the optimal cluster number but also if the cluster number is affected by removal of a random subset of cells.
+
+The function **clusterNgriph** evaluates the number of cluster in which a set of cells will aggregate upon leave-N-out bootstrap. To provide an example of how **clusterNgriph** we will use a dataset made of 100 cells from [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper:
+
+- B-cells
+
+- Monocytes
+
+- Stem cells
+
+- Natural Killer cells
+
+- Naive T-cell
 
