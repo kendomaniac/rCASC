@@ -15,12 +15,12 @@
 #' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
 #' @examples
 #' \dontrun{
-#'  clusterNgriph("docker",scratch.folder="/data/scratch/",file="/data/test_griph/b.m.s.nk.n_5x100cells.txt", nPerm=16, permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+#'  clusterNgriph("docker",scratch.folder="/data/scratch/",file="/home/data/test_griph/b.m.s.nk.n_5x100cells.txt", nPerm=16, permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
 #'}
 #' @export
 clusterNgriph <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0, seed=111){
 
-  permutationClustering(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent,range1=1,
-                        range2=1, separator=separator, logTen=logTen, clustering="griph", perplexity=0, seed=seed, rK=0)
+  permutationClustering(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent,range1=NULL,
+                        range2=NULL, separator=separator, logTen=logTen, clustering="griph", perplexity=0, seed=seed, rK=0)
 
 }
