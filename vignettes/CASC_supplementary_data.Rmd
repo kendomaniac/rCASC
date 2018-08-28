@@ -14,7 +14,7 @@ header-includes:
 knitr::opts_chunk$set(fig.pos = 'h')
 ```
 
-## CASC: a single cell analysis workflow designed to provide data reproducibility
+## **Section 1** CASC: a single cell analysis workflow designed to provide data reproducibility
 
 Because of the massive data generation given by the omics platforms the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important issue [[*Nature, 6 July 2018*](https://www.nature.com/collections/prbfkwmwvz)] and there is a mandatory need to to guarantee robust and reliable results to the research community [[*Global Engage Blog*](http://www.global-engage.com/life-science/reproducibility-computational-biology/)].
 \newline
@@ -34,10 +34,10 @@ The workflow allows the direct analysis of fastq files generated with [*10X Geno
 \newline
 
 
-## Minimal hardware requirements to run CASC
+### **Section 1.1** Minimal hardware requirements to run CASC
 The RAM and cores requirements are dependent on the data set under analysis, e.g. 500-600 cells can be effectively analysed using the hardware described by Beccuti [[*Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]: 32 Gb RAM and 2.6 GHz Core i7 6700HQ with 8 threads. The analysis time can be significantly improved increasing the number of cores using a multi-core achitecture system, cluster implementation of the workflow using [*swarm*](https://docs.docker.com/engine/swarm/) is under implementation. 
 
-## Installation
+### **Section 1.2** Installation
 
 The installation for the package is shown below.
 \newline
@@ -54,9 +54,9 @@ downloadContainers()
 ```
 
 
-## Counts generation
+## **Section 2** Counts generation
 
-### inDrop seq
+### **Section 2.1** inDrop seq
 
 inDrop was originally pulished by Klein [[*Cell 2015*](https://www.ncbi.nlm.nih.gov/pubmed/26000487)]. Then, two year after that, the authors published the detailed protocol in [[*Zilionis et al. Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which has different primer design comparing to the orginal paper (Figure \ref{fig:fig.2}). 
 
@@ -85,7 +85,7 @@ include_graphics('../inst/img/indropv3.jpg')
 
 
 
-#### inDrop data analysis
+#### **Section 2.1.1** inDrop data analysis
 
 - **inDropseq**:
     + Creating a reference genome for inDrop V2: **indropIndex**
@@ -121,7 +121,7 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 ```
 \fontsize{10}{10}\selectfont
 
-### 10XGenomics
+### **Section 2.2** 10XGenomics
 
 - **10XGenomics**:
     + Downloading a reference genome for 10XGenomics
@@ -132,7 +132,7 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 
 Genome indexes downloadable from 10Xgenomics repository:
 \newline
-fontsize{8}{8}\selectfont
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 setwd("/data/genomes/cellranger_hg38")
 #getting the hg38 human genome cellranger index 
@@ -171,11 +171,11 @@ cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_
 ```
 \fontsize{10}{10}\selectfont
  
-The analysis done above took 56.4 mins on an [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD.
+The analysis done above took 56.4 mins on an [*SeqBox*](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD.
 
 The output of the above analysis are two cell counts matrices **results_cellranger.cvs** and **results_cellranger.txt** and a folder called **results_cellranger**, which contains the full cellranger output.
 
-## Counts matrix editing
+## **Section 3** Counts matrix editing
 
 This paragraph describes a set of functions that can be used to remove low quality cells and non-informative genes.
 
@@ -191,7 +191,7 @@ This paragraph describes a set of functions that can be used to remove low quali
 
 
 
-### Removing non informative genes
+### **Section 3.1** Removing non informative genes
 
 The function **filterZeros** retains all genes that have cells without a user defined fraction of zeros (between 0 and 1, where 1 indicate only genes without 0s are retained, and 0 insted indicates that genes with at least a value different from zero are retained) and plots the frequency distribution of genes with counts in the cells. 
 
@@ -216,7 +216,7 @@ library(knitr)
 include_graphics('../inst/img/filterZero.jpeg')
 ```
 
-### Plotting genes numbers versus total UMIs in each cell
+### **Section 3.2** Plotting genes numbers versus total UMIs in each cell
 
 To estimate the overall amount of genes detectable in each cell, the function *genesUmi* produces a plot of the genes number with respect to total number of UMI for each cell. The number of UMIs required to indicate that a gene is detected in a cell are defined by user. We suggest to use at least 3 UMI as minimal threshold to consider a gene called present in a cell.
 
@@ -234,7 +234,7 @@ library(knitr)
 include_graphics('../inst/img/genesUMI.jpg')
 ```
 
-#### Some considerations about the number of reads/UMI to be used in a single-cell sequencing experiment.
+#### **Section 3.2.1** Some considerations about the number of reads/UMI to be used in a single-cell sequencing experiment.
 
 [*Ziegenhain and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28212749) published a comparison between single cell sequencing protocols and they show that, in a simulated experiment, at least 250K reads/UMI are requested for detecting at least 80% of differentially expressed genes between two groups (Figure \ref{fig:fig.6.1}). This information is clearly very important in case we are interested to cluster cells to detect differences between sub-populations. The choise of the sequencing method and of the sequencing depth might strongly affect the ability to discriminate between sub-populations.
 
@@ -283,7 +283,7 @@ include_graphics('../inst/img/seq_depth.jpeg')
 ```
 
 
-### Identifying and removing cell low-quality outliers
+### **Section 3.3** Identifying and removing cell low-quality outliers
 
 To identify outlier libraries, Diaz and coworkers [[*2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)] developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. Furthermore, Lorenz statistics correlates with live-dead staining, Pearson-correlation 0.7 [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. We have implemented the Lorenz statistics in CASC **lorenzFilter** function.
 \newline
@@ -312,7 +312,7 @@ library(knitr)
 include_graphics('../inst/img/lorenz_filter.jpg')
 ```
 
-### Annotation and mitocondrial/ribosomal protein genes removal
+### **Section 3.4** Annotation and mitocondrial/ribosomal protein genes removal
 
 The function *scannoByGtf* allows the annotation of single-cell matrix, if ENSEMBL gene ids are provided. The function requires the ENSEMBL GTF of the organism under analysis and allows the selection of specific annotation biotypes, e.g. protein_coding.
 \newline
@@ -348,7 +348,7 @@ include_graphics('../inst/img/noMT-rib.jpg')
 ```
 
 
-### Top expressed genes
+### **Section 3.5** Top expressed genes
 
 For clustering purposes user might decide to use the top expressed genes. The function *topX* select the X top expressed genes given a user defined threshold. The function also produces a pdf file gene_expression_distribution.pdf showing the changes in the UMIs/gene expression distribution upon *topX* filtering.
 
@@ -362,7 +362,7 @@ genesUmi(data.folder=getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10_1000
 ```
 
 
-### Data normalization
+### **Section 3.6** Data normalization
 
 [*The best way to normalize single-cell RNA-seq data has not yet been resolved*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5549838/), expecially in the case of UMI data. We inserted in our workflow two possible options:
 
@@ -370,13 +370,13 @@ genesUmi(data.folder=getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10_1000
 
 - [scone](https://www.biorxiv.org/content/early/2017/12/16/235382), which provides different global scaling methods that can be applyed to UMI single-cell data.
 
-#### SCnorm
+#### **Section 3.6.1** SCnorm
 
 [*SCnorm*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473255/) performs a quantile-regression based approach for robust normalization of single-cell RNA-seq data.  SCnorm groups genes based on their count-depth relationship then applies a quantile regression to each group in order to estimate scaling factors which will remove the effect of sequencing depth from the counts.
 
 IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, because of lack of algoritm convergency in these situations. 
 
-##### Check counts-depth relationship
+##### **Section 3.6.1.1** Check counts-depth relationship
 
 Before normalizing using **scnorm**, it is advised to check the data count-depth relationship.
 If all genes have a similar relationship then a global normalization strategy such as median-by-
@@ -405,7 +405,7 @@ include_graphics('../inst/img/checkCountDepth0.jpg')
 
 
 
-#### scnorm
+##### **Section 3.6.1.2** scnorm
 
 the **scnorm** function execute SCnorm from [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  return  the  normalized expression count.
 \newline
@@ -430,7 +430,7 @@ include_graphics('../inst/img/scnorm.jpeg')
 
 **scnorm** is compliant with [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool.
 
-#### scone
+#### **Section 3.6.2** scone
 
 scone package embeds:
 
@@ -471,7 +471,7 @@ umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 
 **IMPORTANT**: In case sub-population discovery is the analysis task, it is important to check if a specific normalization is compliant with the clustering approach in use. For example in the case of [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool, the normalizations provided in **scone** remove some of the features required to run the multikernel learning analysis. TMM is instead compliant with the CASC implementation of [**tSne**](https://lvdmaaten.github.io/tsne/).
 
-### Converting a count table in log10
+### **Section 3.7** Converting a count table in log10
 
 The function **counts2log** can convert a count table in a log10 values saved in a comma separated or tab delimited file.
 
@@ -481,7 +481,7 @@ counts2log(file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
 
 ```
 
-### Removing cell cycle bias
+### **Section 3.8** Removing cell cycle bias
 
 Single-cell RNA-Sequencing measurement of expression often suffers from large systematic bias. A major source of this bias is the cell cycle, which introduces large within-cell-type heterogeneity that can obscure the differences in expression between cell types. [*Barron and Li*](https://www.nature.com/articles/srep33892) developed in 2016 a R package called [*ccRemover*](https://cran.r-project.org/web/packages/ccRemover/index.html) which removes cell cycle effects and preserves other biological signals of interest (Figure \ref{fig:fig.11}).
 
@@ -565,6 +565,7 @@ recatPrediction(group="docker",scratch.folder="/data/scratch",file=paste(getwd()
 The analyses above were done using using a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. They took  54 and 40 mins for recatPrediction respectively on Buettner and the naive T-cell datasets. 28 mins were needed by ccRemove on Buettner data set. ccRemover analysis produces a data normalized matrix, ready for clustering. The matrix can be identify by the prefix **LS_cc_**.
 **ccRemove** output is compliant with [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool. **ccRemove** output does not require log transformation when applied to SIMLR.
 
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 #visualizing the dataset before and after cell cycle bias removal
@@ -598,7 +599,7 @@ pca(experiment.table="LS_cc_annotated_buettner_G1G2MS_counts_10000bis.txt", type
 
 
 ```
-
+\fontsize{10}{10}\selectfont
 
 In Figure \ref{fig:fig.14} are shown the results obtained using the ccRemove implementation in CASC, using the Buettner dataset. The removal of the cell cycle effect (Figure \ref{fig:fig.14}B) is clearly shown by a reduction of the variance explained by PC1 and PC2 in the PCA plot.
 
@@ -607,20 +608,239 @@ library(knitr)
 include_graphics('../inst/img/buettner_raw_ccremover.jpeg')
 ```
 
-## Estimating the number of cluster to be used for cell sub-population discovery.
+## **Section 4** Estimating the number of cluster to be used for cell sub-population discovery.
 
-The CASC core clustering tool is [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), which requires that the user provides the number of clusters in the cells under analysis will aggregate. Unfortunately, there is no definitive answer to this question and it represents the [*weakest aspects of performing cluster analysis*](https://hlab.stanford.edu/brian/number_of_clusters_.html). [*There are various way to try to address this issue*](http://www.sthda.com/english/articles/29-cluster-validation-essentials/96-determining-the-optimal-number-of-clusters-3-must-know-methods/), we tested [*silhouette*](https://www.sciencedirect.com/science/article/pii/0377042787901257?via%3Dihub) and [gap statistics](http://web.stanford.edu/~hastie/Papers/gap.pdf), but none of the two approches resulted to be particularly effective also because we are non simply interested in the fine the optimal numver o clusters, but we also want to know if any perturbation in the dataset, e.g. removal of a random subset of cells, is affecting the number of clusters.
-Now a day the best approach we could find is the use of [*griph*](https://ppapasaikas.github.io/griph/), which is a hierarchical clustering algorithm. In brief, griph build a dendrogram and defines the place in which dendrogram is cut, i.e. defining the number of clusters, running a top-down similarity analysis. As indicated above we are interested to identify not only the optimal cluster number but also if the cluster number is affected by removal of a random subset of cells.
+The CASC core clustering tool is [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), which requires as input the the number of clusters to be used to aggregate cell sub-populations. Unfortunately, there is no definitive answer to this question and it represents the [*weakest aspects of performing cluster analysis*](https://hlab.stanford.edu/brian/number_of_clusters_.html). [*There are various way to try to address this issue*](http://www.sthda.com/english/articles/29-cluster-validation-essentials/96-determining-the-optimal-number-of-clusters-3-must-know-methods/), within the most conventional approaches we tested [*silhouette*](https://www.sciencedirect.com/science/article/pii/0377042787901257?via%3Dihub) and [gap statistics](http://web.stanford.edu/~hastie/Papers/gap.pdf), but none of the two approches resulted to be particularly effective (not shown). 
 
-The function **clusterNgriph** evaluates the number of cluster in which a set of cells will aggregate upon leave-N-out bootstrap. To provide an example of how **clusterNgriph** we will use a dataset made of 100 cells from [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper:
+Another important aspect we were interested to check is the possibility that the number of clusters might change if a perturbation in cells dataset, e.g. removal of a random subset of cells, is affecting the number of clusters. Because single-cell experiment, at least today, are rarely characterized by biological replications, and frequently they represent the initial step of an analysis aimed at the identification for new cell sub-populations it is very important to assess how much stable are the cell aggregions detected by clustering.
 
-- B-cells
+Now a day, the best approach we could find to address the identification of the optimal number of clusters, in presence dataset perturbation, is the use of [*griph*](https://ppapasaikas.github.io/griph/), which is a hierarchical clustering algorithm. In brief, griph build a dendrogram and defines the place in which dendrogram is cut, i.e. defining the number of clusters, running a top-down similarity analysis.
 
-- Monocytes
+Griph is used by CASC function **clusterNgriph**, which evaluates the number of clusters in which a set of cells will aggregate upon a user defined leave-\%N-out cells bootstraps. In the example below the number of clusters are detected for the file 'annotated_buettner_G1G2MS_counts_10000bis.txt', used in **Section 3.8**.
 
-- Stem cells
 
-- Natural Killer cells
+```{r, echo=TRUE, eval=FALSE}
+library(casc)
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
+              "annotated_buettner_G1G2MS_counts_10000bis.txt", sep="/"), nPerm=160, 
+              permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
 
-- Naive T-cell
+```
+
+
+In Figure \ref{fig:fig.14a} it is shown the output generated by **clusterNgriph**. The output folder is called **Results** and it is located in the folder from which the analysis started. Within Results is present a folder named as the dataset used for the analysis. In this case 'annotated_buettner_G1G2MS_counts_10000bis'. In the latter folder is present a folder, in this specific example '5', named with the number of clusters that were more represented as result of the bootstrap analysis. The file indicated with the blue arrow contains all the information to generate the griph output plot, including all cells, that was used as reference to allocate cells to a specific cluster at each bootstrap step. The file indicated with the green arrow contains the cluster position for each cell over all bootstrap steps. The file indicated with the red arrow contains the cells removed at  each bootstrap steps.The file called 'hist.pdf', indicated with the black arrow, is the plot of the frequency of different number of clusters generated by griph as consequence of the bootstrap steps. In this specific case, over 160 permutations, 80 produced 5 clusters, 70 4 clusters and 10 6 clusters. 
+
+```{r fig.14a, fig.cap="Output of clusterNgriph", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/griph3.jpeg')
+```
+
+It has to be note that in principle, since this dataset has a strong cell cycle effect, we would have expected ideally only three clusters: G1, S and G2M. This toy experiment clearly show that perturbation of the dataset under analysis can affect the number of detectable clusters. Thus, in our opinion it is mandatory to cluster cells taking in account perturbation effects to identify the clustering condition that guarantee the greatest cell stability in a cluster. In Section 4.2 we further investigate this issue. 
+
+### **Section 4.1** Creating 4 test dataset using [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper data.
+
+As indicated above we are interested to identify not only the optimal cluster number but also if the cluster number is affected by removal of a random subset of cells. 
+To observe the effect of datasets preturbation in clustering the we built 4 datasets combining different cell types available from [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper:
+
+- setA 100 cell randomly selected for each cell type:
+    + B-cells (25K reads/cell), Monocytes  (100K reads/cell), **Stem cells** (24.7K reads/cell), Natural Killer cells (29K reads/cell), Naive T-cells (19K reads/cell)
+
+- setB 100 cell randomly selected for each cell type:
+    + B-cells, Monocytes, **T-helper cells** (21K reads/cell), Natural Killer, Naive T-cell
+    
+- setC 100 cell randomly selected for each cell type:
+    + **Cytotoxic T-cells** (28.6K reads/cell), Monocytes, **T-helper cells**, Natural Killer, Naive T-cell
+    
+- setD 100 cell randomly selected for each cell type:
+    + **Cytotoxic T-cells**, **Naive cytotoxic T-cells** (20K reads/cell), **T-helper cells**, Natural Killer, Naive T-cell
+    
+We used PCA (Figure \ref{fig:fig.15}A-D) to visualize the dissimilarity between cells subpopulations. PCA measures the variance between the elements of the dataset and the most important differences in variance are estimated by the PC1, which is getting smaller, i.e. cells are more similar, as we move from setA to setD. It is however important to highlight that the sequencing coverage in this experiment is quite limited, see **Section 3.2**, and providing a higher sequencing depth/cell would definetively improve the sub-populations resolution. 
+
+
+\fontsize{8}{8}\selectfont    
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget https://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+system("cd section4.1_examples")
+
+#visualizing the complexity of the datasets using PCA
+library(docker4seq)
+topx(data.folder=getwd(),file.name="bmsnkn_5x100cells.txt",threshold=1000, logged=FALSE)
+tmp <- read.table("bmsnkn_5x100cells_1000.txt", sep="\t", header=T, row.names=1)
+tmp.n <- strsplit(names(tmp), "_")
+tmp.n <- sapply(tmp.n, function(x)x[2])
+tmp.n1 <- paste(tmp.n, seq(1:length(tmp.n)),"_",tmp.n, sep="")
+names(tmp) <- tmp.n1
+logtmp <- log10(tmp + 1)
+write.table(logtmp, "log10_bmsnkn_5x100cells_1000.txt", sep="\t", col.names = NA)
+
+pca(experiment.table="log10_bmsnkn_5x100cells_1000.txt", type="FPKM",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+topx(data.folder=getwd(),file.name="bmHnkn_5x100cells.txt",threshold=1000, logged=FALSE)
+tmp <- read.table("bmHnkn_5x100cells_1000.txt", sep="\t", header=T, row.names=1)
+tmp.n <- strsplit(names(tmp), "_")
+tmp.n <- sapply(tmp.n, function(x)x[2])
+tmp.n1 <- paste(tmp.n, seq(1:length(tmp.n)),"_",tmp.n, sep="")
+names(tmp) <- tmp.n1
+logtmp <- log10(tmp + 1)
+write.table(logtmp, "log10_bmHnkn_5x100cells_1000.txt", sep="\t", col.names = NA)
+
+pca(experiment.table="log10_bmHnkn_5x100cells_1000.txt", type="FPKM",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+topx(data.folder=getwd(),file.name="CmHnkn_5x100cells.txt",threshold=1000, logged=FALSE)
+tmp <- read.table("CmHnkn_5x100cells_1000.txt", sep="\t", header=T, row.names=1)
+tmp.n <- strsplit(names(tmp), "_")
+tmp.n <- sapply(tmp.n, function(x)x[2])
+tmp.n1 <- paste(tmp.n, seq(1:length(tmp.n)),"_",tmp.n, sep="")
+names(tmp) <- tmp.n1
+logtmp <- log10(tmp + 1)
+write.table(logtmp, "log10_CmHnkn_5x100cells_1000.txt", sep="\t", col.names = NA)
+
+pca(experiment.table="log10_CmHnkn_5x100cells_1000.txt", type="FPKM",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+topx(data.folder=getwd(),file.name="CNCHnkn_5x100cells.txt",threshold=1000, logged=FALSE)
+tmp <- read.table("CNCHnkn_5x100cells_1000.txt", sep="\t", header=T, row.names=1)
+tmp.n <- strsplit(names(tmp), "_")
+tmp.n <- sapply(tmp.n, function(x)x[2])
+tmp.n1 <- paste(tmp.n, seq(1:length(tmp.n)),"_",tmp.n, sep="")
+names(tmp) <- tmp.n1
+logtmp <- log10(tmp + 1)
+write.table(logtmp, "log10_CNCHnkn_5x100cells_1000.txt", sep="\t", col.names = NA)
+
+pca(experiment.table="log10_CNCHnkn_5x100cells_1000.txt", type="FPKM",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+
+
+```
+\fontsize{10}{10}\selectfont
+
+
+```{r fig.15, fig.cap="PCA is getting progressively unable to discriminate between the different cell subpopulations as the set of cells are getting functionally more similar to each other: A) PCA of setA, B) PCA of setB, C) PCA of setC, D) PCA of setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/griph1.jpeg')
+```
+
+### **Section 4.2** The number of clusters in which sub-population of cells aggregate is affected by dataset perturbations.
+    
+To observe the effect of the reduced dissimilarity between subset of cells on the stability of the number of clusters we use the CASC **clusterNgriph** function on the above mentioned 4 datasets using 160 permutations/each, and randomly removing in each permutation 10\% of the cells. Each analysis took approximately 60 mins on a SeqBox hardware. 
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#setA
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
+              "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, 
+              percent=10, separator="\t",logTen=0, seed=111)
+
+#setB
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
+              "bmHnkn_5x100cells.txt", sep="/"), nPerm=160,
+              permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+
+#setC
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
+              "CmHnkn_5x100cells.txt", sep="/"), nPerm=160,
+              permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+
+#setD
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
+              "CNCHnkn_5x100cells.txt", sep="/"), nPerm=160,
+              permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+
+
+
+```
+
+\fontsize{10}{10}\selectfont
+
+It is notable that as the differences between the cells subpopulation is getting narrowed, i.e in setA we have a very heterogeneous set of cells as in setD 4 sets out of 5 are T-cells sub-populations, the fluctuations in the detected number of clusters increase. In setA, where PCA is already able to discriminate between the different cell sub-populations, out of 160 permutations only 1 gave a number of clusters (6) different from the effective number of cell sub-populations (5) (Figure \ref{fig:fig.16}A). In set D, where four out of five sub-populations are T-cell, the clusters detected fluctuates between 3 to 5 clusters (Figure \ref{fig:fig.16}D). 
+
+```{r fig.16, fig.cap="Clusters number stability is dependent by the cell type similarity: A) number of clusters detectable by griph in setA, B) number of clusters detectable by griph in setB, C) number of clusters detectable by griph in setC, D) number of clusters detectable by griph in setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/griph2.jpeg')
+```
+
+The difficulties in detecting a stable number of clusters is due, in our opinion, to the limited number of subpopulation specific genes detectable with a reads depths about 20-25K reads/cell. To support this hypothesis we run a comparison between the most expressed genes in cell types used in this example, using the code shown below.
+
+```{r, echo=TRUE, eval=FALSE}
+
+#loading the datasets used to generate PCA
+b <- read.table("cd19_b_100cell.txt", sep="\t", header=T, row.names=1)
+mono <- read.table("cd14_mono_100cell.txt", sep="\t", header=T, row.names=1)
+stem <- read.table("cd34_stem_100cell.txt", sep="\t", header=T, row.names=1)
+nk <- read.table("cd56_nk_100cell.txt", sep="\t", header=T, row.names=1)
+naiveT <- read.table("naiveT_100cell.txt", sep="\t", header=T, row.names=1)
+cyto <- read.table("cytoT_100cell.txt", sep="\t", header=T, row.names=1)
+naiveCyto <- read.table("naiveCytoT_100cell.txt", sep="\t", header=T, row.names=1)
+helper <- read.table("cd4_h_100cell.txt", sep="\t", header=T, row.names=1)
+
+#calculating the gene-level expression and ranking the genes from the most expressed to the least expressed
+b.s <- sort(apply(b,1,sum), decreasing=T)
+mono.s <- sort(apply(mono,1,sum), decreasing=T)
+stem.s <- sort(apply(stem,1,sum), decreasing=T)
+nk.s <- sort(apply(nk,1,sum), decreasing=T)
+naiveT.s <- sort(apply(naiveT,1,sum), decreasing=T)
+cyto.s <- sort(apply(cyto,1,sum), decreasing=T)
+naiveCyto.s <- sort(apply(naiveCyto,1,sum), decreasing=T)
+helper.s <- sort(apply(helper,1,sum), decreasing=T)
+
+#function that measure the identity between lists of increasing lengths
+overlap <- function(x,y){
+  overlap.v <- NULL
+  for(i in 1:length(x)){
+     overlap.v[i] <- length(intersect(x[1:i], y[1:i]))
+  }
+  return(overlap.v)
+}
+
+#calculating the level of identity between lists of increasing lengths all comparisons are run with respect to naive T-cell.
+naiveCyto.naiveT <- overlap(names(naiveT.s), names(naiveCyto.s))
+b.naiveT <- overlap(names(naiveT.s), names(b.s))
+mono.naiveT <- overlap(names(naiveT.s), names(mono.s))
+stem.naiveT <- overlap(names(naiveT.s), names(stem.s))
+nk.naiveT <- overlap(names(naiveT.s), names(nk.s))
+naiveCyto.naiveT <- overlap(names(naiveT.s), names(naiveCyto.s))
+helper.naiveT <- overlap(names(naiveT.s), names(helper.s))
+cyto.naiveT <- overlap(names(naiveT.s), names(cyto.s))
+
+#plotting the above data
+plot(seq(1, 500), seq(1, 500), type="l", col="black", lty=2)
+points(seq(1, 500), naiveCyto.naiveT[1:500], type="l", col="black")
+points(seq(1, 500), cyto.naiveT[1:500], type="l", col="blue")
+points(seq(1, 500), helper.naiveT[1:500], type="l", col="green")
+points(seq(1, 500), mono.naiveT[1:500], type="l", col="red")
+points(seq(1, 500), b.naiveT[1:500], type="l", col="brown")
+points(seq(1, 500), stem.naiveT[1:500], type="l", col="orange")
+points(seq(1, 500), nk.naiveT[1:500], type="l", col="violet")
+legend("topleft", legend=c("Naive T-cytotoxic", "T-cytotoxic", "T-helper", "Monocytes", "B-cells", "Stem cells", "NK"),
+       pch=15, col=c("black", "blue", "green", "red", "brown", "orange", "violet"))
+
+
+```
+
+Figure \ref{fig:fig.17}  shows that the naive T-cytotoxic, T-cytoxic and T-helper, setD, are much similar to naive T-cells with respect to the similarity existing between naive T-cells and the other cells present in setA. 
+
+```{r fig.17, fig.cap="Number of identity between naive T-cells and the other cell types in set A and D", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/griph4.jpeg')
+```
+
+The results describes in this section indicate that **clusterNgriph** is a valuable instrument giving information on the range of number of clusters in which to focus the analyses described in the following sections.
+
+## **Section 5** Clustering cell sub-population by mean of kernel based similarity learning (SIMLR).
+
+
 
