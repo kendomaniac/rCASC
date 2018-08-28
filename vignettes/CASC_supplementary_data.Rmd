@@ -39,9 +39,24 @@ The RAM and cores requirements are dependent on the data set under analysis, e.g
 
 ### **Section 1.2** Installation
 
-The installation for the package is shown below.
-\newline
+You need to have docker installed on your machine, for more info see this document:
+
+[*https://docs.docker.com/engine/installation/*](https://docs.docker.com/engine/installation/).
+
+**CASC** package is expected to run on 64 bits linux machine with at least 4 cores. A scratch folder should be present, e.g. /data/scratch and it should be writable from everybody:
+
+```
+chmod 777 /data/scratch
+```
+
+The functions in CASC package require that user is part of a docker group.
+See the following document for more info:
+[*https://docs.docker.com/install/linux/linux-postinstall/*](https://docs.docker.com/install/linux/linux-postinstall/)
+
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
+
+
 install.packages("devtools")
 library(devtools)
 install_github("kendomaniac/casc")
@@ -52,6 +67,8 @@ downloadContainers()
 
 
 ```
+\fontsize{10}{10}\selectfont
+
 
 
 ## **Section 2** Counts generation
@@ -197,6 +214,7 @@ The function **filterZeros** retains all genes that have cells without a user de
 
 **IMPORTANT**: In case user would like to apply cell quality filter, e.g. *lorenzFilter*, it is covenient to remove only genes with 0 counts in all cells, i.e. threshold=0 (Figure \ref{fig:fig.5}).
 \newline
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
@@ -210,6 +228,7 @@ filterZeros(data.folder=getwd(),counts.matrix="testSCumi_mm10.txt", threshold=0)
 #output is filtered_testSCumi_mm10.txt
 
 ```
+\fontsize{10}{10}\selectfont
 
 ```{r fig.5, fig.cap="Non zeros distribution in full table, orange, and filtered table, blue", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
@@ -220,12 +239,14 @@ include_graphics('../inst/img/filterZero.jpeg')
 
 To estimate the overall amount of genes detectable in each cell, the function *genesUmi* produces a plot of the genes number with respect to total number of UMI for each cell. The number of UMIs required to indicate that a gene is detected in a cell are defined by user. We suggest to use at least 3 UMI as minimal threshold to consider a gene called present in a cell.
 
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 library(casc)
 genesUmi(data.folder=getwd(), counts.matrix="filtered_testSCumi_mm10.txt", umiXgene=3)
 
 ```
+\fontsize{10}{10}\selectfont
 
 In figure \ref{fig:fig.6} it is shown the distribution of genes in cells for filtered_testSCumi_mm10.txt counts table. 
 
@@ -246,7 +267,7 @@ include_graphics('../inst/img/Ziegenhain2017.jpeg')
 The sequencing depth affects the number of detectable genes, which are the key element to discriminate between sub-populations. In Figure \ref{fig:fig.6.2} we show the effect of sequencing depth on the number of detectable genes in 10XGenomics sequencing experiments at different depths (25K reads/cell extracted from CD19 B-cells [[*Zheng et al*](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)],  83K reads/cell fextracted from GSM2833284_Naive_WT_Rep1 [[*Pace et al. 2018*](https://www.ncbi.nlm.nih.gov/pubmed/29326266)] and 250K reads/cell from an unpublished mouse experiment) and one whole transcriptome sequencing experiment [[*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176)] with a 3.5 milion median reads/cell. To make the datasets comparable we run the analysis on 288 randomly selected cells from each data set. We use  3 UMI as minimal threshold to consider a gene called present in 10XGenomics experiments and 5 reads [[*Tarazona et al. 2011*](https://genome.cshlp.org/content/21/12/2213.long)] as minimal threshold to consider a gene called present in a cell whole trasncriptome experiment.  
 
 
-
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 system("wget http://130.192.119.59/public/Zheng_cd19_288cells.txt.zip")
 unzip("Zheng_cd19_288cells.txt.zip")
@@ -274,6 +295,7 @@ genesUmi(data.folder=getwd(), counts.matrix="buettner_G1G2MS_counts.txt", umiXge
 system("mv genes.umi.pdf genes.umi_3.5M.pdf")
 
 ```
+\fontsize{10}{10}\selectfont
 
 Figure \ref{fig:fig.6.2} clearly show that the number of detectable genes that can be obtained by 10XGenomics sequencing is, even with 250K reads/cell (Figure \ref{fig:fig.6.2}C), far less of those detectable using a whole transcriptome experiment (Figure \ref{fig:fig.6.2}D). Furthermore, it is clear that a depth below 250K reads/cell will allow efficent cell clustering only if large differences exists between cell sub-populations.
 
@@ -287,6 +309,7 @@ include_graphics('../inst/img/seq_depth.jpeg')
 
 To identify outlier libraries, Diaz and coworkers [[*2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)] developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. Furthermore, Lorenz statistics correlates with live-dead staining, Pearson-correlation 0.7 [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. We have implemented the Lorenz statistics in CASC **lorenzFilter** function.
 \newline
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE,eval=FALSE}
 
 #IMPORTANT: full path to the file MUST be cell count file included!
@@ -304,6 +327,8 @@ tmp <- read.table("lorenz_filtered_testSCumi_mm10.txt", sep="\t", header=T, row.
 #785 cells
 
 ```
+\fontsize{10}{10}\selectfont
+
 
 In the example above 21 cells were removed because of their low quality (Figure \ref{fig:fig.7}). 
 
@@ -316,6 +341,7 @@ include_graphics('../inst/img/lorenz_filter.jpg')
 
 The function *scannoByGtf* allows the annotation of single-cell matrix, if ENSEMBL gene ids are provided. The function requires the ENSEMBL GTF of the organism under analysis and allows the selection of specific annotation biotypes, e.g. protein_coding.
 \newline
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 #running annotation and removal of mito and ribo proteins genes
@@ -326,11 +352,12 @@ scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.t
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
 
 ```
-
+\fontsize{10}{10}\selectfont
 
 Ribosomal RNA and ribosomal proteins represent a significant part of the cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis. Thus, ribosomal proteins expression might represent a major confunding factor in cluster formation between active and dormient cells. Furthermore, the main function of mitochondria is to produce energy through aerobic respiration. The number of mitochondria a cell possesses depends on its metabolic demands. This might also affect clustering favoring the separation between active and dormient cells with respect to functional differences between subpopulations.
 *scannobyGtf* allows also the removal of mitocondrial and ribosomal protein genes.
 \newline
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 library(casc)
@@ -339,6 +366,7 @@ scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.t
                     mt=FALSE, ribo.proteins=FALSE,umiXgene=3)
 
 ```
+\fontsize{10}{10}\selectfont
 
 In figure \ref{fig:fig.8} is shown the effect of the removal of both mitocondrial and ribosomal protein genes. It is notable that, in this specific experiment, in cells with less than 1000 UMI nearly all detected genes were only mitocondrial and ribosomal protein genes. This filter is suitable to identify cells which do not contain any informative gene other the mitocondrial and ribosomal proteins. However, in case the difference between resting and actively proliferating cells are an important element of cell sub-population discovery this filter should not be applied.
 
@@ -352,6 +380,7 @@ include_graphics('../inst/img/noMT-rib.jpg')
 
 For clustering purposes user might decide to use the top expressed genes. The function *topX* select the X top expressed genes given a user defined threshold. The function also produces a pdf file gene_expression_distribution.pdf showing the changes in the UMIs/gene expression distribution upon *topX* filtering.
 
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
  
 library(casc)
@@ -360,7 +389,7 @@ topx(data.folder=getwd(),file.name="lorenz_filtered_testSCumi_mm10.txt",threshol
 genesUmi(data.folder=getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10_10000.txt", umiXgene=3)
 
 ```
-
+\fontsize{10}{10}\selectfont
 
 ### **Section 3.6** Data normalization
 
@@ -384,6 +413,7 @@ ratio in the DESeq package or TMM in edgeR will also be adequate. However, when 
 
 **checkCountDepth** provides a wrapper, in CASC, for the checkCountDepth of the [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
 \newline
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 #this specific example is an UMI counts table made of 12 cells having at least 10K UMIs/cell.
@@ -395,6 +425,7 @@ checkCountDepth(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
      ditherCounts=TRUE, outputName="example_UMI", nCores=8)
 
 ```
+\fontsize{10}{10}\selectfont
 
 The output is a PDF (Figure \ref{fig:fig.9}), providing a view of the counts distribution of the data, and a file selected.genes.txt, which contains the genes selected to run the analysis.
 
@@ -409,6 +440,7 @@ include_graphics('../inst/img/checkCountDepth0.jpg')
 
 the **scnorm** function execute SCnorm from [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  return  the  normalized expression count.
 \newline
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 system("wget http://130.192.119.59/public/example_UMI.txt.zip")
@@ -420,6 +452,7 @@ scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
      ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=TRUE, FilterExpression=1)
 
 ```
+\fontsize{10}{10}\selectfont
 
 The output files are a tab delimited file containing the normalized data, with the prefix **normalized_**, **discarded_genes.txt**, which contains the discarded genes, and a plot of the normalization effects ((Figure \ref{fig:fig.10})).
 
@@ -458,7 +491,7 @@ scone package embeds:
 
     + the total counts are replaced by the upper quartile of counts different from 0 in the computation of the normalization factors.
 
-
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 #Weighted trimmed mean of M-values (TMM) scaling normalization
@@ -468,6 +501,8 @@ umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
        outputName="example_UMI", normMethod="TMM_FN")
 
 ```
+\fontsize{10}{10}\selectfont
+
 
 **IMPORTANT**: In case sub-population discovery is the analysis task, it is important to check if a specific normalization is compliant with the clustering approach in use. For example in the case of [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool, the normalizations provided in **scone** remove some of the features required to run the multikernel learning analysis. TMM is instead compliant with the CASC implementation of [**tSne**](https://lvdmaaten.github.io/tsne/).
 
@@ -475,11 +510,14 @@ umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 
 The function **counts2log** can convert a count table in a log10 values saved in a comma separated or tab delimited file.
 
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 counts2log(file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
 
 ```
+\fontsize{10}{10}\selectfont
+
 
 ### **Section 3.8** Removing cell cycle bias
 
@@ -562,6 +600,7 @@ recatPrediction(group="docker",scratch.folder="/data/scratch",file=paste(getwd()
 ```
 
 \fontsize{10}{10}\selectfont
+
 The analyses above were done using using a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. They took  54 and 40 mins for recatPrediction respectively on Buettner and the naive T-cell datasets. 28 mins were needed by ccRemove on Buettner data set. ccRemover analysis produces a data normalized matrix, ready for clustering. The matrix can be identify by the prefix **LS_cc_**.
 **ccRemove** output is compliant with [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool. **ccRemove** output does not require log transformation when applied to SIMLR.
 
@@ -618,7 +657,7 @@ Now a day, the best approach we could find to address the identification of the 
 
 Griph is used by CASC function **clusterNgriph**, which evaluates the number of clusters in which a set of cells will aggregate upon a user defined leave-\%N-out cells bootstraps. In the example below the number of clusters are detected for the file 'annotated_buettner_G1G2MS_counts_10000bis.txt', used in **Section 3.8**.
 
-
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 library(casc)
 clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
@@ -626,7 +665,7 @@ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
               permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
 
 ```
-
+\fontsize{10}{10}\selectfont
 
 In Figure \ref{fig:fig.14a} it is shown the output generated by **clusterNgriph**. The output folder is called **Results** and it is located in the folder from which the analysis started. Within Results is present a folder named as the dataset used for the analysis. In this case 'annotated_buettner_G1G2MS_counts_10000bis'. In the latter folder is present a folder, in this specific example '5', named with the number of clusters that were more represented as result of the bootstrap analysis. The file indicated with the blue arrow contains all the information to generate the griph output plot, including all cells, that was used as reference to allocate cells to a specific cluster at each bootstrap step. The file indicated with the green arrow contains the cluster position for each cell over all bootstrap steps. The file indicated with the red arrow contains the cells removed at  each bootstrap steps.The file called 'hist.pdf', indicated with the black arrow, is the plot of the frequency of different number of clusters generated by griph as consequence of the bootstrap steps. In this specific case, over 160 permutations, 80 produced 5 clusters, 70 4 clusters and 10 6 clusters. 
 
@@ -775,6 +814,7 @@ include_graphics('../inst/img/griph2.jpeg')
 
 The difficulties in detecting a stable number of clusters is due, in our opinion, to the limited number of subpopulation specific genes detectable with a reads depths about 20-25K reads/cell. To support this hypothesis we run a comparison between the most expressed genes in cell types used in this example, using the code shown below.
 
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 #loading the datasets used to generate PCA
@@ -830,10 +870,12 @@ legend("topleft", legend=c("Naive T-cytotoxic", "T-cytotoxic", "T-helper", "Mono
 
 
 ```
+\fontsize{10}{10}\selectfont
 
-Figure \ref{fig:fig.17}  shows that the naive T-cytotoxic, T-cytoxic and T-helper, setD, are much similar to naive T-cells with respect to the similarity existing between naive T-cells and the other cells present in setA. 
 
-```{r fig.17, fig.cap="Number of identity between naive T-cells and the other cell types in set A and D", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+Figure \ref{fig:fig.17}  shows the number of genes found in common between naive T-cells and the other sub-populations used in setA and setD using lists of increasing size. Identity between two data sets is shown by the dashed line. The plot shows that naive T-cytotoxic, T-cytoxic and T-helper, from setD, share with naive T-cells, within the top 500 most expressed genes, more genes with respect to the other cell types present in setA. 
+
+```{r fig.17, fig.cap="Identity between naive T-cells and the other cell types in set A and D in lists of increasing length", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/griph4.jpeg')
 ```
