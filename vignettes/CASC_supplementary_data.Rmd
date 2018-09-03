@@ -30,20 +30,30 @@ include_graphics('../inst/img/casc_workflow.jpeg')
 ```
 
 
-The workflow allows the direct analysis of fastq files generated with [*10X Genomics platform*](https://www.10xgenomics.com/) or [*InDrop technology*](https://1cell-bio.com/) or a count matrix having as column cell identifier and as row names ENSEMBL gene annotation. In the following paragraphs we will describe the fuctionalities of CASC workflow.
+The workflow allows the direct analysis of fastq files generated with [*10X Genomics platform*](https://www.10xgenomics.com/), [*InDrop technology*](https://1cell-bio.com/) or a count matrix having as column cell identifier and as row names ENSEMBL gene annotation. In the following paragraphs the fuctionalities of CASC workflow are described.
 \newline
 
 
 ### **Section 1.1** Minimal hardware requirements to run CASC
-The RAM and cores requirements are dependent on the data set under analysis, e.g. 500-600 cells can be effectively analysed using the hardware described by Beccuti [[*Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]: 32 Gb RAM and 2.6 GHz Core i7 6700HQ with 8 threads. The analysis time can be significantly improved increasing the number of cores using a multi-core achitecture system, cluster implementation of the workflow using [*swarm*](https://docs.docker.com/engine/swarm/) is under implementation. 
+The RAM and CPU requirements are dependent on the data set under analysis, e.g. 500-600 cells can be effectively analysed using the hardware described by Beccuti [[*Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]: 
+
+- 32 Gb RAM and 
+
+- 2.6 GHz Core i7 6700HQ with 8 threads.
+
+- 500 GB SSD
+
+The analysis time can be significantly improved increasing the number of cores using a multi-core achitecture system, cluster implementation of the workflow using [*swarm*](https://docs.docker.com/engine/swarm/) is under implementation. 
 
 ### **Section 1.2** Installation
 
-You need to have docker installed on your machine, for more info see this document:
+A workstation/server running 64 bits linux.
+
+Docker daemon installed on the machine, for more info see this document:
 
 [*https://docs.docker.com/engine/installation/*](https://docs.docker.com/engine/installation/).
 
-**CASC** package is expected to run on 64 bits linux machine with at least 4 cores. A scratch folder should be present, e.g. /data/scratch and it should be writable from everybody:
+A scratch folder should be present, e.g. /data/scratch, and it should be writable by everybody:
 
 ```
 chmod 777 /data/scratch
@@ -52,6 +62,8 @@ chmod 777 /data/scratch
 The functions in CASC package require that user is part of a docker group.
 See the following document for more info:
 [*https://docs.docker.com/install/linux/linux-postinstall/*](https://docs.docker.com/install/linux/linux-postinstall/)
+
+CASC can be installed in [*R*](https://cran.r-project.org/) as described below:
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -118,7 +130,7 @@ library(casc)
 #running indropCounts index build
 indropIndex(group="docker", index.folder=getwd(),
  ensembl.urlgenome="ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
-ensembl.urlgtf="ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.gtf.gz")
+ ensembl.urlgtf="ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.gtf.gz")
 
 ```
 
@@ -188,9 +200,9 @@ cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_
 ```
 \fontsize{10}{10}\selectfont
  
-The analysis done above took 56.4 mins on an [*SeqBox*](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD.
+The analysis done above took 56.4 mins on an [*SeqBox*](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 500Gb SSD.
 
-The output of the above analysis are two cell counts matrices **results_cellranger.cvs** and **results_cellranger.txt** and a folder called **results_cellranger**, which contains the full cellranger output.
+The output of the above analysis are two cell counts matrices **results_cellranger.cvs** and **results_cellranger.txt** and a folder called **results_cellranger**, which contains the full cellranger output, more information on cellranger output can be found at [*10XGenomics web site*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview).
 
 ## **Section 3** Counts matrix editing
 
@@ -200,7 +212,7 @@ This paragraph describes a set of functions that can be used to remove low quali
     + Removing non informative genes: **filterZeros**
     + Checking the genes versus total number of UMI: **genesUmi**
     + Removing low quality cells: **lorenzFilter**
-    + Data normalization: **scnorm**, minimal requirements 10K counts/cell, works best with whole transcriptome sequencing
+    + Data normalization: **scnorm**, minimal requirements 10K counts/cell, works best with whole transcript sequencing
     + Data normalization: **umiNorm**, global normalization methods TMM and RLE are suitable for UMI data
     + ENSEMBL annotation and mitochodrial/ribosomal protein genes removal: **scannobyGtf**
     + Converting a count table in log10: **counts2log**
@@ -237,7 +249,7 @@ include_graphics('../inst/img/filterZero.jpeg')
 
 ### **Section 3.2** Plotting genes numbers versus total UMIs in each cell
 
-To estimate the overall amount of genes detectable in each cell, the function *genesUmi* produces a plot of the genes number with respect to total number of UMI for each cell. The number of UMIs required to indicate that a gene is detected in a cell are defined by user. We suggest to use at least 3 UMI as minimal threshold to consider a gene called present in a cell.
+To estimate the overall amount of genes detectable in each cell, the function *genesUmi* produces a plot of the genes number with respect to total number of UMI for each cell. The number of UMIs required to indicate that a gene is detected in a cell is a parameter defined by user. We suggest to use at least 3 UMI as minimal threshold to consider a gene called present in a cell.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -248,7 +260,7 @@ genesUmi(data.folder=getwd(), counts.matrix="filtered_testSCumi_mm10.txt", umiXg
 ```
 \fontsize{10}{10}\selectfont
 
-In figure \ref{fig:fig.6} it is shown the distribution of genes in cells for filtered_testSCumi_mm10.txt counts table. 
+In figure \ref{fig:fig.6} it is shown the distribution of genes in cells for 'filtered_testSCumi_mm10.txt' counts table. 
 
 ```{r fig.6, fig.cap="genesUmi output", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
@@ -257,18 +269,26 @@ include_graphics('../inst/img/genesUMI.jpg')
 
 #### **Section 3.2.1** Some considerations about the number of reads/UMI to be used in a single-cell sequencing experiment.
 
-[*Ziegenhain and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28212749) published a comparison between single cell sequencing protocols and they show that, in a simulated experiment, at least 250K reads/UMI are requested for detecting at least 80% of differentially expressed genes between two groups (Figure \ref{fig:fig.6.1}). This information is clearly very important in case we are interested to cluster cells to detect differences between sub-populations. The choise of the sequencing method and of the sequencing depth might strongly affect the ability to discriminate between sub-populations.
+[*Ziegenhain and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28212749) published a comparison between single cell sequencing protocols and they show that, in a simulated experiment, at least 250K reads/cell are requested for detecting at least 80% of differentially expressed genes between two groups (Figure \ref{fig:fig.6.1}). Ziegenhain observation clearly also apply to sub-populations clustering. 
 
-```{r fig.6.1, fig.cap="Modified from Figure 6. Power of scRNA-Seq Methods of Ziegenhain et al. (Mol. Cell 2017). For more information on the experiment please see Ziegenhain et al. (Mol. Cell 2017)", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+```{r fig.6.1, fig.cap="Modified from Figure 6 in Ziegenhain et al. (Mol. Cell 2017). Power of scRNA-Seq methods. For more information on the experiment please see Z", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/Ziegenhain2017.jpeg')
 ```
 
-The sequencing depth affects the number of detectable genes, which are the key element to discriminate between sub-populations. In Figure \ref{fig:fig.6.2} we show the effect of sequencing depth on the number of detectable genes in 10XGenomics sequencing experiments at different depths (25K reads/cell extracted from CD19 B-cells [[*Zheng et al*](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)],  83K reads/cell fextracted from GSM2833284_Naive_WT_Rep1 [[*Pace et al. 2018*](https://www.ncbi.nlm.nih.gov/pubmed/29326266)] and 250K reads/cell from an unpublished mouse experiment) and one whole transcriptome sequencing experiment [[*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176)] with a 3.5 milion median reads/cell. To make the datasets comparable we run the analysis on 288 randomly selected cells from each data set. We use  3 UMI as minimal threshold to consider a gene called present in 10XGenomics experiments and 5 reads [[*Tarazona et al. 2011*](https://genome.cshlp.org/content/21/12/2213.long)] as minimal threshold to consider a gene called present in a cell whole trasncriptome experiment.  
+Sequencing depth, which affect differential expression analysis, modulates the data set under analysis at two levels: 
+
+- number of genes called present in the experiment
+
+- robustness of gene expression, i.e. number of reads associated to a gene. 
+
+The number of genes called present in the experiment are the key element also for the discrimination between sub-populations. In Figure \ref{fig:fig.6.2} it shown the effect of sequencing depth on the number of detectable genes in a set of 10XGenomics sequencing experiments (25K reads/cell extracted from CD19 B-cells [[*Zheng et al*](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)],  83K reads/cell extracted from GSM2833284_Naive_WT_Rep1 [[*Pace et al. 2018*](https://www.ncbi.nlm.nih.gov/pubmed/29326266)], 250K reads/cell from an unpublished mouse experiment) and one whole transcript sequencing experiment [[*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176)] with a 3.5 milion median reads/cell. 
+To make the datasets comparable we executed **genesUmi** on 288 randomly selected cells from each data set. We use  3 UMI as minimal threshold to call present a gene in 10XGenomics experiments and 5 reads [[*Tarazona et al. 2011*](https://genome.cshlp.org/content/21/12/2213.long)] as minimal threshold to call a gene present in a single cell whole trasncriptome experiment.  
 
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
+#10XGenomics experiments
 system("wget http://130.192.119.59/public/Zheng_cd19_288cells.txt.zip")
 unzip("Zheng_cd19_288cells.txt.zip")
 library(casc)
@@ -287,7 +307,7 @@ library(casc)
 genesUmi(data.folder=getwd(), counts.matrix="brain_unpublished_288cells.txt", umiXgene=3)
 system("mv genes.umi.pdf genes.umi_250k.pdf")
 
-
+#whole transcript experiment
 system("wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip")
 unzip("buettner_G1G2MS_counts.txt.zip")
 library(casc)
@@ -297,17 +317,18 @@ system("mv genes.umi.pdf genes.umi_3.5M.pdf")
 ```
 \fontsize{10}{10}\selectfont
 
-Figure \ref{fig:fig.6.2} clearly show that the number of detectable genes that can be obtained by 10XGenomics sequencing is, even with 250K reads/cell (Figure \ref{fig:fig.6.2}C), far less of those detectable using a whole transcriptome experiment (Figure \ref{fig:fig.6.2}D). Furthermore, it is clear that a depth below 250K reads/cell will allow efficent cell clustering only if large differences exists between cell sub-populations.
+Figure \ref{fig:fig.6.2} clearly show that the number of genes detectable by 10XGenomics sequencing is, even with 250K reads/cell (Figure \ref{fig:fig.6.2}C), far less of those detectable using a whole transcript experiment (Figure \ref{fig:fig.6.2}D). Since short reads sequencing will sample first the most represented genes, i.e. housekeeping genes, low sequencing depth will negatively affect the discrimination between similar cell-types. 
 
-```{r fig.6.2, fig.cap="Number of detected genes with respect to mapped reads. A) 25K reads/cell 10XGenomics platform, 3\' end sequencing. B) 86K reads/cell 10XGenomics platform, 3\' end sequencing. C) 250K reads/cell 10XGenomics platform, 3\' end sequencing. D) 3.5 milion reads/cell C1 platform, whole transcriptome sequencing", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+```{r fig.6.2, fig.cap="Number of detected genes with respect to mapped reads. A) 25K reads/cell 10XGenomics platform, 3\' end sequencing. B) 86K reads/cell 10XGenomics platform, 3\' end sequencing. C) 250K reads/cell 10XGenomics platform, 3\' end sequencing. D) 3.5 milion reads/cell C1 platform, whole transcript sequencing", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/seq_depth.jpeg')
 ```
 
 
+
 ### **Section 3.3** Identifying and removing cell low-quality outliers
 
-To identify outlier libraries, Diaz and coworkers [[*2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)] developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. Furthermore, Lorenz statistics correlates with live-dead staining, Pearson-correlation 0.7 [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. We have implemented the Lorenz statistics in CASC **lorenzFilter** function.
+To identify outlier in single-cells sequencing, Diaz and coworkers [[*2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)] developed a strategy to estimate genes expressed at background levels in a given sample. Then samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. Furthermore, Lorenz statistics correlates with live-dead staining [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. Lorenz statistics was implemented in CASC **lorenzFilter** function.
 \newline
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE,eval=FALSE}
@@ -368,7 +389,7 @@ scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.t
 ```
 \fontsize{10}{10}\selectfont
 
-In figure \ref{fig:fig.8} is shown the effect of the removal of both mitocondrial and ribosomal protein genes. It is notable that, in this specific experiment, in cells with less than 1000 UMI nearly all detected genes were only mitocondrial and ribosomal protein genes. This filter is suitable to identify cells which do not contain any informative gene other the mitocondrial and ribosomal proteins. However, in case the difference between resting and actively proliferating cells are an important element of cell sub-population discovery this filter should not be applied.
+In figure \ref{fig:fig.8} is shown the effect of the removal of both mitocondrial and ribosomal protein genes. It is notable that, in this specific experiment, in cells with less than 1000 UMI nearly all detected genes were only mitocondrial and ribosomal protein genes. This filter is suitable to identify cells which do not contain any informative gene other the mitocondrial and ribosomal proteins. However, in case the difference between resting and actively proliferating cells is an important element of cell sub-population discovery this filter should not be applied.
 
 ```{r fig.8, fig.cap="Removing mithocondrial and ribosomal proteins genes, in red is shown the dataset after removal of mitocondrial and ribosomal protein genes.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
@@ -408,8 +429,7 @@ IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, 
 ##### **Section 3.6.1.1** Check counts-depth relationship
 
 Before normalizing using **scnorm**, it is advised to check the data count-depth relationship.
-If all genes have a similar relationship then a global normalization strategy such as median-by-
-ratio in the DESeq package or TMM in edgeR will also be adequate. However, when the count-depth relationship varies among genes using global scaling strategies leads to poor normalization. In these cases the normalization provided by SCnorm is recommended.
+If all genes have a similar relationship then a global normalization strategy such as median-by-ratio in the DESeq package or TMM in edgeR will also be adequate. However, when the count-depth relationship varies among genes global scaling strategies leads to poor normalization. In these cases the normalization provided by SCnorm is recommended.
 
 **checkCountDepth** provides a wrapper, in CASC, for the checkCountDepth of the [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
 \newline
@@ -427,7 +447,7 @@ checkCountDepth(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 ```
 \fontsize{10}{10}\selectfont
 
-The output is a PDF (Figure \ref{fig:fig.9}), providing a view of the counts distribution of the data, and a file selected.genes.txt, which contains the genes selected to run the analysis.
+The output is a PDF (Figure \ref{fig:fig.9}), providing a view of the counts distribution, and a file selected.genes.txt, which contains the genes selected to run the analysis.
 
 ```{r fig.9, fig.cap="checkCountDepth output plot", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
@@ -454,7 +474,7 @@ scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 ```
 \fontsize{10}{10}\selectfont
 
-The output files are a tab delimited file containing the normalized data, with the prefix **normalized_**, **discarded_genes.txt**, which contains the discarded genes, and a plot of the normalization effects ((Figure \ref{fig:fig.10})).
+The output files are  plot of the normalization effects ((Figure \ref{fig:fig.10})), a tab delimited file containing the normalized data, with the prefix **normalized_**,  and **discarded_genes.txt**, which contains the discarded genes..
 
 ```{r fig.10, fig.cap="Effect of the SCnorm on the dataset in Figure 9", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
@@ -504,7 +524,7 @@ umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 \fontsize{10}{10}\selectfont
 
 
-**IMPORTANT**: In case sub-population discovery is the analysis task, it is important to check if a specific normalization is compliant with the clustering approach in use. For example in the case of [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool, the normalizations provided in **scone** remove some of the features required to run the multikernel learning analysis. TMM is instead compliant with the CASC implementation of [**tSne**](https://lvdmaaten.github.io/tsne/).
+**IMPORTANT**: In case sub-population discovery is the analysis task, it is important to check if a specific normalization is compliant with the clustering approach in use. For example in the case of [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool, the normalizations provided in **scone** are not compliant, because they remove some of the features required to run the SIMLR multikernel learning analysis. TMM is instead compliant with the CASC implementation of [**tSne**](https://lvdmaaten.github.io/tsne/).
 
 ### **Section 3.7** Converting a count table in log10
 
@@ -601,7 +621,7 @@ recatPrediction(group="docker",scratch.folder="/data/scratch",file=paste(getwd()
 
 \fontsize{10}{10}\selectfont
 
-The analyses above were done using using a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. They took  54 and 40 mins for recatPrediction respectively on Buettner and the naive T-cell datasets. 28 mins were needed by ccRemove on Buettner data set. ccRemover analysis produces a data normalized matrix, ready for clustering. The matrix can be identify by the prefix **LS_cc_**.
+The analyses above were done using a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 1Tb SSD. They took  54 and 40 mins for recatPrediction respectively on Buettner and the naive T-cell datasets. 28 mins were needed by ccRemove on Buettner data set. ccRemover analysis produces a data normalized matrix, ready for clustering. The matrix can be identify by the prefix **LS_cc_**.
 **ccRemove** output is compliant with [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the CASC core clustering tool. **ccRemove** output does not require log transformation when applied to SIMLR.
 
 \fontsize{8}{8}\selectfont
@@ -649,11 +669,11 @@ include_graphics('../inst/img/buettner_raw_ccremover.jpeg')
 
 ## **Section 4** Estimating the number of cluster to be used for cell sub-population discovery.
 
-The CASC core clustering tool is [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), which requires as input the the number of clusters to be used to aggregate cell sub-populations. Unfortunately, there is no definitive answer to this question and it represents the [*weakest aspects of performing cluster analysis*](https://hlab.stanford.edu/brian/number_of_clusters_.html). [*There are various way to try to address this issue*](http://www.sthda.com/english/articles/29-cluster-validation-essentials/96-determining-the-optimal-number-of-clusters-3-must-know-methods/), within the most conventional approaches we tested [*silhouette*](https://www.sciencedirect.com/science/article/pii/0377042787901257?via%3Dihub) and [gap statistics](http://web.stanford.edu/~hastie/Papers/gap.pdf), but none of the two approches resulted to be particularly effective (not shown). 
+The CASC core clustering tool is [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), which requires as input the number of clusters to be used to aggregate cell sub-populations. Unfortunately, there is no definitive answer to the definition of the most probable number of clusters, in which cells will aggregate. Today, this point represents the [*weakest aspects of performing cluster analysis*](https://hlab.stanford.edu/brian/number_of_clusters_.html). [*Within the various ways addressing this issue*](http://www.sthda.com/english/articles/29-cluster-validation-essentials/96-determining-the-optimal-number-of-clusters-3-must-know-methods/),  we tested [*silhouette*](https://www.sciencedirect.com/science/article/pii/0377042787901257?via%3Dihub) and [*gap statistics*](http://web.stanford.edu/~hastie/Papers/gap.pdf), but none of the two approches resulted to be particularly effective (not shown). 
 
-Another important aspect we were interested to check is the possibility that the number of clusters might change if a perturbation in cells dataset, e.g. removal of a random subset of cells, is affecting the number of clusters. Because single-cell experiment, at least today, are rarely characterized by biological replications, and frequently they represent the initial step of an analysis aimed at the identification for new cell sub-populations it is very important to assess how much stable are the cell aggregions detected by clustering.
+Another important aspect we are investigating is how the number of detectable clusters might change if the number of cells changes, e.g. upon removal of a random subset of cells. Because single-cell experiment, at least today, are rarely characterized by biological replications, and frequently they represent the initial step of an analysis aimed at the identification for new cell sub-populations, it is very important to assess how much stable are the cell aggregations detected by clustering.
 
-Now a day, the best approach we could find to address the identification of the optimal number of clusters, in presence dataset perturbation, is the use of [*griph*](https://ppapasaikas.github.io/griph/), which is a hierarchical clustering algorithm. In brief, griph build a dendrogram and defines the place in which dendrogram is cut, i.e. defining the number of clusters, running a top-down similarity analysis.
+Now a day, the best approach we could find to address the identification of the optimal number of clusters, in presence cells number perturbations, is [*griph*](https://ppapasaikas.github.io/griph/), which is a hierarchical clustering algorithm. In brief, griph build a dendrogram and defines the place in which dendrogram is cut, i.e. defining the number of clusters, running a top-down similarity analysis.
 
 Griph is used by CASC function **clusterNgriph**, which evaluates the number of clusters in which a set of cells will aggregate upon a user defined leave-\%N-out cells bootstraps. In the example below the number of clusters are detected for the file 'annotated_buettner_G1G2MS_counts_10000bis.txt', used in **Section 3.8**.
 
@@ -674,12 +694,12 @@ library(knitr)
 include_graphics('../inst/img/griph3.jpeg')
 ```
 
-It has to be note that in principle, since this dataset has a strong cell cycle effect, we would have expected ideally only three clusters: G1, S and G2M. This toy experiment clearly show that perturbation of the dataset under analysis can affect the number of detectable clusters. Thus, in our opinion it is mandatory to cluster cells taking in account perturbation effects to identify the clustering condition that guarantee the greatest cell stability in a cluster. In Section 4.2 we further investigate this issue. 
+It has to be noted that in principle, since this dataset has a strong cell cycle effect, we would have expected ideally only three clusters: G1, S and G2M. This toy experiment clearly show that perturbation of the dataset under analysis can affect the number of detectable clusters. Thus, to identify the clustering condition that guarantee the greatest cell stability in a cluster, in our opinion it is mandatory clustering cells taking in account perturbation effects. In Section 4.2 we further investigate this issue. 
 
-### **Section 4.1** Creating 4 test dataset using [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper data.
+### **Section 4.1** Creating 4 test datasets using [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper data.
 
 As indicated above we are interested to identify not only the optimal cluster number but also if the cluster number is affected by removal of a random subset of cells. 
-To observe the effect of datasets preturbation in clustering the we built 4 datasets combining different cell types available from [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper:
+To observe the effect of datasets preturbation in clustering we built 4 datasets combining different cell types available in [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper:
 
 - setA 100 cell randomly selected for each cell type:
     + B-cells (25K reads/cell), Monocytes  (100K reads/cell), **Stem cells** (24.7K reads/cell), Natural Killer cells (29K reads/cell), Naive T-cells (19K reads/cell)
@@ -778,6 +798,10 @@ To observe the effect of the reduced dissimilarity between subset of cells on th
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
+#downloading datasets
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
 
 #setA
 clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
@@ -805,17 +829,22 @@ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
 
 \fontsize{10}{10}\selectfont
 
-It is notable that as the differences between the cells subpopulation is getting narrowed, i.e in setA we have a very heterogeneous set of cells as in setD 4 sets out of 5 are T-cells sub-populations, the fluctuations in the detected number of clusters increase. In setA, where PCA is already able to discriminate between the different cell sub-populations, out of 160 permutations only 1 gave a number of clusters (6) different from the effective number of cell sub-populations (5) (Figure \ref{fig:fig.16}A). In set D, where four out of five sub-populations are T-cell, the clusters detected fluctuates between 3 to 5 clusters (Figure \ref{fig:fig.16}D). 
+It is notable that as the differences between the cells sub-populations is narrowing (i.e in setA cells types are quite different in overall functional activity, as in setD four out of five cell types are T-cells sub-populations) the fluctuation in the detected number of clusters increases. In setA, where PCA is able to discriminate between the five cell sub-populations (Figure \ref{fig:fig.15}A), out of 160 bootstraps only 1 gave a number of clusters different from the effective number of cell sub-populations (Figure \ref{fig:fig.16}A). In set D, where four out of five sub-populations are T-cell and PCA (Figure \ref{fig:fig.15}D) provides a good discrimination only for NK cells, the clusters detected by griph upon bootstraps fluctuate between 3 to 5 (Figure \ref{fig:fig.16}D). 
 
 ```{r fig.16, fig.cap="Clusters number stability is dependent by the cell type similarity: A) number of clusters detectable by griph in setA, B) number of clusters detectable by griph in setB, C) number of clusters detectable by griph in setC, D) number of clusters detectable by griph in setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/griph2.jpeg')
 ```
 
-The difficulties in detecting a stable number of clusters is due, in our opinion, to the limited number of subpopulation specific genes detectable with a reads depths about 20-25K reads/cell. To support this hypothesis we run a comparison between the most expressed genes in cell types used in this example, using the code shown below.
+The difficulties in detecting a stable number of clusters is due, in our opinion, to the limited number of subpopulation specific genes detectable with a reads depths about 20-25K reads/cell. To support this hypothesis we run a comparison between the most expressed genes in cell types used in the above example.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
+
+#downloading datasets
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
 
 #loading the datasets used to generate PCA
 b <- read.table("cd19_b_100cell.txt", sep="\t", header=T, row.names=1)
@@ -873,16 +902,37 @@ legend("topleft", legend=c("Naive T-cytotoxic", "T-cytotoxic", "T-helper", "Mono
 \fontsize{10}{10}\selectfont
 
 
-Figure \ref{fig:fig.17}  shows the number of genes found in common between naive T-cells and the other sub-populations used in setA and setD using lists of increasing size. Identity between two data sets is shown by the dashed line. The plot shows that naive T-cytotoxic, T-cytoxic and T-helper, from setD, share with naive T-cells, within the top 500 most expressed genes, more genes with respect to the other cell types present in setA. 
+Figure \ref{fig:fig.17}  shows the number of genes, ordered by expression level, found in common between naive T-cells and the other sub-populations in setA and setD, using lists of increasing size. The plot shows that naive T-cytotoxic, T-cytoxic and T-helper, from setD, share with naive T-cells, within the top 500 most expressed genes, more genes with respect to the other cell types present in setA. 
 
-```{r fig.17, fig.cap="Identity between naive T-cells and the other cell types in set A and D in lists of increasing length", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+```{r fig.17, fig.cap="Identity between naive T-cells and the other cell types in set A and D in lists of increasing length. Identity between two data sets is shown by the dashed line.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/griph4.jpeg')
 ```
 
-The results describes in this section indicate that **clusterNgriph** is a valuable instrument giving information on the range of number of clusters in which to focus the analyses described in the following sections.
+The results describes in this section indicate that **clusterNgriph** is a valuable instrument to define a range of numbers of clusters to be further investigated.
 
-## **Section 5** Clustering cell sub-population by mean of kernel based similarity learning (SIMLR).
+
+
+## **Section 5** Clustering cell sub-populations by mean of kernel based similarity learning ([*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)).
+
+
+The number of clustering and dimension reduction methods for single cell progressively increased over the last three years. Last year [*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) published SIMLR a framework which learns a similarity measure from single-cell RNA-seq data in order to perform dimension reduction. We decided to select this method as core clustering tool in CASC, because outperformed nine methods published before 2017 (Figure \ref{fig:fig.18}).
+
+```{r fig.18, fig.cap="Table 2 extracted from supplementary data in Wang et al. Nat Methods 2017.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/simlr_1.jpeg')
+```
+
+Specifically, we use SIMLR as clustering method and we observed the effect of data pertubation, i.e. removal of random subset of cells, on the clustering structure. Although we think SIMLR provides important advantages with respect to other clustering methods, CASC structure can implement also other data reduction tools. Today, also tSne is implemented within CASC data permutation framework.
+
+As described in section 4, the peculiarity of CASC is the presence of user definable bootstrap procedure. CASC handles the results of bootstraps via a cell stability score (Figure \ref{fig:fig.19}). In brief, a set of cells to be organized in cluster  (Figure \ref{fig:fig.19}A) is analysed with SIMLR is applied using a users defined k number of cluster (Figure \ref{fig:fig.19}B). A user defined \% of cells is removed form the original data set and these cells are cluster again (Figure \ref{fig:fig.19}C). The clusters obtained in the bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure \ref{fig:fig.19}D-E) and only if the Jaccard index is at least 0.8 the cluster is called confirmed in the bootstrap step (Figure \ref{fig:fig.19}F) and to the cells belonging to that cluster is added the value 1 (Figure \ref{fig:fig.19}G). On the basis of the results obtained with few hundreds bootstraps cells are labelled with different symbols to indicate their stability in a specific cluster (Figure \ref{fig:fig.19}H).
+
+```{r fig.19, fig.cap="Cell stability score", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/simlr_2.jpeg')
+```
+
+
 
 
 
