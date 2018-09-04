@@ -18,7 +18,7 @@
 #'permAnalysis("docker","path/to/scratch","path/to/data/TOTAL",3,4,",",0.8)#
 #'}
 #' @export
-permAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,range1,range2,separator,sp,clusterPermErr=0.05,maxDeltaConfidence,minLogMean){
+permAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,range1,range2,separator,sp,clusterPermErr=0.05,maxDeltaConfidence="NULL",minLogMean="NULL"){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])

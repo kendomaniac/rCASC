@@ -6,7 +6,8 @@
 \usage{
 simlrBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
   permAtTime, percent, range1, range2, separator, logTen = 0, seed = 111,
-  rK = 0)
+  rK = 0, sp = 0.8, clusterPermErr = 0.05, maxDeltaConfidence = NULL,
+  minLogMean = NULL)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -32,6 +33,14 @@ simlrBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 \item{seed, }{important value to reproduce the same results with same input}
 
 \item{rK, }{1 for rankGene algorithm 0 otherwise WARNING, very slow with this feature. This parameter is specific for SIMLR. Setting this parameter to 1 with other clustering methods will not give any different result to set the parameter to 0.}
+
+\item{sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster, default 0.8.}
+
+\item{clusterPermErr, }{error that can be done by each permutation in cluster number depicting.Default = 0.05}
+
+\item{maxDeltaConfidence, }{max value for Delta confidence for genes feature selection, only required if rK=1}
+
+\item{minLogMean, }{min value for Log mean for genes feature selection, only required if rK=1}
 }
 \value{
 VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
@@ -44,7 +53,7 @@ This function executes a ubuntu docker that produces a specific number of permut
 system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
-simlrBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, separator="\\t",logTen=0, seed=111)
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, separator="\\t",logTen=0, seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=NULL, minLogMean=NULL)
 }
 }
 \author{

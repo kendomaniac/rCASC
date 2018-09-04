@@ -925,13 +925,34 @@ include_graphics('../inst/img/simlr_1.jpeg')
 
 Specifically, we use SIMLR as clustering method and we observed the effect of data pertubation, i.e. removal of random subset of cells, on the clustering structure. Although we think SIMLR provides important advantages with respect to other clustering methods, CASC structure can implement also other data reduction tools. Today, also tSne is implemented within CASC data permutation framework.
 
-As described in section 4, the peculiarity of CASC is the presence of user definable bootstrap procedure. CASC handles the results of bootstraps via a cell stability score (Figure \ref{fig:fig.19}). In brief, a set of cells to be organized in cluster  (Figure \ref{fig:fig.19}A) is analysed with SIMLR is applied using a users defined k number of cluster (Figure \ref{fig:fig.19}B). A user defined \% of cells is removed form the original data set and these cells are cluster again (Figure \ref{fig:fig.19}C). The clusters obtained in the bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure \ref{fig:fig.19}D-E) and only if the Jaccard index is at least 0.8 the cluster is called confirmed in the bootstrap step (Figure \ref{fig:fig.19}F) and to the cells belonging to that cluster is added the value 1 (Figure \ref{fig:fig.19}G). On the basis of the results obtained with few hundreds bootstraps cells are labelled with different symbols to indicate their stability in a specific cluster (Figure \ref{fig:fig.19}H).
+As described in section 4, the peculiarity of CASC is the presence of a user definable bootstrap procedure. CASC handles the results of bootstraps via a cell stability score (Figure \ref{fig:fig.19}). In brief, a set of cells to be organized in cluster  (Figure \ref{fig:fig.19}A) is analysed with SIMLR is applied using a users defined k number of cluster (Figure \ref{fig:fig.19}B). A user defined \% of cells is removed form the original data set and these cells are cluster again (Figure \ref{fig:fig.19}C). The clusters obtained in the bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure \ref{fig:fig.19}D-E) and only if the Jaccard index is at least 0.8 the cluster is called confirmed in the bootstrap step (Figure \ref{fig:fig.19}F) and to the cells belonging to that cluster is added the value 1 (Figure \ref{fig:fig.19}G). On the basis of the results obtained with few hundreds bootstraps cells are labelled with different symbols to indicate their stability in a specific cluster (Figure \ref{fig:fig.19}H).
 
 ```{r fig.19, fig.cap="Cell stability score", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/simlr_2.jpeg')
 ```
 
+
+
+```{r, echo=TRUE, eval=FALSE}
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+library(casc)
+#annotating data
+scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+                    gtf.name="genome.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+#running SIMLR analysis using the rang eof clusters suggested by clusterNgriph in session 4.2
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
+               separator="\t",logTen=0, seed=111)
+
+
+
+
+```
 
 
 
