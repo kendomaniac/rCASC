@@ -1,24 +1,21 @@
-#' @title Permutation Analysis
-#' @description This function analyze the data that came up from permutationClustering script.
+ 
+#' @title houseKeep Filtering
+#' @description This function filter your matrix count on a specific gene house keepin list
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param file, a character string indicating the path of the file, with file name and extension included
-#' @param range1, First number of cluster that has to be analyzed
-#' @param range2, Last number of cluster that has to be analyzed
+#' @param data.folder, a character string indicating the folder where input data are located and where output will be written
+#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.
-#' @param clusterPermErr, error that can be done by each permutation in cluster number depicting.Default = 0.05
-#' @param maxDeltaConfidence, max value for Delta confidence for genes feature selection
-#' @param minLogMean, min value for Log mean for genes feature selection
+#' @param logTen, 0 if is raw count, 1 otherwise
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return stability plot for each nCluster,two files with score information for each cell for each permutation.
+#' @return return matrix filtered by the best cells that have housekeepin genes most expressed
 #' @examples
 #'\dontrun{
-#'permAnalysis("docker","path/to/scratch","path/to/data/TOTAL",3,4,",",0.8)#
+#'housekeep("docker","/home/lucastormreig/scratch/","/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0",6,",","naive")#
 #'}
 #' @export
-permAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,range1,range2,separator,sp,clusterPermErr=0.05,maxDeltaConfidence=0.01,minLogMean=0.05){
+houseKeep <- function(group=c("sudo","docker"), scratch.folder,file,separator,logTen,geneNameControl=1,houseK,topCell){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -66,20 +63,31 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
   #preprocess matrix and copying files
 
 
+
 if(separator=="\t"){
-separator="tab"
+separator2="tab"
+}else{separator2=separator}
+
+
+if(geneNameControl==0){
+system(paste("cp ",data.folder,"/",matrixName,".",format," ",data.folder,"/",matrixName,"_old.",format,sep=""))
+mainMatrix=read.table(paste(data.folder,"/",matrixName,".",format,sep=""),header=TRUE,row.names=1,sep=separator)
+rownames(mainMatrix)=paste(seq(1,nrow(mainMatrix)),":",rownames(mainMatrix),sep="")
+write.table(mainMatrix,paste(data.folder,"/",matrixName,".",format,sep=""),sep=separator,col.names=NA)
 }
-system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
+
+
 system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,sep=""))
+system(paste("cp ",data.folder,"/",houseK,".",format," ",scrat_tmp.folder,sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationanalysis Rscript /home/main.R ",matrixName," ",range1," ",range2," ",format," ",separator," ",sp," ",clusterPermErr," ",maxDeltaConfidence," ",minLogMean,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/housekeep Rscript /home/main.R ",matrixName," ",format," ",separator2," ",logTen," ",houseK," ",topCell, sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
   #waiting for the end of the container work
   if(resultRun==0){
-  #  system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
+    #system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
   }
   #running time 2
   ptm <- proc.time() - ptm
@@ -109,8 +117,8 @@ resultRun <- runDocker(group=group, params=params)
 
 
   #Copy result folder
- cat("Copying Result Folder")
-  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results",sep=""))
+  cat("Copying Result Folder")
+  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/",sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))
