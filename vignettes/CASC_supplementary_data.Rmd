@@ -916,16 +916,16 @@ The results describes in this section indicate that **clusterNgriph** is a valua
 ## **Section 5** Clustering cell sub-populations by mean of kernel based similarity learning ([*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)).
 
 
-The number of clustering and dimension reduction methods for single cell progressively increased over the last three years. Last year [*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) published SIMLR a framework which learns a similarity measure from single-cell RNA-seq data in order to perform dimension reduction. We decided to select this method as core clustering tool in CASC, because outperformed nine methods published before 2017 (Figure \ref{fig:fig.18}).
+The number of clustering and dimension reduction methods for single cell progressively increased over the last few years. Last year [*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) published SIMLR, a framework which learns a similarity measure from single-cell RNA-seq data in order to perform dimensions reduction. We decided to select this method as core clustering tool in CASC, because outperformed nine methods published before 2017 (Figure \ref{fig:fig.18}).
 
 ```{r fig.18, fig.cap="Table 2 extracted from supplementary data in Wang et al. Nat Methods 2017.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/simlr_1.jpeg')
 ```
 
-Specifically, we use SIMLR as clustering method and we observed the effect of data pertubation, i.e. removal of random subset of cells, on the clustering structure. Although we think SIMLR provides important advantages with respect to other clustering methods, CASC structure can implement also other data reduction tools. Today, also tSne is implemented within CASC data permutation framework.
+Specifically, we use SIMLR as clustering method and we observed the effect of data pertubation, i.e. removal of random subset of cells, on the clustering structure. Although we think SIMLR provides important advantages with respect to other clustering methods, CASC structure can implement also other data reduction tools. At the present time, tSne is also implemented within the CASC data permutation framework.
 
-As described in section 4, the peculiarity of CASC is the presence of a user definable bootstrap procedure. CASC handles the results of bootstraps via a cell stability score (Figure \ref{fig:fig.19}). In brief, a set of cells to be organized in cluster  (Figure \ref{fig:fig.19}A) is analysed with SIMLR is applied using a users defined k number of cluster (Figure \ref{fig:fig.19}B). A user defined \% of cells is removed form the original data set and these cells are cluster again (Figure \ref{fig:fig.19}C). The clusters obtained in the bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure \ref{fig:fig.19}D-E) and only if the Jaccard index is at least 0.8 the cluster is called confirmed in the bootstrap step (Figure \ref{fig:fig.19}F) and to the cells belonging to that cluster is added the value 1 (Figure \ref{fig:fig.19}G). On the basis of the results obtained with few hundreds bootstraps cells are labelled with different symbols to indicate their stability in a specific cluster (Figure \ref{fig:fig.19}H).
+As described in section 4, the peculiarity of CASC is the availability of a user tunable bootstrap procedure. CASC represents bootstrap results via a cell stability score (Figure \ref{fig:fig.19}). In brief, a set of cells to be organized in clusters  (Figure \ref{fig:fig.19}A) is analysed with SIMLR, applying a users defined k number of clusters (Figure \ref{fig:fig.19}B), see Section 4 for more information on how to identify a range of number of clusters to be passed to SIMLR. A user defined \% of cells is removed from the original data set and these cells are clustered again (Figure \ref{fig:fig.19}C). The clusters obtained in each bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure \ref{fig:fig.19}D-E). If the Jaccard index is greater of a user defined threshold, e.g. 0.8, the cluster is called confirmed in the bootstrap step (Figure \ref{fig:fig.19}F) and to each cell score belonging to that cluster is added the value 1 (Figure \ref{fig:fig.19}G). Cells are labelled with different symbols describing their stability in a specific cluster (Figure \ref{fig:fig.19}H), on the basis of the cells scores obtained as a consequence of the bootstrap analysis.
 
 ```{r fig.19, fig.cap="Cell stability score", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
@@ -951,40 +951,32 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
 
 
 #annotating data setB
-scannobyGtf(group="docker", file=paste(getwd(),"bmHnkn_5x100cells_1000.txt",sep="/"),
+scannobyGtf(group="docker", file=paste(getwd(),"bmHnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
 #running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
 simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
-               file=paste(getwd(), "bmHnkn_5x100cells_1000.txt", sep="/"), 
+               file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
                nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
                separator="\t",logTen=0, seed=111)
 
-
-#annotating data setC
-scannobyGtf(group="docker", file=paste(getwd(),"CmHnkn_5x100cells.txt",sep="/"),
-                    gtf.name="genome.gtf", biotype="protein_coding", 
-                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
-#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
-simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
-               file=paste(getwd(), "CmHnkn_5x100cells.txt", sep="/"), 
-               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
-               separator="\t",logTen=0, seed=111)
-
-
-#annotating data setD
-scannobyGtf(group="docker", file=paste(getwd(),"CNCHnkn_5x100cells.txt",sep="/"),
-                    gtf.name="genome.gtf", biotype="protein_coding", 
-                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
-#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
-simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
-               file=paste(getwd(), "CNCHnkn_5x100cells.txt", sep="/"), 
-               nPerm=160, permAtTime=8, percent=10, range1=3, range2=5, 
-               separator="\t",logTen=0, seed=111)
 
 
 ```
 
 
+The output of **simlrBootstrap** function is described in Figure \ref{fig:fig.20}. The output is localized in the *Result* folder (Figure \ref{fig:fig.20} Folders 1), which is created in the folder where the analysis started. This folder contains the count matrices used in the analyses. In this example the count matrices are those belonging to setA and B (see Section 4.1). The files with the extension **\_Label.txt** are ............. In the *Result* folder  are also present folders labelled with the name of the count matrix used in the analysis (Figure \ref{fig:fig.20} Folders 2, annotated\_bmsnkn\_5x100cells, annotated\_bmHnkn\_5x100cells). In each of these folders there are a set of folders indicated with a number that refers to the analysed range of number of clusters (Figure \ref{fig:fig.20} Folders 3). In this specific example  the range of clusters goes from 4 to 6. In each *NameOfCountMatrix* folder there is a file called **\_Stability\_Violin\_Plot.pdf** (Figure \ref{fig:fig.20}A) which represents the distribution of the cells stability scores over the bootstraps in the range of number of clusters investigated. In this example, it is clear that the analysis done with 5 clusters is the one providing the highest stability of cells within each cluster. The other plot that is also available in the folder (Figure \ref{fig:fig.20} Folders 4) is **NameOfCountMatrix\_vioplot.pdf**, Figure \ref{fig:fig.20}B, which contains the distribution of the [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) values for each cluster over the bootstraps. [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) value is a measure of how similar an object is to its own cluster (cohesion) compared to other clusters (separation). Clearly the information provided by Silhuette plot is much less informative for the definition of the optimal clustering number with respect to the information provided by the cells stability score (Figure \ref{fig:fig.20} blue arrow). In each clustering folder there is a pdf named *NameOfCountMatrix_Stability_Plot.pdf*, which contains two plots (Figure \ref{fig:fig.20}C-D) generate with the clustering program. The plot in Figure \ref{fig:fig.20}C provides a 2D view of the clustering results. In this plot each cell is labelled with a simbol indicating its cell stability score. In this specific example of the plot generated with 5 clusters shows that all cells  remain in a cluster in at least 75\% of the bootstraps. The plot in Figure \ref{fig:fig.20}D are shown the genes detectable in each cell in function onf the total number of reads/cell. In this plot cells are colured with the same colour of their belonging cluster. This plot is useful to observe if the clustering is biased by the number of genes called in each cluster. In this specific example, only the blue cluster is charaterized by a number of detected genes that is larger of those detectable in the other clusters (Figure \ref{fig:fig.20}D).
+
+```{r fig.20, fig.cap="simlrBootstrap output", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/simlr_3.jpeg')
+```
+
+ In Figure \ref{fig:fig.21} are shown the effects, on cell stability, in SIMLR analysis done with 4 and 6 clusters for SetA (*annotated_bmsnkn_5x100cells.txt*) counts matrix. The arrows in Figure \ref{fig:fig.21}A indicate cells that are characterized by a cell stability score between 25 to 50\%. The circles in Figure \ref{fig:fig.21}B show the clusters where all cells have a cell stability between 25 to 50\%.
+ 
+```{r fig.21, fig.cap="Cell stability plots", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/simlr_4.jpeg')
+```
 
 
