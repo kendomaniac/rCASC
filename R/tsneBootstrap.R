@@ -31,7 +31,8 @@
 tsneBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, range1, range2, separator, logTen=0, seed=111, sp=0.8, clusterPermErr=0.05, perplexity=10){
 
   permutationClustering(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, range1=range1, range2=range2, separator=separator, logTen=logTen, clustering="tSne", perplexity=10 , seed=seed, rK=0)
-  permAnalysis(group=group, scratch.folder=scratch.folder,file=file, range1=range1, range2=range2, separator=separator, sp=sp, clusterPermErr=clusterPermErr, maxDeltaConfidence=maxDeltaConfidence=0.01, minLogMean=minLogMean=0.05)
+  permAnalysis(group=group, scratch.folder=scratch.folder,file=file, range1=range1, range2=range2, separator=separator, sp=sp, clusterPermErr=clusterPermErr, maxDeltaConfidence=0.01, minLogMean=0.05)
+
 
 }
 
