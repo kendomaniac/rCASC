@@ -599,7 +599,8 @@ scannobyGtf(group="docker", file=paste(getwd(),"buettner_G1G2MS_counts.txt",sep=
 topx(data.folder=getwd(),file.name="annotated_buettner_G1G2MS_counts.txt",threshold=10000, logged=FALSE)
 
 #running cell cycle prediction
-recatPrediction(group="docker",scratch.folder="/data/scratch",file=paste(getwd(), "annotated_buettner_G1G2MS_counts_10000.txt", sep="/"), 
+recatPrediction(group="docker",scratch.folder="/data/scratch",
+                file=paste(getwd(), "annotated_buettner_G1G2MS_counts_10000.txt", sep="/"), 
                 separator="\t", geneNameControl=1, window=10, seed=111)
 
 #removing cell cycle effect
@@ -614,7 +615,9 @@ scannobyGtf(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1_288cell
                     gtf.name="Mus_musculus.GRCm38.92.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
 topx(data.folder=getwd(),file.name="annotated_GSM2833284_Naive_WT_Rep1_288cell.txt",threshold=10000, logged=FALSE)
-recatPrediction(group="docker",scratch.folder="/data/scratch",file=paste(getwd(), "annotated_GSM2833284_Naive_WT_Rep1_288cell_10000.txt", sep="/"), separator="\t", geneNameControl=1, window=10, seed=111)
+recatPrediction(group="docker",scratch.folder="/data/scratch",
+                file=paste(getwd(), "annotated_GSM2833284_Naive_WT_Rep1_288cell_10000.txt", sep="/"), 
+                separator="\t", geneNameControl=1, window=10, seed=111)
 
 
 ```
@@ -963,14 +966,14 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
 ```
 
 
-The output of **simlrBootstrap** function is described in Figure \ref{fig:fig.20}. The output is localized in the *Result* folder (Figure \ref{fig:fig.20} Folders 1), which is created in the folder where the analysis started. This folder contains the count matrices used in the analyses. In this example the count matrices are those belonging to setA and B (see Section 4.1). In the *Result* folder  are also present folders labelled with the name of the count matrix used in the analysis (Figure \ref{fig:fig.20} Folders 2, annotated\_bmsnkn\_5x100cells, annotated\_bmHnkn\_5x100cells). In each of these folders there are a set of folders indicated with a number that refers to the analysed range of number of clusters (Figure \ref{fig:fig.20} Folders 3). In this specific example  the range of clusters goes from 4 to 6. In each *NameOfCountMatrix* folder there is a file called **\_Stability\_Violin\_Plot.pdf** (Figure \ref{fig:fig.20}A) which represents the distribution of the cells stability scores over the bootstraps in the range of number of clusters investigated. In this example, it is clear that the analysis done with 5 clusters is the one providing the highest stability of cells within each cluster. The other plot that is also available in the folder (Figure \ref{fig:fig.20} Folders 4) is **NameOfCountMatrix\_vioplot.pdf**, Figure \ref{fig:fig.20}B, which contains the distribution of the [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) values for each cluster over the bootstraps. [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) value is a measure of how similar an object is to its own cluster (cohesion) compared to other clusters (separation). Clearly the information provided by Silhuette plot is much less informative for the definition of the optimal clustering number with respect to the information provided by the cells stability score (Figure \ref{fig:fig.20} blue arrow). In each clustering folder there is a pdf named *NameOfCountMatrix_Stability_Plot.pdf*, which contains two plots (Figure \ref{fig:fig.20}C-D) generate with the clustering program. The plot in Figure \ref{fig:fig.20}C provides a 2D view of the clustering results. In this plot each cell is labelled with a simbol indicating its cell stability score. In this specific example of the plot generated with 5 clusters shows that all cells  remain in a cluster in at least 75\% of the bootstraps. The plot in Figure \ref{fig:fig.20}D are shown the genes detectable in each cell in function onf the total number of reads/cell. In this plot cells are colured with the same colour of their belonging cluster. This plot is useful to observe if the clustering is biased by the number of genes called in each cluster. In this specific example, only the blue cluster is charaterized by a number of detected genes that is larger of those detectable in the other clusters (Figure \ref{fig:fig.20}D).
+The output of **simlrBootstrap** function is described in Figure \ref{fig:fig.20}. The output is localized in the *Result* folder (Figure \ref{fig:fig.20} Folders 1), which is created in the folder where the analysis started. This folder contains the count matrices used in the analyses. In this example the count matrices are those belonging to setA and B (see Section 4.1). In the *Result* folder  are also present folders labelled with the name of the count matrix used in the analysis (Figure \ref{fig:fig.20} Folders 2, annotated\_bmsnkn\_5x100cells, annotated\_bmHnkn\_5x100cells). In each of these folders there are a set of folders indicated with a number that refers to the analysed range of number of clusters (Figure \ref{fig:fig.20} Folders 3). In this specific example  the range of clusters goes from 4 to 6. In each *NameOfCountMatrix* folder there is a file called **\_Stability\_Violin\_Plot.pdf** (Figure \ref{fig:fig.20}A) which represents the distribution of the cells stability scores over the bootstraps in the range of number of clusters investigated. In this example, it is clear that the analysis done with 5 clusters is the one providing the highest stability of cells within each cluster. The other plot that is also available in the folder (Figure \ref{fig:fig.20} Folders 4) is **NameOfCountMatrix\_vioplot.pdf**, Figure \ref{fig:fig.20}B, which contains the distribution of the [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) values for each cluster over the bootstraps. [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) value is a measure of how similar an object is to its own cluster (cohesion) compared to other clusters (separation). Clearly the information provided by Silhuette plot is much less informative for the definition of the optimal clustering number with respect to the information provided by the cells stability score (Figure \ref{fig:fig.20} blue arrow). In each clustering folder there is a pdf named *NameOfCountMatrix_Stability_Plot.pdf*, which contains two plots (Figure \ref{fig:fig.20}C-D) generated with the clustering program. The plot in Figure \ref{fig:fig.20}C provides a 2D view of the clustering results. In this plot each cell is labelled with a simbol indicating its cell stability score. In this specific example of the plot generated with 5 clusters shows that all cells remain in a cluster in at least 75\% of the bootstraps. The plot, Figure \ref{fig:fig.20}D, shows the genes detectable in each cell in function onf the total number of reads/cell. In this plot cells are colored with the same colour of their belonging cluster. This plot is useful to observe if the clustering is biased by the number of genes called in each cluster. In this specific example, only the blue cluster is charaterized by a number of detected genes, which is larger of those detectable in the other clusters (Figure \ref{fig:fig.20}D).
 
 ```{r fig.20, fig.cap="simlrBootstrap output", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/simlr_3.jpeg')
 ```
 
- In Figure \ref{fig:fig.21} are shown the effects, on cell stability, in SIMLR analysis done with 4 and 6 clusters for SetA (*annotated_bmsnkn_5x100cells.txt*) counts matrix. The arrows in Figure \ref{fig:fig.21}A indicate cells that are characterized by a cell stability score between 25 to 50\%. The circles in Figure \ref{fig:fig.21}B show the clusters where all cells have a cell stability between 25 to 50\%.
+ In Figure \ref{fig:fig.21} are shown the effects, on cell stability, in SIMLR analysis done with 4 and 6 clusters for SetA (*annotated_bmsnkn_5x100cells.txt*) counts matrix. The arrows in Figure \ref{fig:fig.21}A indicate cells that are characterized by a cell stability score between 25 to 50\%. The circles in Figure \ref{fig:fig.21}B show the clusters where all cells have a cell stability between 25 to 50\%. This observation indicates that there stability score is a usefunl measure to identify the optimal number of partitions to be used, since the highest cell stability score  was observed when five clusters were selected, which correspond to the number of cell types combined in SetA, see Section 4.1. 
  
 ```{r fig.21, fig.cap="Cell stability plots", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
@@ -979,7 +982,7 @@ include_graphics('../inst/img/simlr_4.jpeg')
 
 ### **Section 5.1** Comparing SIMLR and tSne
 
-In [*Wang](https://www.ncbi.nlm.nih.gov/pubmed/28263960) article it is demonstrated the that SIMLR outperforms other data reductin methods (Figure \ref{fig:fig.18}). Here we run a comparison between SIMLR and tSne within the CASC bootstrap framework.
+In [*Wang](https://www.ncbi.nlm.nih.gov/pubmed/28263960) article it is demonstrated that SIMLR outperforms other data reduction methods (Figure \ref{fig:fig.18}). Here, we run a comparison between SIMLR and tSne within the CASC bootstrap framework to observe how cells stability score is affected by a different clustering method.
 
 
 ```{r, echo=TRUE, eval=FALSE}
@@ -992,14 +995,71 @@ library(casc)
 scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+
 #running tSne analysis using the range of clusters suggested by clusterNgriph in session 4.2
 tsneBootstrap(group="docker",scratch.folder="/data/scratch/",
               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, separator="\t",
-              logTen=0, seed=111, sp=0.8, clusterPermErr=0.05, perplexity=10)
+              logTen=0, seed=111, sp=0.8, perplexity=10)
+# required time 159 mins
+
+#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
+               separator="\t",logTen=0, seed=111)
+# required time 168 mins
+
+```
+
+We run the analysis on the SetA described in Section 4.1. Both SIMLR and tSne are able to detect that five clusters provides the more stable organization in terms of cells stability score (Figure \ref{fig:fig.22}A-B). However, SIMLR clustering produces highly stable clusters (Figure \ref{fig:fig.22}C), as instead tSne clustering produces much less stable clusters (Figure \ref{fig:fig.22}D). From the point of view of the computation time the two clustering methods are relatively similar. The above mentioned analysis took 159 mins for tSne and 168 mins for SIMLR.
+
+
+```{r fig.22, fig.cap="Comparing SIMLR and tSne within CASC bootstrap framework. A,C) SetA clustered with SIMLR. B,D) SetA clustered with tSne.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/simlr_5.jpeg')
+```
+
+### **Section 5.2** Visualizing the cell clusters relocation during bootstraps.
+
+The function **permutationMovie** allows the generation of a video showing the relocation of cells at each bootstrap. In this example we use the results shown in Figure \ref{fig:fig.21}B, where circles show the clusters where all cells have a cell stability between 25 to 50\%. 
+
+
+```{r, echo=TRUE, eval=FALSE}
+system("wget http://130.192.119.59/public/test_permutationvideo.zip")
+unzip("test_permutationvideo.zip")
+setwd("cd test_permutationvideo")
+library("casc")
+bootstrapsVideo(group="docker", scratch.folder="/data/scratch", file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), nCluster=6, separator="\t", framePP=200, permutationNumber=80)
+
+```
+
+The video is accessible [*here*](https://youtu.be/upWXONL_ZcQ).
+
+
+### **Section 5.3** Detecting the main player genes in cluster formation with ANOVA-like approach.
+
+Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments, however the number of tools, applicable to single-cells, allowing something similar to an ANOVA  are very few. An ANOVA-like appoach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like require a comparison with respect to a reference set of cells. To show how this tool work we will use a subset of data from the [*Pace's Science  paper8](https://www.ncbi.nlm.nih.gov/pubmed/29326266). The available single cell data sets are:
+
+- naive CD8+ T lymphocytes
+
+- CD8+ T cells activated after Listeria monocytogenes infection
+
+- naive Suv39h1-defective CD8+ T lymphocytes
+
+- Suv39h1-defective CD8+ T cells activated after Listeria monocytogenes infection
+
+
+
+
+
+
+
+```{r, echo=TRUE, eval=FALSE}
 
 
 
 ```
+
 
 

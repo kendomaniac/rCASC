@@ -14,7 +14,7 @@
 #'  permutationMovie("docker","/home/lucastormreig/CASC5.0/5_permutationMovie/scratch/",file,7,",",200,5)#
 #'}
 #' @export
-permutationMovie <- function(group=c("sudo","docker"), scratch.folder,file,nCluster,separator,framePP,permutationNumber){
+permutationMovie <- function(group=c("sudo","docker"), scratch.folder, file, nCluster, separator, framePP, permutationNumber){
 
 
   data.folder=dirname(file)
