@@ -1008,7 +1008,7 @@ include_graphics('../inst/img/bootstrapsVideo_2.jpeg')
 
 #### **Section 5.1.1** An example of the use of CASC workflow.
 
- For this example we use a subset of data from the [*Pace's Science  paper*](https://www.ncbi.nlm.nih.gov/pubmed/29326266). The available single cell data sets are:
+ For this example we used a subset of data from the [*Pace's Science  paper*](https://www.ncbi.nlm.nih.gov/pubmed/29326266). We used part of the single cell data sets available at [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264):
 
 - naive CD8+ T lymphocytes, here named **N** 
 
@@ -1018,7 +1018,7 @@ include_graphics('../inst/img/bootstrapsVideo_2.jpeg')
 
 - Suv39h1-defective CD8+ T cells activated after Listeria monocytogenes infection, here named **NdA**
 
-We combined 50 cells from **N** and **Nd** and 250 cells for **NA** and **NdA**.  The cell labels in the counts table were modified adding the groups *N*, *Nd*, *NA* and *NdA*. The rational of the different number of cells for the naive and the activated is due to the expectation that activated cells will be organize in mutiple clusters and naive are expected to be homogeneous. 
+We combined 50 cells from **N** and **Nd** and 250 cells for **NA** and **NdA**.  The selected cells were those characterized by the highest numbers of reads/cell. The cell labels in the counts table were modified adding the groups *N*, *Nd*, *NA* and *NdA*. The rational of the different number of cells for the naive and the activated is due to the expectation that activated cells will be organize in mutiple clusters and naive are expected to be homogeneous. 
 
 Questions to be addressed with this example: 
 
@@ -1075,7 +1075,7 @@ bootstrapsVideo(group="docker", scratch.folder="/data/scratch",
 \fontsize{10}{10}\selectfont
 
 In Figure \ref{fig:fig.23} are summarized the results of the analysis executed on the Pace dataset. In Figure \ref{fig:fig.23}A data perturbations allows data organization betwee 6 to 9 clusters, where 7 clusters is the most represented group.   In Figure \ref{fig:fig.23}B is summarized the cell stability score for the SIMLR analysis executed on the above range of clusters. Six clusters seems to indicate a slighly higher stability with respect to the others. The overall stability of 6 clusters is however not particularly good, since is it si spread between 0 and 0.9.  In Figure \ref{fig:fig.23}C it is shown the clusters structure generated with SIMLR on 6 clusters.  Clusters 1, 3 and 4 show a quite good stability, Figure \ref{fig:fig.23}C. Cluster 3 is made of 44 naive and 48 naive KO suggesting that naive CD8+ T lymphocytes (approx. 88\% of total cells) are mainly not affected by the KO of Suv39h1 gene. Cluster 1 contains 16 wt activated cells (NA) and 14 activated KO cells (NdA) suggesting that at least a subpopulation of activated cells (5.6\% of total cells) are not  affected by the KO. Cluster 4 only contains activated KO cells (33\% of total cells), indicating that at least a subpopulation of KO activated cells has a specific transcription profile that differentiate them from the others. Cluster 6 is made of 35\% NA and 13.6\% of NdA. Cluster 2 is made of 44.8\% of NA and 39.6\% of NdA cells. Clusters 2 composition suggests to be an other subpopulation of activated cell which is not affected by KO of Suv39h1 gene. In cluster 6 the amount of NA and NdA is unbalance, suggesting that the KO of Suv39h1 gene does not guarantee the efficient activation of the cell subpopulation in cluster 6. Unfortunately the strong instability of cluster 6 and 2 makes the above functional hypothesis relatively weak. 
-NB \% always refers to the total number of cells used in this example (50 N, 50 Nd, 250 NA, 250 NdA)., [*annotated_setPace_10000_clustering.output.txt*](http://130.192.119.59/public/annotated_setPace_10000_clustering.output.txt), contains all information required to reproduce clusters shown in Figure \ref{fig:fig.23}C. 
+NB \% always refers to the total number of cells used in this example (50 N, 50 Nd, 250 NA, 250 NdA); [*annotated_setPace_10000_clustering.output.txt*](http://130.192.119.59/public/annotated_setPace_10000_clustering.output.txt), contains all information required to reproduce clusters shown in Figure \ref{fig:fig.23}C. 
 In Figure \ref{fig:fig.23}D it is shown permutation 55 of the output of **bootstrapsVideo**, which can be seen [*here*](https://youtu.be/w5Jj8QxKXRU). This permutation is representative of the majority of the observed permutations. From **bootstrapsVideo** analysis is clear that cluster 5 is strongly affecting the cell score stability of clusters 6 and 2 ad for less extent that of cluster 3. Cluster 5 is made of 6 N cells, 34 NA cells, 2 Nd cells, 21 NdA cells. Despice the presence of a limited amount of naive cells, which might be explained as partially activated cells, cluster 5 is made mainly of activated cells, i.e. 13.6\% NA and 8.4\% NdA of total cells. The similarity of cells in cluster 5 with those in in cluster 6, 2 and 3 might be explained as being the precursors of those subpopulations.
 
 From this part of the analysis we can provide at least some preliminary answers to the questions raised above:
@@ -1086,7 +1086,7 @@ From this part of the analysis we can provide at least some preliminary answers 
 
 2. Is the KO of Suv39h1 gene affecting the transcriptome of activated CD8+ T lymphocytes?
 
-    a. Yes, cluster 4 is only made of an activated sub-population observable only in case Suv39h1 gene is inactivated. Although quite unstable cluster 6 sub-population is less represented in activated KO cells, suggesting a reduction in efficiency in the activation of this sub-population upon KO of Suv39h1 gene
+    a. Yes, cluster 4 is only made of an activated sub-population observable only in case Suv39h1 gene is inactivated. Although quite unstable, cluster 6 sub-population is less represented in activated KO cells, suggesting a reduction in efficiency in the activation of this sub-population upon KO of Suv39h1 gene
     
 3. Is the KO of Suv39h1 gene affecting the generation of new sub-populations of activated CD8+ T lymphocytes?
 
@@ -1104,7 +1104,7 @@ include_graphics('../inst/img/pace_1.jpeg')
 
 ```
 
-Thus, we have checked if the removal of 
+
 
 
 ### **Section 5.2** Comparing SIMLR and tSne
@@ -1150,8 +1150,22 @@ include_graphics('../inst/img/simlr_5.jpeg')
 ```
 
 
-### **Section 5.3** Detecting the genes playin the major role in clusters formation
+## **Section 6** Detecting the genes playing the major role in clusters formation
 
-Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments, however the number of tools, applicable to single-cells, allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells.
+Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments, however the number of tools, applicable to single-cells, allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR also provides a raking score for the genes that are affecting mostly the clusters organization. SIMLR gene raking does not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
+Both methods were implemented as part of the CASC bootstrap framework.
+
+### **Section 6.1** EdgeR ANOVA-like
+
+
+
+
+### **Section 6.2** SIMLR gene raking on the basis of importance in clusters organization.
+
+
+
+
+
+
 
 
