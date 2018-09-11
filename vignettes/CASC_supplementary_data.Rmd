@@ -1101,7 +1101,7 @@ From this part of the analysis we can provide at least some preliminary answers 
 
 
 
-```{r fig.24, fig.cap="Analysis of Pace dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 6 clusters with simlrBootstrap, in parentesis is given the overall stability score of each cluster, where indicated are also indicated the major component of each cluster, in terms of cells experiment groups. D) Permutation 55 extracted from the video generate with bootstrapsVideo.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.24, fig.cap="Analysis of Pace dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 6 clusters with simlrBootstrap, in parentesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters. D) Permutation 55 extracted from the video generate with bootstrapsVideo.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/pace_1.jpeg')
 
@@ -1110,7 +1110,7 @@ include_graphics('../inst/img/pace_1.jpeg')
 
 ##### **Section 5.1.1.1** Improving the results in Section 5.1.1.
 
-On the basis of Figure \ref{fig:fig.23}D and the output of [*bootstrapsVideo*](https://youtu.be/w5Jj8QxKXRU) clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus we investigated, if removing cluster 5 cells we could improve the clustering cell stability for cluster 6 and 2, Figure \ref{fig:fig.23}C.
+On the basis of Figure \ref{fig:fig.24}D and the output of [*bootstrapsVideo*](https://youtu.be/w5Jj8QxKXRU) clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus we investigated, if removing cluster 5 cells we could improve the clustering cell stability for cluster 6 and 2, Figure \ref{fig:fig.24}C.
 
 ```{r, echo=TRUE, eval=FALSE}
 system("wget http://130.192.119.59/public/annotated_setPace_10000.txt.zip")
@@ -1138,10 +1138,24 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
                file=paste(getwd(), "annotated_setPace_10000.txt", sep="/"), 
                nPerm=160, permAtTime=8, percent=10, range1=5, range2=9, 
                separator="\t",logTen=0, seed=111)
+#execution time 276 mins in SeqBox
+
+
 
 
 
 ```
+
+
+The results of the analysis done removing cells associated to cluster 5, Figure \ref{fig:fig.24}C, are shown in Figure \ref{fig:fig.25}. The range of clusters suggested by **clusterNgriph** are between 5 and 9, Figure \ref{fig:fig.25}A. The best cells stability score is observable for 5 clusters, Figure \ref{fig:fig.25}B. **simlrBootstrap** results show a large improvment of the overall stablity of the clusters Figure \ref{fig:fig.25}C with respect to the previous analysis, Figure \ref{fig:fig.24}C. It is also notable that the samples organization with in clusters agrees with preliminary answers in Section 5.1.1 .
+
+```{r fig.25, fig.cap="Analysis of Pace dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 5 clusters with simlrBootstrap, in parentesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/pace_2.jpeg')
+
+```
+
+
 
 
 ### **Section 5.2** Comparing SIMLR and tSne
@@ -1194,12 +1208,24 @@ Both methods were implemented as part of the CASC bootstrap framework.
 
 ### **Section 6.1** EdgeR ANOVA-like
 
+The f
+
+```{r, echo=TRUE,eval=FALSE}
+
+deDetection(group="docker", data.folder=getwd(), counts.table="annotated_lorenz_buettner_counts_noSymb.txt", file.type="txt", logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, shrinking.threshold=1, plot=TRUE)
+
+```
 
 
 
 ### **Section 6.2** SIMLR gene raking on the basis of importance in clusters organization.
 
 
+
+
+## **Section 7** Performace in SeqBox
+
+We run various performance tests on [*SeqBox*](https://www.ncbi.nlm.nih.gov/pubmed/29069297) ecosystem (Intel NUC6I7KYK miniPC equipped with 32 GB RAM and 500 GB SSD).
 
 
 
