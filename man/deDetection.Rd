@@ -47,7 +47,7 @@ This function executes in a docker edgeR for the idnetification of differentiall
 
     deDetection(group="docker", data.folder=getwd(),
                counts.table="annotated_lorenz_buettner_counts_noSymb.txt",
-               file.type="txt", logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, shrinking.threshold=1, plot=TRUE)
+               file.type="txt", logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
 }
 
 }

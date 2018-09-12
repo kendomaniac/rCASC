@@ -89,8 +89,6 @@ deDetection <- function(group=c("sudo","docker"), data.folder, counts.table, fil
  }
 write.table(tmp, paste("filtered_DE_", counts.table, sep=""), sep="\t", col.names=NA)
 
-.clusterSignature(paste("filtered_DE_", counts.table, sep=""), threshold=threshold)
-
   #running time 2
   ptm <- proc.time() - ptm
   dir <- dir(data.folder)
