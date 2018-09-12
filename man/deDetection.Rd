@@ -6,7 +6,7 @@
 \usage{
 deDetection(group = c("sudo", "docker"), data.folder, counts.table,
   file.type = c("txt", "csv"), logFC.threshold = 1, FDR.threshold,
-  logCPM.threshold = 4, plot = c(TRUE, FALSE), shrinking.threshold = 1)
+  logCPM.threshold = 4, plot = c(TRUE, FALSE))
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -24,8 +24,6 @@ deDetection(group = c("sudo", "docker"), data.folder, counts.table,
 \item{logCPM.threshold, }{minimal average abundance}
 
 \item{plot, }{TRUE if differentially expressed genes are represented in a plot.}
-
-\item{shrinking.threshold, }{log2FC shrinking parameter that is used to generate cluster specific signatures, more info in the CASC vignette.}
 }
 \description{
 This function executes in a docker edgeR for the idnetification of differentially expressed genes in single-cells RNAseq
