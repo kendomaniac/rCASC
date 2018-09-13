@@ -32,8 +32,7 @@ setwd("clusters.features")
 
     clustersFeatures(group="docker", data.folder=getwd(),
         logFC.table="logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt",
-        counts.table="annotated_setPace_10000_noC5_reordered.txt"
-        cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", delta=0.5)
+        counts.table="annotated_setPace_10000_noC5_reordered.txt", delta=0.5)
 }
 
 }

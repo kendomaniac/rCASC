@@ -1226,6 +1226,19 @@ anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_1
 
 ```
 
+Using the function **clustersFeatures** it is possible to select the genes that are more up-regulated in a specific cluster. This function focus only on upregulated genes because the ANOVA-like procedure is comparing compares all clusters with respect to a reference cluster. Thus, up-regulated genes are genes specific of the cluster under analysis as those down-regulated are characteristics of the reference cluster. The delta parameter indicate the minimal distance existing, for a specific gene average logFC in a specific cluster, with respect to all the other clusters under analysis.
+
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/clusters.features.zip")
+unzip("clusters.features.zip")
+setwd("clusters.features")
+
+clustersFeatures(group="docker", data.folder=getwd(),
+         logFC.table="logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt",
+         counts.table="annotated_setPace_10000_noC5_reordered.txt", delta=0.5)
+
+```
 
 
 ### **Section 6.2** SIMLR gene raking on the basis of importance in clusters organization.

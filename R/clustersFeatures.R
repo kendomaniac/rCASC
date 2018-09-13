@@ -16,8 +16,7 @@
 #'
 #'     clustersFeatures(group="docker", data.folder=getwd(),
 #'         logFC.table="logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt",
-#'         counts.table="annotated_setPace_10000_noC5_reordered.txt"
-#'         cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", delta=0.5)
+#'         counts.table="annotated_setPace_10000_noC5_reordered.txt", delta=0.5)
 #' }
 #'
 #' @export
@@ -89,7 +88,7 @@ clustersFeatures <- function(group=c("sudo","docker"), data.folder, logFC.table,
   df.specific <- do.call("rbind", specifics.reorg)
   df.specific <- as.data.frame(df.specific)
   names(df.specific) <- c("cluster","geneID")
-  write.table(df.specific, "onlyUP_clusters_specific_genes.txt", sep="\t", col.names = NA)
+  write.table(df.specific, "onlyUP_clusters_specific_genes.txt", sep="\t", row.names = F)
 
     #running time 2
   ptm <- proc.time() - ptm
