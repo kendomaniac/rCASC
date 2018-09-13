@@ -1208,7 +1208,7 @@ Both methods were implemented as part of the CASC bootstrap framework.
 
 ### **Section 6.1** EdgeR ANOVA-like
 
-The function **deDetection** execute edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette. The input file is a counts table, modified adding as covariate for the ANOVA-like the cluster number separated by the cell name with an underscore. It is mandatory that no other underscores are located in the table. Then, counts table is reorganized to locate at the beginning of the table the set of cells belonging to the cluster used as reference group. The differentially expressed genes statistics for all genes are saved in the file with prefix **DE\_**, followed by the counts table name. The filtered differentially expressed genes statistics, including only genes detected as differentially expressed in at least one of the clusters is saved with prefix **filtered_DE_** followed by the counts table name. **logFC_filtered_DE_** refers to the file containing only logFC extracted from **filtered_DE_** file.
+The function **deDetection** execute edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette. The input file is a counts table, modified adding as covariate for the ANOVA-like the cluster number separated by the cell name with an underscore. It is mandatory that no other underscores are located in the table. Then, counts table is reorganized to locate at the beginning of the table the set of cells belonging to the cluster used as reference group. The differentially expressed genes statistics for all genes are saved in the file with prefix **DE\_**, followed by the counts table name. The filtered differentially expressed genes statistics, including only genes detected as differentially expressed in at least one of the clusters is saved with prefix **filtered\_DE\_** followed by the counts table name. **logFC\_filtered\_DE\_** refers to the file containing only logFC extracted from **filtered_DE_** file. The count table is also saved reordered on the basis of cluster positions and has the extension **\_reordered.txt**
 In this specific example we detected a total of 2742 differentially expressed genes. We continue the analysis only on up-regulated genes, i.e. those gene specifically mor expressed in a cluster with respect ot the cluster used as reference in the ANOVA-like.
 
 ```{r, echo=TRUE,eval=FALSE}
@@ -1221,15 +1221,8 @@ anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_1
         file.type="txt", cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", ref.cluster=3,
         logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
 
-#the output of interest is filtered_DE_annotated_setPace_10000_noC5_reordered.txt
+#the output of interest is logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt
 
-
-# selecting only the UP genes in C1,2,4,5
-up <- read.table("UP_only_filtered_DE_annotated_setPace_10000_noC5_reordered.txt", sep="\t", header=F, stringsAsFactors = F)
-
-de <- read.table("filtered_DE_annotated_setPace_10000_noC5_reordered.txt", sep="\t", header=T, row.names = 1)
-de.up <- de[which(rownames(de)%in%up$V2),]#445
-write.table(de.up, "onlyUP_filtered_DE_annotated_setPace_10000_noC5_reordered.txt", sep="\t", col.names = NA)
 
 ```
 

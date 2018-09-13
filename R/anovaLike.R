@@ -11,6 +11,7 @@
 #' @param logCPM.threshold, minimal average abundance
 #' @param plot, TRUE if differentially expressed genes are represented in a plot.
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino, Italy
+#' @return  Three tab delimited files file with prefix DE\_, filtered\_DE\_, logFC\_filtered\_DE\_ followed by the counts table name, the count table, reordered on the basis of cluster positions, has the extension \_reordered.txt
 #'
 #' @examples
 #' \dontrun{

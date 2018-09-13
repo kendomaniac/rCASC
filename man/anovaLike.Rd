@@ -30,6 +30,9 @@ anovaLike(group = c("sudo", "docker"), data.folder, counts.table,
 
 \item{plot, }{TRUE if differentially expressed genes are represented in a plot.}
 }
+\value{
+Three tab delimited files file with prefix DE\_, filtered\_DE\_, logFC\_filtered\_DE\_ followed by the counts table name, the count table, reordered on the basis of cluster positions, has the extension \_reordered.txt
+}
 \description{
 This function executes in a docker edgeR for the idnetification of differentially expressed genes in single-cells RNAseq
 }
