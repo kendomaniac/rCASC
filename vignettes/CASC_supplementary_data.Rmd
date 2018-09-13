@@ -1208,31 +1208,21 @@ Both methods were implemented as part of the CASC bootstrap framework.
 
 ### **Section 6.1** EdgeR ANOVA-like
 
-The function **deDetection** execute edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette. The input file is a counts table, modified adding as covariate for the ANOVA-like the cluster number separated by the cell name with an underscore. It is mandatory that no other underscores are located in the table. Then, counts table is reorganized to locate at the beginning of the table the set of cells belonging to the cluster used as reference group. The differentially expressed genes statistics for all genes are saved in the file with prefix **DE\_**, followed by the counts table name. The filtered differentially expressed genes statistics, including only genes detected as differentially expressed in at least one of the clusters is saved with prefix **filtered_DE_** followed by the counts table name. In this specific example we detected a total of 2742 differetially expressed genes.
+The function **deDetection** execute edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette. The input file is a counts table, modified adding as covariate for the ANOVA-like the cluster number separated by the cell name with an underscore. It is mandatory that no other underscores are located in the table. Then, counts table is reorganized to locate at the beginning of the table the set of cells belonging to the cluster used as reference group. The differentially expressed genes statistics for all genes are saved in the file with prefix **DE\_**, followed by the counts table name. The filtered differentially expressed genes statistics, including only genes detected as differentially expressed in at least one of the clusters is saved with prefix **filtered_DE_** followed by the counts table name. **logFC_filtered_DE_** refers to the file containing only logFC extracted from **filtered_DE_** file.
+In this specific example we detected a total of 2742 differentially expressed genes. We continue the analysis only on up-regulated genes, i.e. those gene specifically mor expressed in a cluster with respect ot the cluster used as reference in the ANOVA-like.
 
 ```{r, echo=TRUE,eval=FALSE}
 
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt")
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 unzip("annotated_setPace_10000_noC5.txt.zip")
-counts <- read.table("annotated_setPace_10000_noC5.txt", sep="\t", header=T, row.names=1, stringsAsFactors = F)
-#changing separator underscore
-names(counts) <- gsub("_","-",names(counts))
-clusters <- read.table("annotated_setPace_10000_noC5_clustering.output.txt", sep="\t", header=T, row.names=1, stringsAsFactors = F)
-#changing separator underscore
-rownames(clusters) <- gsub("_","-",rownames(clusters))
-#checking that counts and clusters cell IDs are in the same order
-identical(names(counts), rownames(clusters))
-#adding the cluster number as covariate to the cells
-names(counts) <- paste(names(counts), clusters$Belonging_Cluster, sep="_")
-ref <- counts[,grep("_3$", names(counts))]#92
-others <- counts[,setdiff(seq(1,dim(counts)[2]),grep("_3$", names(counts)))]#445
-#ordering the cluster covariates to have the reference cluster as first set of columns in the counts table
-counts <- data.frame(ref, others, check.names = F)#537
-write.table(counts, "annotated_setPace_10000_noC5_reordered.txt", sep="\t", col.names = NA)
 
-#detecting differentially expressed genes with edgeR ANOVA-like
-deDetection(group="docker", data.folder=getwd(), counts.table="annotated_setPace_10000_noC5_reordered.txt", file.type="txt", logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)#2472
+anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_10000_noC5.txt",
+        file.type="txt", cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", ref.cluster=3,
+        logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
+
+#the output of interest is filtered_DE_annotated_setPace_10000_noC5_reordered.txt
+
 
 # selecting only the UP genes in C1,2,4,5
 up <- read.table("UP_only_filtered_DE_annotated_setPace_10000_noC5_reordered.txt", sep="\t", header=F, stringsAsFactors = F)
