@@ -1233,12 +1233,6 @@ anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_1
 
 
 
-## **Section 7** Performace in SeqBox
-
-We run various performance tests on [*SeqBox*](https://www.ncbi.nlm.nih.gov/pubmed/29069297) ecosystem (Intel NUC6I7KYK miniPC equipped with 32 GB RAM and 500 GB SSD).
-
-
-
 
 
 
