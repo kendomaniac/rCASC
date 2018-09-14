@@ -1006,9 +1006,100 @@ library(knitr)
 include_graphics('../inst/img/bootstrapsVideo_2.jpeg')
 ```
 
-#### **Section 5.1.1** An example of the use of CASC workflow.
 
- For this example we used a subset of data from the [*Pace's Science  paper*](https://www.ncbi.nlm.nih.gov/pubmed/29326266). We used part of the single cell data sets available at [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264):
+
+
+
+### **Section 5.2** Comparing SIMLR and tSne
+
+In [*Wang*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) article it is demonstrated that SIMLR outperforms other data reduction methods (Figure \ref{fig:fig.18}). Here, we run a comparison between SIMLR and tSne within the CASC bootstrap framework to observe how cells stability score is affected by the two clustering methods.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+library(casc)
+#annotating data setA
+scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+                    gtf.name="genome.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+
+#running tSne analysis using the range of clusters suggested by clusterNgriph in session 4.2
+tsneBootstrap(group="docker",scratch.folder="/data/scratch/",
+              file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+              nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, separator="\t",
+              logTen=0, seed=111, sp=0.8, perplexity=10)
+# required time 159 mins
+
+#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
+               separator="\t",logTen=0, seed=111)
+# required time 168 mins
+
+```
+\fontsize{10}{10}\selectfont
+
+
+We run the analysis on the SetA described in Section 4.1. Both SIMLR and tSne are able to detect that five clusters provide the more stable organization in terms of cells stability score (Figure \ref{fig:fig.22}A-B). However, SIMLR clustering produces highly stable clusters (Figure \ref{fig:fig.22}C), as instead tSne clustering produces much less stable clusters (Figure \ref{fig:fig.22}D). From the point of view of the computation time the two clustering methods are relatively similar. The above mentioned analysis took 159 mins for tSne and 168 mins for SIMLR.
+
+
+```{r fig.22, fig.cap="Comparing SIMLR and tSne within CASC bootstrap framework. A,C) SetA clustered with SIMLR. B,D) SetA clustered with tSne.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/simlr_5.jpeg')
+```
+
+
+## **Section 6** Detecting the genes playing the major role in clusters formation
+
+Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments, however the number of tools, applicable to single-cells, allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR also provides a raking score for the genes that are affecting mostly the clusters organization. SIMLR gene raking does not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
+Both methods were implemented as part of the CASC bootstrap framework.
+
+### **Section 6.1** EdgeR ANOVA-like
+
+The function **deDetection** execute edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette. The input file is a counts table, modified adding as covariate for the ANOVA-like the cluster number separated by the cell name with an underscore. It is mandatory that no other underscores are located in the table. Then, counts table is reorganized to locate at the beginning of the table the set of cells belonging to the cluster used as reference group. The differentially expressed genes statistics for all genes are saved in the file with prefix **DE\_**, followed by the counts table name. The filtered differentially expressed genes statistics, including only genes detected as differentially expressed in at least one of the clusters is saved with prefix **filtered\_DE\_** followed by the counts table name. **logFC\_filtered\_DE\_** refers to the file containing only logFC extracted from **filtered_DE_** file. The count table is also saved reordered on the basis of cluster positions and has the extension **\_reordered.txt**
+
+```{r, echo=TRUE,eval=FALSE}
+
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt")
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+
+anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_10000_noC5.txt",
+        file.type="txt", cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", ref.cluster=3,
+        logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
+
+#the output of interest is logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt
+
+
+```
+
+Using the function **clustersFeatures** it is possible to select the genes that are more up-regulated in a specific cluster. This function focus only on upregulated genes because the ANOVA-like procedure is comparing compares all clusters with respect to a reference cluster. Thus, up-regulated genes are genes specific of the cluster under analysis as those down-regulated are characteristics of the reference cluster. The delta parameter indicate the minimal distance existing, for a specific gene average logFC in a specific cluster, with respect to all the other clusters under analysis.
+
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/clusters.features.zip")
+unzip("clusters.features.zip")
+setwd("clusters.features")
+
+clustersFeatures(group="docker", data.folder=getwd(),
+         logFC.table="logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt",
+         counts.table="annotated_setPace_10000_noC5_reordered.txt", delta=0.5)
+
+```
+
+
+### **Section 6.2** SIMLR gene raking on the basis of importance in clusters organization.
+
+
+
+
+## **Section 7** An example of CASC analysis: PACE et al. Science 2018.
+
+For this example we used a subset of data from the [*Pace's Science  paper*](https://www.ncbi.nlm.nih.gov/pubmed/29326266). We used part of the single cell data sets available at [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264):
 
 - naive CD8+ T lymphocytes, here named **N** 
 
@@ -1097,10 +1188,6 @@ From this part of the analysis we can provide at least some preliminary answers 
     
 
 
-
-
-
-
 ```{r fig.24, fig.cap="Analysis of Pace dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 6 clusters with simlrBootstrap, in parentesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters. D) Permutation 55 extracted from the video generate with bootstrapsVideo.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/pace_1.jpeg')
@@ -1108,7 +1195,7 @@ include_graphics('../inst/img/pace_1.jpeg')
 ```
 
 
-##### **Section 5.1.1.1** Improving the results in Section 5.1.1.
+### **Section 7.1** Improving results
 
 On the basis of Figure \ref{fig:fig.24}D and the output of [*bootstrapsVideo*](https://youtu.be/w5Jj8QxKXRU) clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus we investigated, if removing cluster 5 cells we could improve the clustering cell stability for cluster 6 and 2, Figure \ref{fig:fig.24}C.
 
@@ -1155,62 +1242,9 @@ include_graphics('../inst/img/pace_2.jpeg')
 
 ```
 
+### **Section 7.2** EdgeR ANOVA-like analysis
 
-
-
-### **Section 5.2** Comparing SIMLR and tSne
-
-In [*Wang*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) article it is demonstrated that SIMLR outperforms other data reduction methods (Figure \ref{fig:fig.18}). Here, we run a comparison between SIMLR and tSne within the CASC bootstrap framework to observe how cells stability score is affected by the two clustering methods.
-
-\fontsize{8}{8}\selectfont
-```{r, echo=TRUE, eval=FALSE}
-
-system("wget http://130.192.119.59/public/section4.1_examples.zip")
-unzip("section4.1_examples.zip")
-setwd("section4.1_examples")
-library(casc)
-#annotating data setA
-scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
-                    gtf.name="genome.gtf", biotype="protein_coding", 
-                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
-
-#running tSne analysis using the range of clusters suggested by clusterNgriph in session 4.2
-tsneBootstrap(group="docker",scratch.folder="/data/scratch/",
-              file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
-              nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, separator="\t",
-              logTen=0, seed=111, sp=0.8, perplexity=10)
-# required time 159 mins
-
-#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
-simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
-               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
-               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
-               separator="\t",logTen=0, seed=111)
-# required time 168 mins
-
-```
-\fontsize{10}{10}\selectfont
-
-
-We run the analysis on the SetA described in Section 4.1. Both SIMLR and tSne are able to detect that five clusters provide the more stable organization in terms of cells stability score (Figure \ref{fig:fig.22}A-B). However, SIMLR clustering produces highly stable clusters (Figure \ref{fig:fig.22}C), as instead tSne clustering produces much less stable clusters (Figure \ref{fig:fig.22}D). From the point of view of the computation time the two clustering methods are relatively similar. The above mentioned analysis took 159 mins for tSne and 168 mins for SIMLR.
-
-
-```{r fig.22, fig.cap="Comparing SIMLR and tSne within CASC bootstrap framework. A,C) SetA clustered with SIMLR. B,D) SetA clustered with tSne.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
-library(knitr)
-include_graphics('../inst/img/simlr_5.jpeg')
-```
-
-
-## **Section 6** Detecting the genes playing the major role in clusters formation
-
-Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments, however the number of tools, applicable to single-cells, allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR also provides a raking score for the genes that are affecting mostly the clusters organization. SIMLR gene raking does not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
-Both methods were implemented as part of the CASC bootstrap framework.
-
-### **Section 6.1** EdgeR ANOVA-like
-
-The function **deDetection** execute edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette. The input file is a counts table, modified adding as covariate for the ANOVA-like the cluster number separated by the cell name with an underscore. It is mandatory that no other underscores are located in the table. Then, counts table is reorganized to locate at the beginning of the table the set of cells belonging to the cluster used as reference group. The differentially expressed genes statistics for all genes are saved in the file with prefix **DE\_**, followed by the counts table name. The filtered differentially expressed genes statistics, including only genes detected as differentially expressed in at least one of the clusters is saved with prefix **filtered\_DE\_** followed by the counts table name. **logFC\_filtered\_DE\_** refers to the file containing only logFC extracted from **filtered_DE_** file. The count table is also saved reordered on the basis of cluster positions and has the extension **\_reordered.txt**
-In this specific example we detected a total of 2742 differentially expressed genes. We continue the analysis only on up-regulated genes, i.e. those gene specifically mor expressed in a cluster with respect ot the cluster used as reference in the ANOVA-like.
-
+We detected a total of 2742 differentially expressed genes using the naive cluster 3 as reference, Figure \ref{fig:fig.25}C. 
 ```{r, echo=TRUE,eval=FALSE}
 
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt")
@@ -1226,7 +1260,7 @@ anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_1
 
 ```
 
-Using the function **clustersFeatures** it is possible to select the genes that are more up-regulated in a specific cluster. This function focus only on upregulated genes because the ANOVA-like procedure is comparing compares all clusters with respect to a reference cluster. Thus, up-regulated genes are genes specific of the cluster under analysis as those down-regulated are characteristics of the reference cluster. The delta parameter indicate the minimal distance existing, for a specific gene average logFC in a specific cluster, with respect to all the other clusters under analysis.
+Then, the following analysis focus only on up-regulated genes, i.e. those gene specifically mor expressed in a cluster with respect ot the naive cluster used as reference in the ANOVA-like.
 
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -1241,11 +1275,21 @@ clustersFeatures(group="docker", data.folder=getwd(),
 ```
 
 
-### **Section 6.2** SIMLR gene raking on the basis of importance in clusters organization.
+We analysed the results coming out of the **clustersFeatures** selection focusing on the two clusters that are different in cell ratio between wt and Suv39h1-defective T-cells: cluster 1, showing a 2.4:1 ratio between wt and Suv39h1-defective T-cells,  and 2, only detected in Suv39h1-defective T-cells, Figure \ref{fig:fig.25}C. 31 genes were detected as specific for cluster 1. [*EnrichR*](http://amp.pharm.mssm.edu/Enrichr/) analysis indicated the overepresentation of STAT3 in ENCODE and ChEA Consensus TFs from ChIP-X datasets (Figure \ref{fig:fig.26}A) and TNFRSF13B, CCL5, CCL4 and CXCR6 in Cytokine-cytokine receptor interaction dataset. On the basis of the above observations and on a PUBMED search ([*Ccl5*](https://www.ncbi.nlm.nih.gov/pubmed/16982880), [*STAT3*](https://www.ncbi.nlm.nih.gov/pubmed/23830147), [*Ccl9*](https://www.ncbi.nlm.nih.gov/pubmed/27883012) and [*Cxcr6*](https://www.ncbi.nlm.nih.gov/pubmed/28855310)) we could assign cluster 1 to memory cells.Notable this cluster is also characterized by a unbalance ratio between activated wt T-cells and Suv39h1-defective T-cells.
 
 
+```{r fig.26, fig.cap="EnrichR analysis. A) Transcription specific enriched paths. B) KEGG specific enriched paths.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/c1_specific1.jpeg')
+```
+
+Also cluster 2 is a memory specific cluster, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths (Figure \ref{fig:fig.27}A) and GO Biological proces enrichment for **response to cytokine** (Figure \ref{fig:fig.27}A). Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
+
+```{r fig.27, fig.cap="EnrichR analysis. A) Transcription specific enriched paths. B) GO Biological Process specific enriched paths.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/c1_specific1.jpeg')
+```
 
 
-
-
+In her paper, [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with CASC extend the information provided from the single cell analysis in Pace paper, suggesting the presence of a Suv39h1-defective memory cells sub-population, cluster 2 in Figure \ref{fig:fig.25}C.
 

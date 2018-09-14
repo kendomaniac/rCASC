@@ -71,6 +71,8 @@ clustersFeatures <- function(group=c("sudo","docker"), data.folder, logFC.table,
     de.reorg[[i]] <-  de.selected[which(rownames(de.selected)%in%specifics[[i]]),]
   }
   df <- do.call("rbind", de.reorg)
+
+
   write.table(df, paste("onlyUP_",logFC.table, sep=""), sep="\t", col.names = NA)
   ###
   counts <- read.table(counts.table, sep="\t", header=T, row.names = 1)
