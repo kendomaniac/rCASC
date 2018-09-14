@@ -1278,14 +1278,14 @@ clustersFeatures(group="docker", data.folder=getwd(),
 We analysed the results coming out of the **clustersFeatures** selection focusing on the two clusters that are different in cell ratio between wt and Suv39h1-defective T-cells: cluster 1, showing a 2.4:1 ratio between wt and Suv39h1-defective T-cells,  and 2, only detected in Suv39h1-defective T-cells, Figure \ref{fig:fig.25}C. 31 genes were detected as specific for cluster 1. [*EnrichR*](http://amp.pharm.mssm.edu/Enrichr/) analysis indicated the overepresentation of STAT3 in ENCODE and ChEA Consensus TFs from ChIP-X datasets (Figure \ref{fig:fig.26}A) and TNFRSF13B, CCL5, CCL4 and CXCR6 in Cytokine-cytokine receptor interaction dataset. On the basis of the above observations and on a PUBMED search ([*Ccl5*](https://www.ncbi.nlm.nih.gov/pubmed/16982880), [*STAT3*](https://www.ncbi.nlm.nih.gov/pubmed/23830147), [*Ccl9*](https://www.ncbi.nlm.nih.gov/pubmed/27883012) and [*Cxcr6*](https://www.ncbi.nlm.nih.gov/pubmed/28855310)) we could assign cluster 1 to memory cells.Notable this cluster is also characterized by a unbalance ratio between activated wt T-cells and Suv39h1-defective T-cells.
 
 
-```{r fig.26, fig.cap="EnrichR analysis. A) Transcription specific enriched paths. B) KEGG specific enriched paths.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.26, fig.cap="EnrichR analysis. A) Transcription specific enriched paths. B) KEGG specific enriched paths.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/c1_specific1.jpeg')
 ```
 
 Also cluster 2 is a memory specific cluster, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths (Figure \ref{fig:fig.27}A) and GO Biological proces enrichment for **response to cytokine** (Figure \ref{fig:fig.27}A). Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
 
-```{r fig.27, fig.cap="EnrichR analysis. A) Transcription specific enriched paths. B) GO Biological Process specific enriched paths.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.27, fig.cap="EnrichR analysis. A) Transcription specific enriched paths. B) GO Biological Process specific enriched paths.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/c1_specific1.jpeg')
 ```
