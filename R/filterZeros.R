@@ -1,8 +1,8 @@
 #' @title Plotting the distribution of zeros in cells eliminating all genes without counts
 #' @description This function plots the zeros distributions in cells and removes genes without counts
-#' @param data.folder, a character string indicating the folder where filtered sel file will be saved. The saved file will have the prefix *filtered*.
-#' @param counts.matrix, a character string indicating the the name of tab delimited file of cells un-normalized expression counts
-#' @param threshold, an number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes which do not ave any expression in any cell.
+#' @param data.folder, a character string indicating the folder where filtered file will be saved. The saved file will have the prefix *filtered*.
+#' @param counts.matrix, a character string indicating the name of tab delimited file of cells un-normalized expression counts
+#' @param threshold, a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes which do not ave any expression in any cell.
 #' @return a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *filtered* in which the filtered data are saved.
 #' @examples
 #' \dontrun{

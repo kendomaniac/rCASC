@@ -5,9 +5,9 @@
 \title{A function to handle a indrop V2 single cell data}
 \usage{
 indropCounts(group = c("sudo", "docker"), scratch.folder, fastq.folder,
-  index.folder, sample.name, split.affixes, bowtie.index.prefix, M = 10,
-  U = 2, D = 400, low.complexity.mask = c("False", "True"),
-  umi.threshold = 5)
+  index.folder, sample.name, split.affixes, bowtie.index.prefix = "genome",
+  M = 10, U = 2, D = 400, low.complexity.mask = "False",
+  umi.threshold = 3)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -16,13 +16,13 @@ indropCounts(group = c("sudo", "docker"), scratch.folder, fastq.folder,
 
 \item{fastq.folder, }{a character string indicating the folder where input data are located and where output will be written}
 
-\item{index.folder, }{a character string indicating the folder where transcriptome index was created with salmonIndex.}
+\item{index.folder, }{a character string indicating the folder where transcriptome index was created with indropIndex.}
 
 \item{sample.name, }{the name to be associated to the fastq files, e.g. C2 for C2_S2_L001_R1_001.fastq.gz, IMPORTANT input fastq should have the format SAMPLENAME_Sx_L00y_Rz_001.fastq.gz, where x is an integer, y is an integer, z is 1 or 2}
 
-\item{split.affixes, }{the string separating SAMPLENAME for the Rz_001.fastq.gz}
+\item{split.affixes, }{the string separating SAMPLENAME from the Rz_001.fastq.gz}
 
-\item{bowtie.index.prefix, }{the prefix name of the bowtie index. If genome was generated with indropIndex function the bowtie index is genome.}
+\item{bowtie.index.prefix, }{the prefix name of the bowtie index. If genome was generated with indropIndex function the bowtie index is genome (default).}
 
 \item{M, }{Ignore reads with more than M alignments, after filtering on distance from transcript end.}
 
@@ -30,7 +30,7 @@ indropCounts(group = c("sudo", "docker"), scratch.folder, fastq.folder,
 
 \item{D, }{Maximal distance from transcript end, NOT INCLUDING THE POLYA TAIL.}
 
-\item{low.complexity.mask, }{low complexity mask False or True}
+\item{low.complexity.mask, }{low complexity mask False (default) or True}
 
 \item{umi.threshold, }{the minimal number of UMI to consider a gene present}
 }
@@ -46,7 +46,7 @@ library(casc)
 indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
        index.folder="/data/genomes/mm10indrop", sample.name="testMm",
        split.affixes="S0_L001", bowtie.index.prefix="genome",
-       M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=5)
+       M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=3)
 }
 
 }

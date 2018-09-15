@@ -95,7 +95,7 @@ include_graphics('../inst/img/indrop_v2.jpeg')
 ```
 
 
-The analysis shown below is based on the protocol in Zilionis [[*Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which is the version 2 of the inDrop technology. According to the [*inDrop github page*](https://github.com/indrops/indrops), there is a version 3, but the oligos and library structures are exactly the same as version 2, except the sequencing mode changed.
+The analysis shown below is based on the protocol in Zilionis [[*Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which is the version 2 of the inDrop technology, actually distributed by [*1CellBio*](https://1cell-bio.com/product/indrop-system/). 
 
 In version 2, three different reads are generated: 
 
@@ -105,24 +105,20 @@ include_graphics('../inst/img/indropv2.jpg')
 ```
 
 
-In version 3, four different reads are generated:
-
-```{r fig.4, fig.cap="inDrop v3", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
-library(knitr)
-include_graphics('../inst/img/indropv3.jpg')
-```
-
-
-
 #### **Section 2.1.1** inDrop data analysis
 
-- **inDropseq**:
-    + Creating a reference genome for inDrop V2: **indropIndex**
-    + From fastq to UMI counts using inDrop workflow: **indropCounts**
+There are two main functions, **indropIndex** and **indropCounts**, allowing to go from fastq files to counts table.
+    
+##### **Section 2.1.1.1** indropIndex: Creates a reference genome for inDrop V2 
+
+- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+    + *index.folder*: the folder where the reference genome will be created 
+
+    + *ensembl.urlgenome*:	the link to the ENSEMBL unmasked genome sequence of interest.
+
+    + *ensembl.urlgtf*: the link to the ENSEMBL GTF of the genome of interest.
 
 
-The function *indropIndex* is available to generate the index files required for reads mapping and annotation.
-\newline
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -133,10 +129,20 @@ indropIndex(group="docker", index.folder=getwd(),
  ensembl.urlgtf="ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.gtf.gz")
 
 ```
-
 \fontsize{10}{10}\selectfont
-The function *indropCounts* starts from inDrop V2 library fastqs and generates UMI counts.
-\newline
+
+
+##### **Section 2.1.1.2** indropCounts: Converts fastq in UMI counts using [*inDrop workflow*](https://github.com/indrops)
+
+- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+
+    + *scratch.folder*,	the folder located on a fast hardrive, i.e. SSD, in which all the I/O will be located. Having the scratch folder on a SSD strongly reduce the analysis time.	
+    + *fastq.folder*,  the folder where input data are located and where output will be written.
+    + index.folder*,	the folder where inDrop reference genome was created with index was created with indropIndex.
+    + *sample.name*, the name to be associated to the fastq files, e.g. C2 for C2\_S2\_L001\_R1\_001.fastq.gz, IMPORTANT input fastq should have the format SAMPLENAME_Sx_L00y_Rz_001.fastq.gz, where x is an integer, y is an integer, z is 1 or 2
+    + *split.affixes*,	the string separating SAMPLENAME from the Rz_001.fastq.gz
+
+
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -152,15 +158,9 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 
 ### **Section 2.2** 10XGenomics
 
-- **10XGenomics**:
-    + Downloading a reference genome for 10XGenomics
-    + Converting fastq in UMI counts matrix using cellranger: **cellrangerCount**
+The function, **cellrangerCount** allows to go from fastq files to counts table. Tis function implments [*Cellranger*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview) , the 10xGenomics tool allowing the conversion of the fastq, generated with 10XGenomics platform, into a count matrix. 
+Genome indexes are retrieved from 10Xgenomics repository:
 
-
-[Cellranger](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview) is the 10xGenomics tool allowing the conversion of the fastq generated from 10XGenomics platform into a count matrix. 
-
-Genome indexes downloadable from 10Xgenomics repository:
-\newline
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 setwd("/data/genomes/cellranger_hg38")
@@ -176,10 +176,12 @@ setwd("/data/genomes/cellranger_hg19mm10")
 #getting the human and mouse cellranger index
 system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
 ```
-
 \fontsize{10}{10}\selectfont
-The function *cellrangerCount* starts from 10Xgenomics library fastqs and generates UMI counts.
-\newline
+
+- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+    + *fastq*, the path to the folder, where 10XGenomics fastq.gz files are located.
+    + *transcriptome*,	the path to the Cell Ranger compatible transcriptome reference
+    
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -200,7 +202,7 @@ cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_
 ```
 \fontsize{10}{10}\selectfont
  
-The analysis done above took 56.4 mins on an [*SeqBox*](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 500Gb SSD.
+The analysis done above took 56.4 mins on a [*SeqBox*](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 500Gb SSD.
 
 The output of the above analysis are two cell counts matrices **results_cellranger.cvs** and **results_cellranger.txt** and a folder called **results_cellranger**, which contains the full cellranger output, more information on cellranger output can be found at [*10XGenomics web site*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview).
 
@@ -222,7 +224,13 @@ This paragraph describes a set of functions that can be used to remove low quali
 
 ### **Section 3.1** Removing non informative genes
 
-The function **filterZeros** retains all genes that have cells without a user defined fraction of zeros (between 0 and 1, where 1 indicate only genes without 0s are retained, and 0 insted indicates that genes with at least a value different from zero are retained) and plots the frequency distribution of genes with counts in the cells. 
+The function **filterZeros** retains all genes that have cells without a user defined fraction of zeros (between 0 and 1, where 1 indicate only genes without 0s are retained, and 0 insted indicates that genes with at least a value different from zero are retained) and plots the frequency distribution of genes with counts in the cells.
+
+- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+    + *data.folder*,	the folder where filtered file will be saved. The saved file will have the prefix **filtered\_**.
+    + *counts.matrix*,	the name of tab delimited file of cells un-normalized expression counts
+
+The output is a PDF providing zeros distributions before and after removal of all genes without counts. A tab delimited file with the prefix **filtered\_** in which the filtered data are saved.
 
 **IMPORTANT**: In case user would like to apply cell quality filter, e.g. *lorenzFilter*, it is covenient to remove only genes with 0 counts in all cells, i.e. threshold=0 (Figure \ref{fig:fig.5}).
 \newline
@@ -250,6 +258,12 @@ include_graphics('../inst/img/filterZero.jpeg')
 ### **Section 3.2** Plotting genes numbers versus total UMIs in each cell
 
 To estimate the overall amount of genes detectable in each cell, the function *genesUmi* produces a plot of the genes number with respect to total number of UMI for each cell. The number of UMIs required to indicate that a gene is detected in a cell is a parameter defined by user. We suggest to use at least 3 UMI as minimal threshold to consider a gene called present in a cell.
+
+- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+    + *data.folder*,	the folder where the counts table is located.
+    + *counts.matrix*,	the name of tab delimited file of cells un-normalized expression counts
+    
+The output is a pdf named **genes.umi.pdf** where each dot represent a cell. X axis is the total number of reads mapped on each cell il log10 format and Y axis is the number of detected genes. 
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -282,8 +296,8 @@ Sequencing depth, which affect differential expression analysis, modulates the d
 
 - robustness of gene expression, i.e. number of reads associated to a gene. 
 
-The number of genes called present in the experiment are the key element also for the discrimination between sub-populations. In Figure \ref{fig:fig.6.2} it shown the effect of sequencing depth on the number of detectable genes in a set of 10XGenomics sequencing experiments (25K reads/cell extracted from CD19 B-cells [[*Zheng et al*](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)],  83K reads/cell extracted from GSM2833284_Naive_WT_Rep1 [[*Pace et al. 2018*](https://www.ncbi.nlm.nih.gov/pubmed/29326266)], 250K reads/cell from an unpublished mouse experiment) and one whole transcript sequencing experiment [[*Buettner et al Nat.Biotechnol. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176)] with a 3.5 milion median reads/cell. 
-To make the datasets comparable we executed **genesUmi** on 288 randomly selected cells from each data set. We use  3 UMI as minimal threshold to call present a gene in 10XGenomics experiments and 5 reads [[*Tarazona et al. 2011*](https://genome.cshlp.org/content/21/12/2213.long)] as minimal threshold to call a gene present in a single cell whole trasncriptome experiment.  
+The number of genes called present in the experiment are the key element also for the discrimination between sub-populations. In Figure \ref{fig:fig.6.2} it shown the effect of sequencing depth on the number of detectable genes in a set of 10XGenomics sequencing experiments (25K reads/cell extracted from CD19 B-cells [[*Zheng et al*](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)],  83K reads/cell extracted from GSM2833284_Naive_WT_Rep1 [[*Pace et al. 2018*](https://www.ncbi.nlm.nih.gov/pubmed/29326266)], 250K reads/cell from an unpublished mouse experiment), 25K, 100K and 250K reads/cell from a un-published whole transcript single-cell sequencing done on C1. 
+We uses  3 UMI as minimal threshold to call present a gene in 10XGenomics experiments and 5 reads [[*Tarazona et al. 2011*](https://genome.cshlp.org/content/21/12/2213.long)] as minimal threshold to call a gene present in a single cell whole trasncriptome experiment.  
 
 
 \fontsize{8}{8}\selectfont
@@ -317,14 +331,25 @@ system("mv genes.umi.pdf genes.umi_3.5M.pdf")
 ```
 \fontsize{10}{10}\selectfont
 
-Figure \ref{fig:fig.6.2} clearly show that the number of genes detectable by 10XGenomics sequencing is, even with 250K reads/cell (Figure \ref{fig:fig.6.2}C), far less of those detectable using a whole transcript experiment (Figure \ref{fig:fig.6.2}D). Since short reads sequencing will sample first the most represented genes, i.e. housekeeping genes, low sequencing depth will negatively affect the discrimination between similar cell-types. 
+Figure \ref{fig:fig.6.2} clearly show that the number of genes detectable by 10XGenomics sequencing (Figure \ref{fig:fig.6.2}A-C) is far less of those detectable using a whole transcript experiment (Figure \ref{fig:fig.6.2}D-F). It is notable that the the number of genes, detectable with 3' end sequencing, is located in the lower range of those obtainable with whole transcript sequencing, i.e in case of 25K reads/cells in 3' end sequencing, Figure \ref{fig:fig.6.2}A, the max number of genes detected is 350, which is in the range of the lowest number of genes detectable with 25K reads/cell in whole transcript sequencing, Figure \ref{fig:fig.6.2}D. The critical point is that it is difficult motivate why, in 3' end sequencing, the number of detectable genes/cell is so scattered. As far of our knowledge, today is not possible to understand if such scattere number of genes has a biological meaning or if it is an artifact of the technology. However, it has to be noted that cells with a low number of genes called present will have a gene repertoire made mainly of housekeeping genes, ribosomal and mitohondrial genes. Thus, these cells will be difficult to cluster on the basis of cell-type-specific transcription profile.  
 
-```{r fig.6.2, fig.cap="Number of detected genes with respect to mapped reads. A) 25K reads/cell 10XGenomics platform, 3\' end sequencing. B) 86K reads/cell 10XGenomics platform, 3\' end sequencing. C) 250K reads/cell 10XGenomics platform, 3\' end sequencing. D) 3.5 milion reads/cell C1 platform, whole transcript sequencing", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.6.2, fig.cap="Number of detected genes with respect to mapped reads. A) 25K reads/cell 10XGenomics platform, 3\' end sequencing. B) 86K reads/cell 10XGenomics platform, 3\' end sequencing. C) 250K reads/cell 10XGenomics platform, 3\' end sequencing. D) 25K reads/cell C1 platform, whole transcript sequencing, E) 100K reads/cell C1 platform, whole transcript sequencing, F) 250K reads/cell C1 platform, whole transcript sequencing", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/seq_depth.jpeg')
 ```
 
+To evaluate what would be the minimal number of genes/cell, which guarantee sufficient transcripts information for clusters we have used a subset of [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper data. 
 
+setA is made of the following cell type:
+    + B-cells (25K reads/cell), 
+    + Monocytes  (100K reads/cell), 
+    + Stem cells (24.7K reads/cell), 
+    + Natural Killer cells (29K reads/cell), 
+    + Naive T-cells (19K reads/cell)
+    
+setA is made of 100 cells selected from each of the 
+  
+    
 
 ### **Section 3.3** Identifying and removing cell low-quality outliers
 
@@ -1199,6 +1224,7 @@ include_graphics('../inst/img/pace_1.jpeg')
 
 On the basis of Figure \ref{fig:fig.24}D and the output of [*bootstrapsVideo*](https://youtu.be/w5Jj8QxKXRU) clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus we investigated, if removing cluster 5 cells we could improve the clustering cell stability for cluster 6 and 2, Figure \ref{fig:fig.24}C.
 
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 system("wget http://130.192.119.59/public/annotated_setPace_10000.txt.zip")
 unzip("annotated_setPace_10000.txt.zip")
@@ -1227,12 +1253,8 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
                separator="\t",logTen=0, seed=111)
 #execution time 276 mins in SeqBox
 
-
-
-
-
 ```
-
+\fontsize{10}{10}\selectfont
 
 The results of the analysis done removing cells associated to cluster 5, Figure \ref{fig:fig.24}C, are shown in Figure \ref{fig:fig.25}. The range of clusters suggested by **clusterNgriph** are between 5 and 9, Figure \ref{fig:fig.25}A. The best cells stability score is observable for 5 clusters, Figure \ref{fig:fig.25}B. **simlrBootstrap** results show a large improvment of the overall stablity of the clusters Figure \ref{fig:fig.25}C with respect to the previous analysis, Figure \ref{fig:fig.24}C. It is also notable that the samples organization with in clusters agrees with preliminary answers in Section 5.1.1 .
 
@@ -1245,6 +1267,8 @@ include_graphics('../inst/img/pace_2.jpeg')
 ### **Section 7.2** EdgeR ANOVA-like analysis
 
 We detected a total of 2742 differentially expressed genes using the naive cluster 3 as reference, Figure \ref{fig:fig.25}C. 
+
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE,eval=FALSE}
 
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt")
@@ -1259,9 +1283,11 @@ anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_1
 
 
 ```
+\fontsize{10}{10}\selectfont
 
 Then, the following analysis focus only on up-regulated genes, i.e. those gene specifically mor expressed in a cluster with respect ot the naive cluster used as reference in the ANOVA-like.
 
+\fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 system("wget http://130.192.119.59/public/clusters.features.zip")
@@ -1273,22 +1299,18 @@ clustersFeatures(group="docker", data.folder=getwd(),
          counts.table="annotated_setPace_10000_noC5_reordered.txt", delta=0.5)
 
 ```
-
+\fontsize{10}{10}\selectfont
 
 We analysed the results coming out of the **clustersFeatures** selection focusing on the two clusters that are different in cell ratio between wt and Suv39h1-defective T-cells: cluster 1, showing a 2.4:1 ratio between wt and Suv39h1-defective T-cells,  and 2, only detected in Suv39h1-defective T-cells, Figure \ref{fig:fig.25}C. 31 genes were detected as specific for cluster 1. [*EnrichR*](http://amp.pharm.mssm.edu/Enrichr/) analysis indicated the overepresentation of STAT3 in ENCODE and ChEA Consensus TFs from ChIP-X datasets (Figure \ref{fig:fig.26}A) and TNFRSF13B, CCL5, CCL4 and CXCR6 in Cytokine-cytokine receptor interaction dataset. On the basis of the above observations and on a PUBMED search ([*Ccl5*](https://www.ncbi.nlm.nih.gov/pubmed/16982880), [*STAT3*](https://www.ncbi.nlm.nih.gov/pubmed/23830147), [*Ccl9*](https://www.ncbi.nlm.nih.gov/pubmed/27883012) and [*Cxcr6*](https://www.ncbi.nlm.nih.gov/pubmed/28855310)) we could assign cluster 1 to memory cells.Notable this cluster is also characterized by a unbalance ratio between activated wt T-cells and Suv39h1-defective T-cells.
 
 
-```{r fig.26, fig.cap="EnrichR analysis. A) Transcription specific enriched paths. B) KEGG specific enriched paths.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+```{r fig.26, fig.cap="EnrichR analysis. A) Transcription specific enriched paths cluster 1. B) KEGG specific enriched paths cluster 1.  A) Transcription specific enriched paths cluster 2. B) GO Biological Process specific enriched paths cluster 2.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/c1_specific1.jpeg')
 ```
 
-Also cluster 2 is a memory specific cluster, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths (Figure \ref{fig:fig.27}A) and GO Biological proces enrichment for **response to cytokine** (Figure \ref{fig:fig.27}A). Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
+Also cluster 2 is a memory specific cluster, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths (Figure \ref{fig:fig.26}C) and GO Biological proces enrichment for **response to cytokine** (Figure \ref{fig:fig.26}D). Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
 
-```{r fig.27, fig.cap="EnrichR analysis. A) Transcription specific enriched paths. B) GO Biological Process specific enriched paths.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
-library(knitr)
-include_graphics('../inst/img/c1_specific1.jpeg')
-```
 
 
 In her paper, [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with CASC extend the information provided from the single cell analysis in Pace paper, suggesting the presence of a Suv39h1-defective memory cells sub-population, cluster 2 in Figure \ref{fig:fig.25}C.

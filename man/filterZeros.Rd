@@ -7,11 +7,11 @@
 filterZeros(data.folder = getwd(), counts.matrix, threshold = 0)
 }
 \arguments{
-\item{data.folder, }{a character string indicating the folder where filtered sel file will be saved. The saved file will have the prefix *filtered*.}
+\item{data.folder, }{a character string indicating the folder where filtered file will be saved. The saved file will have the prefix *filtered*.}
 
-\item{counts.matrix, }{a character string indicating the the name of tab delimited file of cells un-normalized expression counts}
+\item{counts.matrix, }{a character string indicating the name of tab delimited file of cells un-normalized expression counts}
 
-\item{threshold, }{an number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes which do not ave any expression in any cell.}
+\item{threshold, }{a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes which do not ave any expression in any cell.}
 }
 \value{
 a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *filtered* in which the filtered data are saved.

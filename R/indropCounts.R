@@ -3,14 +3,14 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param fastq.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param index.folder, a character string indicating the folder where transcriptome index was created with salmonIndex.
+#' @param index.folder, a character string indicating the folder where transcriptome index was created with indropIndex.
 #' @param sample.name, the name to be associated to the fastq files, e.g. C2 for C2_S2_L001_R1_001.fastq.gz, IMPORTANT input fastq should have the format SAMPLENAME_Sx_L00y_Rz_001.fastq.gz, where x is an integer, y is an integer, z is 1 or 2
-#' @param split.affixes, the string separating SAMPLENAME for the Rz_001.fastq.gz
-#' @param bowtie.index.prefix, the prefix name of the bowtie index. If genome was generated with indropIndex function the bowtie index is genome.
+#' @param split.affixes, the string separating SAMPLENAME from the Rz_001.fastq.gz
+#' @param bowtie.index.prefix, the prefix name of the bowtie index. If genome was generated with indropIndex function the bowtie index is genome (default).
 #' @param M, Ignore reads with more than M alignments, after filtering on distance from transcript end.
 #' @param U, Ignore counts from UMI that should be split among more than U genes.
 #' @param D, Maximal distance from transcript end, NOT INCLUDING THE POLYA TAIL.
-#' @param low.complexity.mask, low complexity mask False or True
+#' @param low.complexity.mask, low complexity mask False (default) or True
 #' @param umi.threshold, the minimal number of UMI to consider a gene present
 #' @author Raffaele Calogero and Riccardo Panero, raffaele.calogero [at] unito [dot] it, Bioinformatics and Genomics unit, University of Torino Italy
 #'
@@ -23,11 +23,11 @@
 #' indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
 #'        index.folder="/data/genomes/mm10indrop", sample.name="testMm",
 #'        split.affixes="S0_L001", bowtie.index.prefix="genome",
-#'        M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=5)
+#'        M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=3)
 #' }
 #'
 #' @export
-indropCounts <- function(group=c("sudo","docker"), scratch.folder, fastq.folder, index.folder, sample.name, split.affixes, bowtie.index.prefix, M=10, U=2, D=400, low.complexity.mask=c("False", "True"), umi.threshold=5){
+indropCounts <- function(group=c("sudo","docker"), scratch.folder, fastq.folder, index.folder, sample.name, split.affixes, bowtie.index.prefix="genome", M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=3){
 
   #testing if docker is running
   test <- dockerTest()

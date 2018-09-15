@@ -27,7 +27,7 @@
 #' setwd(home)
 #' # 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
 #' system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
-#' cellranger_count(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
+#' cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
 #'
 #'
 #'
@@ -37,7 +37,7 @@
 #'
 #' @export
 
-cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=FALSE, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder){
+cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=TRUE, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder){
 
   id="results_cellranger"
   #docker image
