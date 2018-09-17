@@ -3,17 +3,17 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
-#' @param nPerm, number of permutations to perform the pValue to evaluate clustering
-#' @param permAtTime, number of permutations that can be computes in parallel
-#' @param percent, percentage of random cells that has to be removed in each permutation
-#' @param range1, first number of cluster for k means algorithm
-#' @param range2, last number of cluster for k means algorithm
+#' @param nPerm, number of permutations to be executed
+#' @param permAtTime, number of permutations computed in parallel
+#' @param percent, percentage of random cells removed in each permutation
+#' @param range1, beginning of the range of clusters to be investigated
+#' @param range2, end of the range of clusters to be investigated
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
-#' @param seed, important value to reproduce the same results with same input
-#' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster, default 0.8.
-#' @param clusterPermErr, error that can be done by each permutation in cluster number depicting.Default = 0.05
-#' @param perplexity, Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10. Setting this parameter when use a clustering method different by tSne will be ignored.
+#' @param seed, important value to reproduce the same results with same input, default is 111
+#' @param sp, minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
+#' @param clusterPermErr, probability error in depicting the number of clusters in each permutation, default = 0.05
+#' @param perplexity, Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10. 
 
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
