@@ -1,9 +1,9 @@
 #' @title A function to selectec top X on the basis of gene/transcript expression
 #' @description This function select the X top genes givea a user defined threshold
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param file.name, counts table name, tab delimited. Matrix data file must be in data.folder.
+#' @param file.name, counts table tab delimited. Matrix data file must be in data.folder.
 #' @param threshold, integer used for filtering indicate the number of top expressed genes to be selected
-#' @param logged, boolean TRUE or FALSE, if FALSE gene expression data are expressed in the plot as log10.
+#' @param logged, boolean TRUE or FALSE, if FALSE gene expression data are log10 transformed before being plotted.
 #'
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, UNITO
 #'

@@ -5,7 +5,7 @@
 #' @param conditions, vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.
 #' @param FilterCellProportion, a value indicating the proportion of non-zero expression estimates required to include the genes into the evaluation. Default is .10, and will not go below a proportion which uses less than 10 total cells/samples
 #' @param FilterExpression, a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots
-#' @param ditherCounts, whether to dither/jitter the counts, may be used for data with many ties, default is FALSE
+#' @param ditherCounts, Setting to TRUE might improve results with UMI data, default is FALSE
 #' @param outputName, specify the path and/or name of output files.
 #' @param nCores, number of cores to use, default is detectCores() - 1.
 #' @return pdf with the cells counts distributions

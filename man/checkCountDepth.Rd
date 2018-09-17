@@ -19,7 +19,7 @@ checkCountDepth(group = c("sudo", "docker"), file, conditions = NULL,
 
 \item{FilterExpression, }{a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots}
 
-\item{ditherCounts, }{whether to dither/jitter the counts, may be used for data with many ties, default is FALSE}
+\item{ditherCounts, }{Setting to TRUE might improve results with UMI data, default is FALSE}
 
 \item{outputName, }{specify the path and/or name of output files.}
 

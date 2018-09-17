@@ -8,7 +8,7 @@
 #'
 #' @author Name Family name, myemail [at] somewhere [dot] org, Affiliation
 #'
-#' @return output will be in the same format and with the same separator of input.
+#' @return The output is a tab delimited counts table. Output will be in the same format and with the same separator of input.
 #'
 #' @examples
 #' \dontrun{

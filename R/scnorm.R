@@ -8,7 +8,7 @@
 #' @param filtercellNum, the number of non-zero expression estimate required to include the genes into the SCnorm fitting (default = 10). The initial grouping fits a quantile regression to each gene, making this value too low gives unstable fits.
 #' @param ditherCount, FALSE of TRUE. Setting to TRUE might improve results with UMI data.
 #' @param PropToUse, as default is set to 0.25, but to increase speed with large data set could be reduced, e.g. 0.1
-#' @param PrintProgressPlots, producesa  plot as SCnorm determines the optimal number of groups
+#' @param PrintProgressPlots, produces a  plot as SCnorm determines the optimal number of groups
 #' @param FilterExpression, a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots
 #' @return  a tab delimited file containing the normalized data and a list of the discarded genes.
 #' @examples

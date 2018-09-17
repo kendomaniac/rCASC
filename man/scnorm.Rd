@@ -25,7 +25,7 @@ scnorm(group = c("sudo", "docker"), file, conditions = NULL, outputName,
 
 \item{PropToUse, }{as default is set to 0.25, but to increase speed with large data set could be reduced, e.g. 0.1}
 
-\item{PrintProgressPlots, }{producesa  plot as SCnorm determines the optimal number of groups}
+\item{PrintProgressPlots, }{produces a  plot as SCnorm determines the optimal number of groups}
 
 \item{FilterExpression, }{a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots}
 }

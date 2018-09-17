@@ -14,11 +14,11 @@ clusterNgriph(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{file, }{a character string indicating the path of the file, with file name and extension included}
 
-\item{nPerm, }{number of permutations to perform the pValue to evaluate clustering}
+\item{nPerm, }{number of permutations to perform}
 
-\item{permAtTime, }{number of permutations that can be computes in parallel}
+\item{permAtTime, }{number of permutations that can be computed in parallel}
 
-\item{percent, }{percentage of random cells that has to be removed in each permutation}
+\item{percent, }{percentage of cells randomly removed in each permutation}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 

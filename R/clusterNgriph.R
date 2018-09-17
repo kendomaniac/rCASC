@@ -3,9 +3,9 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
-#' @param nPerm, number of permutations to perform the pValue to evaluate clustering
-#' @param permAtTime, number of permutations that can be computes in parallel
-#' @param percent, percentage of random cells that has to be removed in each permutation
+#' @param nPerm, number of permutations to perform
+#' @param permAtTime, number of permutations that can be computed in parallel
+#' @param percent, percentage of cells randomly removed in each permutation
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
 #' @param seed, important value to reproduce the same results with same input

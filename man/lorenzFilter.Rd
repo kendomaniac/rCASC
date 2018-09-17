@@ -19,7 +19,7 @@ lorenzFilter(group = c("sudo", "docker"), scratch.folder, file, p_value,
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
-output will be in the same format and with the same separator of input.
+The output is a tab delimited counts table. Output will be in the same format and with the same separator of input.
 }
 \description{
 This function executes a docker that produces ....

@@ -9,11 +9,11 @@ topx(data.folder, file.name, threshold, logged = FALSE)
 \arguments{
 \item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
 
-\item{file.name, }{counts table name, tab delimited. Matrix data file must be in data.folder.}
+\item{file.name, }{counts table tab delimited. Matrix data file must be in data.folder.}
 
 \item{threshold, }{integer used for filtering indicate the number of top expressed genes to be selected}
 
-\item{logged, }{boolean TRUE or FALSE, if FALSE gene expression data are expressed in the plot as log10.}
+\item{logged, }{boolean TRUE or FALSE, if FALSE gene expression data are log10 transformed before being plotted.}
 }
 \value{
 a filtered tab delimited file and a histogram of the gene by gene total expression
