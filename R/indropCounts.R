@@ -216,7 +216,7 @@ indropCounts <- function(group=c("sudo","docker"), scratch.folder, fastq.folder,
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
   system(paste("rm -fR ", project.folder, sep=""))
-  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",fastq.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",fastq.folder, sep=""))
   setwd(home)
 
 }

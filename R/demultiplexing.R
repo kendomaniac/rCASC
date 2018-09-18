@@ -75,7 +75,7 @@ demultiplexing <- function(group=c("sudo","docker"),  data.folder, threads=8){
 
   #running time 2
   system(paste("rm ",main.folder,"/dockerID", sep=""))
-  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",main.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",main.folder, sep=""))
   setwd(home)
 }
 

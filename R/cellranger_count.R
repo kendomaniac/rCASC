@@ -193,7 +193,7 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
-  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",fastq.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",fastq.folder, sep=""))
   setwd(home)
 
 }

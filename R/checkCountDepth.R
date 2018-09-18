@@ -98,7 +98,7 @@ checkCountDepth <- function(group=c("sudo","docker"), file, conditions=NULL, Fil
   #removing temporary folder
   cat("\n\nRemoving the checkCountDepth temporary file ....\n")
   system(paste("rm  -f ",data.folder,"/dockerID", sep=""))
-  system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 
 }
