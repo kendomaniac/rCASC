@@ -6,10 +6,10 @@
 #' @param nCluster, nCluster interested for the analysis
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param lfn, name of the list of genes
-#' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL code.1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ensamble name you have to run SCannoByGtf before start using this script.
+#' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL geneID. 1 if the gene names is formatted as: ENSMUSG00000000001:Gnai3. If the gene names is made only by ensamble name, scannoByGtf has to be run first.
 #' @param status, 0 if is raw count, 1 otherwise
-#' @param b1, first break set b1 and b2 as 0 if you dont want to use some filtering on heatmap breaks,for negative value write "/-5"
-#' @param b2, last break set b1 and b2 as 0 if you dont want to use some filtering on heatmap breaks,for negative value write "/-5"
+#' @param b1, the lower range of signal in the heatmap,for negative value write "/-5". To ask the function to do automatic value assignment set 0
+#' @param b2, the upper range of signal in the heatmap,for negative value write "/-2". To ask the function to do automatic value assignment set 0
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return stability plot for each nCluster,two files with score information for each cell for each permutation.
@@ -18,7 +18,7 @@
 #'hfc("docker","/home/lucastormreig/scratch/","/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0",6,",","naive")#
 #'}
 #' @export
-hfc <- function(group=c("sudo","docker"), scratch.folder,file,nCluster,separator,lfn,geneNameControl=1,status,b1,b2){
+hfc <- function(group=c("sudo","docker"), scratch.folder,file,nCluster,separator,lfn,geneNameControl=1,status,b1=0,b2=0){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
