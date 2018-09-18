@@ -13,7 +13,7 @@
 #' @export
 downloadContainers <- function(group="docker", containers.file=NULL){
    if(is.null(containers.file)){
-     containers.file=paste(path.package(package="casc"),"containers/containers.txt",sep="/")
+     containers.file=paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")
    }
    containers <- readLines(containers.file)
    for(i in containers){
