@@ -12,11 +12,10 @@
 #' @param seed, important value to reproduce the same results with same input
 #' @param sp, minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
 #' @param clusterPermErr, probability error in depicting the number of clusters in each permutation, default = 0.05
-
-
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
+
 #' @examples
 #' \dontrun{
 #' system("wget http://130.192.119.59/public/section4.1_examples.zip")
