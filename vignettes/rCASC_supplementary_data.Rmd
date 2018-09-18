@@ -1345,7 +1345,7 @@ clustersFeatures(group="docker", data.folder=getwd(),
 ```
 \fontsize{10}{10}\selectfont
 
-### **Section 6.2** Visualizing cluster specific genes by heatmap.
+#### **Section 6.1.1** Visualizing cluster specific genes by heatmap.
 
 The gene-features extracted by **clustersFeatures** cannot be used again in **simlrBootstrap**, if the overall number of genes is smaller of the cell number, for more information see SIMLR publication.  This limitation does not apply to tsneBootstrap.
  
@@ -1394,7 +1394,17 @@ library(knitr)
 include_graphics('../inst/img/hfc1.jpeg')
 ```
 
-\pagebreak
+
+
+### **Section 6.2** A machine learning approach: SIMLR prioritization
+
+SIMLR gene prioritization approach relies on the output similarity and does not depend on the downstream dimension reduction or clustering. The advantage of this step is
+that one can identify highly fluuctuating genes that are consistent with the learned similarity in the multiple-kernel space.
+
+The function **simlrFeatures** executes SIMLR prioritization within the rCADC bootstrap framework. 
+
+- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+    + *
 
 ## **Section 7** An example of rCASC analysis: PACE et al. Science 2018.
 
