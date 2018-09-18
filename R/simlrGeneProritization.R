@@ -20,12 +20,12 @@
 #' system("wget http://130.192.119.59/public/section4.1_examples.zip")
 #' unzip("section4.1_examples.zip")
 #' setwd("section4.1_examples")
-#' simlrFeatures(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, nCluster=5, separator="\t", logTen=0, seed=111, sp=0.8, clusterPermErr=0.05)
+#' genesPrioritization(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, nCluster=5, separator="\t", logTen=0, seed=111, sp=0.8, clusterPermErr=0.05)
 #'}
 #'
 #' @export
 
-genesPrioritization <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, nCluster, separator, logTen=0, seed=111, rK=1, sp=0.8, clusterPermErr=0.05){
+genesPrioritization <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, nCluster, separator, logTen=0, seed=111, sp=0.8, clusterPermErr=0.05){
   
   permutationClustering(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, range1=nCluster, range2=nCluster, separator=separator, logTen=logTen, clustering="SIMLR", perplexity=10 , seed=seed, rK=1)
   
