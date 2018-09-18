@@ -91,6 +91,11 @@ clustersFeatures <- function(group=c("sudo","docker"), data.folder, logFC.table,
   df.specific <- as.data.frame(df.specific)
   names(df.specific) <- c("cluster","geneID")
   write.table(df.specific, "onlyUP_clusters_specific_genes.txt", sep="\t", row.names = F)
+  df.specific.symbol <- strsplit(df.specific$geneID, ":")
+  df.specific.symbol <- sapply( df.specific.symbol, function(x)x[2])
+  zz <- file("onlyUP_clusters_specific_geneSYMBOLs.txt", "w")
+  writeLines(df.specific.symbol, zz)
+  close(zz)
 
     #running time 2
   ptm <- proc.time() - ptm
@@ -113,8 +118,5 @@ clustersFeatures <- function(group=c("sudo","docker"), data.folder, logFC.table,
     writeLines(tmp.run,"run.info")
   }
 
-  #saving log and removing docker container
-
-  system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }
