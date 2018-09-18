@@ -21,7 +21,7 @@ knitr::opts_chunk$set(fig.pos = 'h')
 
 ## **Section 1** rCASC: a single cell analysis workflow designed to provide data reproducibility
 
-Since the end of the 90's omics high-throughput technologies have generated an enormous amount of data, reaching today an exponential growth phase. Analysis of omics big data is a revolutionary means of understanding the molecular basis of disease regulation and susceptibility, and this resource became accessible to the biological/medical community by bioinformatics. However, because of the fast evolution of computation tools and omics methods, the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important issue [[*Nature, 6 July 2018*](https://www.nature.com/collections/prbfkwmwvz)] and there is a mandatory need to to guarantee robust and reliable results to the research community [[*Global Engage Blog*](http://www.global-engage.com/life-science/reproducibility-computational-biology/)].
+Since the end of the 90's omics high-throughput technologies have generated an enormous amount of data, reaching today an exponential growth phase. Analysis of omics big data is a revolutionary means of understanding the molecular basis of disease regulation and susceptibility, and this resource is accessible to the biological/medical community via bioinformatics frameworks. However, because of the fast evolution of computation tools and omics methods, the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important issue [[*Nature, 6 July 2018*](https://www.nature.com/collections/prbfkwmwvz)] and there is a mandatory need to to guarantee robust and reliable results to the research community [[*Global Engage Blog*](http://www.global-engage.com/life-science/reproducibility-computational-biology/)].
 
 Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [*Kulkarni et al. BMC Bioinformatics, in press*] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al. Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
 
@@ -79,7 +79,7 @@ library(devtools)
 install_github("kendomaniac/rCASC")
 
 # downloading the required containers
-library(casc)
+library(rCASC)
 downloadContainers()
 
 
@@ -127,7 +127,7 @@ There are two main functions, **indropIndex** and **indropCounts**, allowing to 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
-library(casc)
+library(rCASC)
 #running indropCounts index build
 indropIndex(group="docker", index.folder=getwd(),
  ensembl.urlgenome="ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
@@ -153,7 +153,7 @@ indropIndex(group="docker", index.folder=getwd(),
 
 system("wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz")
 system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
-library(casc)
+library(rCASC)
 indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
         index.folder="/data/genomes/indropMm10", sample.name="testMm", split.affixes="S0_L001",
         bowtie.index.prefix="genome", M=10, U=2, D=400, low.complexity.mask="False")
@@ -191,7 +191,7 @@ system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and
 ```{r, echo=TRUE, eval=FALSE}
 
 home <- getwd()
-library(casc)
+library(rCASC)
 downloadContainers()
 setwd("/data/genomes/cellranger_hg19mm10")
 #getting the human and mouse cellranger index
@@ -277,7 +277,7 @@ The output is a pdf named **genes.umi.pdf**, where each dot represents a cell. X
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
-library(casc)
+library(rCASC)
 genesUmi(data.folder=getwd(), counts.matrix="filtered_testSCumi_mm10.txt", umiXgene=3)
 
 ```
@@ -317,19 +317,19 @@ In particular, the number of genes called present in the experiment is the key e
 #10XGenomics experiments
 system("wget http://130.192.119.59/public/Zheng_cd19_288cells.txt.zip")
 unzip("Zheng_cd19_288cells.txt.zip")
-library(casc)
+library(rCASC)
 genesUmi(data.folder=getwd(), counts.matrix="Zheng_cd19_288cells.txt", umiXgene=3)
 system("mv genes.umi.pdf genes.umi_25k.pdf")
 
 system("wget http://130.192.119.59/public/GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
 unzip("GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
-library(casc)
+library(rCASC)
 genesUmi(data.folder=getwd(), counts.matrix="GSM2833284_Naive_WT_Rep1_288cell.txt", umiXgene=3)
 system("mv genes.umi.pdf genes.umi_86k.pdf")
 
 system("wget http://130.192.119.59/public/brain_unpublished_288cells.txt.zip")
 unzip("brain_unpublished_288cells.txt.zip")
-library(casc)
+library(rCASC)
 genesUmi(data.folder=getwd(), counts.matrix="brain_unpublished_288cells.txt", umiXgene=3)
 system("mv genes.umi.pdf genes.umi_250k.pdf")
 
@@ -337,7 +337,7 @@ system("mv genes.umi.pdf genes.umi_250k.pdf")
 system("wget http://130.192.119.59/public/c1_experiment.zip")
 unzip("c1_experiment.zip")
 setwd("c1_experiment")
-library(casc)
+library(rCASC)
 genesUmi(data.folder=getwd(), counts.matrix="250K_counts.txt", umiXgene=5)
 system("mv genes.umi.pdf genes.umi_250K.pdf")
 genesUmi(data.folder=getwd(), counts.matrix="100K_counts.txt", umiXgene=5)
@@ -438,7 +438,7 @@ The output is a counts table without low quality cells. Output will be in the sa
 system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
 unzip("testSCumi_mm10.csv.zip")
 #IMPORTANT: full path to the file MUST be cell count file included!
-library(casc)
+library(rCASC)
 # the p_value indicate the probability that a low quality cell is retained in the 
 # dataset filtered on the basis of Lorenz Statistics.
 lorenzFilter(group="docker",scratch.folder="/data/scratch/", 
@@ -494,7 +494,7 @@ Ribosomal RNA and ribosomal proteins represent a significant part of cell cargo.
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
-library(casc)
+library(rCASC)
 scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.txt",sep="/"),
                     gtf.name="Mus_musculus.GRCm38.92.gtf", biotype="protein_coding", 
                     mt=FALSE, ribo.proteins=FALSE, umiXgene=3)
@@ -525,7 +525,7 @@ For clustering purposes user might decide to use the top expressed genes. The fu
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
  
-library(casc)
+library(rCASC)
 genesUmi(data.folder=getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10.txt", umiXgene=3)
 topx(data.folder=getwd(),file.name="lorenz_filtered_testSCumi_mm10.txt",threshold=10000, logged=FALSE)
 genesUmi(data.folder=getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10_10000.txt", umiXgene=3)
@@ -857,7 +857,7 @@ In rCASC, the identification of the optimal number of clusters is addressed, in 
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
-library(casc)
+library(rCASC)
 clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
               "annotated_buettner_G1G2MS_counts_10000bis.txt", sep="/"), nPerm=160, 
               permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
@@ -1103,7 +1103,7 @@ library(knitr)
 include_graphics('../inst/img/simlr_1.jpeg')
 ```
 
-Specifically, we use SIMLR as clustering method recording the effects of data pertubation, i.e. removal of random subset of cells, on the clustering structure. Although, we think SIMLR provides important advantages with respect to other clustering methods, rCASC structure can implement also other data reduction tools. At the present time, tSne is also implemented within the rCASC data permutation framework.
+Specifically, we use SIMLR as clustering method recording the effects of data pertubation, i.e. removal of random subset of cells, on the clustering structure. Although, we think SIMLR provides important advantages with respect to other clustering methods, rCASC framework can embed also other data reduction tools. At the present time, tSne is also implemented within the rCASC data permutation framework.
 
 The peculiarity of rCASC is the user tunable bootstrap procedure. rCASC represents bootstrap results via a cell stability score (Figure \ref{fig:fig.19}). In brief, a set of cells to be organized in clusters  (Figure \ref{fig:fig.19}A) is analysed with SIMLR, applying a users defined k number of clusters (Figure \ref{fig:fig.19}B), see Section 4 for more information on how to identify a range of number of clusters to be passed to SIMLR. A user defined \% of cells is removed from the original data set and these cells are clustered again (Figure \ref{fig:fig.19}C). The clusters obtained in each bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure \ref{fig:fig.19}D-E). If the Jaccard index is greater of a user defined threshold, e.g. 0.8, the cluster is called confirmed in the bootstrap step (Figure \ref{fig:fig.19}F) and to each cell, belonging to that cluster, to its *cell stability score* is added 1 (Figure \ref{fig:fig.19}G). Then, cells are labelled with different symbols describing their stability in a specific cluster (Figure \ref{fig:fig.19}H), on the basis of the cells scores obtained as a consequence of the bootstrap analysis.
 
@@ -1112,7 +1112,7 @@ library(knitr)
 include_graphics('../inst/img/simlr_2.jpeg')
 ```
 
-SIMLR is embedded in **simlrBootstrap** function within the rCASC bootstrap procedure. 
+SIMLR is embedded in **simlrBootstrap** function within the rCASC bootstrap framework. 
 
 - *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
@@ -1133,7 +1133,7 @@ SIMLR is embedded in **simlrBootstrap** function within the rCASC bootstrap proc
 system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
-library(casc)
+library(rCASC)
 #annotating data setA
 scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
@@ -1162,19 +1162,21 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
 
 The output of **simlrBootstrap** function is described in Figure \ref{fig:fig.20}. The output is localized in the *Results* folder (Figure \ref{fig:fig.20} Folders 1), which is created in the folder where the analysis started. This folder contains the count matrices used in the analyses. In this example the count matrices are those belonging to setA and B (see Section 4.1). In the *Results* folder  are also present folders labelled with the name of the count matrix used in the analysis (Figure \ref{fig:fig.20} Folders 2, annotated\_bmsnkn\_5x100cells, annotated\_bmHnkn\_5x100cells). In each of these folders there are a set of folders indicated with a number that refers to the analysed range of number of clusters (Figure \ref{fig:fig.20} Folders 3). In this specific example  the range of clusters goes from 4 to 6. In each *NameOfCountMatrix* folder there is a file called **\_Stability\_Violin\_Plot.pdf** (Figure \ref{fig:fig.20}A) which represents the distribution of the cells stability scores over the bootstraps in the range of number of clusters investigated. In this example, it is clear that the analysis done with 5 clusters is the one providing the highest stability of cells within each cluster. The other plot that is also available in the folder (Figure \ref{fig:fig.20} Folders 4) is **NameOfCountMatrix\_vioplot.pdf**, Figure \ref{fig:fig.20}B, which contains the distribution of the [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) values for each cluster over the bootstraps. [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) value is a measure of computation cluster stability, and evaluates how similar an object is to its own cluster (cohesion) compared to other clusters (separation). Clearly the information provided by Silhuette plot is much less informative for the definition of the optimal clustering number with respect to the information provided by the cells stability score (Figure \ref{fig:fig.20} blue arrow). In each clustering folder there is a pdf named *NameOfCountMatrix_Stability_Plot.pdf*, which contains two plots (Figure \ref{fig:fig.20}C-D) generated with the clustering program. The plot in Figure \ref{fig:fig.20}C provides a 2D view of the clustering results. In this plot each cell is labelled with a simbol indicating its cell stability score. In this specific example of the plot generated with 5 clusters shows that all cells remain in a cluster between 75 to 100\% of the bootstraps (+ simbol). The plot, Figure \ref{fig:fig.20}D, shows the genes detectable in each cell in function of the total number of reads/cell. In this plot cells are colored with the same color of their belonging cluster. This plot is useful to observe if the clustering is biased by the number of genes called in each cluster. In this specific example, only the blue cluster is charaterized by a number of detected genes, which is larger of those detectable in the other clusters (Figure \ref{fig:fig.20}D). This is expected, since blue cluster is made of Monocytes, which have been sequenced to 100K reads/cells, as all other cells in setA were sequenced between 19 to 29K reads/cell, see **Section 4.2**.
 
-```{r fig.20, fig.cap="simlrBootstrap output", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.20, fig.cap="simlrBootstrap output", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/simlr_3.jpeg')
 ```
 
- In Figure \ref{fig:fig.21} are shown the effects, on cell stability, in SIMLR analysis done with 4 and 6 clusters for SetA (*annotated_bmsnkn_5x100cells.txt*) counts matrix. Using 4 as number of clusters, Figure \ref{fig:fig.21}A, some of the cells in each cluster show a reduced stability (50-75\%, triangle) and arrows highlights cells characterized by a cell stability score between 25 to 50\%. The circles in Figure \ref{fig:fig.21}B show the clusters where the full cluster has a cell stability between 50 to 75\%. This observation indicates that the stability score is a useful measure to identify the optimal number of partitions to be used, i.e. the highest cell stability score  was observed when five clusters were selected, corresponding to the number of cell types combined in SetA, see Section 4.1. 
+\pagebreak
+
+ In Figure \ref{fig:fig.21} are shown the effects, on cell stability, in SIMLR analysis done with 4 and 6 clusters for SetA (*annotated_bmsnkn_5x100cells.txt*) counts matrix. Using 4 as number of clusters, Figure \ref{fig:fig.21}A, some of the cells in each cluster show a reduced stability (50-75\%, triangle) and arrows highlights cells characterized by a cell stability score between 25 to 50\%. The circles in Figure \ref{fig:fig.21}B show the clusters where the full cluster has a cell stability between 50 to 75\%. This observation indicates that the stability score is a useful measure to identify the optimal number of partitions to be used, i.e. the highest cell stability score  was observed when five clusters were selected, corresponding to the number of cell types combined in SetA, see **Section 4.1**. 
  
 ```{r fig.21, fig.cap="Cell stability plots", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/simlr_4.jpeg')
 ```
 
-\pagebreak
+
 
 ### **Section 5.1** Visualizing the cell clusters relocation during bootstraps.
 
@@ -1215,7 +1217,7 @@ include_graphics('../inst/img/bootstrapsVideo_2.jpeg')
 
 In Wang [[*2017*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)] article it is demonstrated that SIMLR outperforms other data reduction methods (Figure \ref{fig:fig.18}). Here, we run a comparison between SIMLR and tSne within the rCASC bootstrap framework to observe how cells stability score is affected by the two clustering methods.
 
-tSne is embedded in **tsneBootstrap** function within the rCASC bootstrap procedure. 
+tSne is embedded in **tsneBootstrap** function within the rCASC bootstrap framework. 
 
 - *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
@@ -1238,7 +1240,7 @@ tSne is embedded in **tsneBootstrap** function within the rCASC bootstrap proced
 system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
-library(casc)
+library(rCASC)
 #annotating data setA
 scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
@@ -1340,6 +1342,8 @@ clustersFeatures(group="docker", data.folder=getwd(),
 ### **Section 6.2** SIMLR gene raking on the basis of importance in clusters organization.
 
 
+
+### **Section 6.3** Visualizing cluster specific genes by heatmap.
 
 
 ## **Section 7** An example of rCASC analysis: PACE et al. Science 2018.
