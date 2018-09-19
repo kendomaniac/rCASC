@@ -25,7 +25,7 @@
 
 genesSelection <- function(group=c("sudo","docker"), scratch.folder, file, nCluster, separator, seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=0.01, minLogMean=0.05){
   
-  permAnalysis(group=group, scratch.folder=scratch.folder,file=file, range1=nCluster, range2=nCluster, separator=separator, sp=sp, clusterPermErr=clusterPermErr, maxDeltaConfidence=maxDeltaConfidenc, minLogMean=minLogMean)
+  permAnalysis(group=group, scratch.folder=scratch.folder,file=file, range1=nCluster, range2=nCluster, separator=separator, sp=sp, clusterPermErr=clusterPermErr, maxDeltaConfidence=maxDeltaConfidence, minLogMean=minLogMean)
   
   
 }
