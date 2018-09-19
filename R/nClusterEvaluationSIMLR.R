@@ -1,4 +1,4 @@
-#' @title Permutation Analysis
+#' @title Evaluation of the numbur of optimal clusters
 #' @description This function analyze the data that came up from permutationClustering script.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
@@ -118,6 +118,6 @@ resultRun <- runDocker(group=group, params=params)
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
-  #system(paste("cp ",paste(path.package(package="casc"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 } 
