@@ -1419,7 +1419,10 @@ The function **genesPrioritization** executes SIMLR gene prioritization within t
 ```{r, echo=TRUE, eval=FALSE}
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 unzip("annotated_setPace_10000_noC5.txt.zip")
-genesPrioritization(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, nCluster=5, separator="\t", logTen=0, seed=111, sp=0.8, clusterPermErr=0.05)
+genesPrioritization(group="docker",scratch.folder="/data/scratch/",
+                    file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), 
+                    nPerm=160, permAtTime=8, percent=10, nCluster=5, separator="\t", 
+                    logTen=0, seed=111, sp=0.8, clusterPermErr=0.05)
 
 ```
 \fontsize{10}{10}\selectfont
@@ -1427,13 +1430,7 @@ genesPrioritization(group="docker",scratch.folder="/data/scratch/",file=paste(ge
 The output of the function are a pdf named **geneRank.pdf** (Figure \ref{fig:fig.29}), containing the overall distribution of  -log10 expression mean with respect to the Delta confidence of a gene being important for clustering, and a tab delimited file with the extension **\_pvalList.txt** which contains, for each bootstrap, the gene importance score for clustering. 
 
 
-```{r fig.29, fig.cap="geneRank plot", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
-library(knitr)
-include_graphics('../inst/img/hfc1.jpeg')
-```
-
-
-The function **genesSelection** allows to run a selection of most interesting genes fr clustering on the basis of two parameters: 
+The function **genesSelection** allows to run a selection of the most interesting genes for clustering on the basis of two parameters: 
 
 - maxDeltaConfidence:
     + max value for Delta confidence for genes feature selection. Default is 0.01
@@ -1456,14 +1453,28 @@ The above values can be set in the **genesSelection** function on the basis of t
 
 \fontsize{8}{8}\selectfont    
 ```{r, echo=TRUE, eval=FALSE}
-system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
-unzip("annotated_setPace_10000_noC5.txt.zip")
-genesSelection(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), nCluster=5, separator="\t", seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=0.01, minLogMean=10)
+
+genesSelection(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), nCluster=5, separator="\t", seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=0.01, minLogMean=20)
+
+#mv annotated_setPace_10000_noC5_clusters_specific_geneSYMBOLs.txt in the main folder  
+
+hfc(group="docker",scratch.folder="/data/scratch",
+       file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), 
+       nCluster=5, separator="\t", 
+       lfn="annotated_setPace_10000_noC5_clusters_specific_geneSYMBOLs", 
+       geneNameControl=1, status=0, b1="/-1", b2="1")
 
 ```
 \fontsize{10}{10}\selectfont
 
-The output of **genesSelection** is a file with extension **_clusters_specific_geneSYMBOLs.txt**, which can be used as input for **hfc** function, see **Section 6.1.1**. The list of prioritized genes cannot not be associated to a specifi cluster as in the case of the anovaLike, **Section 6.1**. Thus, more information will be provided on the cluster specificity from the heatmap visualization, see **hfc** function. 
+```{r fig.29, fig.cap="genePrioritization and genesSelection outputs. A) Prioritization plot, from this plot the maxDeltaConfidence (x axis) and the minLogMean (y axis), required by genesSelection can be extrapolated, i.e. in this case respectively 0.01 and 20. B) log10 counts heatmap from the output of genesSelection: 577 genes. C) Z-score heatmap. D) Cell stability score. E) simlrBootstrap output. F) Single gene CPM expression in SIMLR clusters. The expression is available for each of the genes from genesSelection output", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/geneselection.jpeg')
+```
+
+
+
+The output of **genesSelection** is a file with extension **_clusters_specific_geneSYMBOLs.txt**, which can be used as input for **hfc** function, see **Section 6.1.1**. The list of prioritized genes cannot not be associated to a specific cluster as in the case of the anovaLike, see **Section 6.1**. Thus, more information will be provided on the cluster specificity from the heatmap visualization (Figure \ref{fig:fig.29}), see **hfc** function. 
 
 ## **Section 7** An example of rCASC analysis: PACE et al. Science 2018.
 
