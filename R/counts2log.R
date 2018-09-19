@@ -2,7 +2,6 @@
 #' @description This function convert raw counts in log format
 #' @param file, a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included.
 #' @param log.base, the base of the log to be used for the transformation
-#' @param type, the type of input file, txt, tab delimited. csv, comma separated
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
 #' @return log transformed table
 #' @examples

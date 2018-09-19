@@ -13,6 +13,8 @@
 #' @param seed, important value to reproduce the same results with same input
 #' @param sp, minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
 #' @param clusterPermErr, probability error in depicting the number of clusters in each permutation, default = 0.05
+#' @param maxDeltaConfidence, max value for Delta confidence for genes feature selection
+#' @param minLogMean, min value for Log mean for genes feature selection
 
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
@@ -27,7 +29,7 @@
 #'}
 #' @export
 
-simlrBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, range1, range2, separator, logTen=0, seed=111, rK=0, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=NULL, minLogMean=NULL){
+simlrBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, range1, range2, separator, logTen=0, seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=NULL, minLogMean=NULL){
 
   permutationClustering(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, range1=range1, range2=range2, separator=separator, logTen=logTen, clustering="SIMLR", perplexity=10 , seed=seed, rK=0)
   permAnalysis(group=group, scratch.folder=scratch.folder,file=file, range1=range1, range2=range2, separator=separator, sp=sp, clusterPermErr=clusterPermErr, maxDeltaConfidence=0.01, minLogMean=0.05)

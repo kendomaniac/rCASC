@@ -10,8 +10,6 @@ counts2log(file, log.base = c(2, 10))
 \item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included.}
 
 \item{log.base, }{the base of the log to be used for the transformation}
-
-\item{type, }{the type of input file, txt, tab delimited. csv, comma separated}
 }
 \value{
 log transformed table

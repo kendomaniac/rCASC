@@ -15,27 +15,27 @@ tsneBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{file, }{a character string indicating the path of the file, with file name and extension included}
 
-\item{nPerm, }{number of permutations to perform the pValue to evaluate clustering}
+\item{nPerm, }{number of permutations to be executed}
 
-\item{permAtTime, }{number of permutations that can be computes in parallel}
+\item{permAtTime, }{number of permutations computed in parallel}
 
-\item{percent, }{percentage of random cells that has to be removed in each permutation}
+\item{percent, }{percentage of random cells removed in each permutation}
 
-\item{range1, }{first number of cluster for k means algorithm}
+\item{range1, }{beginning of the range of clusters to be investigated}
 
-\item{range2, }{last number of cluster for k means algorithm}
+\item{range2, }{end of the range of clusters to be investigated}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
 \item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
 
-\item{seed, }{important value to reproduce the same results with same input}
+\item{seed, }{important value to reproduce the same results with same input, default is 111}
 
-\item{sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster, default 0.8.}
+\item{sp, }{minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8}
 
-\item{clusterPermErr, }{error that can be done by each permutation in cluster number depicting.Default = 0.05}
+\item{clusterPermErr, }{probability error in depicting the number of clusters in each permutation, default = 0.05}
 
-\item{perplexity, }{Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10. Setting this parameter when use a clustering method different by tSne will be ignored.}
+\item{perplexity, }{Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.}
 }
 \value{
 VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.

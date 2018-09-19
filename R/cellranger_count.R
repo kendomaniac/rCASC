@@ -1,13 +1,16 @@
 #' @title Cellranger count
 #' @description This function takes FASTQ files from cellranger mkfastq and performs alignment, filtering, barcode counting, and UMI counting.
-#' @param fastq,  path of the fastq_path folder
-#' @param transcriptome,  path to the Cell Ranger compatible transcriptome reference e.g. for a human and mouse mixture sample, use refdata-cellranger-hg19-and-mm10-1.2.0
-#' @param expect-cells,  optional setting the number of recovered cells. Default: 3000 cells.
-#' @param force-cells,  optional to force pipeline to use this number of cells, bypassing the cell detection algorithm. Use this if the number of cells estimated by Cell Ranger is not consistent with the barcode rank plot.
+#' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
+#' @param scratch.folder, a character string indicating the path of the scratch folder
+#' @param transcriptome.folder,  path to the Cell Ranger compatible transcriptome reference e.g. for a human and mouse mixture sample, use refdata-cellranger-hg19-and-mm10-1.2.0
+#' @param fastq.folder,  path of the fastq path folder
+#' @param sample, ....
+#' @param expect.cells,  optional setting the number of recovered cells. Default: 3000 cells.
+#' @param force.cells,  optional to force pipeline to use this number of cells, bypassing the cell detection algorithm. Use this if the number of cells estimated by Cell Ranger is not consistent with the barcode rank plot.
 #' @param nosecondary,  optional flag to skip secondary analysis of the gene-barcode matrix (dimensionality reduction, clustering and visualization). Set this if you plan to use cellranger reanalyze or your own custom analysis.
 #' @param chemistry,  optional assay configuration. One of: auto for autodetection (default), threeprime for Single Cell 3end, fiveprime for Single Cell 5end, SC3Pv1 for Single Cell 3end v1, SC3Pv2 for Single Cell 3end v2, SC5P-PE for Single Cell 5end paired-end (both R1 and R2 are used for alignment), SC5P-R2 for Single Cell 5end R2-only (where only R2 is used for alignment).
-#' @param r1-length,  optional hard-trim the input R1 sequence to this length. Note that the length includes the Barcode and UMI sequences so do not set this below 26 for Single Cell 3end v2 or Single Cell 5end. This and --r2-length are useful for determining the optimal read length for sequencing.
-#' @param r2-length,  optional hard-trim the input R2 sequence to this length.
+#' @param r1.length,  optional hard-trim the input R1 sequence to this length. Note that the length includes the Barcode and UMI sequences so do not set this below 26 for Single Cell 3end v2 or Single Cell 5end. This and --r2-length are useful for determining the optimal read length for sequencing.
+#' @param r2.length,  optional hard-trim the input R2 sequence to this length.
 #' @param lanes,  optional, lanes associated with this sample
 #' @param localcores,  restricts cellranger to use specified number of cores to execute pipeline stages. By default, cellranger will use all of the cores available on your system.
 #' @param localmem,  restricts cellranger to use specified amount of memory, in GB, to execute pipeline stages. By default, cellranger will use 90\% of the memory available on your system. Please note that cellranger requires at least 16 GB of memory to run all pipeline stages.

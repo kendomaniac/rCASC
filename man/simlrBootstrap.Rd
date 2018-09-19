@@ -6,7 +6,7 @@
 \usage{
 simlrBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
   permAtTime, percent, range1, range2, separator, logTen = 0, seed = 111,
-  rK = 0, sp = 0.8, clusterPermErr = 0.05, maxDeltaConfidence = NULL,
+  sp = 0.8, clusterPermErr = 0.05, maxDeltaConfidence = NULL,
   minLogMean = NULL)
 }
 \arguments{
@@ -16,15 +16,15 @@ simlrBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{file, }{a character string indicating the path of the file, with file name and extension included}
 
-\item{nPerm, }{number of permutations to perform the pValue to evaluate clustering}
+\item{nPerm, }{number of permutations to be executed}
 
-\item{permAtTime, }{number of permutations that can be computes in parallel}
+\item{permAtTime, }{number of permutations computed in parallel}
 
-\item{percent, }{percentage of random cells that has to be removed in each permutation}
+\item{percent, }{percentage of random cells removed in each permutation}
 
-\item{range1, }{first number of cluster for k means algorithm}
+\item{range1, }{beginning of the range of clusters to be investigated}
 
-\item{range2, }{last number of cluster for k means algorithm}
+\item{range2, }{end of the range of clusters to be investigated}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
@@ -32,9 +32,13 @@ simlrBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{seed, }{important value to reproduce the same results with same input}
 
-\item{sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster, default 0.8.}
+\item{sp, }{minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8}
 
-\item{clusterPermErr, }{error that can be done by each permutation in cluster number depicting.Default = 0.05}
+\item{clusterPermErr, }{probability error in depicting the number of clusters in each permutation, default = 0.05}
+
+\item{maxDeltaConfidence, }{max value for Delta confidence for genes feature selection}
+
+\item{minLogMean, }{min value for Log mean for genes feature selection}
 }
 \value{
 VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.

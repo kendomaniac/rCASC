@@ -5,7 +5,7 @@
 \title{hfc, heatmap for clustering}
 \usage{
 hfc(group = c("sudo", "docker"), scratch.folder, file, nCluster, separator,
-  lfn, geneNameControl = 1, status, b1, b2)
+  lfn, geneNameControl = 1, status, b1 = 0, b2 = 0)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -20,13 +20,13 @@ hfc(group = c("sudo", "docker"), scratch.folder, file, nCluster, separator,
 
 \item{lfn, }{name of the list of genes}
 
-\item{geneNameControl, }{0 if the matrix has gene name without ENSEMBL code.1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ensamble name you have to run SCannoByGtf before start using this script.}
+\item{geneNameControl, }{0 if the matrix has gene name without ENSEMBL geneID. 1 if the gene names is formatted as: ENSMUSG00000000001:Gnai3. If the gene names is made only by ensamble name, scannoByGtf has to be run first.}
 
 \item{status, }{0 if is raw count, 1 otherwise}
 
-\item{b1, }{first break set b1 and b2 as 0 if you dont want to use some filtering on heatmap breaks,for negative value write "/-5"}
+\item{b1, }{the lower range of signal in the heatmap,for negative value write "/-5". To ask the function to do automatic value assignment set 0}
 
-\item{b2, }{last break set b1 and b2 as 0 if you dont want to use some filtering on heatmap breaks,for negative value write "/-5"}
+\item{b2, }{the upper range of signal in the heatmap,for negative value write "/-2". To ask the function to do automatic value assignment set 0}
 }
 \value{
 stability plot for each nCluster,two files with score information for each cell for each permutation.

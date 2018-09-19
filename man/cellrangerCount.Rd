@@ -11,9 +11,25 @@ cellrangerCount(group = c("sudo", "docker"), transcriptome.folder,
   scratch.folder)
 }
 \arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{transcriptome.folder, }{path to the Cell Ranger compatible transcriptome reference e.g. for a human and mouse mixture sample, use refdata-cellranger-hg19-and-mm10-1.2.0}
+
+\item{fastq.folder, }{path of the fastq path folder}
+
+\item{sample, }{....}
+
+\item{expect.cells, }{optional setting the number of recovered cells. Default: 3000 cells.}
+
+\item{force.cells, }{optional to force pipeline to use this number of cells, bypassing the cell detection algorithm. Use this if the number of cells estimated by Cell Ranger is not consistent with the barcode rank plot.}
+
 \item{nosecondary, }{optional flag to skip secondary analysis of the gene-barcode matrix (dimensionality reduction, clustering and visualization). Set this if you plan to use cellranger reanalyze or your own custom analysis.}
 
 \item{chemistry, }{optional assay configuration. One of: auto for autodetection (default), threeprime for Single Cell 3end, fiveprime for Single Cell 5end, SC3Pv1 for Single Cell 3end v1, SC3Pv2 for Single Cell 3end v2, SC5P-PE for Single Cell 5end paired-end (both R1 and R2 are used for alignment), SC5P-R2 for Single Cell 5end R2-only (where only R2 is used for alignment).}
+
+\item{r1.length, }{optional hard-trim the input R1 sequence to this length. Note that the length includes the Barcode and UMI sequences so do not set this below 26 for Single Cell 3end v2 or Single Cell 5end. This and --r2-length are useful for determining the optimal read length for sequencing.}
+
+\item{r2.length, }{optional hard-trim the input R2 sequence to this length.}
 
 \item{lanes, }{optional, lanes associated with this sample}
 
@@ -21,17 +37,7 @@ cellrangerCount(group = c("sudo", "docker"), transcriptome.folder,
 
 \item{localmem, }{restricts cellranger to use specified amount of memory, in GB, to execute pipeline stages. By default, cellranger will use 90\% of the memory available on your system. Please note that cellranger requires at least 16 GB of memory to run all pipeline stages.}
 
-\item{fastq, }{path of the fastq_path folder}
-
-\item{transcriptome, }{path to the Cell Ranger compatible transcriptome reference e.g. for a human and mouse mixture sample, use refdata-cellranger-hg19-and-mm10-1.2.0}
-
-\item{expect-cells, }{optional setting the number of recovered cells. Default: 3000 cells.}
-
-\item{force-cells, }{optional to force pipeline to use this number of cells, bypassing the cell detection algorithm. Use this if the number of cells estimated by Cell Ranger is not consistent with the barcode rank plot.}
-
-\item{r1-length, }{optional hard-trim the input R1 sequence to this length. Note that the length includes the Barcode and UMI sequences so do not set this below 26 for Single Cell 3end v2 or Single Cell 5end. This and --r2-length are useful for determining the optimal read length for sequencing.}
-
-\item{r2-length, }{optional hard-trim the input R2 sequence to this length.}
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
 }
 \value{
 a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for further use.
