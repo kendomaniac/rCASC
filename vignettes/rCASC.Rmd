@@ -1,7 +1,6 @@
 ---
 title: "rCASC: reproducible Classification Analysis of Single Cell Sequencing Data"
-author: "Luca Alessandrì, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Gennaro De Libero, Luigia Pace, Francesca Cordero and Raffaele A Calogero"
-
+author: "^2^Luca Alessandrì, ^1^Marco Beccuti, ^2^Maddalena Arigoni, ^3^Martina Olivero, ^1^Greta Romano, ^4^Gennaro De Libero, ^5^Luigia Pace, ^1^Francesca Cordero and ^2^Raffaele A Calogero"
 
 output: pdf_document
 
@@ -13,6 +12,14 @@ header-includes:
 knitr::opts_chunk$set(fig.pos = 'h')
 ```
 
+\fontsize{8}{8}\selectfont
+^1^Department of Computer Sciences, University of Torino, Corso Svizzera 185, Torino, Italy,
+^2^Department of Molecular Biotechnology and Health Sciences, University of Torino, Via Nizza 52, Torino, Italy,
+^3^Department of Oncology, University of Torino, SP142, 95, 10060 Candiolo TO, Italy, 
+^4^Department Biomedizin, University of Basel, Hebelstrasse 20, 4031 Basel, Switzerland, 
+^5^IIGM, Via Nizza 52, Torino, Italy""
+\fontsize{10}{10}\selectfont
+
 ## Abstract
 **Summary**: Recent technological advances made possible to obtain genome-wide transcriptome data from single cells using high-throughput sequencing. Single-cell RNA sequencing has emerged as an essential tool to investigate cellular heterogeneity, identifying cell subsets linked to a particular phenotype and highlighting cell sub-population specific signatures. Dedicated bioin-formatics workflows are required to exploit the deconvolution of single-cells transcriptome and for the organization of tissue cells in clusters. A critical issue of these bioinformatics workflows is to guarantee both functional, i.e. the information about data and the utilized tools are saved in terms of meta-data, and computation reproducibility, i.e. the real image of the computation envi-ronment used to generate the data is stored. Here we present RCASC a RNAseq analysis work-flow dedicated to the dissection of tissues cell organization granting both functional and compu-tation reproducibility. 
 RCASC workflow embeds different modules from counts table generation to cell sub-population specific signatures identification.
@@ -21,7 +28,7 @@ RCASC workflow embeds different modules from counts table generation to cell sub
 ## Introduction 
 Single cell analysis is instrumental to understand the functional dif-ferences existing between cells within a tissue. Individual cells of the same phenotype are commonly viewed as identical functional units of a tissue or organ. However, single cells sequencing results suggests the presence of a complex organization of heterogeneous cell states pro-ducing together system-level functionalities (Buettner, et al., 2015). Single cell analysis focuses on the understanding the differences char-acterizing any cell within a population of cells. A mandatory element of single cell RNAseq is the availability of dedicated bioinformatics work-flows. In the last few years a lot of tools have been developed for the identification of tissue cell sub-populations (Hwang, et al., 2018). How-ever, sub-population identification might require some preprocessing steps, depending on the sequencing technology in use and on some spe-cific cell characteristics, e.g. cell state (resting, cycling, dead cells). Furthermore, after cell partitioning, extra steps are required to identify cell sub-population specific signatures. RCASC, Cluster Analysis of Single Cells, allows direct processing of 10XGenomics, inDrop and whole transcripts single-cell sequences from fastq till the definition of cell sub-population specific signatures. Furthermore, RCASC addresses the problem of functional and computational reproducibility which is becoming a very important topic, because of the “Data Reproducibility Crisis” (Allison, et al., 2018).
 
-```{r fig.1, fig.cap="rCASC workflow", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.1, fig.cap="rCASC. A) rCADC workflow. B) Definining the range of clusters to be analysed with SIMLR/tSne. C) Cell stability score within the selected range of clusters. D) SIMLR analysis with bootstaps of the optimal number of clusters, i.e. 5. E) Heatmap of prioritized clusters-specific genes. F) Cell stability score within  clusters-specific genes.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 
 include_graphics('../inst/img/rCASC_workflow.jpeg')
