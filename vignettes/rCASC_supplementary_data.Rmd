@@ -1679,11 +1679,13 @@ Also cluster 2 is probably a memory specific cluster, on the basis of EnrichR an
 \pagebreak
 
 
-```{r fig.30, fig.cap="Analysis of cluster specific genes. A) SIMLR cluster. B) KZ-score heatmap of cluster specific genes.  C) CPM plot indicates that Ccl5 highly expressed in the population of activated T cells only detectable in case of Suv39h1 silencing. D) CPM plot indicates that FOxp1 is highly expressed in naive T-cells.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.30, fig.cap="Analysis of cluster specific genes. A) SIMLR cluster. B) KZ-score heatmap of cluster specific genes.  C) CPM plot indicates that Ccl5 highly expressed in the population of activated T cells only detectable in case of Suv39h1 silencing. D) CPM plot indicates that FOxp1 is highly expressed in naive T-cells.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/c1_c2_specific2.jpeg')
 ```
 
+Interestingly, cluster 2, made only of activated Suv39h1-defective T-cell, Figure \ref{fig:fig.30}C, show a high expression of [*Ccl5, which is shown to be a characteristics of CD8 memory cells, since allows these cells to immediately secrete this chemokine upon Ag stimulation*](https://www.ncbi.nlm.nih.gov/pubmed/16982880). In cluster 3, which is made of naive T-cells, there is an high expression of [*Foxp1, which plays an essential role in maintaining naive T cell quiescence, since in the absence of Foxp1, mature naive CD8(+) T-cells proliferate in direct response to homeostatic cytokine IL-7*](https://www.ncbi.nlm.nih.gov/pubmed/27001958).  
 
-In her paper, [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extend the information provided from the single cell analysis in Pace paper, suggesting the presence of a Suv39h1-defective memory cells sub-population, cluster 2 in Figure \ref{fig:fig.25}C. Furthermore, this example suggests that even few hunders cells are sufficient to discriminate between sub-populations.
+
+In her paper, [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extends the information provided from the single cell analysis in Pace paper, suggesting the presence of a Suv39h1-defective memory cells sub-population, cluster 2 in Figure \ref{fig:fig.25}C. Furthermore, this example suggests that even few hunders cells are sufficient to discriminate between sub-populations.
 
