@@ -27,5 +27,19 @@ genesSelection <- function(group=c("sudo","docker"), scratch.folder, file, nClus
   
   permAnalysis(group=group, scratch.folder=scratch.folder,file=file, range1=nCluster, range2=nCluster, separator=separator, sp=sp, clusterPermErr=clusterPermErr, maxDeltaConfidence=maxDeltaConfidence, minLogMean=minLogMean)
   
+  data.folder=dirname(file)
+  positions=length(strsplit(basename(file),"\\.")[[1]])
+  matrixNameC=strsplit(basename(file),"\\.")[[1]]
+  matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
+  format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
+  
+  dir <- dir(paste(getwd(), "Results", matrixName, nCluster,sep="/"))
+  dir.specific <- dir[grep("_geneRankList.txt", dir)]
+  df.specific <- read.table(paste(getwd(), "Results", matrixName, nCluster, dir.specific,sep="/"), sep="\t", header=F)
+  df.specific.symbol <- strsplit(as.character(df.specific[,1]), ":")
+  df.specific.symbol <- sapply( df.specific.symbol, function(x)x[2])
+  zz <- file(paste(getwd(), "Results", matrixName, nCluster, paste(matrixName, "clusters_specific_geneSYMBOLs.txt", sep="_"),sep="/"), "w")
+  writeLines(df.specific.symbol, zz)
+  close(zz)
   
 }

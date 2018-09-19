@@ -1424,7 +1424,14 @@ genesPrioritization(group="docker",scratch.folder="/data/scratch/",file=paste(ge
 ```
 \fontsize{10}{10}\selectfont
 
-The output of the function are a pdf named **geneRank.pdf**, containing the overall distribution of  -log10 expression mean with respect to the Delta confidence of a gene being important for clustering, and a tab delimited file with the extension **_pvalList.txt** which contains, for each bootstrap, the gene importance score for clustering. 
+The output of the function are a pdf named **geneRank.pdf** (Figure \ref{fig:fig.29}), containing the overall distribution of  -log10 expression mean with respect to the Delta confidence of a gene being important for clustering, and a tab delimited file with the extension **\_pvalList.txt** which contains, for each bootstrap, the gene importance score for clustering. 
+
+
+```{r fig.29, fig.cap="geneRank plot", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/hfc1.jpeg')
+```
+
 
 The function **genesSelection** allows to run a selection of most interesting genes fr clustering on the basis of two parameters: 
 
@@ -1433,6 +1440,8 @@ The function **genesSelection** allows to run a selection of most interesting ge
 
 - minLogMean:
     + min value for Log mean for genes feature selection. Default is 0.05 
+    
+The above values can be set in the **genesSelection** function on the basis of the output of geneRank.pdf (Figure \ref{fig:fig.29}).
 
 - *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
     + *scratch.folder*,	path of the scratch folder
@@ -1449,11 +1458,12 @@ The function **genesSelection** allows to run a selection of most interesting ge
 ```{r, echo=TRUE, eval=FALSE}
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 unzip("annotated_setPace_10000_noC5.txt.zip")
-genesSelection(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), nCluster=5, separator="\t", seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=0.01, minLogMean=1)
+genesSelection(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), nCluster=5, separator="\t", seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=0.01, minLogMean=10)
 
 ```
 \fontsize{10}{10}\selectfont
 
+The output of **genesSelection** is a file with extension **_clusters_specific_geneSYMBOLs.txt**, which can be used as input for **hfc** function, see **Section 6.1.1**. The list of prioritized genes cannot not be associated to a specifi cluster as in the case of the anovaLike, **Section 6.1**. Thus, more information will be provided on the cluster specificity from the heatmap visualization, see **hfc** function. 
 
 ## **Section 7** An example of rCASC analysis: PACE et al. Science 2018.
 
