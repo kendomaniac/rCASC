@@ -1404,7 +1404,28 @@ that one can identify highly fluuctuating genes that are consistent with the lea
 The function **simlrFeatures** executes SIMLR prioritization within the rCADC bootstrap framework. 
 
 - *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
-    + *
+    + *scratch.folder*,	the path of the scratch folder
+    + *file*,	the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations that can be computes in parallel
+    + *percent*,	percentage of random cells to be removed in each permutation
+    + *nCluster*,	the number of clusters, where to run prioritization
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *seed*,	important value to reproduce the same results with same input
+    + *sp*,	minimun number of percentage of cells that has to be in common between two permutation to be the same cluster, default 0.8.
+    + *clusterPermErr*,	error that can be done by each permutation in cluster number depicting.Default = 0.05
+    
+\fontsize{8}{8}\selectfont    
+```{r, echo=TRUE, eval=FALSE}
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+genesPrioritization(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, nCluster=5, separator="\t", logTen=0, seed=111, sp=0.8, clusterPermErr=0.05)
+
+```
+\fontsize{10}{10}\selectfont
+
+  
 
 ## **Section 7** An example of rCASC analysis: PACE et al. Science 2018.
 
