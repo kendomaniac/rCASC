@@ -850,7 +850,7 @@ In rCASC, the identification of the optimal number of clusters is addressed, in 
     + *file*,	the path to the input file, inclusing the counts table name
     + *nPerm*,	number of permutations to perform
     + *permAtTime*,	number of permutations that can be computed in parallel
-    + *percent*,	percentage of cells randomly removed in each permutation
+    + *percent*,	percentage of cells retained in each permutation
     + *separator*,	separator used in count file, e.g. '\\t', ','
     + *logTen*,	integer, 1 if the count matrix is already in log10, 0 otherwise
     + *seed*,	important value to reproduce the same results with same input, default is 111
@@ -1119,7 +1119,7 @@ SIMLR is embedded in **simlrBootstrap** function within the rCASC bootstrap fram
     + *file*,	the path of the file, with file name and extension included
     + *nPerm*,	number of permutations to be executed
     + *permAtTime*,	number of permutations computed in parallel
-    + *percent*,	percentage of random cells removed in each permutation
+    + *percent*,	percentage of cells retained in each permutation
     + *range1*,	beginning of the range of clusters to be investigated
     + *range2*,	end of the range of clusters to be investigated
     + *separator*,	separator used in count file, e.g. '\\t', ','
@@ -1224,7 +1224,7 @@ tSne is embedded in **tsneBootstrap** function within the rCASC bootstrap framew
     + *file*,	the path of the file, with file name and extension included
     + *nPerm*,	number of permutations to be executed
     + *permAtTime*,	number of permutations computed in parallel
-    + *percent*,	percentage of random cells removed in each permutation
+    + *percent*,	percentage of cells retained in each permutation
     + *range1*,	beginning of the range of clusters to be investigated
     + *range2*,	end of the range of clusters to be investigated
     + *separator*,	separator used in count file, e.g. '\\t', ','
@@ -1407,7 +1407,7 @@ The function **genesPrioritization** executes SIMLR gene prioritization within t
     + *file*,	the path of the file, with file name and extension included
     + *nPerm*,	number of permutations to be executed
     + *permAtTime*,	number of permutations that can be computes in parallel
-    + *percent*,	percentage of random cells to be removed in each permutation
+    + *percent*,	percentage of cells retained to be removed in each permutation
     + *nCluster*,	the number of clusters, where to run prioritization
     + *separator*,	separator used in count file, e.g. '\\t', ','
     + *logTen*,	1 if the count matrix is already in log10, 0 otherwise

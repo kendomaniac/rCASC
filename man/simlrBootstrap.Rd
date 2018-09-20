@@ -20,7 +20,7 @@ simlrBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{permAtTime, }{number of permutations computed in parallel}
 
-\item{percent, }{percentage of random cells removed in each permutation}
+\item{percent, }{percentage of cells retained in each permutation}
 
 \item{range1, }{beginning of the range of clusters to be investigated}
 

@@ -5,7 +5,7 @@
 #' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param nPerm, number of permutations to perform the pValue to evaluate clustering
 #' @param permAtTime, number of permutations that can be computes in parallel
-#' @param percent, percentage of random cells that has to be removed in each permutation
+#' @param percent, percentage of cells retained at each permutation
 #' @param range1, first number of cluster for k means algorithm
 #' @param range2, last number of cluster for k means algorithm
 #' @param separator, separator used in count file, e.g. '\\t', ','

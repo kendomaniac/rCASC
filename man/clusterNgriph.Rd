@@ -18,7 +18,7 @@ clusterNgriph(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{permAtTime, }{number of permutations that can be computed in parallel}
 
-\item{percent, }{percentage of cells randomly removed in each permutation}
+\item{percent, }{percentage of cells retained in each permutation}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
