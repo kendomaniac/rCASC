@@ -25,9 +25,9 @@ genesSelection(group = c("sudo", "docker"), scratch.folder, file, nCluster,
 
 \item{clusterPermErr, }{probability error in depicting the number of clusters in each permutation, default = 0.05}
 
-\item{maxDeltaConfidence, }{max value for Delta confidence for genes feature selection}
+\item{maxDeltaConfidence, }{max value for Delta confidence for gene prioritization p-values.}
 
-\item{minLogMean, }{min value for Log mean for genes feature selection}
+\item{minLogMean, }{min value for Log mean gene prioritization p-value. P-value indicates the importance of a gene in defining clusterization.}
 }
 \value{
 ....

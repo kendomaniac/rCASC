@@ -8,8 +8,8 @@
 #' @param seed, important value to reproduce the same results with same input
 #' @param sp, minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
 #' @param clusterPermErr, probability error in depicting the number of clusters in each permutation, default = 0.05
-#' @param maxDeltaConfidence, max value for Delta confidence for genes feature selection
-#' @param minLogMean, min value for Log mean for genes feature selection
+#' @param maxDeltaConfidence, max value for Delta confidence for gene prioritization p-values.
+#' @param minLogMean, min value for Log mean gene prioritization p-value. P-value indicates the importance of a gene in defining clusterization.
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #' @return ....
 #' 
