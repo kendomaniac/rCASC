@@ -5,7 +5,7 @@
 #' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param nPerm, number of permutations to perform
 #' @param permAtTime, number of permutations that can be computed in parallel
-#' @param percent, percentage of cells retained in each permutation
+#' @param percent, percentage of randomly selected cells removed in each permutation
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
 #' @param seed, important value to reproduce the same results with same input

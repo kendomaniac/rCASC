@@ -5,7 +5,7 @@
 #' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param nPerm, number of permutations to be executed
 #' @param permAtTime, number of permutations computed in parallel
-#' @param percent, percentage of cells retained in each permutation
+#' @param percent, percentage of randomly selected cells removed in each permutation
 #' @param range1, beginning of the range of clusters to be investigated
 #' @param range2, end of the range of clusters to be investigated
 #' @param separator, separator used in count file, e.g. '\\t', ','

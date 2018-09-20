@@ -19,7 +19,7 @@ permutationClustering(group = c("sudo", "docker"), scratch.folder, file,
 
 \item{permAtTime, }{number of permutations that can be computes in parallel}
 
-\item{percent, }{percentage of cells retained at each permutation}
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
 
 \item{range1, }{first number of cluster for k means algorithm}
 
