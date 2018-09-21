@@ -84,7 +84,12 @@ scratch.folder=data.folder
  # cat("\ncreating a folder in scratch folder\n")
   #dir.create(file.path(scrat_tmp.folder))
   #preprocess matrix and copying files
-
+  if (!file.exists(paste(data.folder,"/",gtf.name,sep=""))){
+    cat(paste("\n It Seems that gtf file is not in ",data.folder,"\n"))
+    system("echo 3 > ExitStatusFile 2>&1")
+    setwd(data.folder)
+    return(3)
+  }
   #executing the docker job
  params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type, sep="")
 
