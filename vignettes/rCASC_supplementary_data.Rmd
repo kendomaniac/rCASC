@@ -1,7 +1,7 @@
 ---
 title: "rCASC supplementary data"
 author: "Luca Alessandrì, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Gennaro De Libero, Luigia Pace, Francesca Cordero and Raffaele A Calogero"
-date: "19/09/2018"
+date: "21/09/2018"
 output: pdf_document
 toc: yes
 
@@ -1689,3 +1689,42 @@ Interestingly, cluster 2, made only of activated Suv39h1-defective T-cell, Figur
 
 In her paper, [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extends the information provided from the single cell analysis in Pace paper, suggesting the presence of a Suv39h1-defective memory cells sub-population, cluster 2 in Figure \ref{fig:fig.25}C. Furthermore, this example suggests that even few hunders cells are sufficient to discriminate between sub-populations.
 
+\pagebreak
+
+### **Section 8** rCASC versus other workflows
+
+In the last few years a lot of tools for single-cell data manipulation have been published. However, the number of single cell analysis workflows are relatively few. Our non-exaustive search identified the following:
+
+- [*Lun and coworkers*](https://f1000research.com/articles/5-2122/v1) recently described a single-cell workflow in Bioconductor, which is  embeded in [*simpleSingleCell*](http://master.bioconductor.org/packages/release/workflows/html/simpleSingleCell.html) Bioconductor workflow package.
+
+- [*Zhu and coworkers*](https://genomemedicine.biomedcentral.com/articles/10.1186/s13073-017-0492-3) published, [*Granatum*](http://granatum1.garmiregroup.org:8104/), a web-based scRNA-Seq analysis suite.
+
+- [*Diaz and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/27153637) published a [*SCell*](https://github.com/diazlab/scell) a graphical workflow for single-cell analysis.
+
+
+For the comparison we evaluated the following parameters:
+
+- supported single-cell platforms
+
+- available tools provided by the workflow 
+
+- type of reproducibility granted by the workflow
+
+- usage flexibility
+
+
+
+```{r fig.31, fig.cap="Workflows comparisons.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/workflows_comparison.jpeg')
+```
+
+In Figure \ref{fig:fig.31} are summarized the similarities and differences between rCASC and the other three workflows. rCASC is the only one providing support at fastq level, as all the others require a processed counts table. rCASC and SCell data preprocessing offer more options than the others. The fours workflow implement very different data reduction and clustering methods. However, only rCASC performs clustering in presence of data perturbation and it is also the only one that provides measurement for cluster quality using silhuette score, which measures the consistency within clusters of data,  and Cells Stability Score, which measures the persistence of each cell in a cluster upon data perturbation. 
+As in the case of clustering also the gene feature selection approach is quite different between workflows and biological inference is only provided by Granatum.
+Considering reproducibility only rCASC provides both computational and functional reproducibility. Both Granatum and Scell perform data manipulation based on graphical tools, e.g. cell outlyers removal in Granatum and genes filtering in SCell preprocessing, which are not trackable, thus not providing functional reproducibility. On the other side simpleSingleCell package cannot guarantee computational reproducibility unless it is embedded in a virtual machine or an other type of virtual container , e.g. docker.
+
+In conclusion, from the above comparisons, rCASC results to be a workflow with valuable new features that could help researchers in defining cells sub-populations and detecting sub-population specific markers, under the umbrealla of data reproducibility.
+
+
+
+ 
