@@ -72,7 +72,7 @@ separator="tab"
     setwd(data.folder)
     return(3)
   }
-    if (!file.exists(paste(data.folder,"/Results/",matrixName,"/",nCluster,"/",matrixName,"_",nCluster,"permutationMatrixClusterId.",format,sep=""))){
+    if (!file.exists(paste(data.folder,"/Results/",matrixName,"/",nCluster,"/",matrixName,"_",nCluster,"_permutationMatrixClusterId.",format,sep=""))){
     cat(paste("\n Some required file are missing,be sure you already performed clusterIdentification algorithm before to start permutationMovie \n"))
     system("echo 3 > ExitStatusFile 2>&1")
     setwd(data.folder)
