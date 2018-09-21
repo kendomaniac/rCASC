@@ -86,7 +86,7 @@ write.table(mainMatrix,paste(data.folder,"/",matrixName,".",format,sep=""),sep=s
     return(3)
   }
     if (!file.exists(paste(data.folder,"/",lfn,".",format,sep=""))){
-    cat(paste("\n Seems that your genes list is not in ",data.folder,"\n"))
+    cat(paste("\n It Seems that your genes list is not in ",data.folder,"\n"))
           cat(paste("\n ",data.folder,"/",lfn,".",format," does not exists \n",sep=""))
 
     system("echo 3 > ExitStatusFile 2>&1")
