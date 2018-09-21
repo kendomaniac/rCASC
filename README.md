@@ -13,7 +13,7 @@ References
 ```
 install.packages("devtools")
 library(devtools)
-install_github("kendomaniac/casc", ref="master")
+install_github("kendomaniac/rCASC", ref="master")
 ```
 
 ## Requirements
