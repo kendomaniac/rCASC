@@ -68,7 +68,22 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 if(separator=="\t"){
 separator="tab"
 }
+  if (!file.exists(paste(data.folder,"/Results/",matrixName,"/",sep=""))){
+    cat(paste("\nIt seems that some file are missing, check that your previously analysis results are still in the same folder,check Results folder!\n"))
+    system("echo 3 > ExitStatusFile 2>&1")
+    setwd(data.folder)
+    return(3)
+  }
+    if (!file.exists(paste(data.folder,"/Results/",matrixName,"_Label.",format,sep=""))){
+    cat(paste("\n It Seems that in Results folder there is no Label file! \n"))
+      cat(paste("\n Label file has to be named as follow :",matrixName,"_Label.",format," \n",sep=""))
+          cat(paste("\n Label file need to be in ",data.folder,"/Results/"," \n",sep=""))
 
+
+    system("echo 3 > ExitStatusFile 2>&1")
+    setwd(data.folder)
+    return(3)
+  }
 system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
 
 

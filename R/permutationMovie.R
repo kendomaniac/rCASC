@@ -66,7 +66,19 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 if(separator=="\t"){
 separator="tab"
 }
-
+  if (!file.exists(paste(data.folder,"/Results/",matrixName,"/",sep=""))){
+    cat(paste("\n It seems that some file are missing, check that your previously analysis results are still in the same folder,check Results folder!\n"))
+    system("echo 3 > ExitStatusFile 2>&1")
+    setwd(data.folder)
+    return(3)
+  }
+    if (!file.exists(paste(data.folder,"/Results/",matrixName,"/",nCluster,"/",matrixName,"_",nCluster,"_permutationMatrixClusterId.",format,sep=""))){
+    cat(paste("\n It seems that some required file are missing,be sure you already performed clusterIdentification algorithm before to start permutationMovie \n"))
+    system("echo 3 > ExitStatusFile 2>&1")
+    setwd(data.folder)
+    return(3)
+  }
+  
 system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
 
   #executing the docker job

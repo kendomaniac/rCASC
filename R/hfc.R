@@ -79,7 +79,21 @@ rownames(mainMatrix)=paste(seq(1,nrow(mainMatrix)),":",rownames(mainMatrix),sep=
 write.table(mainMatrix,paste(data.folder,"/",matrixName,".",format,sep=""),sep=separator,col.names=NA)
 }
 
+  if (!file.exists(paste(data.folder,"/Results/",matrixName,"/",sep=""))){
+    cat(paste("\nIt seems that some file are missing, check that your previously analysis results are still in the same folder,check Results folder!\n"))
+    system("echo 3 > ExitStatusFile 2>&1")
+    setwd(data.folder)
+    return(3)
+  }
+    if (!file.exists(paste(data.folder,"/",lfn,".",format,sep=""))){
+    cat(paste("\n It Seems that your genes list is not in ",data.folder,"\n"))
+          cat(paste("\n ",data.folder,"/",lfn,".",format," does not exists \n",sep=""))
 
+    system("echo 3 > ExitStatusFile 2>&1")
+    setwd(data.folder)
+    return(3)
+  }
+  
 system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
 system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,sep=""))
 system(paste("cp ",data.folder,"/",lfn,".",format," ",scrat_tmp.folder,sep=""))
