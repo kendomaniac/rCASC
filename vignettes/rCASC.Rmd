@@ -17,7 +17,7 @@ knitr::opts_chunk$set(fig.pos = 'h')
 ^2^Department of Molecular Biotechnology and Health Sciences, University of Torino, Via Nizza 52, Torino, Italy,
 ^3^Department of Oncology, University of Torino, SP142, 95, 10060 Candiolo TO, Italy, 
 ^4^Department Biomedizin, University of Basel, Hebelstrasse 20, 4031 Basel, Switzerland, 
-^5^IIGM, Via Nizza 52, Torino, Italy""
+^5^IIGM, Via Nizza 52, Torino, Italy
 \fontsize{10}{10}\selectfont
 
 ## Abstract
