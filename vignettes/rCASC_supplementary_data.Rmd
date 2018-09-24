@@ -1496,11 +1496,11 @@ On the basis of our observation in **Section 3.2.1** . We selected, for each of 
 
 Using this dataset we tried to address the following questions: 
 
-1. Is the silencing of Suv39h1 gene affecting the transcriptome of naive CD8+ T lymphocytes?
+1. Does Suv39h1 silence gene expression programs in naive CD8+ T cells?
 
-2. Is the silencing of Suv39h1 gene affecting the transcriptome of activated CD8+ T lymphocytes?
+2. Does Suv39h1 silence gene expression programs in activated CD8+ T cells?
 
-3. Is the silencing of Suv39h1 gene affecting the generation of new sub-populations of activated CD8+ T lymphocytes?
+3. Does Suv39h1 silencing affect the differentiation of new subsets of activated CD8+ T lymphocytes?
 
 
 With the script below we have performed the following steps:
@@ -1561,7 +1561,7 @@ include_graphics('../inst/img/pace_1.jpeg')
 
 
 
-In Figure \ref{fig:fig.24} are summarized the results of the analysis executed on the Pace's dataset.  Data perturbations, Figure \ref{fig:fig.24}A, allows data organization between 6 to 9 clusters, where 7 clusters is the most represented group. Cell stability score, from the SIMLR analysis executed on the above range of clusters, is shown in Figure \ref{fig:fig.24}B. Six clusters show a slighly higher stability with respect to the others. The overall stability of 6 clusters is however sub-optimal, since it is spread between 0 and 0.9  cell stability score.  In Figure \ref{fig:fig.24}C it is shown the clusters structure generated with SIMLR on 6 clusters.  Clusters 1, 3 and 4 show a quite good stability, Figure \ref{fig:fig.24}C. Cluster 3 is made of 44 **N** (88\%) and 48 **Nd** (96\%), suggesting that naive CD8+ T lymphocytes are not affected by the silencing of Suv39h1 gene. Cluster 1 contains 16 **NA** (6.4\%) and 14 **NdA** (5.6\%). Cluster 2 is made of 44.8\% of **NA** and 39.6\% of **NdA** cells. Clusters 1 and 2 composition suggests that these subpopulation of activated cells are not affected by Suv39h1 silencing. Cluster 6 is made of 35\% **NA** and 13.6\% of **NdA**.  In cluster 6 the amount of **NA** and **NdA** is unbalance, suggesting that the Suv39h1 silencing does not guarantee the efficient activation of the cell subpopulation in cluster 6. Cluster 4 only contains **NdA** (33\%), indicating that at least a subpopulation of activated Suv39h1-silenced cells has a specific transcription profile that differentiate them from the wild type activated cells. Cluster 5 is made of 6 **N** cells, 2 **Nd** cells, 34 **NA** cells, 21 **NdA** cells. Despice the presence of a limited amount of naive cells, which might be explained as partially activated, cluster 5 is made mainly of activated cells, i.e. 13.6\% NA and 8.4\% NdA of total cells. The cluster structure (Figure \ref{fig:fig.24}D) and cell cluster stability scores (Figure \ref{fig:fig.24}C) might suggest that  cluster 5 is made of precursors of subpopulations in cluster 6, 2 and 3.
+In Figure \ref{fig:fig.24} are summarized the results of the analysis executed on the Pace's dataset.  Data perturbations, Figure \ref{fig:fig.24}A, allows data organization between 6 to 9 clusters, where 7 clusters is the most represented group. Cell stability score, from the SIMLR analysis executed on the above range of clusters, is shown in Figure \ref{fig:fig.24}B. Six clusters show a slighly higher stability with respect to the others. The overall stability of 6 clusters is however sub-optimal, since it is spread between 0 and 0.9  cell stability score.  In Figure \ref{fig:fig.24}C it is shown the clusters structure generated with SIMLR on 6 clusters.  Clusters 1, 3 and 4 show a quite good stability, Figure \ref{fig:fig.24}C. Cluster 3 is made of 44 **N** (88\%) and 48 **Nd** (96\%), suggesting that naive CD8+ T lymphocytes are not affected by the silencing of Suv39h1 gene. Cluster 1 contains 16 **NA** (6.4\%) and 14 **NdA** (5.6\%). Cluster 2 is made of 44.8\% of **NA** and 39.6\% of **NdA** cells. Clusters 1 & and 2 group together, interdependently from Suv39h1 gene silencing. Cluster 6 is made of 35\% **NA** and 13.6\% of **NdA**.  In cluster 6 the amount of **NA** and **NdA** is unbalance, suggesting that the Suv39h1 silencing does not guarantee the efficient differentiation of the cell subpopulation in cluster 6. Cluster 4 only contains **NdA** (33\%), indicating that at least a subpopulation of activated Suv39h1-silenced cells has a specific transcription profile that differentiate them from the wild type activated cells. Cluster 5 is made of 6 **N** cells, 2 **Nd** cells, 34 **NA** cells, 21 **NdA** cells. Despice the presence of a limited amount of naive cells, which might be explained as partially activated, cluster 5 is made mainly of activated cells, i.e. 13.6\% NA and 8.4\% NdA of total cells. The cluster structure (Figure \ref{fig:fig.24}D) and cell cluster stability scores (Figure \ref{fig:fig.24}C) might suggest that  cluster 5 is made of precursors of subpopulations in cluster 6, 2 and 3.
 
 
 **NB** \% always refers to the total number of cells used in this example (50 N, 50 Nd, 250 NA, 250 NdA); [*annotated_setPace_10000_clustering.output.txt*](http://130.192.119.59/public/annotated_setPace_10000_clustering.output.txt), contains all information required to reproduce clusters shown in Figure \ref{fig:fig.24}C. 
@@ -1569,17 +1569,17 @@ In Figure \ref{fig:fig.24}D it is shown permutation 55 of the output of **bootst
 
 This analysis can provide some preliminary answers to the questions raised above:
 
-1. Is the KO of Suv39h1 gene affecting the transcriptome of naive CD8+ T lymphocytes?
+1. Does Suv39h1 silence gene expression programs in naive CD8+ T cells?
 
     a. No, naive cells cluster together independently from Suv39h1 silencing.
 
-2. Is the Suv39h1 silencing affecting the transcriptome of activated CD8+ T lymphocytes?
+2. Does Suv39h1 silence gene expression programs in activated CD8+ T cells?
 
-    a. Yes, cluster 4 is only made of an activated sub-population observable only in case Suv39h1 gene is silenced. Furthermore, although quite unstable, cluster 6 sub-population is less represented in activated Suv39h1 silenced cells, suggesting a reduction in efficiency in the activation of this sub-population upon Suv39h1 silencing.
+    a. Yes, cluster 4 is only made of an activated Suv39h1 KO sub-population. Furthermore, although quite unstable, cluster 6 sub-population is less represented in activated Suv39h1 silenced cells, suggesting a reduction in efficiency in the activation of this sub-population upon Suv39h1 silencing.
     
-3. Is the KO of Suv39h1 gene affecting the generation of specific sub-populations of activated CD8+ T lymphocytes?
+3. Does Suv39h1 silencing affect the differentiation of new subsets of activated CD8+ T lymphocytes?
 
-    a.  Yes, cluster 4 is only made of an activated sub-population observable only in case Suv39h1 gene is silenced.
+    a.  Yes, Cluster 4 represents a unique Suv39h1 subset of activated CD8+ T cells.
     
 
 
@@ -1666,7 +1666,7 @@ clustersFeatures(group="docker", data.folder=getwd(),
 ```
 \fontsize{10}{10}\selectfont
 
-We analysed the results coming out of the **clustersFeatures** selection focusing on the two clusters that are different in cell ratio between wt and Suv39h1-defective T-cells: cluster 1, showing a 2.4:1 ratio between wt and Suv39h1-defective T-cells,  and 2, only detected in Suv39h1-defective T-cells, Figure \ref{fig:fig.25}C. 31 genes were detected as specific for cluster 1. [*EnrichR*](http://amp.pharm.mssm.edu/Enrichr/) analysis indicated the overepresentation of STAT3 in ENCODE and ChEA Consensus TFs from ChIP-X datasets (Figure \ref{fig:fig.26}A) and TNFRSF13B, CCL5, CCL4 and CXCR6 in Cytokine-cytokine receptor interaction dataset. On the basis of the above observations and on a PUBMED search ([*Ccl5*](https://www.ncbi.nlm.nih.gov/pubmed/16982880), [*STAT3*](https://www.ncbi.nlm.nih.gov/pubmed/23830147), [*Ccl9*](https://www.ncbi.nlm.nih.gov/pubmed/27883012) and [*Cxcr6*](https://www.ncbi.nlm.nih.gov/pubmed/28855310)) we suggest that cluster 1 is a sub-population of memory cells. This cluster is also characterized by a unbalance ratio between activated wt T-cells and Suv39h1-defective T-cells.
+We analysed the results coming out of the **clustersFeatures** selection focusing on the two clusters that are different in cell ratio between wt and Suv39h1-defective T-cells: cluster 1, showing a 2.4:1 ratio between wt and Suv39h1-defective T-cells,  and 2, only detected in Suv39h1-defective T-cells, Figure \ref{fig:fig.25}C. 31 genes were detected as specific for cluster 1. [*EnrichR*](http://amp.pharm.mssm.edu/Enrichr/) analysis indicated the overepresentation of STAT3 in ENCODE and ChEA Consensus TFs from ChIP-X datasets (Figure \ref{fig:fig.26}A) and TNFRSF13B, CCL5, CCL4 and CXCR6 in Cytokine-cytokine receptor interaction dataset. On the basis of the above observations and on a PUBMED search ([*Ccl5*](https://www.ncbi.nlm.nih.gov/pubmed/16982880), [*STAT3*](https://www.ncbi.nlm.nih.gov/pubmed/23830147), [*Ccl9*](https://www.ncbi.nlm.nih.gov/pubmed/27883012) and [*Cxcr6*](https://www.ncbi.nlm.nih.gov/pubmed/28855310)) we suggest that cluster 1 is made of memory precursors cells having some traits of memory cells. This cluster is also characterized by a unbalance ratio between activated wt T-cells and Suv39h1-defective T-cells.
 
 
 ```{r fig.26, fig.cap="EnrichR analysis. A) Transcription specific enriched paths cluster 1. B) KEGG specific enriched paths cluster 1.  C) Transcription specific enriched paths cluster 2. D) GO Biological Process specific enriched paths cluster 2.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
@@ -1674,7 +1674,7 @@ library(knitr)
 include_graphics('../inst/img/c1_c2_specific1.jpeg')
 ```
 
-Also cluster 2 is probably a memory specific cluster, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths (Figure \ref{fig:fig.26}C) and GO Biological proces enrichment for **response to cytokine** (Figure \ref{fig:fig.26}D). Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
+Also cluster 2 has some traits of memory cells, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths (Figure \ref{fig:fig.26}C) and GO Biological proces enrichment for **response to cytokine** (Figure \ref{fig:fig.26}D). Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
 
 \pagebreak
 
@@ -1684,10 +1684,10 @@ library(knitr)
 include_graphics('../inst/img/c1_c2_specific2.jpeg')
 ```
 
-Interestingly, cluster 2, made only of activated Suv39h1-defective T-cell, Figure \ref{fig:fig.30}C, show a high expression of [*Ccl5, which is shown to be a characteristics of CD8 memory cells, since allows these cells to immediately secrete this chemokine upon Ag stimulation*](https://www.ncbi.nlm.nih.gov/pubmed/16982880). In cluster 3, which is made of naive T-cells, there is an high expression of [*Foxp1, which plays an essential role in maintaining naive T cell quiescence, since in the absence of Foxp1, mature naive CD8(+) T-cells proliferate in direct response to homeostatic cytokine IL-7*](https://www.ncbi.nlm.nih.gov/pubmed/27001958).  
+Interestingly, cluster 2, made only of activated Suv39h1-defective T-cell, Figure \ref{fig:fig.30}C, show a high expression of Ccl5. In cluster 3, which is made of naive T-cells, there is an high expression of [*Foxp1, which plays an essential role in maintaining naive T cell quiescence, since in the absence of Foxp1, mature naive CD8(+) T-cells proliferate in direct response to homeostatic cytokine IL-7*](https://www.ncbi.nlm.nih.gov/pubmed/27001958).  
 
 
-In her paper, [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extends the information provided from the single cell analysis in Pace paper, suggesting the presence of a Suv39h1-defective memory cells sub-population, cluster 2 in Figure \ref{fig:fig.25}C. Furthermore, this example suggests that even few hunders cells are sufficient to discriminate between sub-populations.
+The paper [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extends the information provided from the single cell analysis in Pace paper, suggesting the presence of unique Suv39h1-defective memory subset, cluster 2 in Figure \ref{fig:fig.25}C. Noteworthy, this example suggests that even few hunders cells are sufficient to discriminate between sub-populations.
 
 \pagebreak
 
@@ -1700,6 +1700,8 @@ In the last few years a lot of tools for single-cell data manipulation have been
 - [*Zhu and coworkers*](https://genomemedicine.biomedcentral.com/articles/10.1186/s13073-017-0492-3) published, [*Granatum*](http://granatum1.garmiregroup.org:8104/), a web-based scRNA-Seq analysis suite.
 
 - [*Diaz and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/27153637) published a [*SCell*](https://github.com/diazlab/scell) a graphical workflow for single-cell analysis.
+
+- [*Butler and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/?term=29608179) published the R toolkit Seurat.
 
 
 For the comparison we evaluated the following parameters:
@@ -1719,11 +1721,12 @@ library(knitr)
 include_graphics('../inst/img/workflows_comparison.jpeg')
 ```
 
-In Figure \ref{fig:fig.31} are summarized the similarities and differences between rCASC and the other three workflows. rCASC is the only one providing support at fastq level, as all the others require a processed counts table. rCASC and SCell data preprocessing offer more options than the others. The fours workflow implement very different data reduction and clustering methods. However, only rCASC performs clustering in presence of data perturbation and it is also the only one that provides measurement for cluster quality using silhuette score, which measures the consistency within clusters of data,  and Cells Stability Score, which measures the persistence of each cell in a cluster upon data perturbation. 
+In Figure \ref{fig:fig.31} are summarized the similarities and differences between rCASC and the other four workflows. rCASC is the only one providing support at fastq level, as all the others require a processed counts table. rCASC, SCell and Seurat data preprocessing offer more options than the others. The four workflows implement very different data reduction and clustering methods. Recently, [*Freytag and coworkers*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6124389/) published a comparison of clustering methods, in which Seurat and SIMLR were included. The two methods performed in similar way on the golden standard dataset used by Freytag.
+Only rCASC performs clustering in presence of data perturbation and it is also the only one that provides measurement for cluster quality using silhuette score, which measures the consistency within clusters of data, and Cells Stability Score, which measures the persistence of each cell in a cluster upon data perturbation. 
 As in the case of clustering also the gene feature selection approach is quite different between workflows and biological inference is only provided by Granatum.
-Considering reproducibility only rCASC provides both computational and functional reproducibility. Both Granatum and Scell perform data manipulation based on graphical tools, e.g. cell outlyers removal in Granatum and genes filtering in SCell preprocessing, which are not trackable, thus not providing functional reproducibility. On the other side simpleSingleCell package cannot guarantee computational reproducibility unless it is embedded in a virtual machine or an other type of virtual container , e.g. docker.
+Considering reproducibility only rCASC provides both computational and functional reproducibility. Both Granatum and Scell perform data manipulation based on graphical tools, e.g. cell outlyers removal in Granatum and genes filtering in SCell preprocessing, which are not trackable, thus not providing functional reproducibility. On the other side simpleSingleCell and Seurat package cannot guarantee computational reproducibility unless they are embedded in a virtual machine or another type of virtual container , e.g. docker.
 
-In conclusion, from the above comparisons, rCASC results to be a workflow with valuable new features that could help researchers in defining cells sub-populations and detecting sub-population specific markers, under the umbrealla of data reproducibility.
+In conclusion, from the above comparisons, rCASC results to be a workflow with valuable new features that could help researchers in defining cells sub-populations and detecting sub-population specific markers, under the umbrella of data reproducibility.
 
 
 
