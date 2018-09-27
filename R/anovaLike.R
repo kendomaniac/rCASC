@@ -59,7 +59,7 @@ anovaLike <- function(group=c("sudo","docker"), data.folder, counts.table, file.
        de.full <- read.table(paste("filtered_DE_", sub(".txt","_reordered.txt", counts.table), sep=""), sep="\t", header=T, row.names=1, stringsAsFactors = F)
        others.nu <- unique(as.numeric(sapply(strsplit(names(others), "_"), function(x)x[2])))
        others.nu <- paste(rep("C",length(others.nu)),others.nu, sep="")
-       de <- de.full[,1:4]
+       de <- de.full[,1:length(others.nu)]
        names(de) <- others.nu
        names(de.full) <- c(others.nu, c( "logCPM", "F", "PValue", "FDR"))
        write.table(de, paste("logFC_filtered_DE_", sub(".txt","_reordered.txt", counts.table), sep=""), sep="\t", col.names = NA)
