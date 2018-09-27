@@ -46,7 +46,7 @@ anovaLike <- function(group=c("sudo","docker"), data.folder, counts.table, file.
        }
        names(counts) <- paste(names(counts), clusters$Belonging_Cluster, sep="_")
        ref <- counts[,grep(paste("_",ref.cluster,'$', sep=""), names(counts))]
-       others <- counts[,setdiff(seq(1,dim(counts)[2]),grep("_3$", names(counts)))]
+       others <- counts[,setdiff(seq(1,dim(counts)[2]),grep(paste("_",ref.cluster,'$', sep=""), names(counts)))]
        tmp.n <- as.numeric(sapply(strsplit(names(others), "_"), function(x)x[2]))
        others <- others[,order(tmp.n)]
        counts <- data.frame(ref, others, check.names = F)
