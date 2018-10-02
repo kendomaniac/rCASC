@@ -4,8 +4,8 @@
 \alias{nClusterEvaluationSIMLR}
 \title{Evaluation of the numbur of optimal clusters}
 \usage{
-nClusterEvaluationSIMLR(group = c("sudo", "docker"), scratch.folder, file,
-  range1, range2, separator, logTen, nPerm, percent, rangeFile)
+nClusterEvaluationSIMLR(group = c("sudo", "docker"), scratch.folder,
+  file, range1, range2, separator, logTen, nPerm, percent, rangeFile)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

@@ -4,21 +4,18 @@
 \alias{indropCounts}
 \title{A function to handle a indrop V2 single cell data}
 \usage{
-indropCounts(group = c("sudo", "docker"), scratch.folder, fastq.folder,
-  index.folder, sample.name, split.affixes, bowtie.index.prefix = "genome",
-  M = 10, U = 2, D = 400, low.complexity.mask = "False",
-  umi.threshold = 3)
+indropCounts(group = c("sudo", "docker"), scratch.folder, fastq.file,
+  index.folder, split.affixes, bowtie.index.prefix = "genome", M = 10,
+  U = 2, D = 400, low.complexity.mask = "False", umi.threshold = 3)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
-\item{fastq.folder, }{a character string indicating the folder where input data are located and where output will be written}
+\item{fastq.file, }{a character string indicating the folder where input data are located and where output will be written}
 
 \item{index.folder, }{a character string indicating the folder where transcriptome index was created with indropIndex.}
-
-\item{sample.name, }{the name to be associated to the fastq files, e.g. C2 for C2_S2_L001_R1_001.fastq.gz, IMPORTANT input fastq should have the format SAMPLENAME_Sx_L00y_Rz_001.fastq.gz, where x is an integer, y is an integer, z is 1 or 2}
 
 \item{split.affixes, }{the string separating SAMPLENAME from the Rz_001.fastq.gz}
 
@@ -41,10 +38,10 @@ This function executes a docker that produces as output the sinngle cell counts 
 \dontrun{
 system("wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz")
 system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
-library(casc)
+library(rCASC)
 #running indropCounts
-indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
-       index.folder="/data/genomes/mm10indrop", sample.name="testMm",
+indropCounts(group="docker", scratch.folder="/data/scratch", fastq.file=paste(getwd(),"testMm",sep="/"),
+       index.folder="/data/genomes/mm10indrop",
        split.affixes="S0_L001", bowtie.index.prefix="genome",
        M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=3)
 }

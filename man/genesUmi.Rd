@@ -4,14 +4,14 @@
 \alias{genesUmi}
 \title{Plotting genes to UMIs relationship.}
 \usage{
-genesUmi(data.folder, counts.matrix, umiXgene = 3)
+genesUmi(file, umiXgene = 3, sep)
 }
 \arguments{
-\item{data.folder, }{a character string indicating the folder where output will be saved.}
-
-\item{counts.matrix, }{a character string indicating the the name of tab delimited file  of cells un-normalized expression counts.}
+\item{file, }{a character string indicating the path of the file tab delimited  of cells un-normalized expression counts.}
 
 \item{umiXgene, }{a integer defining how many UMI are required to call a gene as present. default: 3}
+
+\item{sep, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
 pdf with the cells counts distributions: genes.umi.pdf
@@ -24,6 +24,6 @@ This function create a plot in which genes are plotted with respect to total cou
     #downloading fastq files
     system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
     system("gzip -d singlecells_counts.txt.gz")
-    genesUmi(data.folder=getwd(), counts.matrix="singlecells_counts.txt", umiXgene=3)
+    genesUmi(file=paste(getwd(),"singlecells_counts.txt",sep="/"), umiXgene=3, sep="\\t")
 }
 }

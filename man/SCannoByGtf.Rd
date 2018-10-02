@@ -4,8 +4,9 @@
 \alias{scannobyGtf}
 \title{Annotating single cell counts table using ENSEMBL gtf and refGenome CRAN package}
 \usage{
-scannobyGtf(group = c("docker", "sudo"), file, gtf.name, biotype = NULL,
-  mt = c(TRUE, FALSE), ribo.proteins = c(TRUE, FALSE), umiXgene = 3)
+scannobyGtf(group = c("docker", "sudo"), file, gtf.name,
+  biotype = NULL, mt = c(TRUE, FALSE), ribo.proteins = c(TRUE,
+  FALSE), umiXgene = 3)
 }
 \arguments{
 \item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}

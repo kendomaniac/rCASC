@@ -1,8 +1,8 @@
 #' @title Plotting genes to UMIs relationship.
 #' @description This function create a plot in which genes are plotted with respect to total counts UMI for each cell.
-#' @param data.folder, a character string indicating the folder where output will be saved.
-#' @param counts.matrix, a character string indicating the the name of tab delimited file  of cells un-normalized expression counts.
+#' @param file, a character string indicating the path of the file tab delimited  of cells un-normalized expression counts.
 #' @param umiXgene, a integer defining how many UMI are required to call a gene as present. default: 3
+#' @param sep, separator used in count file, e.g. '\\t', ','
 #' @return pdf with the cells counts distributions: genes.umi.pdf
 #'
 #' @export
@@ -12,16 +12,26 @@
 #'     #downloading fastq files
 #'     system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
 #'     system("gzip -d singlecells_counts.txt.gz")
-#'     genesUmi(data.folder=getwd(), counts.matrix="singlecells_counts.txt", umiXgene=3)
+#'     genesUmi(file=paste(getwd(),"singlecells_counts.txt",sep="/"), umiXgene=3, sep="\t")
 #' }
-genesUmi <- function(data.folder, counts.matrix, umiXgene=3){
+genesUmi <- function(file, umiXgene=3, sep){
+
+data.folder=dirname(file)
+positions=length(strsplit(basename(file),"\\.")[[1]])
+matrixNameC=strsplit(basename(file),"\\.")[[1]]
+counts.table=paste(matrixNameC[seq(1,positions-1)],collapse="")
+  matrixName=counts.table
+file.type=strsplit(basename(basename(file)),"\\.")[[1]][positions]
+
+  
+  counts.matrix=matrixName
 
   #running time 1
   ptm <- proc.time()
   #running time 1
 
   setwd(data.folder)
-  tmp <- read.table(counts.matrix, sep="\t", header=T, row.names=1, stringsAsFactors = F)
+  tmp <- read.table(paste(counts.matrix,".",file.type,sep=""), sep=sep, header=T, row.names=1, stringsAsFactors = F)
   genes <- list()
   for(i in 1:dim(tmp)[2]){
     x = rep(0, dim(tmp)[1])

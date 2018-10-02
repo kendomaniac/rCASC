@@ -5,8 +5,8 @@
 \title{Running SCnorm  checkCountDepth test.}
 \usage{
 checkCountDepth(group = c("sudo", "docker"), file, conditions = NULL,
-  FilterCellProportion = 0.1, FilterExpression = 0, ditherCounts = FALSE,
-  outputName, nCores = 8)
+  FilterCellProportion = 0.1, FilterExpression = 0,
+  ditherCounts = FALSE, outputName, nCores = 8)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs.}

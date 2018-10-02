@@ -4,9 +4,9 @@
 \alias{genesPrioritization}
 \title{Gene prioritization with SIMLR}
 \usage{
-genesPrioritization(group = c("sudo", "docker"), scratch.folder, file, nPerm,
-  permAtTime, percent, nCluster, separator, logTen = 0, seed = 111,
-  sp = 0.8, clusterPermErr = 0.05)
+genesPrioritization(group = c("sudo", "docker"), scratch.folder, file,
+  nPerm, permAtTime, percent, nCluster, separator, logTen = 0,
+  seed = 111, sp = 0.8, clusterPermErr = 0.05)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

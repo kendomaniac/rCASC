@@ -5,10 +5,10 @@
 \title{Cellranger count}
 \usage{
 cellrangerCount(group = c("sudo", "docker"), transcriptome.folder,
-  fastq.folder, sample = NULL, expect.cells = NULL, force.cells = NULL,
-  nosecondary = TRUE, chemistry = NULL, r1.length = NULL,
-  r2.length = NULL, lanes = NULL, localcores = NULL, localmem = NULL,
-  scratch.folder)
+  fastq.folder, sample = NULL, expect.cells = NULL,
+  force.cells = NULL, nosecondary = TRUE, chemistry = NULL,
+  r1.length = NULL, r2.length = NULL, lanes = NULL,
+  localcores = NULL, localmem = NULL, scratch.folder)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

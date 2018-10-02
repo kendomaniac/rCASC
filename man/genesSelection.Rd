@@ -4,8 +4,8 @@
 \alias{genesSelection}
 \title{Genes selection from genesPrioritization output}
 \usage{
-genesSelection(group = c("sudo", "docker"), scratch.folder, file, nCluster,
-  separator, seed = 111, sp = 0.8, clusterPermErr = 0.05,
+genesSelection(group = c("sudo", "docker"), scratch.folder, file,
+  nCluster, separator, seed = 111, sp = 0.8, clusterPermErr = 0.05,
   maxDeltaConfidence = 0.01, minLogMean = 0.05)
 }
 \arguments{

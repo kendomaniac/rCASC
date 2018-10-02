@@ -4,8 +4,8 @@
 \alias{recatPrediction}
 \title{Cell Cycle}
 \usage{
-recatPrediction(group = c("sudo", "docker"), scratch.folder, file, separator,
-  geneNameControl = 0, window = 1, seed = 111)
+recatPrediction(group = c("sudo", "docker"), scratch.folder, file,
+  separator, geneNameControl = 0, window = 1, seed = 111)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

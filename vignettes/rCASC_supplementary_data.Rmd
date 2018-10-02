@@ -1,7 +1,7 @@
 ---
 title: "rCASC supplementary data"
 author: "Luca Alessandrì, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Gennaro De Libero, Luigia Pace, Francesca Cordero and Raffaele A Calogero"
-date: "21/09/2018"
+date: "29/09/2018"
 output: pdf_document
 toc: yes
 
@@ -42,7 +42,7 @@ The workflow allows the direct analysis of fastq files generated with [*10X Geno
 ### **Section 1.1** Minimal hardware requirements to run rCASC
 The RAM and CPU requirements are dependent on the data set under analysis, e.g. 500-600 cells can be effectively analysed using the hardware described by Beccuti [[*Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]: 
 
-- 32 Gb RAM and 
+- 32 Gb RAM 
 
 - 2.6 GHz Core i7 6700HQ with 8 threads.
 
@@ -78,7 +78,7 @@ install.packages("devtools")
 library(devtools)
 install_github("kendomaniac/rCASC")
 
-# downloading the required containers
+# downloading the required docker containers
 library(rCASC)
 downloadContainers()
 
@@ -238,7 +238,7 @@ The function **filterZeros** retains all genes that have cells without a user de
 
 The output is a PDF providing zeros distributions before and after removal of genes with 0s counts. A tab delimited file with the prefix **filtered\_** in which the filtered data are saved.
 
-**IMPORTANT**: In case user would like to apply cell quality filter, e.g. *lorenzFilter*, it is covenient to remove only genes with 0 counts in all cells, i.e. threshold=0 (Figure \ref{fig:fig.5}).
+**IMPORTANT**: In case user would like to apply cell quality filter, e.g. *lorenzFilter*, it is convenient to remove only genes with 0 counts in all cells, i.e. threshold=0 (Figure \ref{fig:fig.5}).
 \newline
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -350,7 +350,7 @@ system("mv genes.umi.pdf genes.umi_25K.pdf")
 
 Figure \ref{fig:fig.6.2} clearly shows that the number of genes detectable by 10XGenomics sequencing (Figure \ref{fig:fig.6.2}A-C) is far less of those detectable using a whole transcript experiment (Figure \ref{fig:fig.6.2}D-F). In the case of 25K reads/cells in 3' end sequencing (Figure \ref{fig:fig.6.2}A) the number of called genes goes from a doxen of genes to 350. In the corresponding whole transcript sequencing experiment (Figure \ref{fig:fig.6.2}D), 350 genes is the lowest number of genes detectable in a cell. At 250K reads/cell the range of detectable genes in 3' end experiment (few hunders genes to 2000 genes)  and in whole transcripts experiments (less than 1000 genes to 3500 genes) are more similar. 
 The larger scatterring and the overall lower number of detectable genes in 3' end sequencing experiment, with respect to whole transcript experiments, is a peculiarity of the technology [[*Ziegenhain et al.*](https://www.ncbi.nlm.nih.gov/pubmed/28212749)].  
-It has also to be highlighted that cells with a very low number of genes called present will have a gene repertoire made mainly of housekeeping genes, ribosomal and mitochondrial genes, see Figure \ref{fig:fig.8} in **Section 3.4**. Thus, the lack of cell-type specific genes make this type of cells useless for the identification of functional cell sub-populations.  
+It has also to be highlighted that cells with a very low number of genes called present will have a gene repertoire made mainly of housekeeping genes, ribosomal and mitochondrial genes, see Figure \ref{fig:fig.8} in **Section 3.4**. Thus, the lack of cell-type specific genes make these cells useless for the identification of functional cell sub-populations.  
 
 ```{r fig.6.2, fig.cap="Number of detected genes with respect to mapped reads. A) 25K reads/cell 10XGenomics platform, 3\' end sequencing. B) 86K reads/cell 10XGenomics platform, 3\' end sequencing. C) 250K reads/cell 10XGenomics platform, 3\' end sequencing. D) 25K reads/cell C1 platform, whole transcript sequencing, E) 100K reads/cell C1 platform, whole transcript sequencing, F) 250K reads/cell C1 platform, whole transcript sequencing.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
@@ -409,7 +409,7 @@ pca(experiment.table="df3m_1000.txt", type="counts",
 \fontsize{10}{10}\selectfont  
 
 
-```{r fig.27, fig.cap="Zheng set subset detectable genes. A) T-cytotoxic genes versus total cell reads plot. B) T-regulatory  genes versus total cell reads plot. C) df3m set, made of cells with less than 1000 counts each, D) df3, made of cells with counts between 1000 and 2511. E) d3.4, made of cells with more than 2511 counts each.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.27, fig.cap="Detectable genes in a Zheng  data subset. A) T-cytotoxic genes versus total cell reads plot. B) T-regulatory  genes versus total cell reads plot. C) df3m set, made of cells with less than 1000 counts each, D) df3, made of cells with counts between 1000 and 2511. E) d3.4, made of cells with more than 2511 counts each.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/counts_effect1.jpeg')
 ```
@@ -510,7 +510,6 @@ library(knitr)
 include_graphics('../inst/img/noMT-rib.jpg')
 ```
 
-**IMPORTANT**: The core clustering tool in rCASC is SIMLR, **Section 5**. SIMLR requires that the number of genes must be larger of the number of analysed cells. 
 
 ### **Section 3.5** Top expressed genes
 
@@ -532,6 +531,8 @@ genesUmi(data.folder=getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10_1000
 
 ```
 \fontsize{10}{10}\selectfont
+
+**IMPORTANT**: The core clustering tool in rCASC is SIMLR, **Section 5**. SIMLR requires that the number of genes must be larger of the number of analysed cells. 
 
 ### **Section 3.6** Data normalization
 
@@ -688,7 +689,7 @@ counts2log(file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
 Single-cell RNA-Sequencing measurement of expression often suffers from large systematic bias. A major source of this bias is cell cycle, which introduces large within-cell-type heterogeneity that can obscure the differences in expression between cell types. [*Barron and Li*](https://www.nature.com/articles/srep33892) developed in 2016 a R package called [*ccRemover*](https://cran.r-project.org/web/packages/ccRemover/index.html) which removes cell cycle effects and preserves other biological signals of interest (Figure \ref{fig:fig.11}).
 
 
-```{r fig.11, fig.cap="Removal of cell cycle bias as described in Barron and Li. [Sci. Rep. 2016]. A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemover cell-cycle normalized dataset. Figure edited from supplementary data in Barron and Li [Sci. Rep. 2016].", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+```{r fig.11, fig.cap="Removal of cell cycle bias as described in Barron and Li. [Sci. Rep. 2016]. A) PCA analysis of Buettner et al. (Nat. Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemover cell-cycle normalized dataset. Figure edited from supplementary data in Barron and Li [Sci. Rep. 2016].", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/barron2016.jpeg')
 ```
@@ -697,7 +698,7 @@ include_graphics('../inst/img/barron2016.jpeg')
 However, before applying *ccRemover*, it is essential to address if the removal of cell cycle effect is required. [*reCAT*](https://www.nature.com/articles/s41467-017-00039-z) is a modelling framework for unsynchronized single-cell transcriptome data that can reconstruct cell cycle time-series.  Thus, reCAT cell cycle prediction step can be used to check if  cell cycle effect (Figure \ref{fig:fig.12}) can be detected in a dataset and therefore ccRemover normalization approach will be needed.
 
 
-```{r fig.12, fig.cap="reCAT prediction of cell cycle in Buettner et al. (Nat.Biotechnol. 2015) dataset. Figure extracted from reCAT github", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+```{r fig.12, fig.cap="reCAT prediction of cell cycle in Buettner et al. (Nat. Biotechnol. 2015) dataset. Figure extracted from reCAT github", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/ola_2i_bayes.png')
 ```
@@ -721,7 +722,7 @@ To show the differences existing between a dataset characterized by cell cycle b
 
 To execute the analysis on the same number of cells, 288 cells were randomly selected from quescent naive T-cell dataset. In Figure \ref{fig:fig.13}A the presence of oscillatory behaviour is evident in the predicted cells time serie and the G1 and G2M trends are indicated respectively in blue and red dashed curves. On the other hand the oscillatory behaviour is totally absent (Figure \ref{fig:fig.13}B) in the naive T-cells, which are expected to be quiescent in G0.
 
-```{r fig.13, fig.cap="Cell cycle assigment to the cells. A) Buettner et al. (Nat.Biotechnol. 2015) raw dataset, cells are expected to be distributed in G1, S and G2M, B) Naive T-cells, expected to be mainly in G0 (Science 2018).", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.13, fig.cap="Cell cycle assigment to the cells. A) Buettner et al. (Nat. Biotechnol. 2015) raw dataset, cells are expected to be distributed in G1, S and G2M, B) Naive T-cells, expected to be mainly in G0 (Science 2018).", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/recat1.jpeg')
 ```
@@ -830,7 +831,7 @@ pca(experiment.table="LS_cc_annotated_buettner_G1G2MS_counts_10000bis.txt", type
 
 In Figure \ref{fig:fig.14} are shown the results obtained using the ccRemove implementation in rCASC, using the Buettner dataset. The removal of the cell cycle effect (Figure \ref{fig:fig.14}B) is clearly shown by a reduction of the variance explained by PC1 and PC2 in the PCA plot.
 
-```{r fig.14, fig.cap="As Figure 11, but done with rCASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat.Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemove cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.14, fig.cap="As Figure 11, but done with rCASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat. Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemove cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/buettner_raw_ccremover.jpeg')
 ```
@@ -865,7 +866,7 @@ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
 ```
 \fontsize{10}{10}\selectfont
 
-In Figure \ref{fig:fig.14a} it is shown the output generated by **clusterNgriph**. The output folder is called **Results** and it is located in the folder from which the analysis started. Within Results is present a folder named as the dataset used for the analysis. In this case 'annotated_buettner_G1G2MS_counts_10000bis'. In the latter folder is present a folder, in this specific example '5', named with the number of clusters that were more represented as result of the bootstrap analysis. The file indicated with the blue arrow contains all the information to generate the griph output plot, used as reference to allocate cells to a specific cluster at each bootstrap step. The file indicated with the green arrow contains the cluster position for each cell over all bootstrap steps. The file indicated with the red arrow contains the cells removed at  each bootstrap steps.The file called 'hist.pdf', indicated with the black arrow, is the plot of the frequency of different number of clusters generated by griph as consequence of the bootstrap steps. In this specific case, over 160 permutations, 80 produced 5 clusters, 70 4 clusters and 10 6 clusters. 
+In Figure \ref{fig:fig.14a} it is shown the output generated by **clusterNgriph**. The output folder is called **Results** and it is located in the folder from which the analysis started. Within Results is present a folder named as the dataset used for the analysis. In this case 'annotated_buettner_G1G2MS_counts_10000bis'. In the latter folder is present a folder, in this specific example '5', named with the number of clusters that were more represented as result of the bootstrap analysis. The file indicated with the blue arrow contains all the information to generate the griph output plot, used as reference to allocate cells to a specific cluster at each bootstrap step. The file indicated with the green arrow contains the cluster position for each cell over all bootstrap steps. The file indicated with the red arrow contains the cells removed at  each bootstrap steps. The file called 'hist.pdf', indicated with the black arrow, is the plot of the frequency of different number of clusters generated by griph as consequence of the bootstrap steps. In this specific case, over 160 permutations, 80 produced 5 clusters, 70 4 clusters and 10 6 clusters. 
 
 ```{r fig.14a, fig.cap="Output of clusterNgriph", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
@@ -891,9 +892,9 @@ To observe the effect of datasets perturbation in clustering we built 4 datasets
 - setD 100 cell randomly selected for each cell type:
     + **Cytotoxic T-cells**, **Naive cytotoxic T-cells** (20K reads/cell), **T-helper cells**, Natural Killer, Naive T-cell
 
-Moving from SetA to setD we added progressively cells coming from T-cell sub-populations, making the cell-type partitioning more challenging because of the similarities between T-cell sub-populations.
+Moving from SetA to setD we added progressively cells coming from T-cell populations, making the cell-type partitioning more challenging because of the similarities between T-cell sub-populations.
     
-We used PCA (Figure \ref{fig:fig.15}A-D) to visualize the dissimilarity between cells subpopulations. PCA measures the variance between the elements of the dataset and the most important differences in variance are estimated by the PC1.
+We used PCA (Figure \ref{fig:fig.15}A-D) to visualize the dissimilarity between cells populations. PCA measures the variance between the elements of the dataset and the most important differences in variance are estimated by the PC1.
 
 
 \fontsize{8}{8}\selectfont    
@@ -972,9 +973,9 @@ library(knitr)
 include_graphics('../inst/img/griph1.jpeg')
 ```
 
-PC1 show that, as the differences between cell sub-populations become smaller, moving from setA to setD, the aggregation in homogeneous groups of cells is compromised (Figure \ref{fig:fig.15}A-D). It is, however, important to highlight that the sequencing coverage in this experiment is quite limited (see **Section 3.2.1**), and providing a higher sequencing depth/cell would definitely improve the sub-populations resolution.  
+PC1 show that, as the differences between cell populations become smaller, moving from setA to setD, the aggregation in homogeneous groups of cells is compromised (Figure \ref{fig:fig.15}A-D). It is, however, important to highlight that the sequencing coverage in this experiment is quite limited (see **Section 3.2.1**), and providing a higher sequencing depth/cell would definitely improve the sub-populations resolution.  
 
-To observe the effect of the reduced dissimilarity between sub-populations on the stability of the number of clusters, we use the rCASC **clusterNgriph** function on the above mentioned 4 datasets using 160 permutations/each, and randomly removing in each permutation 10\% of the cells. Each analysis took approximately 60 mins on a SeqBox hardware. 
+To observe the effect of the reduced dissimilarity between populations on the stability of the number of clusters, we use the rCASC **clusterNgriph** function on the above mentioned 4 datasets using 160 permutations/each, and randomly removing in each permutation 10\% of the cells. Each analysis took approximately 60 mins on a SeqBox hardware. 
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -1009,7 +1010,7 @@ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
 
 \fontsize{10}{10}\selectfont
 
-It is notable that as the differences between the cells sub-populations is narrowing (i.e in setA cells types are quite different in overall functional activity, as in setD four out of five cell types are T-cells sub-populations) the fluctuations in the detected number of clusters increase. In setA, where PCA is able to discriminate between the five cell sub-populations (Figure \ref{fig:fig.15}A), out of 160 bootstraps only 1 gave a number of clusters different from the effective number of cell sub-populations (Figure \ref{fig:fig.16}A). In set D, where four out of five sub-populations are T-cell, PCA (Figure \ref{fig:fig.15}D) provides a good discrimination only for NK cells and the clusters detected by griph upon bootstraps fluctuate between 3 to 5 (Figure \ref{fig:fig.16}D). 
+It is notable that as the differences between the cells populations is narrowing (i.e in setA cells types are quite different in overall functional activity, as in setD four out of five cell types are T-cells sub-populations) the fluctuations in the detected number of clusters increase. In setA, where PCA is able to discriminate between the five cell populations (Figure \ref{fig:fig.15}A), out of 160 bootstraps only 1 gave a number of clusters different from the effective number of cell sub-populations (Figure \ref{fig:fig.16}A). In set D, where four out of five sub-populations are T-cell, PCA (Figure \ref{fig:fig.15}D) provides a good discrimination only for NK cells and the clusters detected by griph upon bootstraps fluctuate between 3 to 5 (Figure \ref{fig:fig.16}D). 
 
 ```{r fig.16, fig.cap="Clusters number stability is dependent by the cell type similarity: A) number of clusters detectable by griph in setA, B) number of clusters detectable by griph in setB, C) number of clusters detectable by griph in setC, D) number of clusters detectable by griph in setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
@@ -1082,7 +1083,7 @@ legend("topleft", legend=c("Naive T-cytotoxic", "T-cytotoxic", "T-helper", "Mono
 \fontsize{10}{10}\selectfont
 
 
-Figure \ref{fig:fig.17}  shows the number of identical genes found in common between naive T-cells and the other sub-populations in setA and setD, using lists of increasing size and ordered by expression level. The plot shows that naive T-cytotoxic, T-cytoxic and T-helper, from setD, share with naive T-cells, within the top 500 most expressed genes, more genes with respect to the other cell types present in setA. Thus, this lack of cell-type specific genes between 4 out 5 cell types in SetD dataset negatively affect the stability dataset partitioning, upon bootstraps. 
+Figure \ref{fig:fig.17}  shows the number of identical genes found in common between naive T-cells and the other sub-populations in setA and setD, using lists of increasing size and ordered by expression level. The plot shows that naive T-cytotoxic, T-cytoxic and T-helper, from setD, share with naive T-cells, within the top 500 most expressed genes, more genes with respect to the other cell types present in setA. Thus, the lack of cell-type specific genes between 4 out 5 cell types in SetD dataset negatively affect the stability dataset partitioning, upon bootstraps. 
 
 ```{r fig.17, fig.cap="Identity between naive T-cells and the other cell types in set A and D in lists of increasing length. Identity between two data sets is shown by the dashed line.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)

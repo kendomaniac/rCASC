@@ -4,9 +4,9 @@
 \alias{scnorm}
 \title{Running SCnorm  normalization}
 \usage{
-scnorm(group = c("sudo", "docker"), file, conditions = NULL, outputName,
-  nCores = 8, filtercellNum = 10, ditherCount = FALSE, PropToUse = 0.1,
-  PrintProgressPlots = FALSE, FilterExpression = 0)
+scnorm(group = c("sudo", "docker"), file, conditions = NULL,
+  outputName, nCores = 8, filtercellNum = 10, ditherCount = FALSE,
+  PropToUse = 0.1, PrintProgressPlots = FALSE, FilterExpression = 0)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

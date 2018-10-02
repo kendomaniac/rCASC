@@ -5,8 +5,8 @@
 \title{Permutations and Clustering}
 \usage{
 tsneBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
-  permAtTime, percent, range1, range2, separator, logTen = 0, seed = 111,
-  sp = 0.8, clusterPermErr = 0.05, perplexity = 10)
+  permAtTime, percent, range1, range2, separator, logTen = 0,
+  seed = 111, sp = 0.8, clusterPermErr = 0.05, perplexity = 10)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

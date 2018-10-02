@@ -4,8 +4,8 @@
 \alias{hfc}
 \title{hfc, heatmap for clustering}
 \usage{
-hfc(group = c("sudo", "docker"), scratch.folder, file, nCluster, separator,
-  lfn, geneNameControl = 1, status, b1 = 0, b2 = 0)
+hfc(group = c("sudo", "docker"), scratch.folder, file, nCluster,
+  separator, lfn, geneNameControl = 1, status, b1 = 0, b2 = 0)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
