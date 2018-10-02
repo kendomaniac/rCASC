@@ -9,7 +9,7 @@ filterZeros(file, threshold = 0, sep)
 \arguments{
 \item{file, }{a character string indicating the path of the file tab delimited  of cells un-normalized expression counts}
 
-\item{threshold, }{a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes which do not ave any expression in any cell.}
+\item{threshold, }{a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having no expression in any cell.}
 
 \item{sep, }{separator used in count file, e.g. '\\t', ','}
 }

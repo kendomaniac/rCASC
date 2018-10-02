@@ -1,7 +1,7 @@
 #' @title Plotting the distribution of zeros in cells eliminating all genes without counts
 #' @description This function plots the zeros distributions in cells and removes genes without counts
 #' @param file, a character string indicating the path of the file tab delimited  of cells un-normalized expression counts
-#' @param threshold, a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes which do not ave any expression in any cell.
+#' @param threshold, a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having no expression in any cell.
 #' @param sep, separator used in count file, e.g. '\\t', ','
 #' @return a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *filtered* in which the filtered data are saved.
 #' @examples
