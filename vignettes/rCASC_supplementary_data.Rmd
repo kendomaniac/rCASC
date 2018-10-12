@@ -295,7 +295,7 @@ include_graphics('../inst/img/genesUMI.jpg')
 
 #### **Section 3.2.1** Further considerations about the number of reads/UMI to be used in a single-cell sequencing experiment.
 
-[*Ziegenhain et al.*](https://www.ncbi.nlm.nih.gov/pubmed/28212749) published a comparison between single cell sequencing protocols and they show that, in a simulated experiment, at least 250K reads/cell are required for the detection at least 80% of differentially expressed genes between two groups (Figure \ref{fig:fig.6.1}). Ziegenhain observation clearly also apply to sub-populations clustering. 
+[*Ziegenhain et al.*](https://www.ncbi.nlm.nih.gov/pubmed/28212749) published a comparison between single cell sequencing protocols and they show that, in a simulated experiment, at least 250K reads/cell are required for the detection of at least 80% of differentially expressed genes between two groups (Figure \ref{fig:fig.6.1}). Ziegenhain observation clearly also apply to sub-populations clustering. 
 
 ```{r fig.6.1, fig.cap="Modified from Figure 6 in Ziegenhain et al. (Mol. Cell 2017). Power of scRNA-Seq methods. For more information on the experiment please see Ziegenhain paper.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
@@ -410,7 +410,7 @@ pca(experiment.table="df3m_1000.txt", type="counts",
 \fontsize{10}{10}\selectfont  
 
 
-```{r fig.27, fig.cap="Detectable genes in a Zheng  data subset. A) T-cytotoxic genes versus total cell reads plot. B) T-regulatory  genes versus total cell reads plot. C) df3m set, made of cells with less than 1000 counts each, D) df3, made of cells with counts between 1000 and 2511. E) d3.4, made of cells with more than 2511 counts each.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.27, fig.cap="Detectable genes in a Zheng  data subset. A) T-cytotoxic genes versus total cell reads plot. B) T-regulatory  genes versus total cell reads plot. C) d3m set, made of cells with less than 1000 counts each, D) df3, made of cells with counts between 1000 and 2511. E) d3.4, made of cells with more than 2511 counts each.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/counts_effect1.jpeg')
 ```
@@ -489,7 +489,7 @@ scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.t
 ```
 \fontsize{10}{10}\selectfont
 
-Ribosomal RNA and ribosomal proteins represent a significant part of cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis [[*Montanaro et al. 2008*](https://www.ncbi.nlm.nih.gov/pubmed/18583314)]. Thus, ribosomal proteins expression might represent one of the major confunding factor in cluster formation between active and dormient cells. Furthermore, the main function of mitochondria is to produce energy through aerobic respiration. The number of mitochondria a cell possesses depends on its metabolic demands [[*Nasrallah and Horvath*](https://www.ncbi.nlm.nih.gov/pubmed/25200564)]. This might also affect clustering favoring the separation between metabolic active and resting cells with respect to functional differences between sub-populations.
+Ribosomal RNA and ribosomal proteins represent a significant part of cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis [[*Montanaro et al. 2008*](https://www.ncbi.nlm.nih.gov/pubmed/18583314)]. Thus, ribosomal proteins expression might represent one of the major confunding factor in cluster formation between active and dormient cells. Furthermore, the main function of mitochondria is to produce energy through aerobic respiration. The number of mitochondria a cell possesses depends on its metabolic demands [[*Nasrallah and Horvath*](https://www.ncbi.nlm.nih.gov/pubmed/25200564)]. This might also affect clustering, favoring the separation between metabolic active and resting cells, with respect to functional differences between sub-populations.
 *scannobyGtf* allows also the removal of mitocondrial and ribosomal protein genes.
 \newline
 \fontsize{8}{8}\selectfont
@@ -506,7 +506,7 @@ scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.t
 In figure \ref{fig:fig.8} is shown the effect of the removal of both mitocondrial and ribosomal protein genes. It is notable that, in this specific experiment, in cells with less than 1000 UMI nearly all detected genes were only mitocondrial and ribosomal protein genes. This observation further support the observation in Figure \ref{fig:fig.27}C, showing that the genes detectable with 1000 UMIs/cell are not enough to discriminate between two different cell types.
 This filter is suitable to identify cells which do not contain any informative gene other than mitocondrial and ribosomal proteins. However, in case the difference between resting and actively proliferating cells is an important element of cell sub-population discovery this filter should not be applied.
 
-```{r fig.8, fig.cap="Removing mithocondrial and ribosomal proteins genes, in red is shown the dataset after removal of mitocondrial and ribosomal protein genes.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+```{r fig.8, fig.cap="Removing mithocondrial and ribosomal proteins genes. In red is shown the dataset after removal of mitocondrial and ribosomal protein genes.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/noMT-rib.jpg')
 ```
@@ -615,7 +615,7 @@ scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 ```
 \fontsize{10}{10}\selectfont
 
-The output files are  plots of the normalization effects ((Figure \ref{fig:fig.10})), a tab delimited file containing the normalized data, with the prefix **normalized_**,  and **discarded_genes.txt**, which contains the discarded genes..
+The output files are  plots of the normalization effects (Figure \ref{fig:fig.10}), a tab delimited file containing the normalized data, with the prefix **normalized_**,  and **discarded_genes.txt**, which contains the discarded genes..
 
 ```{r fig.10, fig.cap="Effect of the SCnorm on the dataset in Figure 9", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
@@ -832,7 +832,7 @@ pca(experiment.table="LS_cc_annotated_buettner_G1G2MS_counts_10000bis.txt", type
 
 In Figure \ref{fig:fig.14} are shown the results obtained using the ccRemove implementation in rCASC, using the Buettner dataset. The removal of the cell cycle effect (Figure \ref{fig:fig.14}B) is clearly shown by a reduction of the variance explained by PC1 and PC2 in the PCA plot.
 
-```{r fig.14, fig.cap="As Figure 11, but done with rCASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat. Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemove cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.14, fig.cap="As Figure 13, but done with rCASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat. Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemove cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/buettner_raw_ccremover.jpeg')
 ```
@@ -841,11 +841,11 @@ include_graphics('../inst/img/buettner_raw_ccremover.jpeg')
 
 The rCASC core clustering tool is [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), which requires as input the number of clusters to be used to aggregate cell sub-populations. Unfortunately, there is no definitive answer to the definition of the most probable number of clusters, in which cells will aggregate. Some of the possible ways to identify the most probable number of clusters is summaries in: [*"Determining the optimal number of clusters: 3 must known methods - Unsupervised Machine Learning"*](http://www.sthda.com/english/wiki/print.php?id=239).
 
-Another important aspect is how the number of detectable clusters might change if the number of cells changes in the dataset, e.g. upon removal of a random subset of cells. Because single-cell experiment, at least today, are rarely characterized by biological replications, and frequently they represent the initial step of an analysis aimed at the identification for new cell sub-populations, it is very important to assess the stability of cells aggregations detected by clustering methods.
+Another important aspect is how the number of detectable clusters might change if the number of cells changes in the dataset, e.g. upon removal of a random subset of cells. Because single-cell experiment, at least today, are rarely characterized by biological replications and frequently they represent the initial step of an analysis aimed at the identification for new cell sub-populations, it is very important to assess the stability of cells aggregations detected by clustering methods.
 
 ### **Section 4.1** Estimating the number of cluster to be used for cell sub-population discovery by community detection method.
 
-In rCASC, the identification of the optimal number of clusters is addressed, in presence cells number perturbations, with [*griph*](https://ppapasaikas.github.io/griph/). The clustering performed by griph is graph-based and uses the community detection method  [*louvain modularity*](http://igraph.org/r/doc/cluster_louvain.html). Griph algorithm is closer to agglomerative clustering methods, since every node is initially assigned to its own community and communities are subsequently built by iterative merging. Griph is embedded **clusterNgriph** function, which evaluates the number of clusters in which a set of cells will aggregate upon a user defined leave-\%N-out cells bootstraps. In the example below the number of clusters are detected for the file 'annotated_buettner_G1G2MS_counts_10000bis.txt', used in **Section 3.8**.
+In rCASC, the identification of the optimal number of clusters is addressed, in presence of cells number perturbations, with [*griph*](https://ppapasaikas.github.io/griph/). The clustering performed by griph is graph-based and uses the community detection method  [*louvain modularity*](http://igraph.org/r/doc/cluster_louvain.html). Griph algorithm is closer to agglomerative clustering methods, since every node is initially assigned to its own community and communities are subsequently built by iterative merging. Griph is embedded **clusterNgriph** function, which evaluates the number of clusters in which a set of cells will aggregate upon a user defined leave-\%N-out cells bootstraps. In the example below the number of clusters are detected for the file 'annotated_buettner_G1G2MS_counts_10000bis.txt', used in **Section 3.8**.
 
 - *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
@@ -867,14 +867,14 @@ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
 ```
 \fontsize{10}{10}\selectfont
 
-In Figure \ref{fig:fig.14a} it is shown the output generated by **clusterNgriph**. The output folder is called **Results** and it is located in the folder from which the analysis started. Within Results is present a folder named as the dataset used for the analysis. In this case 'annotated_buettner_G1G2MS_counts_10000bis'. In the latter folder is present a folder, in this specific example '5', named with the number of clusters that were more represented as result of the bootstrap analysis. The file indicated with the blue arrow contains all the information to generate the griph output plot, used as reference to allocate cells to a specific cluster at each bootstrap step. The file indicated with the green arrow contains the cluster position for each cell over all bootstrap steps. The file indicated with the red arrow contains the cells removed at  each bootstrap steps. The file called 'hist.pdf', indicated with the black arrow, is the plot of the frequency of different number of clusters generated by griph as consequence of the bootstrap steps. In this specific case, over 160 permutations, 80 produced 5 clusters, 70 4 clusters and 10 6 clusters. 
+In Figure \ref{fig:fig.14a} it is shown the output generated by **clusterNgriph**. The output folder is called **Results** and it is located in the folder from which the analysis started. Within Results is present a folder named as the dataset used for the analysis. In this case 'annotated_buettner_G1G2MS_counts_10000bis'. In the latter folder is present a folder, in this specific example '5', named with the number of clusters that were more represented as result of the bootstrap analysis. The file indicated with the blue arrow contains all the information to generate the griph output plot, used as reference to allocate cells to a specific cluster at each bootstrap step. The file indicated with the green arrow contains the cluster position for each cell over all bootstrap steps. The file indicated with the red arrow contains the cells removed at  each bootstrap steps. The file called 'hist.pdf', indicated with the black arrow, is the plot of the frequency of different number of clusters generated by griph as consequence of the bootstrap steps. In this specific case, over 160 permutations, 80 produced 5 clusters, 70 produced 4 clusters and 10 produced 6 clusters. 
 
 ```{r fig.14a, fig.cap="Output of clusterNgriph", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/griph3.jpeg')
 ```
 
-It has to be noted that in principle, since this dataset has a strong cell cycle effect, we would have expected ideally only three clusters: G1, S and G2M. This toy experiment clearly show that perturbation of the dataset under analysis can affect the number of detectable clusters. Thus, to identify the clustering condition that guarantee the greatest cell stability in a cluster, in our opinion it is mandatory clustering cells taking in account perturbation effects. In Section 4.2 we further investigate this issue. 
+It has to be noted that in principle, since this dataset has a strong cell cycle effect, we would have expected ideally only three clusters: G1, S and G2M. This toy experiment clearly shows that perturbation of the dataset under analysis can affect the number of detectable clusters. Thus, to identify the clustering condition that guarantee the greatest cell stability in a cluster, in our opinion it is mandatory clustering cells taking in account perturbation effects. In Section 4.2 we further investigate this issue. 
 
 #### **Section 4.2** Investigating how cell sub-populations aggregation is affected by dataset perturbations.
 
@@ -974,7 +974,7 @@ library(knitr)
 include_graphics('../inst/img/griph1.jpeg')
 ```
 
-PC1 show that, as the differences between cell populations become smaller, moving from setA to setD, the aggregation in homogeneous groups of cells is compromised (Figure \ref{fig:fig.15}A-D). It is, however, important to highlight that the sequencing coverage in this experiment is quite limited (see **Section 3.2.1**), and providing a higher sequencing depth/cell would definitely improve the sub-populations resolution.  
+PC1 shows that, as the differences between cell populations become smaller, moving from setA to setD, the aggregation in homogeneous groups of cells is compromised (Figure \ref{fig:fig.15}A-D). It is, however, important to highlight that the sequencing coverage in this experiment is quite limited (see **Section 3.2.1**), and providing a higher sequencing depth/cell would definitely improve the sub-populations resolution.  
 
 To observe the effect of the reduced dissimilarity between populations on the stability of the number of clusters, we use the rCASC **clusterNgriph** function on the above mentioned 4 datasets using 160 permutations/each, and randomly removing in each permutation 10\% of the cells. Each analysis took approximately 60 mins on a SeqBox hardware. 
 
@@ -1013,7 +1013,7 @@ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
 
 It is notable that as the differences between the cells populations is narrowing (i.e in setA cells types are quite different in overall functional activity, as in setD four out of five cell types are T-cells sub-populations) the fluctuations in the detected number of clusters increase. In setA, where PCA is able to discriminate between the five cell populations (Figure \ref{fig:fig.15}A), out of 160 bootstraps only 1 gave a number of clusters different from the effective number of cell sub-populations (Figure \ref{fig:fig.16}A). In set D, where four out of five sub-populations are T-cell, PCA (Figure \ref{fig:fig.15}D) provides a good discrimination only for NK cells and the clusters detected by griph upon bootstraps fluctuate between 3 to 5 (Figure \ref{fig:fig.16}D). 
 
-```{r fig.16, fig.cap="Clusters number stability is dependent by the cell type similarity: A) number of clusters detectable by griph in setA, B) number of clusters detectable by griph in setB, C) number of clusters detectable by griph in setC, D) number of clusters detectable by griph in setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+```{r fig.16, fig.cap="Clusters number is dependent by the cell type similarity: A) number of clusters detectable by griph in setA, B) number of clusters detectable by griph in setB, C) number of clusters detectable by griph in setC, D) number of clusters detectable by griph in setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/griph2.jpeg')
 ```
@@ -1086,7 +1086,7 @@ legend("topleft", legend=c("Naive T-cytotoxic", "T-cytotoxic", "T-helper", "Mono
 
 Figure \ref{fig:fig.17}  shows the number of identical genes found in common between naive T-cells and the other sub-populations in setA and setD, using lists of increasing size and ordered by expression level. The plot shows that naive T-cytotoxic, T-cytoxic and T-helper, from setD, share with naive T-cells, within the top 500 most expressed genes, more genes with respect to the other cell types present in setA. Thus, the lack of cell-type specific genes between 4 out 5 cell types in SetD dataset negatively affect the stability dataset partitioning, upon bootstraps. 
 
-```{r fig.17, fig.cap="Identity between naive T-cells and the other cell types in set A and D in lists of increasing length. Identity between two data sets is shown by the dashed line.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+```{r fig.17, fig.cap="Identity between naive T-cells and the other cell types in set A and D in gene lists of increasing length. Identity between two data sets is shown by the dashed line.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/griph4.jpeg')
 ```
@@ -1107,7 +1107,7 @@ include_graphics('../inst/img/simlr_1.jpeg')
 
 Specifically, we use SIMLR as clustering method recording the effects of data pertubation, i.e. removal of random subset of cells, on the clustering structure. Although, we think SIMLR provides important advantages with respect to other clustering methods, rCASC framework can embed also other data reduction tools. At the present time, tSne is also implemented within the rCASC data permutation framework.
 
-The peculiarity of rCASC is the user tunable bootstrap procedure. rCASC represents bootstrap results via a cell stability score (Figure \ref{fig:fig.19}). In brief, a set of cells to be organized in clusters  (Figure \ref{fig:fig.19}A) is analysed with SIMLR, applying a users defined k number of clusters (Figure \ref{fig:fig.19}B), see Section 4 for more information on how to identify a range of number of clusters to be passed to SIMLR. A user defined \% of cells is removed from the original data set and these cells are clustered again (Figure \ref{fig:fig.19}C). The clusters obtained in each bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure \ref{fig:fig.19}D-E). If the Jaccard index is greater of a user defined threshold, e.g. 0.8, the cluster is called confirmed in the bootstrap step (Figure \ref{fig:fig.19}F) and to each cell, belonging to that cluster, to its *cell stability score* is added 1 (Figure \ref{fig:fig.19}G). Then, cells are labelled with different symbols describing their stability in a specific cluster (Figure \ref{fig:fig.19}H), on the basis of the cells scores obtained as a consequence of the bootstrap analysis.
+The peculiarity of rCASC is the user tunable bootstrap procedure. rCASC represents bootstrap results via a cell stability score (Figure \ref{fig:fig.19}). In brief, a set of cells to be organized in clusters  (Figure \ref{fig:fig.19}A) is analysed with SIMLR, applying a users defined k number of clusters (Figure \ref{fig:fig.19}B), see Section 4 for more information on how to identify a range of number of clusters to be passed to SIMLR. A user defined \% of cells is removed from the original data set and these cells are clustered again (Figure \ref{fig:fig.19}C). The clusters obtained in each bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure \ref{fig:fig.19}D-E). If the Jaccard index is greater of a user defined threshold, e.g. 0.8, the cluster is called confirmed in the bootstrap step (Figure \ref{fig:fig.19}F). Then to each cell, belonging to the confirmed cluster, *cell stability score* value is increased of 1 unit (Figure \ref{fig:fig.19}G). At the end of the bootstrap procedure, cells are labelled with different symbols describing their *cell stability score* in a specific cluster (Figure \ref{fig:fig.19}H).
 
 ```{r fig.19, fig.cap="Cell stability score", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
@@ -1162,7 +1162,7 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
 ```
 \fontsize{10}{10}\selectfont
 
-The output of **simlrBootstrap** function is described in Figure \ref{fig:fig.20}. The output is localized in the *Results* folder (Figure \ref{fig:fig.20} Folders 1), which is created in the folder where the analysis started. This folder contains the count matrices used in the analyses. In this example the count matrices are those belonging to setA and B (see Section 4.1). In the *Results* folder  are also present folders labelled with the name of the count matrix used in the analysis (Figure \ref{fig:fig.20} Folders 2, annotated\_bmsnkn\_5x100cells, annotated\_bmHnkn\_5x100cells). In each of these folders there are a set of folders indicated with a number that refers to the analysed range of number of clusters (Figure \ref{fig:fig.20} Folders 3). In this specific example  the range of clusters goes from 4 to 6. In each *NameOfCountMatrix* folder there is a file called **\_Stability\_Violin\_Plot.pdf** (Figure \ref{fig:fig.20}A) which represents the distribution of the cells stability scores over the bootstraps in the range of number of clusters investigated. In this example, it is clear that the analysis done with 5 clusters is the one providing the highest stability of cells within each cluster. The other plot that is also available in the folder (Figure \ref{fig:fig.20} Folders 4) is **NameOfCountMatrix\_vioplot.pdf**, Figure \ref{fig:fig.20}B, which contains the distribution of the [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) values for each cluster over the bootstraps. [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) value is a measure of computation cluster stability, and evaluates how similar an object is to its own cluster (cohesion) compared to other clusters (separation). Clearly the information provided by Silhuette plot is much less informative for the definition of the optimal clustering number with respect to the information provided by the cells stability score (Figure \ref{fig:fig.20} blue arrow). In each clustering folder there is a pdf named *NameOfCountMatrix_Stability_Plot.pdf*, which contains two plots (Figure \ref{fig:fig.20}C-D) generated with the clustering program. The plot in Figure \ref{fig:fig.20}C provides a 2D view of the clustering results. In this plot each cell is labelled with a simbol indicating its cell stability score. In this specific example of the plot generated with 5 clusters shows that all cells remain in a cluster between 75 to 100\% of the bootstraps (+ simbol). The plot, Figure \ref{fig:fig.20}D, shows the genes detectable in each cell in function of the total number of reads/cell. In this plot cells are colored with the same color of their belonging cluster. This plot is useful to observe if the clustering is biased by the number of genes called in each cluster. In this specific example, only the blue cluster is charaterized by a number of detected genes, which is larger of those detectable in the other clusters (Figure \ref{fig:fig.20}D). This is expected, since blue cluster is made of Monocytes, which have been sequenced to 100K reads/cells, as all other cells in setA were sequenced between 19 to 29K reads/cell, see **Section 4.2**.
+The output of **simlrBootstrap** function is described in Figure \ref{fig:fig.20}. The output is localized in the *Results* folder (Figure \ref{fig:fig.20} Folder 1), which is created in the folder where the analysis started. This folder contains the count matrices used in the analyses. In this example the count matrices are those belonging to setA and B (see Section 4.1). In the *Results* folder  are also present folders labelled with the name of the count matrix used in the analysis (Figure \ref{fig:fig.20} Folder 2, annotated\_bmsnkn\_5x100cells, annotated\_bmHnkn\_5x100cells). In each of these folders there are a set of folders indicated with a number that refers to the analysed range of number of clusters (Figure \ref{fig:fig.20} Folder 3). In this specific example  the range of clusters goes from 4 to 6. In each *NameOfCountMatrix* folder there is a file called **\_Stability\_Violin\_Plot.pdf** (Figure \ref{fig:fig.20}A) which represents the distribution of the cells stability scores over the bootstraps in the range of number of clusters investigated. In this example, it is clear that the analysis done with 5 clusters is the one providing the highest stability of cells within each cluster. The other plot that is also available in the folder (Figure \ref{fig:fig.20} Folders 4) is **NameOfCountMatrix\_vioplot.pdf**, Figure \ref{fig:fig.20}B, which contains the distribution of the [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) values for each cluster over the bootstraps. [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) value is a measure of computation cluster stability, and evaluates how similar an object is to its own cluster (cohesion) compared to other clusters (separation). Clearly the information provided by Silhuette plot is much less informative for the definition of the optimal clustering number with respect to the information provided by the cells stability score (Figure \ref{fig:fig.20} blue arrow). In each clustering folder there is a pdf named *NameOfCountMatrix_Stability_Plot.pdf*, which contains two plots (Figure \ref{fig:fig.20}C-D) generated with the clustering program. The plot in Figure \ref{fig:fig.20}C provides a 2D view of the clustering results. In this plot each cell is labelled with a simbol indicating its cell stability score. In this specific example of the plot generated with 5 clusters shows that all cells remain in a cluster between 75 to 100\% of the bootstraps (+ simbol). The plot, Figure \ref{fig:fig.20}D, shows the genes detectable in each cell in function of the total number of reads/cell. In this plot cells are colored with the same color of their belonging cluster. This plot is useful to observe if the clustering is biased by the number of genes called in each cluster. In this specific example, only the blue cluster is charaterized by a number of detected genes, which is larger of those detectable in the other clusters (Figure \ref{fig:fig.20}D). This is expected, since blue cluster is made of Monocytes, which have been sequenced to 100K reads/cells, as all other cells in setA were sequenced between 19 to 29K reads/cell, see **Section 4.2**.
 
 ```{r fig.20, fig.cap="simlrBootstrap output", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
@@ -1173,7 +1173,7 @@ include_graphics('../inst/img/simlr_3.jpeg')
 
  In Figure \ref{fig:fig.21} are shown the effects, on cell stability, in SIMLR analysis done with 4 and 6 clusters for SetA (*annotated_bmsnkn_5x100cells.txt*) counts matrix. Using 4 as number of clusters, Figure \ref{fig:fig.21}A, some of the cells in each cluster show a reduced stability (50-75\%, triangle) and arrows highlights cells characterized by a cell stability score between 25 to 50\%. The circles in Figure \ref{fig:fig.21}B show the clusters where the full cluster has a cell stability between 50 to 75\%. This observation indicates that the stability score is a useful measure to identify the optimal number of partitions to be used, i.e. the highest cell stability score  was observed when five clusters were selected, corresponding to the number of cell types combined in SetA, see **Section 4.1**. 
  
-```{r fig.21, fig.cap="Cell stability plots", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+```{r fig.21, fig.cap="Clustering output including cell stability score", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/simlr_4.jpeg')
 ```
@@ -1278,7 +1278,7 @@ include_graphics('../inst/img/simlr_5.jpeg')
 
 ## **Section 6** Detecting the genes playing the major role in clusters formation
 
-Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments [[Soneson et al.](https://www.ncbi.nlm.nih.gov/pubmed/29481549)]. However, the number of tools applicable to single-cells and allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR also provides a raking score for the genes that are affecting mostly the clusters organization. SIMLR gene raking does not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
+Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments [[*Soneson et al.*](https://www.ncbi.nlm.nih.gov/pubmed/29481549)]. However, the number of tools applicable to single-cells and allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR also provides a ranking score for the genes that are affecting mostly the clusters organization. SIMLR gene ranking does not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
 Both methods were implemented as part of the rCASC framework.
 
 ### **Section 6.1** A statistical approach: EdgeR ANOVA-like
@@ -1399,7 +1399,7 @@ include_graphics('../inst/img/hfc1.jpeg')
 
 ### **Section 6.2** A machine learning approach: SIMLR prioritization
 
-SIMLR gene prioritization approach relies on the output similarity and does not depend on the downstream dimension reduction or clustering. The advantage of this step is that one can identify highly fluuctuating genes that are consistent with the learned similarity in the multiple-kernel space.
+SIMLR gene prioritization approach relies on the output similarity and does not depend on the downstream dimension reduction or clustering. The advantage of this step is that one can identify highly fluctuating genes that are consistent with the learned similarity in the multiple-kernel space.
 
 The function **genesPrioritization** executes SIMLR gene prioritization within the rCASC bootstrap framework. 
 
@@ -1477,9 +1477,9 @@ include_graphics('../inst/img/geneselection.jpeg')
 
 The output of **genesSelection** is a file with extension **_clusters_specific_geneSYMBOLs.txt**, which can be used as input for **hfc** function, see **Section 6.1.1**. The list of prioritized genes cannot not be associated to a specific cluster as in the case of the anovaLike, see **Section 6.1**. Thus, more information will be provided on the cluster specificity from the heatmap visualization (Figure \ref{fig:fig.29}), see **hfc** function. 
 
-## **Section 7** An example of rCASC analysis: PACE et al. Science 2018.
+## **Section 7** An example of rCASC analysis: [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264).
 
-[Pace et al.](https://www.ncbi.nlm.nih.gov/pubmed/29326266) explored the role histone methyltransferase Suv39h1 in murine CD8+ T cells activated after Listeria monocytogenes infection.  They showed that Suv39h1 controls the expression of a set of stem cell-related memory genes and its silencing increases long-term memory reprogramming capacity. The single-cell sequencing data from the [*Pace's Science  paper*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) are available at [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264):
+[Pace et al.](https://www.ncbi.nlm.nih.gov/pubmed/29326266) explored the role of histone methyltransferase Suv39h1 in murine CD8+ T cells activated after Listeria monocytogenes infection.  They showed that Suv39h1 controls the expression of a set of stem cell-related memory genes and its silencing increases long-term memory reprogramming capacity. The single-cell sequencing data from the [*Pace's Science  paper*](https://www.ncbi.nlm.nih.gov/pubmed/29326266):
 
 - naive CD8+ T lymphocytes, here named **N** 
 
@@ -1493,7 +1493,7 @@ The output of **genesSelection** is a file with extension **_clusters_specific_g
 
 ### **Section 7.1** Selecting subsets of cells with the highest number of called genes.
 
-On the basis of our observation in **Section 3.2.1** . We selected, for each of the above mentioned groups, the cells with higher number of total reads/cell. Specifically we analysed a total of 600 cells, combining respectively 50 cells from **N** and **Nd** and 250 cells for **NA** and **NdA**.  The rational of the different number of cells for the naive and the activated is due to the expectation that activated cells will be organize in mutiple clusters and naive are expected to be homogeneous. Cell labels in the counts table were modified adding the groups *N*, *Nd*, *NA* and *NdA*.
+On the basis of our observation in **Section 3.2.1**, we selected, for each of the above mentioned groups, the cells with higher number of total reads/cell. Specifically we analysed a total of 600 cells, combining respectively 50 cells from **N** and **Nd** and 250 cells for **NA** and **NdA**.  The rational of the different number of cells for the naive and the activated is due to the expectation that activated cells will be organize in mutiple clusters and naive are expected to be homogeneous. Cell labels in the counts table were modified adding the groups *N*, *Nd*, *NA* and *NdA*.
 
 Using this dataset we tried to address the following questions: 
 
@@ -1506,17 +1506,17 @@ Using this dataset we tried to address the following questions:
 
 With the script below we have performed the following steps:
 
-- annotated the counts table with **scannobyGt** function, 
+- annotating the counts table with **scannobyGt** function, 
 
-- removed the ribosomal and mitochondrial genes with **scannobyGt** function, 
+- removing the ribosomal and mitochondrial genes with **scannobyGt** function, 
 
-- selected the most expressed 10K genes for the analysis with **topx** function,
+- selecting the most expressed 10K genes for the analysis with **topx** function,
 
-- detected the range of interesting number of cluster to be used for data partitioning (6-9) with **clusterNgriph**
+- detecting the range of interesting number of cluster to be used for data partitioning (6-9) with **clusterNgriph**
 
-- identified 6 as the optimal number of clusters and evaluated the cell stability in each cluster with **simlrBootstrap**
+- identifying 6 as the optimal number of clusters and evaluated the cell stability in each cluster with **simlrBootstrap**
 
-- generated the video of the bootstrap analysis with **bootstrapsVideo**
+- generating the video of the bootstrap analysis with **bootstrapsVideo**
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -1554,7 +1554,7 @@ bootstrapsVideo(group="docker", scratch.folder="/data/scratch",
 
 \pagebreak
 
-```{r fig.24, fig.cap="Analysis of Pace dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 6 clusters with simlrBootstrap, in parentesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters. D) Permutation 55 extracted from the video generate with bootstrapsVideo.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.24, fig.cap="Analysis of a subset of cells from GSE106264 dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 6 clusters with simlrBootstrap, in parentesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters. D) Permutation 55 extracted from the video generate with bootstrapsVideo.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/pace_1.jpeg')
 
@@ -1562,7 +1562,7 @@ include_graphics('../inst/img/pace_1.jpeg')
 
 
 
-In Figure \ref{fig:fig.24} are summarized the results of the analysis executed on the Pace's dataset.  Data perturbations, Figure \ref{fig:fig.24}A, allows data organization between 6 to 9 clusters, where 7 clusters is the most represented group. Cell stability score, from the SIMLR analysis executed on the above range of clusters, is shown in Figure \ref{fig:fig.24}B. Six clusters show a slighly higher stability with respect to the others. The overall stability of 6 clusters is however sub-optimal, since it is spread between 0 and 0.9  cell stability score.  In Figure \ref{fig:fig.24}C it is shown the clusters structure generated with SIMLR on 6 clusters.  Clusters 1, 3 and 4 show a quite good stability, Figure \ref{fig:fig.24}C. Cluster 3 is made of 44 **N** (88\%) and 48 **Nd** (96\%), suggesting that naive CD8+ T lymphocytes are not affected by the silencing of Suv39h1 gene. Cluster 1 contains 16 **NA** (6.4\%) and 14 **NdA** (5.6\%). Cluster 2 is made of 44.8\% of **NA** and 39.6\% of **NdA** cells. Clusters 1 & and 2 group together, interdependently from Suv39h1 gene silencing. Cluster 6 is made of 35\% **NA** and 13.6\% of **NdA**.  In cluster 6 the amount of **NA** and **NdA** is unbalance, suggesting that the Suv39h1 silencing does not guarantee the efficient differentiation of the cell subpopulation in cluster 6. Cluster 4 only contains **NdA** (33\%), indicating that at least a subpopulation of activated Suv39h1-silenced cells has a specific transcription profile that differentiate them from the wild type activated cells. Cluster 5 is made of 6 **N** cells, 2 **Nd** cells, 34 **NA** cells, 21 **NdA** cells. Despice the presence of a limited amount of naive cells, which might be explained as partially activated, cluster 5 is made mainly of activated cells, i.e. 13.6\% NA and 8.4\% NdA of total cells. The cluster structure (Figure \ref{fig:fig.24}D) and cell cluster stability scores (Figure \ref{fig:fig.24}C) might suggest that  cluster 5 is made of precursors of subpopulations in cluster 6, 2 and 3.
+In Figure \ref{fig:fig.24} are summarized the results of the analysis executed on the Pace's dataset.  Data perturbations, Figure \ref{fig:fig.24}A, allows data organization between 6 to 9 clusters, where 7 clusters is the most represented group. Cell stability score, from the SIMLR analysis executed on the above range of clusters, is shown in Figure \ref{fig:fig.24}B. Six clusters show a slighly higher stability with respect to the others. The overall stability of 6 clusters is however sub-optimal, since it is spread between 0 and 0.9  cell stability score.  In Figure \ref{fig:fig.24}C it is shown the clusters structure generated with SIMLR on 6 clusters.  Clusters 1, 3 and 4 show a quite good stability, Figure \ref{fig:fig.24}C. Cluster 3 is made of 44 **N** (88\%) and 48 **Nd** (96\%), suggesting that naive CD8+ T lymphocytes are not affected by the silencing of Suv39h1 gene. Cluster 1 contains 16 **NA** (6.4\%) and 14 **NdA** (5.6\%). Cluster 2 is made of 44.8\% of **NA** and 39.6\% of **NdA** cells. Clusters 1 and 2 group together, interdependently from Suv39h1 gene silencing. Cluster 6 is made of 35\% **NA** and 13.6\% of **NdA**.  In cluster 6 the amount of **NA** and **NdA** is unbalance, suggesting that the Suv39h1 silencing does not guarantee the efficient differentiation of the cell subpopulation in cluster 6. Cluster 4 only contains **NdA** (33\%), indicating that at least a subpopulation of activated Suv39h1-silenced cells has a specific transcription profile that differentiate them from the wild type activated cells. Cluster 5 is made of 6 **N** cells, 2 **Nd** cells, 34 **NA** cells, 21 **NdA** cells. Despice the presence of a limited amount of naive cells, which might be explained as partially activated, cluster 5 is made mainly of activated cells, i.e. 13.6\% NA and 8.4\% NdA of total cells. The cluster structure (Figure \ref{fig:fig.24}D) and cell cluster stability scores (Figure \ref{fig:fig.24}C) might suggest that  cluster 5 is made of precursors of subpopulations in cluster 6, 2 and 3.
 
 
 **NB** \% always refers to the total number of cells used in this example (50 N, 50 Nd, 250 NA, 250 NdA); [*annotated_setPace_10000_clustering.output.txt*](http://130.192.119.59/public/annotated_setPace_10000_clustering.output.txt), contains all information required to reproduce clusters shown in Figure \ref{fig:fig.24}C. 
@@ -1651,7 +1651,7 @@ anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_1
 ```
 \fontsize{10}{10}\selectfont
 
-The following analysis focus only on up-regulated genes, i.e. those gene specifically more expressed in a cluster with respect ot the naive cluster used as reference in the ANOVA-like.
+The following analysis focus only on up-regulated genes, i.e. those gene specifically more expressed in a cluster with respect to the naive cluster used as reference in the ANOVA-like.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -1667,25 +1667,19 @@ clustersFeatures(group="docker", data.folder=getwd(),
 ```
 \fontsize{10}{10}\selectfont
 
-We analysed the results coming out of the **clustersFeatures** selection focusing on the two clusters that are different in cell ratio between wt and Suv39h1-defective T-cells: cluster 1, showing a 2.4:1 ratio between wt and Suv39h1-defective T-cells,  and 2, only detected in Suv39h1-defective T-cells, Figure \ref{fig:fig.25}C. 31 genes were detected as specific for cluster 1. [*EnrichR*](http://amp.pharm.mssm.edu/Enrichr/) analysis indicated the overepresentation of STAT3 in ENCODE and ChEA Consensus TFs from ChIP-X datasets (Figure \ref{fig:fig.26}A) and TNFRSF13B, CCL5, CCL4 and CXCR6 in Cytokine-cytokine receptor interaction dataset. On the basis of the above observations and on a PUBMED search ([*Ccl5*](https://www.ncbi.nlm.nih.gov/pubmed/16982880), [*STAT3*](https://www.ncbi.nlm.nih.gov/pubmed/23830147), [*Ccl9*](https://www.ncbi.nlm.nih.gov/pubmed/27883012) and [*Cxcr6*](https://www.ncbi.nlm.nih.gov/pubmed/28855310)) we suggest that cluster 1 is made of memory precursors cells having some traits of memory cells. This cluster is also characterized by a unbalance ratio between activated wt T-cells and Suv39h1-defective T-cells.
+
+We analysed the results coming out of the **clustersFeatures** selection focusing on the two clusters that are different in cell ratio between wt and Suv39h1-defective T-cells: cluster 1, showing a 2.4:1 ratio between wt and Suv39h1-defective T-cells,  and 2, only detected in Suv39h1-defective T-cells, Figure \ref{fig:fig.25}C. 31 genes were detected as specific for cluster 1. [*EnrichR*](http://amp.pharm.mssm.edu/Enrichr/) analysis indicated the overepresentation of STAT3 in ENCODE and ChEA Consensus TFs from ChIP-X datasets and TNFRSF13B, CCL5, CCL4 and CXCR6 in Cytokine-cytokine receptor interaction dataset. On the basis of the above observations and on a PUBMED search ([*Ccl5*](https://www.ncbi.nlm.nih.gov/pubmed/16982880), [*STAT3*](https://www.ncbi.nlm.nih.gov/pubmed/23830147), [*Ccl9*](https://www.ncbi.nlm.nih.gov/pubmed/27883012) and [*Cxcr6*](https://www.ncbi.nlm.nih.gov/pubmed/28855310)), we suggest that cluster 1 is made of memory precursors cells having some traits of memory cells. This cluster is also characterized by an unbalance ratio between activated wt T-cells and Suv39h1-defective T-cells.
+
+Also cluster 2 has some traits of memory cells, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths and GO Biological process enrichment for **response to cytokine**. Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
 
 
-```{r fig.26, fig.cap="EnrichR analysis. A) Transcription specific enriched paths cluster 1. B) KEGG specific enriched paths cluster 1.  C) Transcription specific enriched paths cluster 2. D) GO Biological Process specific enriched paths cluster 2.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+The analysis of cluster 2 was extended using Ingenuity Pathways Analysis (IPA). This sub-population of cells, only detectable within Suv39h1-defective T-cells, is enriched for immuno-related functions: Development of hematopoietic progenitor cells, Adhesion of lymphocytes, Quantity of T-lymphocytes, Systemic autoimmune syndrome. A subset of cluster 2 genes can be also aggregated in a network characterized by various transcription factors (Figure \ref{fig:fig.26}). Interestingly, in this network are present Id3, Bach2 IL7R and Myc. Combining the information that Bach is associated to the generation ([*Roychoudhuri et al. 2016*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/27158840)) of long-lived memory cells and Id3  to their maintainance ([*Yang et al. 2011*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/22057289)) together with the knowledge that IL7R/Myc expression is found to be associated to a longer persistence of T-cell clones after adoptive transfer to patient ([*Chandran et al. 2015*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/26100671)) it coud be suggested that cells belonging to this cluster are precursors of long-lived memory cells. 
+
+
+```{r fig.26, fig.cap="IPA C2 connected genes. ", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
-include_graphics('../inst/img/c1_c2_specific1.jpeg')
+include_graphics('../inst/img/c2_connected.png')
 ```
-
-Also cluster 2 has some traits of memory cells, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths (Figure \ref{fig:fig.26}C) and GO Biological proces enrichment for **response to cytokine** (Figure \ref{fig:fig.26}D). Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
-
-\pagebreak
-
-
-```{r fig.30, fig.cap="Analysis of cluster specific genes. A) SIMLR cluster. B) KZ-score heatmap of cluster specific genes.  C) CPM plot indicates that Ccl5 highly expressed in the population of activated T cells only detectable in case of Suv39h1 silencing. D) CPM plot indicates that FOxp1 is highly expressed in naive T-cells.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
-library(knitr)
-include_graphics('../inst/img/c1_c2_specific2.jpeg')
-```
-
-Interestingly, cluster 2, made only of activated Suv39h1-defective T-cell, Figure \ref{fig:fig.30}C, show a high expression of Ccl5. In cluster 3, which is made of naive T-cells, there is an high expression of [*Foxp1, which plays an essential role in maintaining naive T cell quiescence, since in the absence of Foxp1, mature naive CD8(+) T-cells proliferate in direct response to homeostatic cytokine IL-7*](https://www.ncbi.nlm.nih.gov/pubmed/27001958).  
 
 
 The paper [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extends the information provided from the single cell analysis in Pace paper, suggesting the presence of unique Suv39h1-defective memory subset, cluster 2 in Figure \ref{fig:fig.25}C. Noteworthy, this example suggests that even few hunders cells are sufficient to discriminate between sub-populations.
