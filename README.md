@@ -1,12 +1,14 @@
-# CASC: Classification Analysis of Single Cell Sequencing Data
-Genome-wide single-cell measurements such as transcriptome sequencing enable the characterization of cellular composition as well as functional variation in homogenic/heterogenic cell populations. An important step in the single-cell transcriptome analysis is to group cells that belong to the same sub-type based on gene expression patterns [1-3]. Critical issues in cell clustering are (i) cluster stability and (ii) feature selection, i.e. the identification genes playing the major role in cluster formation. To address the above issues, we have developed CASC, an analysis workflow implemented in docker containers. CASC uses as core application to detect cell clusters the “kernel based similarity learning” [4] and allows: (i) identification of the optimal number of clusters for cell partitioning. (ii) The evaluation of clusters stability, measuring the permanence of a cell in a cluster upon random removal of subsets of cells. 
-CASC was tested on previously published data sets [1-3, ....]. 
+#rCASC
+Since the end of the 90's omics high-throughput technologies have generated an enormous amount of data, reaching today an exponential growth phase. Analysis of omics big data is a revolutionary means of understanding the molecular basis of disease regulation and susceptibility, and this resource is accessible to the biological/medical community via bioinformatics frameworks. However, because of the fast evolution of computation tools and omics methods, the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important issue [[*Nature, 6 July 2018*](https://www.nature.com/collections/prbfkwmwvz)] and there is a mandatory need to to guarantee robust and reliable results to the research community [[*Global Engage Blog*](http://www.global-engage.com/life-science/reproducibility-computational-biology/)].
 
-References
-1] Usoskin et al. Nat. Neurosci. 2014, 18:145–153
-[2] Pollen et al. Nat. Biotechnol. 2014, 32:1–37
-[3] Kolodziejczyk et al. Cell Stem Cell 2015, 17:471–485
-[4] Wang et al. Nat Methods. 2017 14:414-416
+Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [*Kulkarni et al. BMC Bioinformatics, in press*] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al. Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
+
+rCASC, Cluster Analysis of Single Cells, is part of the [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [[*PLoS Comp Biol. 2013*](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285)]. rCASC is designed to provide a complete workflow (Figure \ref{fig:fig.1}) for cell-subpopulation discovery. 
+
+![Fig. 1:rCASC workflow](casc_workflow.jpeg)
+
+
+
 
 ## Installation
 
