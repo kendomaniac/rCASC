@@ -876,7 +876,7 @@ include_graphics('../inst/img/griph3.jpeg')
 
 It has to be noted that in principle, since this dataset has a strong cell cycle effect, we would have expected ideally only three clusters: G1, S and G2M. This toy experiment clearly shows that perturbation of the dataset under analysis can affect the number of detectable clusters. Thus, to identify the clustering condition that guarantee the greatest cell stability in a cluster, in our opinion it is mandatory clustering cells taking in account perturbation effects. In Section 4.2 we further investigate this issue. 
 
-#### **Section 4.2** Investigating how cell sub-populations aggregation is affected by dataset perturbations.
+#### **Section 4.2** K-mean clustering: Investigating how cell sub-populations aggregation is affected by dataset perturbations.
 
 As indicated above we are interested to identify not only the optimal cluster number but also if the cluster number is affected by removal of a random subset of cells. 
 To observe the effect of datasets perturbation in clustering we built 4 datasets combining different cell types available in [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper:
@@ -1095,7 +1095,7 @@ The results describes in this section indicate that **clusterNgriph** is a valua
 
 
 
-## **Section 5** Clustering cell sub-populations by mean of kernel based similarity learning ([*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)).
+## **Section 5** K-mean clustering: detecting cell sub-populations by mean of kernel based similarity learning ([*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)).
 
 
 The number of clustering and dimension reduction methods for single cell progressively increased over the last few years. Last year [*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) published SIMLR, a framework which learns a similarity measure from single-cell RNA-seq data in order to perform dimensions reduction. We decided to select this method as core clustering tool in rCASC, because outperformed eight methods published before 2017 (Figure \ref{fig:fig.18}).
@@ -1276,12 +1276,49 @@ include_graphics('../inst/img/simlr_5.jpeg')
 
 \pagebreak
 
-## **Section 6** Detecting the genes playing the major role in clusters formation
+## **Section 6** Hierarchical clustering: [*Seaurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html) graph-based clustering.
+
+Recently [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al*](https://f1000research.com/articles/7-1141/v2) described, in their independent comparison papers, that [*Seurat*](https://satijalab.org/seurat/) delivered the overall best performance. Thus, we decided to include in our workflow also it. Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metagene’ that combines information across a correlated gene set. 
+The first step of the analysis is the identification of the how many PCs have to be to included.
+
+seuratPCAEval
+tSne is embedded in **tsneBootstrap** function within the rCASC bootstrap framework. 
+
+- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+    + *scratch.folder*,	the path of the scratch folder
+    + *file*,	the path of the file, with file name and extension included
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *seed*,	important value to reproduce the same results with same input, default is 111
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+library(rCASC)
+#annotating data setA
+scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+                    gtf.name="genome.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+
+
+#running tSne analysis using the range of clusters suggested by clusterNgriph in session 4.2
+seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
+              file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+              nPerm=160, permAtTime=8, percent=10, range1=4, r
+
+```
+
+
+
+## **Section 7** Detecting the genes playing the major role in clusters formation
 
 Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments [[*Soneson et al.*](https://www.ncbi.nlm.nih.gov/pubmed/29481549)]. However, the number of tools applicable to single-cells and allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR also provides a ranking score for the genes that are affecting mostly the clusters organization. SIMLR gene ranking does not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
 Both methods were implemented as part of the rCASC framework.
 
-### **Section 6.1** A statistical approach: EdgeR ANOVA-like
+### **Section 7.1** A statistical approach: EdgeR ANOVA-like
 
 The function **anovaLike** executes edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette. 
 
@@ -1346,7 +1383,7 @@ clustersFeatures(group="docker", data.folder=getwd(),
 ```
 \fontsize{10}{10}\selectfont
 
-#### **Section 6.1.1** Visualizing cluster specific genes by heatmap.
+#### **Section 7.1.1** Visualizing cluster specific genes by heatmap.
 
 The gene-features extracted by **clustersFeatures** cannot be used again in **simlrBootstrap**, if the overall number of genes is smaller of the cell number, for more information see SIMLR publication.  This limitation does not apply to tsneBootstrap.
  
@@ -1397,7 +1434,7 @@ include_graphics('../inst/img/hfc1.jpeg')
 
 
 
-### **Section 6.2** A machine learning approach: SIMLR prioritization
+### **Section 7.2** A machine learning approach: SIMLR prioritization
 
 SIMLR gene prioritization approach relies on the output similarity and does not depend on the downstream dimension reduction or clustering. The advantage of this step is that one can identify highly fluctuating genes that are consistent with the learned similarity in the multiple-kernel space.
 
@@ -1477,7 +1514,7 @@ include_graphics('../inst/img/geneselection.jpeg')
 
 The output of **genesSelection** is a file with extension **_clusters_specific_geneSYMBOLs.txt**, which can be used as input for **hfc** function, see **Section 6.1.1**. The list of prioritized genes cannot not be associated to a specific cluster as in the case of the anovaLike, see **Section 6.1**. Thus, more information will be provided on the cluster specificity from the heatmap visualization (Figure \ref{fig:fig.29}), see **hfc** function. 
 
-## **Section 7** An example of rCASC analysis: [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264).
+## **Section 8** An example of rCASC analysis: [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264).
 
 [Pace et al.](https://www.ncbi.nlm.nih.gov/pubmed/29326266) explored the role of histone methyltransferase Suv39h1 in murine CD8+ T cells activated after Listeria monocytogenes infection.  They showed that Suv39h1 controls the expression of a set of stem cell-related memory genes and its silencing increases long-term memory reprogramming capacity. The single-cell sequencing data from the [*Pace's Science  paper*](https://www.ncbi.nlm.nih.gov/pubmed/29326266):
 
@@ -1491,7 +1528,7 @@ The output of **genesSelection** is a file with extension **_clusters_specific_g
 
 
 
-### **Section 7.1** Selecting subsets of cells with the highest number of called genes.
+### **Section 8.1** Selecting subsets of cells with the highest number of called genes.
 
 On the basis of our observation in **Section 3.2.1**, we selected, for each of the above mentioned groups, the cells with higher number of total reads/cell. Specifically we analysed a total of 600 cells, combining respectively 50 cells from **N** and **Nd** and 250 cells for **NA** and **NdA**.  The rational of the different number of cells for the naive and the activated is due to the expectation that activated cells will be organize in mutiple clusters and naive are expected to be homogeneous. Cell labels in the counts table were modified adding the groups *N*, *Nd*, *NA* and *NdA*.
 
@@ -1586,7 +1623,7 @@ This analysis can provide some preliminary answers to the questions raised above
 
 
 
-### **Section 7.2** Improving clustering results
+### **Section 8.2** Improving clustering results
 
 On the basis of Figure \ref{fig:fig.24}D and the output of [*bootstrapsVideo*](https://youtu.be/w5Jj8QxKXRU) clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus, we investigated  clustering cell stability for cluster 6 and 2 could be improved, removing cluster 5 cells, Figure \ref{fig:fig.24}C.
 
@@ -1630,7 +1667,7 @@ include_graphics('../inst/img/pace_2.jpeg')
 
 ```
 
-### **Section 7.3** Detecting the genes playing the major role in clusters generation: EdgeR ANOVA-like analysis
+### **Section 8.3** Detecting the genes playing the major role in clusters generation: EdgeR ANOVA-like analysis
 
 We detected a total of 2742 differentially expressed genes using the naive cluster 3 as reference in an ANOVA-like analysis, see **Section 6.1**. 
 
@@ -1686,7 +1723,7 @@ The paper [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv
 
 \pagebreak
 
-### **Section 8** rCASC versus other workflows
+### **Section 9** rCASC versus other workflows
 
 In the last few years a lot of tools for single-cell data manipulation have been published. However, the number of single cell analysis workflows are relatively few. Our non-exaustive search identified the following:
 

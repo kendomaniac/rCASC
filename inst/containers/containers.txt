@@ -17,4 +17,7 @@ docker.io/rcaloger/permutationanalysis
 docker.io/rcaloger/permutationclustering
 docker.io/rcaloger/permutationmovie
 docker.io/rcaloger/heatmapbase4seq
-
+docker.io/rcaloger/seuratpcaeval
+docker.io/rcaloger/seuratpermutation
+docker.io/rcaloger/seuratanalysis
+docker.io/rcaloger/seuratprior
