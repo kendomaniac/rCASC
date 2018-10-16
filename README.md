@@ -22,7 +22,7 @@ install_github("kendomaniac/rCASC", ref="master")
 
 You need to have docker installed on your linux machine, for more info see this document: https://docs.docker.com/engine/installation/. 
 
-The functions in CASC package require that user is sudo or part of a docker group. See the following document for more info: https://docs.docker.com/engine/installation/linux/ubuntulinux/#/manage-docker-as-a-non-root-user
+The functions in rCASC package require that user is sudo or part of a docker group. See the following document for more info: https://docs.docker.com/engine/installation/linux/ubuntulinux/#/manage-docker-as-a-non-root-user
 
 IMPORTANT The first time casc is installed the downloadContainers needs to be executed to download to the local repository the containers that are needed for the use of docker4seq
 
@@ -31,5 +31,7 @@ library(rCASC)
 downloadContainers()
 ```
 
-More info: [CASC vignette](http://rpubs.com/rcaloger/285423)
+More info: [rCASC vignette](http://rpubs.com/rcaloger/285423)
+
+**IMPORTANT** In case you are running rCASC in a virtual linux machine is important to assign to the machine at least 8 Gb RAM
 
