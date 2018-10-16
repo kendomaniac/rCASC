@@ -43,7 +43,7 @@ This function executes the docker container annotate.1, where refGenome is used 
      system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
      system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
      scannobyGtf(group="docker", file=paste(getwd(),"lorenz_testSCumi_mm10.csv",sep="/"),
-                   gtf.name="Mus_musculus.GRCm38.92.gtf",
+                   gtf.name="Homo_sapiens.GRCh38.94.gtf",
 biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
 }
 
