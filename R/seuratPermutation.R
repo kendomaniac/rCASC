@@ -33,6 +33,7 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
   #setting the data.folder as working folder
   if (!file.exists(data.folder)){
     cat(paste("\nIt seems that the ",data.folder, " folder does not exist\n"))
+    system("echo 2 > ExitStatusFile 2>&1")
     return(2)
   }
 

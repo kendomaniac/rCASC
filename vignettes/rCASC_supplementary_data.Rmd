@@ -1278,7 +1278,7 @@ include_graphics('../inst/img/simlr_5.jpeg')
 
 ## **Section 6** Hierarchical clustering: [*Seaurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html) graph-based clustering.
 
-Recently [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al*](https://f1000research.com/articles/7-1141/v2) described, in their independent comparison papers, that [*Seurat*](https://satijalab.org/seurat/) delivered the overall best performance. Thus, we decided to include in our workflow also it. Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metagene’ that combines information across a correlated gene set. 
+Recently [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al*](https://f1000research.com/articles/7-1141/v2) described, in their independent comparison papers, that [*Seurat*](https://satijalab.org/seurat/) delivered the overall best performance in cells clustering. Thus, we decided to include in our workflow also this clustering tool. Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metagene’ that combines information across a correlated gene set. 
 The first step of the analysis is the identification of the how many PCs have to be to included.
 
 
@@ -1311,14 +1311,16 @@ seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
 
 ```
 
-
+\fontsize{10}{10}\selectfont
 
 ```{r fig.32, fig.cap="Seurat dataset PC component.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/PCE_bowPlot.png')
 ```
 
-The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "annotated_bmsnkn_5x100cells". In the latter folder is present a PCA plot (PCE_bowPlot.pdf), which allow the identification of the PCs to use, defining a cutoff where there is a clear elbow in the graph.In this example, it looks like the elbow would fall around PC 6. 
+The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "annotated_bmsnkn_5x100cells". In the latter folder is present a PCA plot (PCE_bowPlot.pdf), which allow the identification of the PCs to use, defining a cutoff where there is a clear elbow in the graph. In this example, it looks like the elbow would fall around PC 6. 
+
+
 
 \pagebreak
 

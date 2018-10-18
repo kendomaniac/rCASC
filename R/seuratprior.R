@@ -115,6 +115,8 @@ resultRun <- runDocker(group=group, params=params)
   #Copy result folder
   cat("Copying Result Folder")
   system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/Results",sep=""))
+  system(paste("cp -r ",scrat_tmp.folder,"/",matrixName,"/",nCluster,"/",matrixName,"_geneRankList.",format," ",data.folder,sep=""))
+
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))
@@ -122,5 +124,6 @@ resultRun <- runDocker(group=group, params=params)
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
   system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+
   setwd(home)
 }
