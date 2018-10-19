@@ -9,6 +9,7 @@ header-includes:
 - \usepackage{makeidx}
 - \makeindex
 - \usepackage{setspace}\doublespacing
+- \usepackage{pdfpages}
 ---
 
 \newpage
@@ -1114,6 +1115,11 @@ library(knitr)
 include_graphics('../inst/img/simlr_2.jpeg')
 ```
 
+### **Section 5.1** Stability score formal description.
+\includepdf[pages={-}]{../vignettes/searchStability.pdf}
+
+\pagebreak
+
 SIMLR is embedded in **simlrBootstrap** function within the rCASC bootstrap framework. 
 
 - *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
@@ -1180,7 +1186,7 @@ include_graphics('../inst/img/simlr_4.jpeg')
 
 
 
-### **Section 5.1** Visualizing the cell clusters relocation during bootstraps.
+### **Section 5.2** Visualizing the cell clusters relocation during bootstraps.
 
 The function **permutationMovie** allows the generation of a video showing the relocation of cells at each bootstrap. In this example we use the results shown in Figure \ref{fig:fig.21}B, where circles show the clusters where all cells have a cell stability between 50 to 75\%. 
 
@@ -1215,7 +1221,7 @@ include_graphics('../inst/img/bootstrapsVideo_2.jpeg')
 
 \pagebreak
 
-### **Section 5.2** Comparing SIMLR and tSne
+### **Section 5.3** Comparing SIMLR and tSne
 
 In Wang [[*2017*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)] article it is demonstrated that SIMLR outperforms other data reduction methods (Figure \ref{fig:fig.18}). Here, we run a comparison between SIMLR and tSne within the rCASC bootstrap framework to observe how cells stability score is affected by the two clustering methods.
 
