@@ -880,10 +880,10 @@ It has to be noted that in principle, since this dataset has a strong cell cycle
 #### **Section 4.2** K-mean clustering: Investigating how cell sub-populations aggregation is affected by dataset perturbations.
 
 As indicated above we are interested to identify not only the optimal cluster number but also if the cluster number is affected by removal of a random subset of cells. 
-To observe the effect of datasets perturbation in clustering we built 4 datasets combining different cell types available in [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper:
+To observe the effect of datasets perturbation in clustering we built 4 datasets combining different cell types available in [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper (Bold cell types are those that were progressively substituted in setA):
 
 - setA 100 cell randomly selected for each cell type:
-    + B-cells (25K reads/cell), Monocytes  (100K reads/cell), **Stem cells** (24.7K reads/cell), Natural Killer cells (29K reads/cell), Naive T-cells (19K reads/cell)
+    + B-cells (25K reads/cell), Monocytes  (100K reads/cell), Stem cells (24.7K reads/cell), Natural Killer cells (29K reads/cell), Naive T-cells (19K reads/cell)
 
 - setB 100 cell randomly selected for each cell type:
     + B-cells, Monocytes, **T-helper cells** (21K reads/cell), Natural Killer, Naive T-cell
@@ -1591,15 +1591,31 @@ setwd("section4.1_examples")
 
 library(rCASC)
 
-#running Seurat clustering with bootstrap: threshold was detected at PC 6, see Section 6.
+#running Seurat PC distribution
+seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
+              file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+              separator="\t", logTen = 0, seed = 111)
+
+#running Seurat clustering with bootstrap
+seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111)
+
+#running Seurat clustering with bootstrap: elbow was detected at PC 6, see Section 6.
 seuratPrior(group="docker", scratch.folder="/data/scratch/", 
             file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), separator="\t", 
-            logTen=0, seed=111, PCADim=6, geneNumber=100, nCluster=5)
+            logTen=0, seed=111, PCADim=6, geneNumber=20, nCluster=5)
 
 ```
 \fontsize{10}{10}\selectfont
 
+The output is a file with the prefix **Markers\_**
 
+```{r fig.33, fig.cap="Seurat gene prioritization", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/seurat02.png')
+```
+
+\pagebreak 
 
 ## **Section 8** An example of rCASC analysis: [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264).
 
@@ -1712,7 +1728,7 @@ This analysis can provide some preliminary answers to the questions raised above
 
 ### **Section 8.2** Improving clustering results
 
-On the basis of Figure \ref{fig:fig.24}D and the output of [*bootstrapsVideo*](https://youtu.be/w5Jj8QxKXRU) clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus, we investigated  clustering cell stability for cluster 6 and 2 could be improved, removing cluster 5 cells, Figure \ref{fig:fig.24}C.
+On the basis of Figure \ref{fig:fig.24}D and the output of [*bootstrapsVideo*](https://youtu.be/w5Jj8QxKXRU) clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus, we investigated  if, removing cluster 5 cells (Figure \ref{fig:fig.24}C), cell stability score for cluster 6 and 2 could be improved.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -1812,7 +1828,7 @@ The paper [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv
 
 ### **Section 9** rCASC versus other workflows
 
-In the last few years a lot of tools for single-cell data manipulation have been published. However, the number of single cell analysis workflows are relatively few. Our non-exaustive search identified the following:
+In the last few years [*a lot of tools for single-cell data manipulation have been published*](https://www.scrna-tools.org). However, the number of single cell analysis workflows are relatively few. Our non-exaustive search identified the following:
 
 - [*Lun and coworkers*](https://f1000research.com/articles/5-2122/v1) recently described a single-cell workflow in Bioconductor, which is  embeded in [*simpleSingleCell*](http://master.bioconductor.org/packages/release/workflows/html/simpleSingleCell.html) Bioconductor workflow package.
 
@@ -1837,13 +1853,14 @@ For the comparison we evaluated the following parameters:
 
 ```{r fig.31, fig.cap="Workflows comparisons.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
-include_graphics('../inst/img/workflows_comparison.jpeg')
+include_graphics('../inst/img/workflows_comparison.png')
 ```
 
-In Figure \ref{fig:fig.31} are summarized the similarities and differences between rCASC and the other four workflows. rCASC is the only one providing support at fastq level, as all the others require a processed counts table. rCASC, SCell and Seurat data preprocessing offer more options than the others. The four workflows implement very different data reduction and clustering methods. Recently, [*Freytag and coworkers*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6124389/) published a comparison of clustering methods, in which Seurat and SIMLR were included. The two methods performed in similar way on the golden standard dataset used by Freytag.
-Only rCASC performs clustering in presence of data perturbation and it is also the only one that provides measurement for cluster quality using silhuette score, which measures the consistency within clusters of data, and Cells Stability Score, which measures the persistence of each cell in a cluster upon data perturbation. 
-As in the case of clustering also the gene feature selection approach is quite different between workflows and biological inference is only provided by Granatum.
-Considering reproducibility only rCASC provides both computational and functional reproducibility. Both Granatum and Scell perform data manipulation based on graphical tools, e.g. cell outlyers removal in Granatum and genes filtering in SCell preprocessing, which are not trackable, thus not providing functional reproducibility. On the other side simpleSingleCell and Seurat package cannot guarantee computational reproducibility unless they are embedded in a virtual machine or another type of virtual container , e.g. docker.
+In Figure \ref{fig:fig.31} are summarized the similarities and differences between rCASC and the other four workflows. rCASC is the only one providing support at fastq level, as all the others require a processed counts table. rCASC, SCell and Seurat data preprocessing offer more options than the others. The five workflows implement very different data reduction and clustering methods. Recently, [*Freytag and coworkers*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6124389/) published a comparison of clustering methods, in which Seurat and SIMLR were included. The two methods performed in similar way on the golden standard dataset used by Freytag. Freytag observation is also confermed in our test in **Section 6.1**.
+
+Only rCASC performs clustering in presence of data perturbation and it is also the only one that provides measurement for cluster quality using silhuette score, measuring the consistency within clusters of data, and Cells Stability Score, measuring the persistence of each cell in a cluster upon data perturbation. 
+Gene feature selection approaches are quite different between workflows and biological inference is only provided by Granatum. rCASC is the only one embedding three different feature selection approaches: ANOVA-like (EdgeR package), SIMLR and Seurat genes prioritization procedures.
+Considering reproducibility, only rCASC provides both computational and functional reproducibility. Both Granatum and Scell perform data manipulation based on graphical tools, e.g. cell outlyers removal in Granatum and genes filtering in SCell preprocessing, which are not trackable, thus not providing functional reproducibility. On the other side simpleSingleCell and Seurat package cannot guarantee computational reproducibility unless they are embedded in a virtual machine or another type of virtual container, e.g. docker.
 
 In conclusion, from the above comparisons, rCASC results to be a workflow with valuable new features that could help researchers in defining cells sub-populations and detecting sub-population specific markers, under the umbrella of data reproducibility.
 
