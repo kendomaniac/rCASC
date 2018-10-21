@@ -1,7 +1,7 @@
 ---
 title: "rCASC supplementary data"
-author: "Luca Alessandrì, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Gennaro De Libero, Luigia Pace, Francesca Cordero and Raffaele A Calogero"
-date: "02/10/2018"
+author: "Luca Alessandrì, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Gennaro De Libero, Luigia Pace, Francesca Cordero and Raffaele A Calogero"
+date: "20/10/2018"
 output: pdf_document
 toc: yes
 
@@ -1143,6 +1143,11 @@ unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
 library(rCASC)
 #annotating data setA
+#annotating data setA
+system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+
 scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
@@ -1248,8 +1253,16 @@ tSne is embedded in **tsneBootstrap** function within the rCASC bootstrap framew
 system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
+
+system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+
 library(rCASC)
 #annotating data setA
+
+
+
 scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
@@ -1305,10 +1318,12 @@ unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
 library(rCASC)
 #annotating data setA
-scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
-                    gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
-                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
 
+scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+                    gtf.name="Homo_sapiens.GRCh38.94.gtf", biotype="protein_coding", 
+                    mt=FALSE, ribo.proteins=FALSE,umiXgene=3)
 
 #running tSne analysis using the range of clusters suggested by clusterNgriph in session 4.2
 seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
@@ -1326,7 +1341,30 @@ include_graphics('../inst/img/PCE_bowPlot.png')
 
 The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "annotated_bmsnkn_5x100cells". In the latter folder is present a PCA plot (PCE_bowPlot.pdf), which allow the identification of the PCs to use, defining a cutoff where there is a clear elbow in the graph. In this example, it looks like the elbow would fall around PC 6. 
 
+**seuratBootstrap** function executes the seurat clustering using as data reduction method "PCA" and estimates cell stability score.  
 
+- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+    + *scratch.folder*,	 a character string indicating the path of the scratch folder
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations computed in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *pcaDimensions*,	0 for automatic dimensions.
+    + *seed*,	important value to reproduce the same results with same input
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+
+seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111)
+
+```
+
+\fontsize{10}{10}\selectfont
 
 \pagebreak
 
@@ -1727,7 +1765,7 @@ We analysed the results coming out of the **clustersFeatures** selection focusin
 Also cluster 2 has some traits of memory cells, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths and GO Biological process enrichment for **response to cytokine**. Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
 
 
-The analysis of cluster 2 was extended using Ingenuity Pathways Analysis (IPA). This sub-population of cells, only detectable within Suv39h1-defective T-cells, is enriched for immuno-related functions: Development of hematopoietic progenitor cells, Adhesion of lymphocytes, Quantity of T-lymphocytes, Systemic autoimmune syndrome. A subset of cluster 2 genes can be also aggregated in a network characterized by various transcription factors (Figure \ref{fig:fig.26}). Interestingly, in this network are present Id3, Bach2 IL7R and Myc. Combining the information that Bach is associated to the generation ([*Roychoudhuri et al. 2016*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/27158840)) of long-lived memory cells and Id3  to their maintainance ([*Yang et al. 2011*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/22057289)) together with the knowledge that IL7R/Myc expression is found to be associated to a longer persistence of T-cell clones after adoptive transfer to patient ([*Chandran et al. 2015*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/26100671)) it coud be suggested that cells belonging to this cluster are precursors of long-lived memory cells. 
+The analysis of cluster 2 was extended using Ingenuity Pathways Analysis (IPA). This sub-population of cells, only detectable within Suv39h1-defective T-cells, is enriched for immuno-related functions: Development of hematopoietic progenitor cells, Adhesion of lymphocytes, Quantity of T-lymphocytes, systemic autoimmune syndrome. A subset of cluster 2 genes can be also aggregated in a network characterized by various transcription factors (Figure \ref{fig:fig.26}). Interestingly, in this network are present Id3, Bach2 IL7R and Myc. Combining the information that Bach is associated to the generation ([*Roychoudhuri et al. 2016*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/27158840)) of long-lived memory cells and Id3  to their maintainance ([*Yang et al. 2011*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/22057289)) together with the knowledge that IL7R/Myc expression is found to be associated to a longer persistence of T-cell clones after adoptive transfer to patient ([*Chandran et al. 2015*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/26100671)) it coud be suggested that cells belonging to this cluster are precursors of long-lived memory cells. 
 
 
 ```{r fig.26, fig.cap="IPA C2 connected genes. ", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}

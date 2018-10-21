@@ -1,6 +1,6 @@
 ---
 title: "rCASC: reproducible Classification Analysis of Single Cell sequencing data"
-author: "^2^Luca Alessandrì, ^1^Marco Beccuti, ^2^Maddalena Arigoni, ^3^Martina Olivero, ^1^Greta Romano, ^4^Gennaro De Libero, ^5^Luigia Pace, ^1^Francesca Cordero and ^2^Raffaele A Calogero"
+author: "^2#^Luca Alessandrì, ^1#^Marco Beccuti, ^2^Maddalena Arigoni, ^3^Martina Olivero, ^1^Greta Romano, ^1^Sergio Rabellino, ^4^Gennaro De Libero, ^5^Luigia Pace, ^1*^Francesca Cordero and ^2*^Raffaele A Calogero"
 
 output: pdf_document
 
@@ -18,6 +18,9 @@ knitr::opts_chunk$set(fig.pos = 'h')
 ^3^Department of Oncology, University of Torino, SP142, 95, 10060 Candiolo TO, Italy, 
 ^4^Department Biomedizin, University of Basel, Hebelstrasse 20, 4031 Basel, Switzerland, 
 ^5^IIGM, Via Nizza 52, Torino, Italy
+
+^#^Both authors equally contributed the present work
+^*^Both authors equally supervised the present work
 \fontsize{10}{10}\selectfont
 
 ## Abstract
@@ -33,7 +36,7 @@ Single cell analysis is instrumental to understand the functional differences ex
 ```{r fig.1, fig.cap="rCASC workflow. A) rCASC modules, outputs for the relevant steps of the workflow are shown in capital letters in parenthesis. B) Depicting the range of clusters to be investigated with k-mean clustering tools (SIMLR or tSne). C) Cell stability score for the selected range of clusters. D) SIMLR clusterization results for the number of clusters showing the most homogeneous cell stability score, i.e. 5 clusters. E) Z-score heatmap of prioritized clusters-specific genes. Color bar refers to clusters colors in D. F) Cell stability score in E. Colors refers to clusters' colors.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 
-include_graphics('../inst/img/rCASC_workflow.jpeg')
+include_graphics('../inst/img/casc_workflow.jpeg')
 
 ```
 

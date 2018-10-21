@@ -25,11 +25,9 @@ seuratBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
 
-\item{pcaDimensions, }{0 for automatic dimensions.}
+\item{pcaDimensions, }{PCA threshold selected using seuratPCAEval function.}
 
 \item{seed, }{important value to reproduce the same results with same input}
-
-\item{nCluster, }{number of cluster that has to be analyzed}
 }
 \value{
 VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
