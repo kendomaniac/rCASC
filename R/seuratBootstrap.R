@@ -8,9 +8,9 @@
 #' @param percent, percentage of randomly selected cells removed in each permutation
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
-#' @param pcaDimensions, 0 for automatic dimensions.
+#' @param pcaDimensions, PCA threshold selected using seuratPCAEval function.
 #' @param seed, important value to reproduce the same results with same input
-#' @param nCluster, number of cluster that has to be analyzed
+
 
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino

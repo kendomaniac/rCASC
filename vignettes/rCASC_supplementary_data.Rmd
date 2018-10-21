@@ -22,11 +22,11 @@ knitr::opts_chunk$set(fig.pos = 'h')
 
 ## **Section 1** rCASC: a single cell analysis workflow designed to provide data reproducibility
 
-Since the end of the 90's omics high-throughput technologies have generated an enormous amount of data, reaching today an exponential growth phase. Analysis of omics big data is a revolutionary means of understanding the molecular basis of disease regulation and susceptibility, and this resource is accessible to the biological/medical community via bioinformatics frameworks. However, because of the fast evolution of computation tools and omics methods, the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important issue [[*Nature, 6 July 2018*](https://www.nature.com/collections/prbfkwmwvz)] and there is a mandatory need to to guarantee robust and reliable results to the research community [[*Global Engage Blog*](http://www.global-engage.com/life-science/reproducibility-computational-biology/)].
+Since the end of the 90's omics high-throughput technologies have generated an enormous amount of data, reaching today an exponential growth phase. Analysis of omics big data is a revolutionary means of understanding the molecular basis of disease regulation and susceptibility, and this resource is accessible to the biological/medical community via bioinformatics frameworks. However, because of the fast evolution of computation tools and omics methods, the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important issue [[*Nature, 2018*](https://www.nature.com/collections/prbfkwmwvz)] and there is a mandatory need to to guarantee robust and reliable results to the research community [[*Global Engage Blog*](http://www.global-engage.com/life-science/reproducibility-computational-biology/)].
 
-Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [*Kulkarni et al. BMC Bioinformatics, in press*] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al. Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
+Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [[*Kulkarni et al.*](https://rdcu.be/9gMq)] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al.*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
 
-rCASC, Cluster Analysis of Single Cells, is part of the [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [[*PLoS Comp Biol. 2013*](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285)]. rCASC is designed to provide a complete workflow (Figure \ref{fig:fig.1}) for cell-subpopulation discovery. 
+rCASC, reproducible Cluster Analysis of Single Cells, is part of the [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [[*PLoS Comp Biol. 2013*](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285)]. rCASC is designed to provide a complete workflow (Figure \ref{fig:fig.1}A) for cell-subpopulation discovery. 
 
 ```{r fig.1, fig.cap="rCASC workflow", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
@@ -49,7 +49,7 @@ The RAM and CPU requirements are dependent on the data set under analysis, e.g. 
 
 - 500 GB SSD
 
-The analysis time can be significantly improved increasing the number of cores. Cluster implementation of the workflow using [*swarm*](https://docs.docker.com/engine/swarm/) is under implementation. 
+The analysis time can be significantly improved increasing the number of cores.  Implementation of the workflow for computers farm, using [*swarm*](https://docs.docker.com/engine/swarm/), is under implementation. 
 
 ### **Section 1.2** Installation
 
@@ -93,7 +93,7 @@ downloadContainers()
 
 ### **Section 2.1** inDrop seq
 
-inDrop single-cell sequencing approach was originally published by Klein [[*Cell 2015*](https://www.ncbi.nlm.nih.gov/pubmed/26000487)]. Then, two year after that, the authors published the detailed protocol in [[*Zilionis et al. Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which has different primer design comparing to the orginal paper (Figure \ref{fig:fig.2}). 
+inDrop single-cell sequencing approach was originally published by Klein [[*Cell 2015*](https://www.ncbi.nlm.nih.gov/pubmed/26000487)]. Then, the authors published the detailed protocol in [[*Zilionis et al. Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which has different primer design comparing to the original paper (Figure \ref{fig:fig.2}). 
 
 ```{r fig.2, fig.cap="inDrop library structure", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
@@ -113,11 +113,11 @@ include_graphics('../inst/img/indropv2.jpg')
 
 #### **Section 2.1.1** inDrop data analysis
 
-There are two main functions, **indropIndex** and **indropCounts**, allowing to go from fastq files to counts table.
+There are two main functions, **indropIndex** and **indropCounts**, allowing the generation of a counts table starting from fastq files.
     
 ##### **Section 2.1.1.1** indropIndex: Creates a reference genome for inDrop V2 
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *index.folder*: the folder where the reference genome will be created 
 
     + *ensembl.urlgenome*:	the link to the ENSEMBL unmasked genome sequence of interest.
@@ -140,7 +140,7 @@ indropIndex(group="docker", index.folder=getwd(),
 
 ##### **Section 2.1.1.2** indropCounts: Converts fastq in UMI counts using [*inDrop workflow*](https://github.com/indrops)
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
 
     + *scratch.folder*,	a character string indicating the path of the scratch folder
     + fastq.file*,	a character string indicating the folder where input data are located and where output will be written
@@ -165,7 +165,7 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 
 ### **Section 2.2** 10XGenomics
 
-The function, **cellrangerCount** allows to go from fastq files to counts table. This function implements [*Cellranger*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview) , the 10xGenomics tool allowing the conversion of the fastqs, generated with 10XGenomics platform, into a count matrix. 
+The function, **cellrangerCount** allows the generation of a counts table starting from fastq files. This function implements [*Cellranger*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview), the 10xGenomics tool allowing the conversion of the fastqs, generated with 10XGenomics platform, into a count matrix. 
 Genome indexes are retrieved from 10Xgenomics repository:
 
 \fontsize{8}{8}\selectfont
@@ -185,7 +185,7 @@ system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and
 ```
 \fontsize{10}{10}\selectfont
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *fastq*, the path to the folder, where 10XGenomics fastq.gz files are located.
     + *transcriptome*,	the path to the Cell Ranger compatible transcriptome reference
     
@@ -233,14 +233,14 @@ This paragraph describes a set of functions that can be used to remove low quali
 
 The function **filterZeros** retains all genes that have cells without a user defined fraction of zeros (between 0 and 1, where 1 indicate only genes without any 0s are retained, and 0 insted indicates that genes with at least a value different from zero are retained), and plots the frequency distribution of gene counts in the dataset.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *file*,	a character string indicating the path of the file tab delimited of cells un-normalized expression counts
     + *threshold*,	a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having no expression in any cell.
     + *sep*,	separator used in count file, e.g. '\\t', ','
 
 The output is a PDF providing zeros distributions before and after removal of genes with 0s counts. A tab delimited file with the prefix **filtered\_** in which the filtered data are saved.
 
-**IMPORTANT**: In case user would like to apply cell quality filter, e.g. *lorenzFilter*, it is convenient to remove only genes with 0 counts in all cells, i.e. threshold=0 (Figure \ref{fig:fig.5}).
+**IMPORTANT**: In case user would like to apply cell quality filter, e.g. **lorenzFilter**, it is convenient to remove only genes with 0 counts in all cells, i.e. threshold=0 (Figure \ref{fig:fig.5}).
 \newline
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -267,9 +267,9 @@ include_graphics('../inst/img/filterZero.jpeg')
 
 ### **Section 3.2** Plotting genes numbers versus total UMIs in each cell
 
-To estimate the overall amount of genes detectable in each cell, the function *genesUmi* generates a plot of the number of genes present in a cell with respect to the total number of UMI in the same cell. The number of UMIs required to call a gene present in a cell is a parameter defined by user, the suggested value is 3 UMIs.
+To estimate the overall amount of genes detectable in each cell, the function **genesUmi** generates a plot of the number of genes present in a cell with respect to the total number of UMI in the same cell. The number of UMIs required to call a gene present in a cell is a parameter defined by user, the suggested value is 3 UMIs.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *file*,	a character string indicating the path of the file tab delimited of cells un-normalized expression counts.
     + *umiXgene*,	an integer defining how many UMI are required to call a gene as present. default: 3
     + *sep*,	separator used in count file, e.g. '\\t', ','
@@ -303,7 +303,7 @@ library(knitr)
 include_graphics('../inst/img/Ziegenhain2017.jpeg')
 ```
 
-Sequencing depth, which affect differential expression analysis and sub-population partitioning, influence the structure of a single-sequencing dataset at two levels: 
+Sequencing depth, which affect differential expression analysis and sub-population partitioning, affectss the structure of a single-cell dataset at two levels: 
 
 - number of genes called present in the experiment,
 
@@ -413,7 +413,7 @@ pca(experiment.table="df3m_1000.txt", type="counts",
 
 ```{r fig.27, fig.cap="Detectable genes in a Zheng  data subset. A) T-cytotoxic genes versus total cell reads plot. B) T-regulatory  genes versus total cell reads plot. C) d3m set, made of cells with less than 1000 counts each, D) df3, made of cells with counts between 1000 and 2511. E) d3.4, made of cells with more than 2511 counts each.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
-include_graphics('../inst/img/counts_effect1.jpeg')
+include_graphics('../inst/img/counts_effect1.png')
 ```
 
 \pagebreak
@@ -426,13 +426,13 @@ Taken together, the above observations indicates that 3' end sequencing has a mu
 
 To identify outlier in single-cells sequencing, Diaz and coworkers [[*2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)] developed a strategy to estimate genes expressed at background levels in a given sample. Then, samples whose background fraction is significantly larger than average is filtered out (Lorenz statistics). Specifically, samples that had a small q-value for Lorenz statistic had low complexity, as measured by Gini-Simpson index, and/or they had low coverage, as estimated by the Good-Turing statistic [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. Furthermore, Lorenz statistics correlates with live-dead staining [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. Lorenz statistics was implemented in rCASC **lorenzFilter** function.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
     + *file*,	full path to the count file MUST be provided
     + *p_value*,	 lorenz statistics threshold, suggested value 0.05, i.e. 5% probability that the a cell of low quality is selected
     + *separator*,	separator used in count file, e.g. '\\t', ','
 
-The output is a counts table without low quality cells. Output will be in the same format and with the same separator of input.
+The output is a counts table without low quality cells and with the prefix **lorenz_filtered_**. Output will be in the same format and with the same separator of input.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE,eval=FALSE}
@@ -468,7 +468,7 @@ include_graphics('../inst/img/lorenz_filter.jpg')
 
 The function **scannobyGtf** allows the annotation of single-cell matrix, if ENSEMBL gene ids are provided. The function requires the ENSEMBL GTF of the organism under analysis and allows the selection of specific annotation biotypes, e.g. protein_coding.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *file*,	full path to the count file MUST be provided
     + *gtf.name*,	ENSEMBL gtf file name. GTF is located inthe same folder where counts file is.
     + *biotype*,	biotype of interest. See [*www.ensembl.org/info/genome/genebuild/biotypes.html*](https://www.ensembl.org/info/genome/genebuild/biotypes.html) for more information
@@ -490,7 +490,7 @@ scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.t
 ```
 \fontsize{10}{10}\selectfont
 
-Ribosomal RNA and ribosomal proteins represent a significant part of cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis [[*Montanaro et al. 2008*](https://www.ncbi.nlm.nih.gov/pubmed/18583314)]. Thus, ribosomal proteins expression might represent one of the major confunding factor in cluster formation between active and dormient cells. Furthermore, the main function of mitochondria is to produce energy through aerobic respiration. The number of mitochondria a cell possesses depends on its metabolic demands [[*Nasrallah and Horvath*](https://www.ncbi.nlm.nih.gov/pubmed/25200564)]. This might also affect clustering, favoring the separation between metabolic active and resting cells, with respect to functional differences between sub-populations.
+Ribosomal RNA and ribosomal proteins represent a significant part of cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis [[*Montanaro et al. 2008*](https://www.ncbi.nlm.nih.gov/pubmed/18583314)]. Thus, ribosomal proteins expression might represent one of the major confunding factor in cluster formation between active and dormient cells. Furthermore, the main function of mitochondria is to produce energy through aerobic respiration. The number of mitochondria in a cell depends on its metabolic demands [[*Nasrallah and Horvath 2014*](https://www.ncbi.nlm.nih.gov/pubmed/25200564)]. This might also affect clustering, favoring the separation between metabolic active and resting cells, with respect to functional differences between sub-populations.
 *scannobyGtf* allows also the removal of mitocondrial and ribosomal protein genes.
 \newline
 \fontsize{8}{8}\selectfont
@@ -505,7 +505,7 @@ scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.t
 \fontsize{10}{10}\selectfont
 
 In figure \ref{fig:fig.8} is shown the effect of the removal of both mitocondrial and ribosomal protein genes. It is notable that, in this specific experiment, in cells with less than 1000 UMI nearly all detected genes were only mitocondrial and ribosomal protein genes. This observation further support the observation in Figure \ref{fig:fig.27}C, showing that the genes detectable with 1000 UMIs/cell are not enough to discriminate between two different cell types.
-This filter is suitable to identify cells which do not contain any informative gene other than mitocondrial and ribosomal proteins. However, in case the difference between resting and actively proliferating cells is an important element of cell sub-population discovery this filter should not be applied.
+This filter is suitable to identify cells which do not contain any informative gene other than mitocondrial and ribosomal proteins. However, in case the difference between resting and actively proliferating cells represents an important element of cell sub-population discovery this filter should not be applied.
 
 ```{r fig.8, fig.cap="Removing mithocondrial and ribosomal proteins genes. In red is shown the dataset after removal of mitocondrial and ribosomal protein genes.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
@@ -517,7 +517,7 @@ include_graphics('../inst/img/noMT-rib.jpg')
 
 For clustering purposes user might decide to use the top expressed genes. The function **topx** select the X top expressed genes given a user defined threshold. The function also produces a pdf file gene_expression_distribution.pdf showing the changes in the UMIs/gene expression distribution upon **topx** filtering.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *data.folder*,	folder where input data are located and where output will be written
     + *file.name*,	counts table file name.
     + *threshold*,	number of top expressed genes to be selected
@@ -557,7 +557,7 @@ If all genes have a similar relationship then a global normalization strategy su
 
 **checkCountDepth** provides a wrapper, in rCASC, for the checkCountDepth of the [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *file*,	full path to the file MUST be included. Only tab delimited files are supported
     + *conditions*,	vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.
     + *ditherCounts*,	boolean. Setting to TRUE might improve results with UMI data.
@@ -591,7 +591,7 @@ include_graphics('../inst/img/checkCountDepth0.jpg')
 
 the **scnorm** function execute SCnorm from [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  return  the  normalized expression count.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *file*,	full path to the file MUST be included. Only tab delimited files are supported
     + *conditions*,	vector of condition labels, this should correspond to the columns of the un-normalized expression matrix.
     + *outputName*,	specify the name of output files.
@@ -666,13 +666,13 @@ umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 \fontsize{10}{10}\selectfont
 
 
-**IMPORTANT**: In case sub-population discovery is the analysis task, it is important to check if a specific normalization is compliant with the clustering approach in use. For example in the case of [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the rCASC core clustering tool, the normalizations provided in **scone** are not compliant, because they remove some of the features required to run the SIMLR multikernel learning analysis. TMM is instead compliant with the rCASC implementation of [**tSne**](https://lvdmaaten.github.io/tsne/).
+**IMPORTANT**: In case sub-population discovery is the analysis task, it is important to check if a specific normalization is compliant with the clustering approach in use. For example in the case of [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the rCASC core clustering tool, the normalizations provided in **scone** are not compliant, because they remove some of the features required to run the SIMLR multikernel learning analysis. TMM is instead compliant with the rCASC implementation of [**tSne**](https://lvdmaaten.github.io/tsne/). In case [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html) clustering is used the data set does not required any normalization since a normalization procedure is included in the algorithm.
 
 ### **Section 3.7** Converting a count table in log10
 
 The function **counts2log** can convert a count table in a log10 values saved in a comma separated or tab delimited file.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *file*,	full path to the file MUST be included.
     + *log.base*,	the base of the log to be used for the transformation
     + *type*,	the type of input file, txt, tab delimited. csv, comma separated
@@ -709,7 +709,7 @@ include_graphics('../inst/img/ola_2i_bayes.png')
 
 **reCAT** prediction step is implemented in rCASC in the function **recatPrediction**, which requires a data set annotated using **scannobyGtf**.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
     + *file*,	the path to the input file
     + *separator*,	separator used in count file, e.g. '\\t', ','
@@ -770,7 +770,7 @@ recatPrediction(group="docker",scratch.folder="/data/scratch",
 
 **ccRemover** software is implemented in rCASC in the function **ccRemove**, which also requires a data set annotated using **scannobyGtf**.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
     + *file*,	the path to the input file, inclusing the counts table name
     + *separator*,	separator used in count file, e.g. '\\t', ','
@@ -848,7 +848,7 @@ Another important aspect is how the number of detectable clusters might change i
 
 In rCASC, the identification of the optimal number of clusters is addressed, in presence of cells number perturbations, with [*griph*](https://ppapasaikas.github.io/griph/). The clustering performed by griph is graph-based and uses the community detection method  [*louvain modularity*](http://igraph.org/r/doc/cluster_louvain.html). Griph algorithm is closer to agglomerative clustering methods, since every node is initially assigned to its own community and communities are subsequently built by iterative merging. Griph is embedded **clusterNgriph** function, which evaluates the number of clusters in which a set of cells will aggregate upon a user defined leave-\%N-out cells bootstraps. In the example below the number of clusters are detected for the file 'annotated_buettner_G1G2MS_counts_10000bis.txt', used in **Section 3.8**.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
     + *file*,	the path to the input file, inclusing the counts table name
     + *nPerm*,	number of permutations to perform
@@ -1115,14 +1115,14 @@ library(knitr)
 include_graphics('../inst/img/simlr_2.jpeg')
 ```
 
-### **Section 5.1** Stability score formal description.
+### **Section 5.1** Cell Stability Score: mathematical description.
 \includepdf[pages={-}]{../vignettes/searchStability.pdf}
 
 \pagebreak
 
 SIMLR is embedded in **simlrBootstrap** function within the rCASC bootstrap framework. 
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
     + *file*,	the path of the file, with file name and extension included
     + *nPerm*,	number of permutations to be executed
@@ -1226,13 +1226,90 @@ include_graphics('../inst/img/bootstrapsVideo_2.jpeg')
 
 \pagebreak
 
-### **Section 5.3** Comparing SIMLR and tSne
 
-In Wang [[*2017*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)] article it is demonstrated that SIMLR outperforms other data reduction methods (Figure \ref{fig:fig.18}). Here, we run a comparison between SIMLR and tSne within the rCASC bootstrap framework to observe how cells stability score is affected by the two clustering methods.
+## **Section 6** Hierarchical clustering: [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html) graph-based clustering.
+
+Recently [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al*](https://f1000research.com/articles/7-1141/v2) described, in their independent comparison papers, that [*Seurat*](https://satijalab.org/seurat/) delivered the overall best performance in cells clustering. Thus, we decided to include in our workflow also this clustering tool. Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metagene’ that combines information across a correlated gene set. 
+The first step of the analysis is the identification of the how many PCs have to be to included.
+
+
+**seuratPCAEval** function allows the exploration of PCs to determine relevant sources of heterogeneity and to define the range of PCs to be used.  
+
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
+    + *scratch.folder*,	the path of the scratch folder
+    + *file*,	the path of the file, with file name and extension included
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *seed*,	important value to reproduce the same results with same input, default is 111
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+library(rCASC)
+#annotating data setA
+system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+
+scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+                    gtf.name="Homo_sapiens.GRCh38.94.gtf", biotype="protein_coding", 
+                    mt=FALSE, ribo.proteins=FALSE,umiXgene=3)
+
+#defining the PC threshold for clustering.
+seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
+              file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+              separator="\t", logTen = 0, seed = 111)
+
+```
+
+\fontsize{10}{10}\selectfont
+
+```{r fig.32, fig.cap="Seurat clustering, A) Seurat dataset PC component. B) Clustering results", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/seurat01.png')
+```
+
+The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "annotated_bmsnkn_5x100cells". In the latter folder is present a PCA plot (PCE_bowPlot.pdf, Figure \ref{fig:fig.32}A), which allow the identification of the PCs to use, defining a cutoff where there is a clear elbow in the graph. In this example, it looks like the elbow would fall around PC 6. 
+
+**seuratBootstrap** function executes the seurat clustering using as data reduction method "PCA" and estimates cell stability score.  
+
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
+    + *scratch.folder*,	 a character string indicating the path of the scratch folder
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations computed in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *pcaDimensions*,	0 for automatic dimensions.
+    + *seed*,	important value to reproduce the same results with same input
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+
+seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111)
+
+```
+\fontsize{10}{10}\selectfont
+
+
+The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "bmsnkn_5x100cells.txt". In the latter folder are present .... and the clustering picture with cells labeled with their stability score, Figure \ref{fig:fig.32}B). 
+
+
+
+### **Section 6.1** Comparing SIMLR, tSne and Seurat clustering
+
+In Wang [[*2017*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)] article it is demonstrated that SIMLR outperforms other data reduction methods (Figure \ref{fig:fig.18}). [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al*](https://f1000research.com/articles/7-1141/v2) described that [*Seurat*](https://satijalab.org/seurat/) delivers the overall best performance in cells clustering. 
+Here, we run a comparison between SIMLR, tSne and Seurat clustering (data reduction by PCA) within the rCASC bootstrap framework to observe how cells stability score is affected by the two clustering methods.
 
 tSne is embedded in **tsneBootstrap** function within the rCASC bootstrap framework. 
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
     + *file*,	the path of the file, with file name and extension included
     + *nPerm*,	number of permutations to be executed
@@ -1281,11 +1358,19 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
                separator="\t",logTen=0, seed=111)
 # required time 168 mins
 
+#running Seurat clustering: defining the PC threshold for clustering.
+seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
+              file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+              separator="\t", logTen = 0, seed = 111)
+#running Seurat clustering with bootstrap: threshold was detected at PC 6, see Section 6.
+seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111)
+
 ```
 \fontsize{10}{10}\selectfont
 
 
-We run the analysis on the SetA described in Section 4.1. Both SIMLR and tSne are able to detect that five clusters provide the more stable organization in terms of cells stability score (Figure \ref{fig:fig.22}A-B). However, SIMLR clustering produces highly stable clusters (Figure \ref{fig:fig.22}C), as instead tSne clustering produces much less stable clusters (Figure \ref{fig:fig.22}D). From the point of view of the computation time the two clustering methods are relatively similar. The above mentioned analysis took 159 mins for tSne and 168 mins for SIMLR.
+We run the analysis on the SetA described in Section 4.1. Both SIMLR and tSne are able to detect that five clusters provides the more stable organization in terms of cells stability score (Figure \ref{fig:fig.22}A-B). However, SIMLR clustering produces highly stable clusters (Figure \ref{fig:fig.22}C), as instead tSne clustering produces much less stable clusters (Figure \ref{fig:fig.22}D). From the point of view of the computation time the two clustering methods are relatively similar. The above mentioned analysis took 159 mins for tSne and 168 mins for SIMLR. Seurat clustering detected 5 clusters, Figure \ref{fig:fig.32}B, as SIMLR and tSne. The cell stabilty score for SIMLR (Figure \ref{fig:fig.22}C) and Seurat (Figure \ref{fig:fig.32}B) are superimposable.
 
 
 ```{r fig.22, fig.cap="Comparing SIMLR and tSne within rCASC bootstrap framework. A,C) SetA clustered with SIMLR. B,D) SetA clustered with tSne.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
@@ -1295,78 +1380,6 @@ include_graphics('../inst/img/simlr_5.jpeg')
 
 \pagebreak
 
-## **Section 6** Hierarchical clustering: [*Seaurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html) graph-based clustering.
-
-Recently [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al*](https://f1000research.com/articles/7-1141/v2) described, in their independent comparison papers, that [*Seurat*](https://satijalab.org/seurat/) delivered the overall best performance in cells clustering. Thus, we decided to include in our workflow also this clustering tool. Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metagene’ that combines information across a correlated gene set. 
-The first step of the analysis is the identification of the how many PCs have to be to included.
-
-
-**seuratPCAEval** function allows the exploration of PCs to determine relevant sources of heterogeneity and to define the range of PCs to be used.  
-
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
-    + *scratch.folder*,	the path of the scratch folder
-    + *file*,	the path of the file, with file name and extension included
-    + *separator*,	separator used in count file, e.g. '\\t', ','
-    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
-    + *seed*,	important value to reproduce the same results with same input, default is 111
-
-\fontsize{8}{8}\selectfont
-```{r, echo=TRUE, eval=FALSE}
-
-system("wget http://130.192.119.59/public/section4.1_examples.zip")
-unzip("section4.1_examples.zip")
-setwd("section4.1_examples")
-library(rCASC)
-#annotating data setA
-system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
-system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
-
-scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
-                    gtf.name="Homo_sapiens.GRCh38.94.gtf", biotype="protein_coding", 
-                    mt=FALSE, ribo.proteins=FALSE,umiXgene=3)
-
-#running tSne analysis using the range of clusters suggested by clusterNgriph in session 4.2
-seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
-              file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
-              separator="\t", logTen = 0, seed = 111)
-
-```
-
-\fontsize{10}{10}\selectfont
-
-```{r fig.32, fig.cap="Seurat dataset PC component.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
-library(knitr)
-include_graphics('../inst/img/PCE_bowPlot.png')
-```
-
-The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "annotated_bmsnkn_5x100cells". In the latter folder is present a PCA plot (PCE_bowPlot.pdf), which allow the identification of the PCs to use, defining a cutoff where there is a clear elbow in the graph. In this example, it looks like the elbow would fall around PC 6. 
-
-**seuratBootstrap** function executes the seurat clustering using as data reduction method "PCA" and estimates cell stability score.  
-
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
-    + *scratch.folder*,	 a character string indicating the path of the scratch folder
-    + *file*,	a character string indicating the path of the file, with file name and extension included
-    + *nPerm*,	number of permutations to be executed
-    + *permAtTime*,	number of permutations computed in parallel
-    + *percent*,	percentage of randomly selected cells removed in each permutation
-    + *separator*,	separator used in count file, e.g. '\t', ','
-    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
-    + *pcaDimensions*,	0 for automatic dimensions.
-    + *seed*,	important value to reproduce the same results with same input
-
-
-\fontsize{8}{8}\selectfont
-```{r, echo=TRUE, eval=FALSE}
-
-
-seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
-                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111)
-
-```
-
-\fontsize{10}{10}\selectfont
-
-\pagebreak
 
 ## **Section 7** Detecting the genes playing the major role in clusters formation
 
@@ -1377,7 +1390,7 @@ Both methods were implemented as part of the rCASC framework.
 
 The function **anovaLike** executes edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette. 
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *file*,	a character string indicating the counts table file with the path of the file.
     + *sep*,	separator used in count file, e.g. '\\t', ','
     + *cluster.file*,	a character string indicating the _clustering.output.txt file of interest, generated by bootstrapSimlar or bootStrapTsne. IMPORTANT this file must be located in the same folder where counts.table is placed
@@ -1409,7 +1422,7 @@ anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_1
 
 The function **clustersFeatures** selects the genes, which are more up-regulated in a specific cluster using **anovaLike** outputs. 
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *fileLogFC*,	a character string indicating the absolute path to logFC_filtered_DE_ file generated by anovaLike function
     + *fileCounts*,	a character string indicating the absolute path to reordered counts table file generated by anovaLike function
     + *delta*,	the minimal distance between the max value of FC for a gene in a cluster of interest and the nearest other max FC in any of the other clusters. This value define the minimal distance with respect to the same gene in an other cluster to identify it as a cluster specific gene.
@@ -1444,7 +1457,7 @@ The gene-features extracted by **clustersFeatures** cannot be used again in **si
  
 The function **hfc** allows to create a heatmap for the results generated from **simrBootstrap/tsneBootstrap** and the output of **clustersFeatures**.
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
     + *file*,	the path of the file, with file name and extension included
     + *nCluster*,	n of the clusters on which to run the analysis. The function expect the presence of Result folder generated by **simrBootstrap/tsneBootstrap**
@@ -1495,7 +1508,7 @@ SIMLR gene prioritization approach relies on the output similarity and does not 
 
 The function **genesPrioritization** executes SIMLR gene prioritization within the rCASC bootstrap framework. 
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *scratch.folder*,	the path of the scratch folder
     + *file*,	the path of the file, with file name and extension included
     + *nPerm*,	number of permutations to be executed
@@ -1533,7 +1546,7 @@ The function **genesSelection** allows to run a selection of the most interestin
     
 The above values can be set in the **genesSelection** function on the basis of the output of geneRank.pdf (Figure \ref{fig:fig.29}).
 
-- *Parameters* (only those without default, for the full list of parameters, please refer to the function help):
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *scratch.folder*,	path of the scratch folder
     + *file*,	the path of the counts file, with file name and extension included
     + *nCluster*,	the number of clusters, where prioritization was run. In the working folder should be present the Result folder generated by **genesPrioritization** function.
