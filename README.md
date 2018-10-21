@@ -31,7 +31,7 @@ library(rCASC)
 downloadContainers()
 ```
 
-More info: [rCASC vignette](http://rpubs.com/rcaloger/285423)
+More info: [rCASC vignette](https://github.com/kendomaniac/rCASC/blob/master/vignettes/rCASC_supplementary_data.pdf)
 
 **IMPORTANT** In case you are running rCASC in a virtual linux machine is important to assign to the machine at least 8 Gb RAM
 
