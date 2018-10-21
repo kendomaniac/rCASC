@@ -12,13 +12,23 @@
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return Plot with PCA scores is provided to detect the PCA dimensions to be used in Seurat clustering algorithm
+#' @return ....
 #' @examples
 #' \dontrun{
-#'  permutationClustering("docker","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",4,2,10,3,4,separator=",",logTen=0,clustering="SIMLR",perplexity=0)
+#'  system("wget http://130.192.119.59/public/section4.1_examples.zip")
+#'  unzip("section4.1_examples.zip")
+#'  setwd("section4.1_examples")
+
+#'  system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+#'  system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+#'  system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+#'  scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+#'  gtf.name="genome.gtf", biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+#'  
+#'  seuratPrior(group="docker", scratch.folder="/data/scratch/", file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), separator="\t", logTen=0, seed=111, PCADim=6, geneNumber = 100, nCluster=5)
 #'}
 #' @export
-seuratPrior <- function(group=c("sudo","docker"), scratch.folder, file, separator, logTen=0,seed=1111,PCADim,geneNumber,nCluster){
+seuratPrior <- function(group=c("sudo","docker"), scratch.folder, file, separator, logTen=0, seed=111, PCADim, geneNumber, nCluster){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])

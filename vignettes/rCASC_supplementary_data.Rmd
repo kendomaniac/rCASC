@@ -1157,7 +1157,6 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
                nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
                separator="\t",logTen=0, seed=111)
 
-
 #annotating data setB
 scannobyGtf(group="docker", file=paste(getwd(),"bmHnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
@@ -1167,8 +1166,6 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
                file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
                nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
                separator="\t",logTen=0, seed=111)
-
-
 
 ```
 \fontsize{10}{10}\selectfont
@@ -1229,7 +1226,7 @@ include_graphics('../inst/img/bootstrapsVideo_2.jpeg')
 
 ## **Section 6** Hierarchical clustering: [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html) graph-based clustering.
 
-Recently [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al*](https://f1000research.com/articles/7-1141/v2) described, in their independent comparison papers, that [*Seurat*](https://satijalab.org/seurat/) delivered the overall best performance in cells clustering. Thus, we decided to include in our workflow also this clustering tool. Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metagene’ that combines information across a correlated gene set. 
+Recently [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al.*](https://f1000research.com/articles/7-1141/v2) described, in their independent comparison papers, that [*Seurat*](https://satijalab.org/seurat/) delivered the overall best performance in cells clustering. Thus, we decided to include in our workflow also this clustering tool. Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metagene’ that combines information across a correlated gene set. 
 The first step of the analysis is the identification of the how many PCs have to be to included.
 
 
@@ -1249,17 +1246,9 @@ system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
 library(rCASC)
-#annotating data setA
-system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
-system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
-
-scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
-                    gtf.name="Homo_sapiens.GRCh38.94.gtf", biotype="protein_coding", 
-                    mt=FALSE, ribo.proteins=FALSE,umiXgene=3)
-
 #defining the PC threshold for clustering.
 seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
-              file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+              file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
               separator="\t", logTen = 0, seed = 111)
 
 ```
@@ -1271,9 +1260,9 @@ library(knitr)
 include_graphics('../inst/img/seurat01.png')
 ```
 
-The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "annotated_bmsnkn_5x100cells". In the latter folder is present a PCA plot (PCE_bowPlot.pdf, Figure \ref{fig:fig.32}A), which allow the identification of the PCs to use, defining a cutoff where there is a clear elbow in the graph. In this example, it looks like the elbow would fall around PC 6. 
+The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "bmsnkn_5x100cells". In the latter folder is present a PCA plot (PCE_bowPlot.pdf, Figure \ref{fig:fig.32}A), which allow the identification of the PCs to use, defining a cutoff where there is a clear elbow in the graph. In this example, it looks like the elbow would fall around PC 6. 
 
-**seuratBootstrap** function executes the seurat clustering using as data reduction method "PCA" and estimates cell stability score.  
+**seuratBootstrap** function executes the seurat clustering (data reduction method PCA) and estimates cell stability score.  
 
 - *Parameters* (only those without default, for the full list of parameters please refer to the function help):
     + *scratch.folder*,	 a character string indicating the path of the scratch folder
@@ -1283,7 +1272,7 @@ The function generate a **Result** folder in which is present a folder with the 
     + *percent*,	percentage of randomly selected cells removed in each permutation
     + *separator*,	separator used in count file, e.g. '\t', ','
     + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
-    + *pcaDimensions*,	0 for automatic dimensions.
+    + *pcaDimensions*,	0 for automatic selection of PC elbow.
     + *seed*,	important value to reproduce the same results with same input
 
 
@@ -1298,14 +1287,13 @@ seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(
 \fontsize{10}{10}\selectfont
 
 
-The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "bmsnkn_5x100cells.txt". In the latter folder are present .... and the clustering picture with cells labeled with their stability score, Figure \ref{fig:fig.32}B). 
-
+The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "bmsnkn_5x100cells.txt". In the latter folder is present a folder with the number of cluster detected by Seurat, in this specific case **5**. In **5** folder there is the file with extension  **\_Stability_Plot.pdf**, which is the clustering picture with cells labeled with their stability score, Figure \ref{fig:fig.32}B). The file with the extension **\_clusterP.txt**,containing for each permutation the location of each cell in the clusters.  The file with the extension **\_killedCell.txt**, where are saved the cells removed at each permutation. The file with the extension **\_score.txt**, containing the scores assigned at each permutation to each cell. The file with extension **\_scoreSum.txt** containing the Cell stability score for each cell. The file with extension **\_clustering.output.txt**, summarizing all information required to generate the **\_Stability_Plot.pdf** plot.
 
 
 ### **Section 6.1** Comparing SIMLR, tSne and Seurat clustering
 
-In Wang [[*2017*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)] article it is demonstrated that SIMLR outperforms other data reduction methods (Figure \ref{fig:fig.18}). [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al*](https://f1000research.com/articles/7-1141/v2) described that [*Seurat*](https://satijalab.org/seurat/) delivers the overall best performance in cells clustering. 
-Here, we run a comparison between SIMLR, tSne and Seurat clustering (data reduction by PCA) within the rCASC bootstrap framework to observe how cells stability score is affected by the two clustering methods.
+In Wang [[*2017*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)] article it is demonstrated that SIMLR outperforms other data reduction methods (Figure \ref{fig:fig.18}). [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al.*](https://f1000research.com/articles/7-1141/v2) described that [*Seurat*](https://satijalab.org/seurat/) delivers the overall best performance in cells clustering. 
+Here, we run a comparison between SIMLR, tSne and Seurat clustering (data reduction by PCA) within the rCASC bootstrap framework to observe how cells stability score is affected by the three clustering methods.
 
 tSne is embedded in **tsneBootstrap** function within the rCASC bootstrap framework. 
 
@@ -1338,8 +1326,6 @@ system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
 library(rCASC)
 #annotating data setA
 
-
-
 scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
@@ -1363,14 +1349,14 @@ seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
               separator="\t", logTen = 0, seed = 111)
 #running Seurat clustering with bootstrap: threshold was detected at PC 6, see Section 6.
-seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
                 nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111)
-
+# required time 194 mins
 ```
 \fontsize{10}{10}\selectfont
 
 
-We run the analysis on the SetA described in Section 4.1. Both SIMLR and tSne are able to detect that five clusters provides the more stable organization in terms of cells stability score (Figure \ref{fig:fig.22}A-B). However, SIMLR clustering produces highly stable clusters (Figure \ref{fig:fig.22}C), as instead tSne clustering produces much less stable clusters (Figure \ref{fig:fig.22}D). From the point of view of the computation time the two clustering methods are relatively similar. The above mentioned analysis took 159 mins for tSne and 168 mins for SIMLR. Seurat clustering detected 5 clusters, Figure \ref{fig:fig.32}B, as SIMLR and tSne. The cell stabilty score for SIMLR (Figure \ref{fig:fig.22}C) and Seurat (Figure \ref{fig:fig.32}B) are superimposable.
+We run the analysis on the SetA described in Section 4.1. Both SIMLR and tSne are able to detect that five clusters provides the more stable organization in terms of cells stability score (Figure \ref{fig:fig.22}A-B). However, SIMLR clustering produces highly stable clusters (Figure \ref{fig:fig.22}C), as instead tSne clustering produces much less stable clusters (Figure \ref{fig:fig.22}D). From the point of view of the computation time the two clustering methods are relatively similar. The above mentioned analysis took 159 mins for tSne and 168 mins for SIMLR. Seurat clustering detected 5 clusters, Figure \ref{fig:fig.32}B, as SIMLR and tSne. The cell stability score for SIMLR (Figure \ref{fig:fig.22}C) and Seurat (Figure \ref{fig:fig.32}B) are superimposable and computation time is very similar to the other two methods.
 
 
 ```{r fig.22, fig.cap="Comparing SIMLR and tSne within rCASC bootstrap framework. A,C) SetA clustered with SIMLR. B,D) SetA clustered with tSne.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
@@ -1383,10 +1369,10 @@ include_graphics('../inst/img/simlr_5.jpeg')
 
 ## **Section 7** Detecting the genes playing the major role in clusters formation
 
-Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments [[*Soneson et al.*](https://www.ncbi.nlm.nih.gov/pubmed/29481549)]. However, the number of tools applicable to single-cells and allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR also provides a ranking score for the genes that are affecting mostly the clusters organization. SIMLR gene ranking does not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
-Both methods were implemented as part of the rCASC framework.
+Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments [[*Soneson et al.*](https://www.ncbi.nlm.nih.gov/pubmed/29481549)]. However, the number of tools applicable to single-cells and allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR and Seurat also provide ranking score for the genes, which are affecting mostly the clusters organization. SIMLR and Seurat gene ranking do not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
+The three methods are part of the rCASC framework.
 
-### **Section 7.1** A statistical approach: EdgeR ANOVA-like
+### **Section 7.1** A statistical approach to select genes affecting clusters formation: EdgeR ANOVA-like
 
 The function **anovaLike** executes edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette. 
 
@@ -1502,7 +1488,7 @@ include_graphics('../inst/img/hfc1.jpeg')
 
 
 
-### **Section 7.2** A machine learning approach: SIMLR prioritization
+### **Section 7.2** A machine learning approach: SIMLR genes prioritization
 
 SIMLR gene prioritization approach relies on the output similarity and does not depend on the downstream dimension reduction or clustering. The advantage of this step is that one can identify highly fluctuating genes that are consistent with the learned similarity in the multiple-kernel space.
 
@@ -1581,6 +1567,39 @@ include_graphics('../inst/img/geneselection.jpeg')
 
 
 The output of **genesSelection** is a file with extension **_clusters_specific_geneSYMBOLs.txt**, which can be used as input for **hfc** function, see **Section 6.1.1**. The list of prioritized genes cannot not be associated to a specific cluster as in the case of the anovaLike, see **Section 6.1**. Thus, more information will be provided on the cluster specificity from the heatmap visualization (Figure \ref{fig:fig.29}), see **hfc** function. 
+
+### **Section 7.3** Seurat genes prioritization
+
+Seurat gene prioritization is performed by **seuratPrior** function.
+
+- *Parameters* (only those without default, for the full list of parameters please refer to the function help):
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *seed*,	important value to reproduce the same results with same input
+    + *PCADim*,	dimensions of PCA for seurat clustering
+    + *geneNumber*,	numbers of specific genes for each clusters
+    + *nCluster*,	number of cluster analysis.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+
+library(rCASC)
+
+#running Seurat clustering with bootstrap: threshold was detected at PC 6, see Section 6.
+seuratPrior(group="docker", scratch.folder="/data/scratch/", 
+            file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), separator="\t", 
+            logTen=0, seed=111, PCADim=6, geneNumber=100, nCluster=5)
+
+```
+\fontsize{10}{10}\selectfont
+
+
 
 ## **Section 8** An example of rCASC analysis: [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264).
 

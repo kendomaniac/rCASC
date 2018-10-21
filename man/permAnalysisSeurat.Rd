@@ -28,7 +28,20 @@ This function analyze the data that came up from permutationClustering script.
 }
 \examples{
 \dontrun{
-permAnalysis("docker","path/to/scratch","path/to/data/TOTAL",3,4,",",0.8)#
+ system("wget http://130.192.119.59/public/section4.1_examples.zip")
+ unzip("section4.1_examples.zip")
+ setwd("section4.1_examples")
+ system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+ system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+ system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+ scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+             gtf.name="genome.gtf", biotype="protein_coding", 
+             mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+ 
+ seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
+      file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+      nPerm=160, permAtTime=8, percent=10, separator="\\t",
+      logTen=0, pcaDimensions=6, seed=111)
 }
 }
 \author{
