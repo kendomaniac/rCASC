@@ -92,8 +92,6 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   system(paste("cp ", fastq.folder, "/*.gz ", scrat_tmp.folder, sep=""))
 
   #executing the docker job
-  #Le directory vanno montate tutte con il -v  user:doker
-  #modifica qui /bin/checkscript.sh
   params <- paste("--cidfile ",fastq.folder,"/dockerID -v ",transcriptome.folder,":/transcr -v ", scrat_tmp.folder, ":/data -d ",dockerImage, " /bin/cellranger count  --id=",id," --transcriptome=/transcr --fastqs=/data", sep="")
 
   if(!is.null(sample)){
