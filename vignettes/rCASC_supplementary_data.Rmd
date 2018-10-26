@@ -879,16 +879,16 @@ As indicated above we are interested to identify not only the optimal cluster nu
 To observe the effect of datasets perturbation in clustering we built 4 datasets combining different cell types available in [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper (Bold cell types are those that were progressively substituted in setA):
 
 - setA 100 cell randomly selected for each cell type:
-    + B-cells (25K reads/cell), Monocytes  (100K reads/cell), Stem cells (24.7K reads/cell), Natural Killer cells (29K reads/cell), Naive T-cells (19K reads/cell)
+    + (B) B-cells (25K reads/cell), (M) Monocytes  (100K reads/cell), (S) Stem cells (24.7K reads/cell), (NK) Natural Killer cells (29K reads/cell),  (N) Naive T-cells (19K reads/cell)
 
 - setB 100 cell randomly selected for each cell type:
-    + B-cells, Monocytes, **T-helper cells** (21K reads/cell), Natural Killer, Naive T-cell
+    + (B) B-cells, (M) Monocytes, (H) **T-helper cells** (21K reads/cell), (NK) Natural Killer, (N) Naive T-cell
     
 - setC 100 cell randomly selected for each cell type:
-    + **Cytotoxic T-cells** (28.6K reads/cell), Monocytes, **T-helper cells**, Natural Killer, Naive T-cell
+    + (C) **Cytotoxic T-cells** (28.6K reads/cell), (M) Monocytes, **T-helper cells**, (NK) Natural Killer,  (N) Naive T-cell
     
 - setD 100 cell randomly selected for each cell type:
-    + **Cytotoxic T-cells**, **Naive cytotoxic T-cells** (20K reads/cell), **T-helper cells**, Natural Killer, Naive T-cell
+    + (C) **Cytotoxic T-cells**, (NC) **Naive cytotoxic T-cells** (20K reads/cell), (H) **T-helper cells**, (NK) Natural Killer, (N) Naive T-cell
 
 Moving from SetA to setD we added progressively cells coming from T-cell populations, making the cell-type partitioning more challenging because of the similarities between T-cell sub-populations.
     
@@ -968,10 +968,10 @@ pca(experiment.table="log10_CNCHnkn_5x100cells_1000.txt", type="FPKM",
 
 ```{r fig.15, fig.cap="PCA is getting progressively unable to discriminate between the different cell subpopulations as the set of cells are getting functionally more similar to each other: A) PCA of setA, B) PCA of setB, C) PCA of setC, D) PCA of setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
-include_graphics('../inst/img/griph1.jpeg')
+include_graphics('../inst/img/griph1.png')
 ```
 
-PC1 shows that, as the differences between cell populations become smaller, moving from setA to setD, the aggregation in homogeneous groups of cells is compromised (Figure \ref{fig:fig.15}A-D). It is, however, important to highlight that the sequencing coverage in this experiment is quite limited (see **Section 3.2.1**), and providing a higher sequencing depth/cell would definitely improve the sub-populations resolution.  
+PC1 shows that, as the differences between cell populations become smaller, moving from setA to setD, the aggregation in homogeneous groups of cells is compromised (Figure \ref{fig:fig.15}A-D).  
 
 To observe the effect of the reduced dissimilarity between populations on the stability of the number of clusters, we use the rCASC **clusterNgriph** function on the above mentioned 4 datasets using 160 permutations/each, and randomly removing in each permutation 10\% of the cells. Each analysis took approximately 60 mins on a SeqBox hardware. 
 
@@ -1008,14 +1008,14 @@ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
 
 \fontsize{10}{10}\selectfont
 
-It is notable that as the differences between the cells populations is narrowing (i.e in setA cells types are quite different in overall functional activity, as in setD four out of five cell types are T-cells sub-populations) the fluctuations in the detected number of clusters increase. In setA, where PCA is able to discriminate between the five cell populations (Figure \ref{fig:fig.15}A), out of 160 bootstraps only 1 gave a number of clusters different from the effective number of cell sub-populations (Figure \ref{fig:fig.16}A). In set D, where four out of five sub-populations are T-cell, PCA (Figure \ref{fig:fig.15}D) provides a good discrimination only for NK cells and the clusters detected by griph upon bootstraps fluctuate between 3 to 5 (Figure \ref{fig:fig.16}D). 
+It is notable that as the differences between the cells populations is narrowing (i.e in setA cells types are quite different in overall functional activity, as in setD four out of five cell types are T-cells sub-populations) the fluctuations in the detected number of clusters increase. In setA, where PCA is able to discriminate between the five cell populations (Figure \ref{fig:fig.15}A), out of 160 bootstraps only 1 gave a number of clusters different from the effective number of cell sub-populations (Figure \ref{fig:fig.16}A). In all the other three subsets perturbations result in a higher number of events in which number of clusters different from 5 (Figure \ref{fig:fig.16}B-D). 
 
 ```{r fig.16, fig.cap="Clusters number is dependent by the cell type similarity: A) number of clusters detectable by griph in setA, B) number of clusters detectable by griph in setB, C) number of clusters detectable by griph in setC, D) number of clusters detectable by griph in setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
-include_graphics('../inst/img/griph2.jpeg')
+include_graphics('../inst/img/griph2.png')
 ```
 
-As highlighted in **Section 3.2.1**, the difficulties in detecting a stable number of clusters, upon dataset perturbation, is due to the limited number of sub-population specific genes. To further support this hypothesis we run a comparison between the most expressed genes in the cell types used in the above example.
+As highlighted in **Section 3.2.1**, the difficulties in detecting a stable number of clusters, upon dataset perturbation, is due to the limited number of detected genes. To further support this hypothesis we run a comparison between the most expressed genes in the cell types used in the above example.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -1094,17 +1094,13 @@ The results described in this section indicate that **clusterNgriph** is a valua
 
 ## **Section 5** K-mean clustering: detecting cell sub-populations by mean of kernel based similarity learning ([*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)).
 
+The number of clustering and dimension reduction methods for single cell progressively increased over the last few years. Last year [*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) published SIMLR, a framework which learns a similarity measure from single-cell RNA-seq data in order to perform dimensions reduction. We decided to select this method as core clustering tool in rCASC, because outperformed eight methods published before 2017 [[*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)].
 
-The number of clustering and dimension reduction methods for single cell progressively increased over the last few years. Last year [*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) published SIMLR, a framework which learns a similarity measure from single-cell RNA-seq data in order to perform dimensions reduction. We decided to select this method as core clustering tool in rCASC, because outperformed eight methods published before 2017 (Figure \ref{fig:fig.18}).
-
-```{r fig.18, fig.cap="Table 2 extracted from supplementary data in Wang et al. Nat Methods 2017.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
-library(knitr)
-include_graphics('../inst/img/simlr_1.jpeg')
-```
+\pagebreak
 
 Specifically, we use SIMLR as clustering method recording the effects of data perturbation, i.e. removal of random subset of cells, on the clustering structure. Although, we think SIMLR provides important advantages with respect to other clustering methods, rCASC framework can embed also other data reduction tools. At the present time, tSne is also implemented within the rCASC data permutation framework.
 
-The peculiarity of rCASC is the user tunable bootstrap procedure. rCASC represents bootstrap results via a cell stability score (Figure \ref{fig:fig.19}). In brief, a set of cells to be organized in clusters  (Figure \ref{fig:fig.19}A) is analysed with SIMLR, applying a users defined k number of clusters (Figure \ref{fig:fig.19}B), see Section 4 for more information on how to identify a range of number of clusters to be passed to SIMLR. A user defined \% of cells is removed from the original data set and these cells are clustered again (Figure \ref{fig:fig.19}C). The clusters obtained in each bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure \ref{fig:fig.19}D-E). If the Jaccard index is greater of a user defined threshold, e.g. 0.8, the cluster is called confirmed in the bootstrap step (Figure \ref{fig:fig.19}F). Then to each cell, belonging to the confirmed cluster, *cell stability score* value is increased of 1 unit (Figure \ref{fig:fig.19}G). At the end of the bootstrap procedure, cells are labeled with different symbols describing their *cell stability score* in a specific cluster (Figure \ref{fig:fig.19}H).
+One of the peculiarity of rCASC is the user tunable bootstrap procedure. rCASC represents bootstrap results via a cell stability score (Figure \ref{fig:fig.19}). In brief, a set of cells to be organized in clusters  (Figure \ref{fig:fig.19}A) is analysed with SIMLR, applying a users defined k number of clusters (Figure \ref{fig:fig.19}B). A user defined \% of cells is removed from the original data set and these cells are clustered again (Figure \ref{fig:fig.19}C). The clusters obtained in each bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure \ref{fig:fig.19}D-E). If the Jaccard index is greater of a user defined threshold, e.g. 0.8, the cluster is called confirmed in the bootstrap step (Figure \ref{fig:fig.19}F). Then to each cell, belonging to the confirmed cluster, *cell stability score* value is increased of 1 unit (Figure \ref{fig:fig.19}G). At the end of the bootstrap procedure, cells are labeled with different symbols describing their *cell stability score* in a specific cluster (Figure \ref{fig:fig.19}H).
 
 ```{r fig.19, fig.cap="Cell stability score", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
@@ -1113,8 +1109,6 @@ include_graphics('../inst/img/simlr_2.jpeg')
 
 ### **Section 5.1** Cell Stability Score: mathematical description.
 \includepdf[pages={-}]{../vignettes/searchStability.pdf}
-
-\pagebreak
 
 SIMLR is embedded in **simlrBootstrap** function within the rCASC bootstrap framework. 
 
@@ -1173,7 +1167,7 @@ library(knitr)
 include_graphics('../inst/img/simlr_3.jpeg')
 ```
 
-\pagebreak
+
 
  In Figure \ref{fig:fig.21} are shown the effects, on cell stability, in SIMLR analysis done with 4 and 6 clusters for SetA (*annotated_bmsnkn_5x100cells.txt*) counts matrix. Using 4 as number of clusters, Figure \ref{fig:fig.21}A, some of the cells in each cluster show a reduced stability (50-75\%, triangle) and arrows highlights cells characterized by a cell stability score between 25 to 50\%. The circles in Figure \ref{fig:fig.21}B show the clusters where the full cluster has a cell stability between 50 to 75\%. This observation indicates that the stability score is a useful measure to identify the optimal number of partitions to be used, i.e. the highest cell stability score  was observed when five clusters were selected, corresponding to the number of cell types combined in SetA, see **Section 4.1**. 
  
@@ -1182,7 +1176,7 @@ library(knitr)
 include_graphics('../inst/img/simlr_4.jpeg')
 ```
 
-
+\pagebreak
 
 ### **Section 5.2** Visualizing the cell clusters relocation during bootstraps.
 

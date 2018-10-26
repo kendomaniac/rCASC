@@ -24,7 +24,7 @@ knitr::opts_chunk$set(fig.pos = 'h')
 \fontsize{10}{10}\selectfont
 
 ## Abstract
-Single-cell RNA sequencing has emerged as essential tool to investigate cellular heterogeneity. Nowadays, user-friendly workflows are required to exploit the deconvolution of single-cells transcriptome and these workflows should guarantee the reproducibility of the data analysis. To deal with these aspects, rCASC was developed. rCASC is a modular workflow providing data analysis tools from counts generation to cell sub-population signatures identification, exploiting docker containerization to achieve computational reproducibility in data analysis.
+Single-cell RNA sequencing has emerged as essential tool to investigate cellular heterogeneity. Nowadays, user-friendly workflows are required to exploit the deconvolution of single-cells transcriptome and these workflows should guarantee the reproducibility of the data analysis. To deal with these aspects, rCASC was developed. rCASC is a modular workflow providing an integrated path from counts generation to cell sub-population identification, exploiting docker containerization to achieve computational reproducibility in data analysis.
 
 ## 1 Introduction 
 Single cell analysis is instrumental to understand the functional differences existing among cells within a tissue. Individual cells of the same phenotype are commonly viewed as identical functional units of a tissue or organ. However, single cells sequencing results (Buettner, et al., 2015) suggest the presence of a complex organization of heterogeneous cell states producing together system-level functionalities. 
@@ -53,6 +53,7 @@ rCASC is developed within the umbrella of the Reproducible Bioinformatics Projec
 ##	Results
 The main objective of rCASC is the identification of the most robust partitioning of cell sub-populations within a reproducible framework. The comparison of rCASC with four single-cell analysis workflows (Supplementary Section 9) indicate that rCASC provides unique features, e.g. jackknife resampling for cluster robustness evaluation. The cluster’s robustness, evaluated measuring the persistence of cells in a cluster, as consequence of jackknife resampling, provides a better estimation of clusters stability with respect to other measurements as the silhouette plot (Supplementary Section 5, Fig. 23 A,B). With respect to other workflows, rCASC uses as clustering tool SIMLR or Seurat clustering, which were shown to outer-perform other methods (Wang et al. 2018; Freytag et al. 2018; Duò et al. 2018).
 rCASC modularity structure easily allows the implementation of other pre/post processing methods and supports the implementation of other clustering methods within the resampling framework. Furthermore, rCASC is the only workflow granting functional and computational reproducibility. 
+We have used rCASC to re-analyze the single-cell dataset from [*Pace et al. [2018]*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) . In this paper authors highlighted that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis extends the information described in Pace paper, suggesting the presence of an enriched Suv39h1-defective memory subset (Supplementary Section 8).
 
 
 ## Conclusion
