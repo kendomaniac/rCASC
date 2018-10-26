@@ -1108,7 +1108,7 @@ include_graphics('../inst/img/simlr_2.jpeg')
 ```
 
 ### **Section 5.1** Cell Stability Score: mathematical description.
-\includepdf[pages={-}]{../vignettes/searchStability.pdf}
+\includepdf[pages={-}]{../vignettes/def.pdf}
 
 SIMLR is embedded in **simlrBootstrap** function within the rCASC bootstrap framework. 
 
