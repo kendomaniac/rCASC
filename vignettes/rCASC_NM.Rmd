@@ -51,9 +51,9 @@ rCASC is developed within the umbrella of the Reproducible Bioinformatics Projec
 
 
 ##	Results
-The main objective of rCASC is the identification of the most robust partitioning of cell sub-populations within a reproducible framework. The comparison of rCASC with four single-cell analysis workflows (Supplementary Section 9) indicate that rCASC provides unique features, e.g. jackknife resampling for cluster robustness evaluation. The cluster’s robustness, evaluated measuring the persistence of cells in a cluster, as consequence of jackknife resampling, provides a better estimation of clusters stability with respect to other measurements as the silhouette plot (Supplementary Section 5, Fig. 23 A,B). With respect to other workflows, rCASC uses as clustering tool SIMLR or Seurat clustering, which were shown to outer-perform other methods (Wang et al. 2018; Freytag et al. 2018; Duò et al. 2018).
+The main objective of rCASC is the identification of the most robust partitioning of cell sub-populations within a reproducible framework. The comparison of rCASC with four single-cell analysis workflows (Supplementary Section 9) indicate that rCASC provides unique features, e.g. jackknife resampling for cluster robustness evaluation. The cluster’s robustness, evaluated measuring the persistence of cells in a cluster, as consequence of jackknife resampling, provides a better estimation of clusters stability with respect to other measurements as the silhouette plot (Supplementary Figure 20 A,B). With respect to other workflows, rCASC uses as clustering tool SIMLR or Seurat clustering, which were shown to outer-perform other methods (Hwang et al. 2018; Freytag et al. 2018; Duò et al. 2018).
 rCASC modularity structure easily allows the implementation of other pre/post processing methods and supports the implementation of other clustering methods within the resampling framework. Furthermore, rCASC is the only workflow granting functional and computational reproducibility. 
-We have used rCASC to re-analyze the single-cell dataset from [*Pace et al. [2018]*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) . In this paper authors highlighted that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis extends the information described in Pace paper, suggesting the presence of an enriched Suv39h1-defective memory subset (Supplementary Section 8).
+We have used rCASC to re-analyze the single-cell dataset from Pace et al. (2018) . In this paper authors highlighted that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis extends the information described in Pace paper, suggesting the presence of an enriched Suv39h1-defective memory subset (Supplementary Section 8).
 
 
 ## Conclusion
@@ -87,6 +87,8 @@ Hwang, B., Lee, J.H. and Bang, D. Single-cell RNA sequencing technologies and bi
 Kulkarni et al., Reproducible bioinformatics project: a community for reproducible bioinformatics analysis pipelines. BMC Bioinformatics 2018;19(Suppl 10):349
 
 Liu, Z.H., et al. Reconstructing cell cycle pseudo time-series via single-cell transcriptome data. Nature Communications 2017;8.
+
+Pace L, et al. The epigenetic control of stemness in CD8+ T cell fate commitment. Science. 2018 Jan 12;359(6372):177
 
 Robinson, M.D., McCarthy, D.J. and Smyth, G.K. edgeR: a Bioconductor package for differential expression analysis of digital gene expression data. Bioinformatics 2010;26(1):139-140.
 
