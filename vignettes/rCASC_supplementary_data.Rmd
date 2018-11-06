@@ -1,6 +1,6 @@
 ---
 title: "rCASC supplementary data"
-author: "Luca Alessandrì, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Gennaro De Libero, Luigia Pace, Francesca Cordero and Raffaele A Calogero"
+author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
 date: "25/10/2018"
 output: pdf_document
 toc: yes
