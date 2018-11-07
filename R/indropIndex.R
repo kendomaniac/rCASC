@@ -9,7 +9,7 @@
 #' @examples
 #' \dontrun{
 
-#' library(casc)
+#' library(rCASC)
 #' #running indropCounts index build
 #' indropIndex(group="docker", index.folder=getwd(),
 #'     ensembl.urlgenome="ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
@@ -38,7 +38,7 @@ indropIndex <- function(group=c("sudo","docker"), index.folder, ensembl.urlgenom
 
 
 
-  yaml.file=paste(path.package(package="casc"),"extras/indrop.yaml",sep="/")
+  yaml.file=paste(path.package(package="rCASC"),"extras/indrop.yaml",sep="/")
   system(paste("cp ",yaml.file," ", file.path(index.folder),sep=""))
   system(paste("chmod 777 -R", file.path(index.folder)))
 
