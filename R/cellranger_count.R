@@ -22,7 +22,7 @@
 #' @examples
 #' \dontrun{
 #' home <- getwd()
-#' library(casc)
+#' library(rCASC)
 #' downloadContainers()
 #' setwd("/data/genomes/cellranger_hg19mm10")
 #' #getting the human and mouse cellranger index
