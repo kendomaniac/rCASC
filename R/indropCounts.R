@@ -78,7 +78,7 @@ indropCounts <- function(group=c("sudo","docker"), scratch.folder, fastq.folder,
       system(paste("cp ",fastq.folder,"/",i, " ",paste(file.path(scrat_tmp.folder), "/input", sep=""),"/",i, sep=""))
   }
 
-  yaml.file=paste(path.package(package="casc"),"extras/indrop.yaml",sep="/")
+  yaml.file=paste(path.package(package="rCASC"),"extras/indrop.yaml",sep="/")
   system(paste("cp ",yaml.file," ", file.path(scrat_tmp.folder),sep=""))
   system(paste("chmod 777 -R", file.path(scrat_tmp.folder)))
   setwd(scrat_tmp.folder)
