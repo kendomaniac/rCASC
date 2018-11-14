@@ -27,10 +27,13 @@
 #' setwd("/data/genomes/cellranger_hg19mm10")
 #' #getting the human and mouse cellranger index
 #' system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
+#' untar("refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz") 
 #' setwd(home)
 #' # 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
 #' system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
-#' cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder=home,  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
+#' untar("hgmm_100_fastqs.tar")
+#' home=paste(home,"/fastqs",sep="")
+#' cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10/refdata-cellranger-hg19-and-mm10-2.1.0/refdata-cellranger-hg19_and_mm10-2.1.0",  fastq.folder=home,  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
 #'
 #'
 #'
