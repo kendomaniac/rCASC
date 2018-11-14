@@ -30,7 +30,7 @@
 #' setwd(home)
 #' # 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
 #' system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
-#' cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
+#' cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  fastq.folder=home,  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
 #'
 #'
 #'
