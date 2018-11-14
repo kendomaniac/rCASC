@@ -2,8 +2,9 @@
 #' @description This function executes a docker that produces as output the sinngle cell counts from V2 indrop single cell sequencing
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param fastq.file, a character string indicating the folder where input data are located and where output will be written
+#' @param fastq.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param index.folder, a character string indicating the folder where transcriptome index was created with indropIndex.
+#' @param sample.name, the string indicating the sample name
 #' @param split.affixes, the string separating SAMPLENAME from the Rz_001.fastq.gz
 #' @param bowtie.index.prefix, the prefix name of the bowtie index. If genome was generated with indropIndex function the bowtie index is genome (default).
 #' @param M, Ignore reads with more than M alignments, after filtering on distance from transcript end.
@@ -19,16 +20,15 @@
 #' system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
 #' library(rCASC)
 #' #running indropCounts
-#' indropCounts(group="docker", scratch.folder="/data/scratch", fastq.file=paste(getwd(),"testMm",sep="/"),
-#'        index.folder="/data/genomes/mm10indrop",
+#' indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
+#'        index.folder="/data/genomes/mm10indrop",sample.name="testMm",
 #'        split.affixes="S0_L001", bowtie.index.prefix="genome",
 #'        M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=3)
 #' }
 #'
 #' @export
-indropCounts <- function(group=c("sudo","docker"), scratch.folder, fastq.file, index.folder, split.affixes, bowtie.index.prefix="genome", M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=3){
-fastqc.folder= dirname(fastqc.file)
-sample.name=strsplit(basename(fastqc.file),"\\.")[[1]]
+indropCounts <- function(group=c("sudo","docker"), scratch.folder, fastq.folder, index.folder,sample.name, split.affixes, bowtie.index.prefix="genome", M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=3){
+
 
   #testing if docker is running
   test <- dockerTest()
