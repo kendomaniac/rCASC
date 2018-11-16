@@ -13,8 +13,8 @@
 #' }
 #' @export
 filterZeros <- function(file, threshold=0, sep){
-
 data.folder=dirname(file)
+  setwd(data.folder)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
 counts.table=paste(matrixNameC[seq(1,positions-1)],collapse="")
