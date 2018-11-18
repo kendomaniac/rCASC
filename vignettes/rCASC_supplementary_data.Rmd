@@ -256,7 +256,7 @@ tmp <- read.table("testSCumi_mm10.csv", sep=",", header=T, row.names=1)
 dim(tmp)
 #27998   806
 write.table(tmp, "testSCumi_mm10.txt", sep="\t", col.names=NA)
-filterZeros(data.folder=getwd(),counts.matrix="testSCumi_mm10.txt", threshold=0)
+filterZeros(file=paste(getwd(),"testSCumi_mm10.txt",sep="/"), threshold=0)
 #Out of 27998 genes 11255 are left after removing genes with no counts
 #output is filtered_testSCumi_mm10.txt
 
