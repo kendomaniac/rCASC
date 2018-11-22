@@ -28,7 +28,7 @@
 #'       logTen=0, pcaDimensions=6, seed=111)
 #'}
 #' @export
-permAnalysisSeurat <- function(group=c("sudo","docker"), scratch.folder, file,nCluster,separator,sp){
+permAnalysisSeurat <- function(group=c("sudo","docker"), scratch.folder, file,nCluster,separator,sp=0.8){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
