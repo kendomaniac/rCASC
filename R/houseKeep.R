@@ -4,7 +4,6 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
-#' @param data.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL geneID. 1 if the gene names is formatted as: ENSMUSG00000000001:Gnai3. If the gene names is made only by ensamble name, scannoByGtf has to be run first.
 #' @param houseK, to be described ....
 #' @param topCell, to be described ...

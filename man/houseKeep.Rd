@@ -23,8 +23,6 @@ houseKeep(group = c("sudo", "docker"), scratch.folder, file, separator,
 \item{houseK, }{to be described ....}
 
 \item{topCell, }{to be described ...}
-
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
 }
 \value{
 return matrix filtered by the best cells that have housekeepin genes most expressed
