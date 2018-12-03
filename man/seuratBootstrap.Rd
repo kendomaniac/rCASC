@@ -6,7 +6,7 @@
 \usage{
 seuratBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
   permAtTime, percent, separator, logTen = 0, pcaDimensions,
-  seed = 111, nCluster)
+  seed = 111)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

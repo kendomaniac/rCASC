@@ -25,7 +25,7 @@
 #'}
 #' @export
 
-seuratBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0, pcaDimensions, seed=111, nCluster){
+seuratBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0, pcaDimensions, seed=111){
 
   seuratPermutation(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, separator=separator, logTen=logTen, pcaDimensions=pcaDimensions, seed=seed)
   cluster.path <- paste(data.folder=dirname(file), "Results", strsplit(basename(file),"\\.")[[1]][1], sep="/")

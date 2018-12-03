@@ -12,13 +12,19 @@ houseKeep(group = c("sudo", "docker"), scratch.folder, file, separator,
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
 \item{logTen, }{0 if is raw count, 1 otherwise}
 
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
+\item{geneNameControl, }{0 if the matrix has gene name without ENSEMBL geneID. 1 if the gene names is formatted as: ENSMUSG00000000001:Gnai3. If the gene names is made only by ensamble name, scannoByGtf has to be run first.}
 
-\item{matrixName, }{counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.}
+\item{houseK, }{to be described ....}
+
+\item{topCell, }{to be described ...}
+
+\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
 }
 \value{
 return matrix filtered by the best cells that have housekeepin genes most expressed

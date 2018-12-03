@@ -5,7 +5,7 @@
 #' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param nCluster, number of interested cluster used for analysis
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param fileName, name of the result label plot
+#' @param finalName, name of the result label plot
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return Csv file with cluster component informations and dataPlot and pie chart based on true Label

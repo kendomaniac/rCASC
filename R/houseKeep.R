@@ -3,8 +3,11 @@
 #' @description This function filter your matrix count on a specific gene house keepin list
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
+#' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param data.folder, a character string indicating the folder where input data are located and where output will be written
-#' @param matrixName, counts table name. Matrix data file must be in data.folder. The file MUST contain RAW counts, without any modification, such as log transformation, normalizatio etc.
+#' @param geneNameControl, 0 if the matrix has gene name without ENSEMBL geneID. 1 if the gene names is formatted as: ENSMUSG00000000001:Gnai3. If the gene names is made only by ensamble name, scannoByGtf has to be run first.
+#' @param houseK, to be described ....
+#' @param topCell, to be described ...
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 0 if is raw count, 1 otherwise
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino

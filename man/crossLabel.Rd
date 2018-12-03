@@ -18,7 +18,7 @@ crossLabel(group = c("sudo", "docker"), scratch.folder, file, nCluster,
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
-\item{fileName, }{name of the result label plot}
+\item{finalName, }{name of the result label plot}
 }
 \value{
 Csv file with cluster component informations and dataPlot and pie chart based on true Label
