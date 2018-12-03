@@ -21,7 +21,7 @@ This function executes a docker that produces as output the genome index index f
 }
 \examples{
 \dontrun{
-library(casc)
+library(rCASC)
 #running indropCounts index build
 indropIndex(group="docker", index.folder=getwd(),
     ensembl.urlgenome="ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz",

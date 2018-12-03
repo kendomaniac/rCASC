@@ -5,7 +5,7 @@
 \title{Permutation Analysis Seurat}
 \usage{
 permAnalysisSeurat(group = c("sudo", "docker"), scratch.folder, file,
-  nCluster, separator, sp)
+  nCluster, separator, sp = 0.8)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

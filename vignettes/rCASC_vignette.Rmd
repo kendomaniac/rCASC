@@ -172,19 +172,11 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 ### **Section 2.2** 10XGenomics
 
 The rCASC function, **cellrangerCount** allows the generation of a counts table starting from fastq files. This function implements [*Cellranger*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview), the 10xGenomics tool allowing the conversion of the fastqs, generated with 10XGenomics platform, into a count matrix. 
-Genome indexes are retrieved from 10Xgenomics repository:
+Genome indexes are retrieved from 10Xgenomics repository: [https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest](https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest)
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
-setwd("/data/genomes/cellranger_hg38")
-#getting the hg38 human genome cellranger index 
-system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-GRCh38-2.1.0.tar.gz")
-setwd("/data/genomes/cellranger_hg19")
-#getting the hg19 human genome cellranger index
-system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-2.1.0.tar.gz")
-setwd("/data/genomes/cellranger_mm10")
-#getting the mm10 mouse genome cellranger index
-system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-mm10-2.1.0.tar.gz")
+Example:
 setwd("/data/genomes/cellranger_hg19mm10")
 #getting the human and mouse cellranger index
 system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")

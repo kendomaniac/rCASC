@@ -21,3 +21,5 @@ docker.io/rcaloger/seuratpcaeval
 docker.io/rcaloger/seuratpermutation
 docker.io/rcaloger/seuratanalysis
 docker.io/rcaloger/seuratprior
+docker.io/rcaloger/ribomitoumi
+
