@@ -32,7 +32,7 @@ This function executes a ubuntu docker that produces informations ribosomal mito
 \dontrun{
    system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
    system("gzip -d singlecells_counts.txt.gz")
-   mitoRiboUmi(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "singlecells_counts.txt", sep="/"),separator="\\t", gtf="genome.gtf", biotype="protein_coding",)
+   mitoRiboUmi(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "singlecells_counts.txt", sep="/"),separator="\\t", gtf="genome.gtf", biotype="protein_coding")
 }
 }
 \author{
