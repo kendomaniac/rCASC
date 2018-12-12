@@ -7,6 +7,10 @@
 #' @param mt, a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed
 #' @param ribo.proteins, a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed
 #' @param umiXgene,  a integer defining how many UMI are required to call a gene as present. default: 3
+#' @param R1, start range for ribosomal percentage 
+#' @param R2, end range for ribosomal percentage
+#' @param R3, start range for mitochondrial percentage 
+#' @param R4, end range for mitochondrial percentage
 #' @author Raffaele Calogero
 
 #' @return one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.
@@ -33,7 +37,7 @@
 #'
 #' @export
 scannobyGtf <- function(group=c("docker","sudo"),file, gtf.name,
-                        biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), umiXgene=3){
+                        biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), umiXgene=3,R1=20,R2=70,R3=0,R4=60){
 
 
   data.folder=dirname(file)
@@ -91,7 +95,7 @@ scratch.folder=data.folder
     return(3)
   }
   #executing the docker job
- params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type, sep="")
+ params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder,":/data/scratch -d docker.io/repbioinfo/r332.2017.01 Rscript /bin/.scannoByGtf.R ", counts.table, " ", gtf.name, " ", biotype, " ", mt, " ", ribo.proteins, " ", file.type," ",R1," ",R2," ",R3," ",R4, sep="")
 
   resultRun <- runDocker(group=group, params=params)
 
@@ -208,4 +212,4 @@ yCoord2=colSums(b2)
   setwd(home)
   #rm(list=ls())
   #gc()
-}
+} 
