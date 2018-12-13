@@ -6,7 +6,9 @@
 \usage{
 scannobyGtf(group = c("docker", "sudo"), file, gtf.name,
   biotype = NULL, mt = c(TRUE, FALSE), ribo.proteins = c(TRUE,
-  FALSE), umiXgene = 3)
+  FALSE), umiXgene = 3, riboStart.percentage = 20,
+  riboEnd.percentage = 70, mitoStart.percentage = 1,
+  mitoEnd.percentage = 100)
 }
 \arguments{
 \item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}
@@ -22,6 +24,14 @@ scannobyGtf(group = c("docker", "sudo"), file, gtf.name,
 \item{ribo.proteins, }{a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed}
 
 \item{umiXgene, }{a integer defining how many UMI are required to call a gene as present. default: 3}
+
+\item{riboStart.percentage, }{start range for ribosomal percentage, cells within the range are kept}
+
+\item{riboEnd.percentage, }{end range for ribosomal percentagem cells within the range are kept}
+
+\item{mitoStart.percentage, }{start range for mitochondrial percentage, cells within the range are removed}
+
+\item{mitoEnd.percentage, }{end range for mitochondrial percentage, cells within the range are removed}
 }
 \value{
 one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.
@@ -43,11 +53,12 @@ This function executes the docker container annotate.1, where refGenome is used 
      system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
      system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
      scannobyGtf(group="docker", file=paste(getwd(),"lorenz_testSCumi_mm10.csv",sep="/"),
-                   gtf.name="Homo_sapiens.GRCh38.94.gtf",
-biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+                   gtf.name="Mus_musculus.GRCm38.92.gtf",
+biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3,
+riboStart.percentage=20, riboEnd.percentage=70, mitoStart.percentage=1, mitoEnd.percentage=100)
 }
 
 }
 \author{
-Raffaele Calogero
+Raffaele Calogero, Luca Alessandri
 }

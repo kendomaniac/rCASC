@@ -7,11 +7,11 @@
 #' @param mt, a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed
 #' @param ribo.proteins, a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed
 #' @param umiXgene,  a integer defining how many UMI are required to call a gene as present. default: 3
-#' @param R1, start range for ribosomal percentage 
-#' @param R2, end range for ribosomal percentage
-#' @param R3, start range for mitochondrial percentage 
-#' @param R4, end range for mitochondrial percentage
-#' @author Raffaele Calogero
+#' @param riboStart.percentage, start range for ribosomal percentage, cells within the range are kept
+#' @param riboEnd.percentage, end range for ribosomal percentagem cells within the range are kept
+#' @param mitoStart.percentage, start range for mitochondrial percentage, cells within the range are removed
+#' @param mitoEnd.percentage, end range for mitochondrial percentage, cells within the range are removed
+#' @author Raffaele Calogero, Luca Alessandri
 
 #' @return one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.
 
@@ -31,15 +31,19 @@
 #'      system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
 #'      scannobyGtf(group="docker", file=paste(getwd(),"lorenz_testSCumi_mm10.csv",sep="/"),
 #'                    gtf.name="Mus_musculus.GRCm38.92.gtf",
-#' biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+#' biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3,
+#' riboStart.percentage=20, riboEnd.percentage=70, mitoStart.percentage=1, mitoEnd.percentage=100)
 
 #' }
 #'
 #' @export
 scannobyGtf <- function(group=c("docker","sudo"),file, gtf.name,
-                        biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), umiXgene=3,R1=20,R2=70,R3=0,R4=60){
+                        biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), umiXgene=3, riboStart.percentage=20, riboEnd.percentage=70, mitoStart.percentage=1, mitoEnd.percentage=100){
 
-
+  R1=riboStart.percentage
+  R2=riboEnd.percentage
+  R3=mitoStart.percentage
+  mitoEnd.percentage=60
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
