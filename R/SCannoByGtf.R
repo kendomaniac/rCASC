@@ -9,8 +9,8 @@
 #' @param umiXgene,  a integer defining how many UMI are required to call a gene as present. default: 3
 #' @param riboStart.percentage, start range for ribosomal percentage, cells within the range are kept
 #' @param riboEnd.percentage, end range for ribosomal percentagem cells within the range are kept
-#' @param mitoStart.percentage, start range for mitochondrial percentage, cells within the range are removed
-#' @param mitoEnd.percentage, end range for mitochondrial percentage, cells within the range are removed
+#' @param mitoStart.percentage, start range for mitochondrial percentage, cells within the range are retained
+#' @param mitoEnd.percentage, end range for mitochondrial percentage, cells within the range are retained
 #' @author Raffaele Calogero, Luca Alessandri
 
 #' @return one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.
