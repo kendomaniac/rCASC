@@ -8,7 +8,7 @@ vignette: >
   %\VignetteEngine{knitr::knitr}
   %\usepackage[utf8]{inputenc}
 
-toc: yes
+
 
 header-includes:
 - \usepackage{makeidx}

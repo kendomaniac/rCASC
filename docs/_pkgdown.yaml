@@ -1,0 +1,17 @@
+title: rCASC
+url: https://kendomaniac.github.io/rCASC/
+template:
+  params:
+    bootswatch: cerulean
+    
+navbar:
+  type: inverse
+  
+left:
+    - icon: fa-home
+      href: index.html
+    - text: "How To"
+      menu: 
+      -  text: Installation
+         href: articles/rCASC_vignette.html
+
