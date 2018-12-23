@@ -32,6 +32,7 @@ library(rCASC)
 downloadContainers()
 ```
 
+MOre info at [**rCASC web site**](https://kendomaniac.github.io/rCASC/)
 
 **IMPORTANT** In case you are running rCASC in a virtual linux machine is important to assign to the machine at least 8 Gb RAM
 
