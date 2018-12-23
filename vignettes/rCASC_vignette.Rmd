@@ -3,6 +3,11 @@ title: "rCASC vignette"
 author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
 date: "21/12/2018"
 output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{<rCASC vignette>} 
+  %\VignetteEngine{knitr::knitr}
+  %\usepackage[utf8]{inputenc}
+
 toc: yes
 
 header-includes:
