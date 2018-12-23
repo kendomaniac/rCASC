@@ -29,9 +29,9 @@ scannobyGtf(group = c("docker", "sudo"), file, gtf.name,
 
 \item{riboEnd.percentage, }{end range for ribosomal percentagem cells within the range are kept}
 
-\item{mitoStart.percentage, }{start range for mitochondrial percentage, cells within the range are removed}
+\item{mitoStart.percentage, }{start range for mitochondrial percentage, cells within the range are retained}
 
-\item{mitoEnd.percentage, }{end range for mitochondrial percentage, cells within the range are removed}
+\item{mitoEnd.percentage, }{end range for mitochondrial percentage, cells within the range are retained}
 }
 \value{
 one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.
