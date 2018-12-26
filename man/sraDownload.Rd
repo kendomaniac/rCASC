@@ -10,11 +10,13 @@ sraDownload(group = c("sudo", "docker"), sra.name, data.folder,
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
+\item{sra.name, }{a character string indicating the name of the SRA object to be download}
+
 \item{data.folder, }{a character string indicating the working folder where output folder will be written}
 
-\item{scratch.folder, }{a character string indicating the folder where input data are located and where output will be written}
+\item{scratch.folder, }{a character string indicating the temporary folder for data preprocessing}
 
-\item{threads, }{a integer indicating the numbe rof threads to be used from fasterq-dumper}
+\item{threads, }{a integer indicating the number of threads to be used from fasterq-dumper}
 }
 \description{
 This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files
@@ -22,7 +24,8 @@ This function executes a ubuntu docker that produces as output FASTQCstdin_fastq
 \examples{
 \dontrun{
     #running sraDownload
-    sraDownload(group="docker", sra.name="SRR7762358", data.folder=getwd(), scratch.folder="/data/scratch", threads=8, seq.type="pe")
+    sraDownload(group="docker", sra.name="SRR7762358", data.folder=getwd(), scratch.folder="/data/scratch", threads=8) 
+    system("mv ./SRR7762358/SRR7762358.fastq.gz ./SRR7762358/SRR7762358_S1_L001_R1_001.fastq.gz")
 }
 
 }

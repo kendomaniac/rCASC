@@ -1,7 +1,7 @@
 ---
 title: "rCASC vignette"
 author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
-date: "21/12/2018"
+date: "26/12/2018"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{<rCASC vignette>} 
@@ -110,7 +110,30 @@ This session refers to the generation of a counts table starting from fastq file
 
 \pagebreak
 
-### **Section 2.1** inDrop seq
+
+### **Section 2.3** SRA download (New)
+
+The function **sraDownload** allows to download for NIH SRA repository fastq files.
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+    + *data.folder*,	a character string indicating the working folder where output folder will be written (The output folder will contain the downloaded fastq file/s)
+    + *scratch.folder*,	a character string indicating the temporary folder for data preprocessing
+    + *threads*,	a integer indicating the number of threads to be used from fasterq-dumper
+
+
+```{r, echo=TRUE, eval=FALSE}
+
+library(rCASC)
+#Downloading fastq from NCBI SRA
+sraDownload(group="docker", sra.name="SRR7762358", data.folder=getwd(), scratch.folder="/data/scratch", threads=8)
+system("mv ./SRR7762358/SRR7762358.fastq.gz ./SRR7762358/SRR7762358_S1_L001_R1_001.fastq.gz")
+
+```
+\fontsize{10}{10}\selectfont
+
+
+### **Section 2.2** inDrop seq
 
 inDrop single-cell sequencing approach was originally published by Klein [[*Cell 2015*](https://www.ncbi.nlm.nih.gov/pubmed/26000487)]. Then, the authors published the detailed protocol in [[*Zilionis et al. Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which has different primer design comparing to the original paper (Figure \ref{fig:fig.2}). 
 
@@ -129,7 +152,7 @@ include_graphics('../inst/img/indropv2.jpg')
 ```
 
 
-#### **Section 2.1.1** inDrop data analysis
+#### **Section 2.2.1** inDrop data analysis
 
 There are two main functions, **indropIndex** and **indropCounts**, allowing the generation of a counts table starting from fastq files.
 
@@ -139,7 +162,7 @@ include_graphics('../inst/img/gui2.png')
 ```
 
     
-##### **Section 2.1.1.1** indropIndex: Creates a reference genome for inDrop V2 
+##### **Section 2.2.1.1** indropIndex: Creates a reference genome for inDrop V2 
 
 - *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure \ref{fig:fig.101}A):
     + *index.folder*: the folder where the reference genome will be created 
@@ -162,7 +185,7 @@ indropIndex(group="docker", index.folder=getwd(),
 \fontsize{10}{10}\selectfont
 
 
-##### **Section 2.1.1.2** indropCounts: Converts fastq in UMI counts using [*inDrop workflow*](https://github.com/indrops)
+##### **Section 2.2.1.2** indropCounts: Converts fastq in UMI counts using [*inDrop workflow*](https://github.com/indrops)
 
 - *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure \ref{fig:fig.101}B):
 
@@ -191,7 +214,7 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 ```
 \fontsize{10}{10}\selectfont
 
-### **Section 2.2** 10XGenomics
+### **Section 2.3** 10XGenomics
 
 The rCASC function, **cellrangerCount** allows the generation of a counts table starting from fastq files. This function implements [*Cellranger*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview), the 10xGenomics tool allowing the conversion of the fastqs, generated with 10XGenomics platform, into a count matrix. 
 
@@ -225,6 +248,7 @@ system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and
     + *transcriptome (GUI Transcriptome folder)*,	the path to the Cellranger compatible transcriptome reference
     + *scratch.folder (GUI Scratch folder)*, a character string indicating the path of the scratch folder
     + *expect.cells (GUI Expected cells)*, optional setting the number of recovered cells. Default: 3000 cells
+    + *version*, cell ranger version number, as default version 2 but version 3 is nowa also available.
     
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -242,13 +266,16 @@ system("tar xvf hgmm_100_fastqs.tar")
 # The cellranger analysis is run without the generation of the secondary analysis
 cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  
                 fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, 
-                nosecondary=TRUE, scratch.folder="/data/scratch")
+                nosecondary=TRUE, scratch.folder="/data/scratch", version="2")
 ```
 \fontsize{10}{10}\selectfont
  
 The analysis done above took 56.4 mins on a [*SeqBox*](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 500Gb SSD.
 
 The output of the above analysis are two counts matrices **results_cellranger.cvs** and **results_cellranger.txt** and a folder called **results_cellranger**, which contains the full cellranger output, more information on cellranger output can be found at [*10XGenomics web site*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview).
+
+
+
 
 ## **Section 3** Counts matrix editing
 
