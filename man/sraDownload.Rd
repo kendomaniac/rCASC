@@ -23,7 +23,7 @@ This function executes a ubuntu docker that produces as output FASTQCstdin_fastq
 \examples{
 \dontrun{
     #running sraDownload
-    sraDownload(group="docker", sra.name, data.folder=getwd(), scratch.folder="/data/scratch", threads=8, seq.type="se")
+    sraDownload(group="docker", sra.name="SRR7762358", data.folder=getwd(), scratch.folder="/data/scratch", threads=8, seq.type="pe")
 }
 
 }
