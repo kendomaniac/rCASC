@@ -3,8 +3,8 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param transcriptome.folder,  path to the Cell Ranger compatible transcriptome reference e.g. for a human and mouse mixture sample, use refdata-cellranger-hg19-and-mm10-1.2.0
-#' @param fastq.folder,  path of the fastq path folder
-#' @param sample, ....
+#' @param fastq.folder,  path of the fastq path folder in fastq folder the  fastq must have the format SAMPLENAME_S1_L001_R1_001.fastq.gz
+#' @param sample, fastq name, if fastq name is subject1_S1_L001_R1_001.fastq.gz sample is subject1
 #' @param expect.cells,  optional setting the number of recovered cells. Default: 3000 cells.
 #' @param force.cells,  optional to force pipeline to use this number of cells, bypassing the cell detection algorithm. Use this if the number of cells estimated by Cell Ranger is not consistent with the barcode rank plot.
 #' @param nosecondary,  optional flag to skip secondary analysis of the gene-barcode matrix (dimensionality reduction, clustering and visualization). Set this if you plan to use cellranger reanalyze or your own custom analysis.
@@ -14,6 +14,7 @@
 #' @param lanes,  optional, lanes associated with this sample
 #' @param localcores,  restricts cellranger to use specified number of cores to execute pipeline stages. By default, cellranger will use all of the cores available on your system.
 #' @param localmem,  restricts cellranger to use specified amount of memory, in GB, to execute pipeline stages. By default, cellranger will use 90\% of the memory available on your system. Please note that cellranger requires at least 16 GB of memory to run all pipeline stages.
+#' @param version,  cellranger version: 2 or 3. version 3 handle better the counts table generation.
 #' @author Greta Romano, romano [dot] greta [at] gmail [dot] com, University of Torino
 #'
 #'
@@ -33,7 +34,7 @@
 #' system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
 #' untar("hgmm_100_fastqs.tar")
 #' home=paste(home,"/fastqs",sep="")
-#' cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10/refdata-cellranger-hg19-and-mm10-2.1.0/refdata-cellranger-hg19_and_mm10-2.1.0",  fastq.folder=home,  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
+#' cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10/refdata-cellranger-hg19_and_mm10-2.1.0",  fastq.folder=home,  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch, version="2")
 #'
 #'
 #'
@@ -43,11 +44,16 @@
 #'
 #' @export
 
-cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=TRUE, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder){
+cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=TRUE, chemistry=NULL, r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder, version="2"){
 
   id="results_cellranger"
   #docker image
-  dockerImage="docker.io/grromano/cellranger"
+  if(version == "2"){
+    dockerImage="docker.io/grromano/cellranger"
+  } else if(version == "3"){
+    dockerImage="docker.io/repbioinfo/cellranger.2018.03"
+  }
+  
 
 #storing the position of the home folder
   home <- getwd()

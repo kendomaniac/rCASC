@@ -8,16 +8,16 @@ cellrangerCount(group = c("sudo", "docker"), transcriptome.folder,
   fastq.folder, sample = NULL, expect.cells = NULL,
   force.cells = NULL, nosecondary = TRUE, chemistry = NULL,
   r1.length = NULL, r2.length = NULL, lanes = NULL,
-  localcores = NULL, localmem = NULL, scratch.folder)
+  localcores = NULL, localmem = NULL, scratch.folder, version = "2")
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{transcriptome.folder, }{path to the Cell Ranger compatible transcriptome reference e.g. for a human and mouse mixture sample, use refdata-cellranger-hg19-and-mm10-1.2.0}
 
-\item{fastq.folder, }{path of the fastq path folder}
+\item{fastq.folder, }{path of the fastq path folder in fastq folder the  fastq must have the format SAMPLENAME_S1_L001_R1_001.fastq.gz}
 
-\item{sample, }{....}
+\item{sample, }{fastq name, if fastq name is subject1_S1_L001_R1_001.fastq.gz sample is subject1}
 
 \item{expect.cells, }{optional setting the number of recovered cells. Default: 3000 cells.}
 
@@ -38,35 +38,14 @@ cellrangerCount(group = c("sudo", "docker"), transcriptome.folder,
 \item{localmem, }{restricts cellranger to use specified amount of memory, in GB, to execute pipeline stages. By default, cellranger will use 90\% of the memory available on your system. Please note that cellranger requires at least 16 GB of memory to run all pipeline stages.}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{version, }{cellranger version: 2 or 3. version 3 handle better the counts table generation.}
 }
 \value{
 a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for further use.
 }
 \description{
 This function takes FASTQ files from cellranger mkfastq and performs alignment, filtering, barcode counting, and UMI counting.
-}
-\examples{
-\dontrun{
-home <- getwd()
-library(rCASC)
-downloadContainers()
-setwd("/data/genomes/cellranger_hg19mm10")
-#getting the human and mouse cellranger index
-system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
-untar("refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz") 
-setwd(home)
-# 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
-system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
-untar("hgmm_100_fastqs.tar")
-home=paste(home,"/fastqs",sep="")
-cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10/refdata-cellranger-hg19-and-mm10-2.1.0/refdata-cellranger-hg19_and_mm10-2.1.0",  fastq.folder=home,  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch")
-
-
-
-
-}
-
-
 }
 \author{
 Greta Romano, romano [dot] greta [at] gmail [dot] com, University of Torino
