@@ -4,7 +4,6 @@
 #' @param data.folder, a character string indicating the working folder where output folder will be written
 #' @param scratch.folder, a character string indicating the folder where input data are located and where output will be written
 #' @param threads, a integer indicating the numbe rof threads to be used from fasterq-dumper
-#'  @param seq.type, a character se for single-end and pe for paired-end
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
 #'
 #' @examples
@@ -14,7 +13,7 @@
 #' }
 #'
 #' @export
-sraDownload <- function(group=c("sudo","docker"), sra.name, data.folder, scratch.folder, threads=8, seq.type=c("se","pe")){
+sraDownload <- function(group=c("sudo","docker"), sra.name, data.folder, scratch.folder, threads=8){
   
   
   #storing the position of the home folder
@@ -47,7 +46,7 @@ sraDownload <- function(group=c("sudo","docker"), sra.name, data.folder, scratch
   
   
   #executing the docker job
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder, ":/workingdir -v ", scratch.folder, ":/tmpfolder  -d docker.io/repbioinfo/sra.2018.01 bash /bin/sra.download.sh ", sra.name, " ", threads, " ", seq.type, sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder, ":/workingdir -v ", scratch.folder, ":/tmpfolder  -d docker.io/repbioinfo/sra.2018.01 bash /bin/sra.download.sh ", sra.name, " ", threads, sep="")
   resultRun <- runDocker(group=group, params=params)
   
   #waiting for the end of the container work

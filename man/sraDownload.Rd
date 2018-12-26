@@ -5,7 +5,7 @@
 \title{A function to handle fasterq-dumper SRA to download SRA fastq files}
 \usage{
 sraDownload(group = c("sudo", "docker"), sra.name, data.folder,
-  scratch.folder, threads = 8, seq.type = c("se", "pe"))
+  scratch.folder, threads = 8)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -14,8 +14,7 @@ sraDownload(group = c("sudo", "docker"), sra.name, data.folder,
 
 \item{scratch.folder, }{a character string indicating the folder where input data are located and where output will be written}
 
-\item{threads, }{a integer indicating the numbe rof threads to be used from fasterq-dumper
-@param seq.type, a character se for single-end and pe for paired-end}
+\item{threads, }{a integer indicating the numbe rof threads to be used from fasterq-dumper}
 }
 \description{
 This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files
