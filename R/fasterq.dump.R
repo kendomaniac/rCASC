@@ -47,7 +47,7 @@ sraDownload <- function(group=c("sudo","docker"), sra.name, data.folder, scratch
   
   
   #executing the docker job
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder, ":/workingdir ", scratch.folder, ":/tmpfolder  -d docker.io/repbioinfo/sra.2018.01 bash /bin/sra.download.sh ", sra.name, " ", threads, " ", seq.type, sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",data.folder, ":/workingdir -v ", scratch.folder, ":/tmpfolder  -d docker.io/repbioinfo/sra.2018.01 bash /bin/sra.download.sh ", sra.name, " ", threads, " ", seq.type, sep="")
   resultRun <- runDocker(group=group, params=params)
   
   #waiting for the end of the container work
