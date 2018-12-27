@@ -47,6 +47,30 @@ a folder called results_cellranger, more info on the structure of this folder at
 \description{
 This function takes FASTQ files from cellranger mkfastq and performs alignment, filtering, barcode counting, and UMI counting.
 }
+\examples{
+\dontrun{
+home <- getwd()
+library(rCASC)
+downloadContainers()
+setwd("/data/genomes/cellranger_hg19mm10")
+#getting the human and mouse cellranger index
+system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
+untar("refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz") 
+setwd(home)
+# 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
+system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
+untar("hgmm_100_fastqs.tar")
+home=paste(home,"/fastqs",sep="")
+cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10/refdata-cellranger-hg19_and_mm10-2.1.0",  fastq.folder=getwd(),  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch", version="2")
+
+sraDownload(group = "docker", sra.name = "SRR7762358", data.folder = getwd(), scratch.folder = "/data/scratch", threads = 8)
+system("mv ./SRR7762358/SRR7762358.fastq.gz ./SRR7762358/SRR7762358_S1_L001_R1_001.fastq.gz")
+cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/refdata-cellranger-GRCh38-3.0.0",  fastq.folder=getwd(), sample="SRR7762358",  nosecondary=TRUE, scratch.folder="/data/scratch", version="3")
+
+}
+
+
+}
 \author{
 Greta Romano, romano [dot] greta [at] gmail [dot] com, University of Torino
 }

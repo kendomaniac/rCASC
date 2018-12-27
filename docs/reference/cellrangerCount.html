@@ -193,6 +193,29 @@
     <p>a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for further use.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>home</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a></span>()
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>rCASC</span>)
+<span class='fu'><a href='downloadContainers.html'>downloadContainers</a></span>()
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>setwd</a></span>(<span class='st'>"/data/genomes/cellranger_hg19mm10"</span>)
+<span class='co'>#getting the human and mouse cellranger index</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/untar'>untar</a></span>(<span class='st'>"refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>setwd</a></span>(<span class='no'>home</span>)
+<span class='co'># 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/untar'>untar</a></span>(<span class='st'>"hgmm_100_fastqs.tar"</span>)
+<span class='no'>home</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='no'>home</span>,<span class='st'>"/fastqs"</span>,<span class='kw'>sep</span><span class='kw'>=</span><span class='st'>""</span>)
+<span class='fu'>cellrangerCount</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>,  <span class='kw'>transcriptome.folder</span><span class='kw'>=</span><span class='st'>"/data/genomes/cellranger_hg19mm10/refdata-cellranger-hg19_and_mm10-2.1.0"</span>,  <span class='kw'>fastq.folder</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a></span>(),  <span class='kw'>expect.cells</span><span class='kw'>=</span><span class='fl'>100</span>, <span class='kw'>nosecondary</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/data/scratch"</span>, <span class='kw'>version</span><span class='kw'>=</span><span class='st'>"2"</span>)
+
+<span class='fu'><a href='sraDownload.html'>sraDownload</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"docker"</span>, <span class='kw'>sra.name</span> <span class='kw'>=</span> <span class='st'>"SRR7762358"</span>, <span class='kw'>data.folder</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a></span>(), <span class='kw'>scratch.folder</span> <span class='kw'>=</span> <span class='st'>"/data/scratch"</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>8</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"mv ./SRR7762358/SRR7762358.fastq.gz ./SRR7762358/SRR7762358_S1_L001_R1_001.fastq.gz"</span>)
+<span class='fu'>cellrangerCount</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>,  <span class='kw'>transcriptome.folder</span><span class='kw'>=</span><span class='st'>"/data/genomes/refdata-cellranger-GRCh38-3.0.0"</span>,  <span class='kw'>fastq.folder</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a></span>(), <span class='kw'>sample</span><span class='kw'>=</span><span class='st'>"SRR7762358"</span>,  <span class='kw'>nosecondary</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/data/scratch"</span>, <span class='kw'>version</span><span class='kw'>=</span><span class='st'>"3"</span>)
+
+<span class='co'># }</span><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -200,7 +223,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     <p>Greta Romano, romano [dot] greta [at] gmail [dot] com, University of Torino</p>
