@@ -57,7 +57,7 @@ h5tocvs <- function(group=c("sudo","docker"),  file){
   params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv ", data.folder, "/",matrixName, sep="")
   
   #Run docker
-  resultRun <- runDocker(group=group, params=params0)
+  resultRun <- runDocker(group=group, params=params)
   #waiting for the end of the container work
   if(resultRun==0){
     system(paste("sed \'s|,|\t|g\' ", data.folder,"/",counts.table,".csv > ", data.folder,"/",counts.table,".txt", sep=""))
