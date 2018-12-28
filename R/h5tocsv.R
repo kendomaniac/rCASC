@@ -29,6 +29,7 @@ h5tocvs <- function(group=c("sudo","docker"),  file){
   matrixNameC=strsplit(basename(file),"\\.")[[1]]
   counts.table=paste(matrixNameC[seq(1,positions-1)],collapse="")
   matrixName=paste(counts.table, ".h5", sep="")
+  matrixNameOut=paste(counts.table, ".csv", sep="")
 
   home <- getwd()
   #running time 1
@@ -54,7 +55,7 @@ h5tocvs <- function(group=c("sudo","docker"),  file){
   }
   
 
-  params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv /data/",matrixName, sep="")
+  params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv /data/",matrixName, " ",matrixNameOut, sep="")
   
   #Run docker
   resultRun <- runDocker(group=group, params=params)
