@@ -55,7 +55,7 @@ h5tocvs <- function(group=c("sudo","docker"),  file){
   }
   
 
-  params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv /data/",matrixName, " ",matrixNameOut, sep="")
+  params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv /data/",matrixName, " /data/",matrixNameOut, sep="")
   
   #Run docker
   resultRun <- runDocker(group=group, params=params)
