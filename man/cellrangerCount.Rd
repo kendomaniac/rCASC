@@ -51,7 +51,6 @@ This function takes FASTQ files from cellranger mkfastq and performs alignment, 
 \dontrun{
 home <- getwd()
 library(rCASC)
-downloadContainers()
 setwd("/data/genomes/cellranger_hg19mm10")
 #getting the human and mouse cellranger index
 system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")

@@ -303,7 +303,6 @@ GUI: 10XGenomics counts table generation
 <p></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">home &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd</a></span>()
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rCASC)
-<span class="kw"><a href="../reference/downloadContainers.html">downloadContainers</a></span>()
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">setwd</a></span>(<span class="st">"/data/genomes/cellranger_hg19mm10"</span>)
 <span class="co">#getting the human and mouse cellranger index</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system">system</a></span>(<span class="st">"wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz"</span>)
@@ -318,6 +317,21 @@ GUI: 10XGenomics counts table generation
 <p></p>
 <p>The analysis done above took 56.4 mins on a <a href="www.seqbox.com"><em>SeqBox</em></a>, equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 500Gb SSD.</p>
 <p>The output of the above analysis are two counts matrices <strong>results_cellranger.cvs</strong> and <strong>results_cellranger.txt</strong> and a folder called <strong>results_cellranger</strong>, which contains the full cellranger output, more information on cellranger output can be found at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview"><em>10XGenomics web site</em></a>.</p>
+<p>In case a h5 matrix is available the function <strong>h5tocvs</strong> can convert the h5 format in csv and txt conventional matrices</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#download from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106268 the GSE106268_RAW.tar file using a web browser</span>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system">system</a></span>(<span class="st">"tar xvf GSE106268_RAW.tar"</span>)
+<span class="kw"><a href="../reference/h5tocvs.html">h5tocvs</a></span>(<span class="dt">group=</span><span class="st">"docker"</span>, <span class="dt">file=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd</a></span>(),<span class="st">"GSM2833284_Naive_WT_Rep1.h5"</span>,<span class="dt">sep=</span><span class="st">"/"</span>))</code></pre></div>
+<ul>
+<li>
+<em>Parameters</em> (only those without default; for the full list of parameters please refer to the function help) (Figure ):
+<ul>
+<li>
+<em>group</em>, a character string. Two options: sudo or docker, depending to which group the user belongs</li>
+<li>
+<em>file</em>, path of the h5 file. Full path MUST be included.</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div id="section-3-counts-matrix-editing" class="section level2">

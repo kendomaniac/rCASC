@@ -24,7 +24,6 @@
 #' \dontrun{
 #' home <- getwd()
 #' library(rCASC)
-#' downloadContainers()
 #' setwd("/data/genomes/cellranger_hg19mm10")
 #' #getting the human and mouse cellranger index
 #' system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
@@ -153,7 +152,12 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   params1[1] <- "cd /data"
   params1[2] <- params.split[2]
   params1[3] <- paste("chmod 777 -R /data/", id, sep="")
-  params1[4] <- paste("/bin/cellranger mat2csv /data/", id,"/outs/filtered_gene_bc_matrices ",id,".csv", sep="")
+  if(version=="2"){
+    params1[4] <- paste("/bin/cellranger mat2csv /data/", id,"/outs/filtered_gene_bc_matrices ",id,".csv", sep="")
+  }else if(version=="3"){
+    params1[4] <- paste("/bin/cellranger mat2csv /data/", id,"/outs/filtered_feature_bc_matrix ",id,".csv", sep="")
+  }
+  
 
 
 
@@ -169,7 +173,7 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   if(resultRun==0){
     system(paste("cp -R ", scrat_tmp.folder, "/", id, " ", fastq.folder, sep=""))
     system(paste("cp ", scrat_tmp.folder, "/results_cellranger.csv ", fastq.folder, sep=""))
-#    system(paste("sed \'s|,|\t|g\' ",home,"/",id,".csv > ", home,"/",id,".txt", sep=""))
+    system(paste("sed \'s|,|\t|g\' ",fastq.folder,"/",id,".csv > ", fastq.folder,"/",id,".txt", sep=""))
     cat("\nCellranger analysis is finished\n")
   }
 
@@ -181,15 +185,15 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
     con <- file("run.info", "r")
     tmp.run <- readLines(con)
     close(con)
-    tmp.run[length(tmp.run)+1] <- paste("user run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("elapsed run time mins ",ptm[3]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("cellranger user run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("cellranger system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("cellranger elapsed run time mins ",ptm[3]/60, sep="")
     writeLines(tmp.run,"run.info")
   }else{
     tmp.run <- NULL
-     tmp.run[1] <- paste("run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("elapsed run time mins ",ptm[3]/60, sep="")
+     tmp.run[1] <- paste("cellranger run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("cellranger system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("cellranger elapsed run time mins ",ptm[3]/60, sep="")
 
     writeLines(tmp.run,"run.info")
   }
