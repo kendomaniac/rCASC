@@ -86,6 +86,7 @@ h5tocvs <- function(group=c("sudo","docker"),  file){
   }
   
   #saving log and removing docker container
+  
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
   system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/mat2csv_", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
