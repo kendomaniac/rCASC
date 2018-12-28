@@ -66,7 +66,7 @@ h5tocvs <- function(group=c("sudo","docker"),  file){
   
   #running time 2
   ptm <- proc.time() - ptm
-  dir <- dir(fastq.folder)
+  dir <- dir(data.folder)
   dir <- dir[grep("run.info",dir)]
   if(length(dir)>0){
     con <- file("run.info", "r")
@@ -90,6 +90,6 @@ h5tocvs <- function(group=c("sudo","docker"),  file){
   system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/mat2csv_", substr(container.id,1,12),".log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
   system("rm -fR dockerID")
-  system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",fastq.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }
