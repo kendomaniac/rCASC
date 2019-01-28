@@ -4,12 +4,12 @@
 \alias{downloadContainers}
 \title{Download for the first time all containers embedded in the workflows}
 \usage{
-downloadContainers(group = "docker", containers.file = NULL)
+downloadContainers(group = "docker", containers.file = "full")
 }
 \arguments{
 \item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}
 
-\item{containers.file, }{a character string with the name of the file which indicate which are the initial set of containers to be downloaded. Initally the set is given by a file located in the folder containers of docker4seq package.}
+\item{containers.file, }{a character string with the name of the file which indicate which are the initial set of containers to be downloaded. Initally the set is given by a file located in the folder containers of docker4seq package, full indicates a complete installation, mini refers to an installation including few preprocessing and all clustering tools}
 }
 \description{
 This is a functin that preapre the docker environment to be used for the first time the docker4seq is installed.
@@ -17,7 +17,7 @@ This is a functin that preapre the docker environment to be used for the first t
 \examples{
 \dontrun{
     #running runDocker
-     downloadContainers(group="docker", containers.file)
+     downloadContainers(group="docker", containers.file="full")
 
 }
 }
