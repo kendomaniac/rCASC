@@ -8,6 +8,8 @@ rCASC preprint is available at: [https://www.biorxiv.org/content/early/2018/10/0
 
 ![Fig. 1:rCASC workflow](casc_workflow.png)
 
+**rCASC** is registed with RRID SCR_017005 at [*SciCrunch*](scicrunch.org). **rCASC** is part of  [*Elixir bio.tools*](https://bio.tools/).
+
 
 
 
