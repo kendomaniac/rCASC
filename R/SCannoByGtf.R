@@ -11,6 +11,7 @@
 #' @param riboEnd.percentage, end range for ribosomal percentagem cells within the range are kept
 #' @param mitoStart.percentage, start range for mitochondrial percentage, cells within the range are retained
 #' @param mitoEnd.percentage, end range for mitochondrial percentage, cells within the range are retained
+#' @param thresholdGenes, parameter to filter cells according to the number og significative genes expressed
 #' @author Raffaele Calogero, Luca Alessandri
 
 #' @return one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.
@@ -38,7 +39,7 @@
 #'
 #' @export
 scannobyGtf <- function(group=c("docker","sudo"),file, gtf.name,
-                        biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), umiXgene=3, riboStart.percentage=20, riboEnd.percentage=70, mitoStart.percentage=1, mitoEnd.percentage=100){
+                        biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), umiXgene=3, riboStart.percentage=20, riboEnd.percentage=70, mitoStart.percentage=1, mitoEnd.percentage=100,thresholdGenes=250){
 
   R1=riboStart.percentage
   R2=riboEnd.percentage
@@ -109,10 +110,10 @@ scratch.folder=data.folder
   }
    dir <- dir(data.folder)
   files <- dir[grep(counts.table, dir)]
-  if(length(files) == 2){
+  if(length(files) == 3){
     files.annotated <- dir[grep("^annotated", dir)]
-    output <- intersect(files, files.annotated)
-    input <- setdiff(files, files.annotated)
+    output=paste("annotated_",matrixName,".",file.type,sep="")
+    input=paste(matrixName,".",file.type,sep="")
     #plotting the genes vs umi all cells
     if(file.type=="txt"){
        tmp0 <- read.table(input, sep="\t", header=T, row.names=1)
@@ -173,9 +174,16 @@ yCoord2=colSums(b2)
     #////////////////////////////////////////////////
     dev.off()
   }
-
+fm=read.table(paste("filtered_annotated_",matrixName,".",file.type,sep=""),header=TRUE,row.names=1)
+  if(length(intersect(names(which(umi.sum0<thresholdGenes)),colnames(fm))!=0){
+  for(i in intersect(names(which(umi.sum0<thresholdGenes)),colnames(fm))){
+    fm=fm[,-which(colnames(fm)==i)]
+  
+  }
+  write.table(fm,paste("filtered_annotated_",matrixName,".",file.type,sep=""),col.names=NA)
+  }
   cat("\nannotated_genes.pdf is ready\n")
-
+  write(paste(nrow(tmp0)-nrow(tmp),"filtered genes \n",ncol(tmp0)-ncol(fm),"filtered cells"),"filteredStatistics.txt")
 
   #running time 2
   ptm <- proc.time() - ptm
