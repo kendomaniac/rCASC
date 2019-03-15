@@ -1,3 +1,4 @@
+docker.io/repbioinfo/cellranger.2018.03
 docker.io/repbioinfo/r332.2017.01
 docker.io/repbioinfo/r340.2017.01
 docker.io/repbioinfo/desc.2018.01
