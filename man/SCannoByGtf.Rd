@@ -8,7 +8,7 @@ scannobyGtf(group = c("docker", "sudo"), file, gtf.name,
   biotype = NULL, mt = c(TRUE, FALSE), ribo.proteins = c(TRUE,
   FALSE), umiXgene = 3, riboStart.percentage = 20,
   riboEnd.percentage = 70, mitoStart.percentage = 1,
-  mitoEnd.percentage = 100)
+  mitoEnd.percentage = 100, thresholdGenes = 250)
 }
 \arguments{
 \item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}
@@ -32,6 +32,8 @@ scannobyGtf(group = c("docker", "sudo"), file, gtf.name,
 \item{mitoStart.percentage, }{start range for mitochondrial percentage, cells within the range are retained}
 
 \item{mitoEnd.percentage, }{end range for mitochondrial percentage, cells within the range are retained}
+
+\item{thresholdGenes, }{parameter to filter cells according to the number og significative genes expressed}
 }
 \value{
 one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.
