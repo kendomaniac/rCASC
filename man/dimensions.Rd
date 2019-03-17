@@ -2,7 +2,7 @@
 % Please edit documentation in R/dimensions.R
 \name{dimensions}
 \alias{dimensions}
-\title{Permutations and Clustering}
+\title{Cells count table size}
 \usage{
 dimensions(group = c("sudo", "docker"), scratch.folder, file, separator)
 }
@@ -16,10 +16,10 @@ dimensions(group = c("sudo", "docker"), scratch.folder, file, separator)
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
-plot with cluster stability
+number of row and columns of a cells counts table
 }
 \description{
-This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+This function executes a ubuntu docker that counts row and colums of a counts table.
 }
 \examples{
 \dontrun{
