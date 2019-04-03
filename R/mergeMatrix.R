@@ -14,11 +14,11 @@
 #' @return plot with cluster stability
 #' @examples
 #' \dontrun{
-#clusterStability("sudo","/media/lucastormreig/8799-82B31/PHD/CASC8.1Stable/CASC8.0STABLE/new/clusterStability/",file="/media/lucastormreig/8799-82B31/PHD/CASC8.1Stable/CASC8.0STABLE/new/clusterStability/annotated_10000_Buettner.csv",nPerm=3,range1=3,range2=3,separator=",",logTen=0,clustering="SIMLR",pcaDimensions=3)
+# mergeMatrix("docker","/data/scratch",file1=paste(getwd(),"test1.csv", sep="/"),file1=paste(getwd(),"test2.csv", sep="/"), separator1=",",separator2=",",name1="WT",name2="KO")
 
 #'}
 #' @export
-mergeMatrix <- function(group=c("sudo","docker"), scratch.folder, file1,file2, separator1,separator2,name1,name2){
+mergeMatrix <- function(group=c("sudo","docker"), scratch.folder, file1,file2, separator1,separator2,name1="NULL",name2="NULL"){
 
   data.folder1=dirname(file1)
 positions1=length(strsplit(basename(file1),"\\.")[[1]])

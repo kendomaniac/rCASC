@@ -5,7 +5,7 @@
 \title{Merge matrix}
 \usage{
 mergeMatrix(group = c("sudo", "docker"), scratch.folder, file1, file2,
-  separator1, separator2, name1, name2)
+  separator1, separator2, name1 = "NULL", name2 = "NULL")
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
