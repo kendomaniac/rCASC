@@ -2,35 +2,24 @@
 #' @description This function creates the indexing for 10Xgenomics
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param gtf.url, url for gtf download
-#' @param fasta.url, url for fasta download
+#' @param gtf.url, a character string indicating the URL from ENSEMBL ftp for the GTF for genome of interest
+#' @param fasta.url, a character string indicating the URL from ENSEMBL ftp for the unmasked genome sequence of interest
 #' @param genomeFolder,  path for the genome folder
-#' @param bio.type, biotype to filter the gtf
-#' @params nThreads, number of cores for parallelization 
+#' @param bio.type, ENSEMBL biotype to filter the GTF
+#' @param nThreads, number of cores for parallelization 
 #' @author Luca Alessandrì
 #'
 #'
-#' @return a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for further use.
-#'
+#' @return an indexed genome compliant with 10XGenomics cellranger
 #' @examples
 #' \dontrun{
-#' home <- getwd()
 #' library(rCASC)
-#' setwd("/data/genomes/cellranger_hg19mm10")
-#' #getting the human and mouse cellranger index
-#' system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
-#' untar("refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz") 
-#' setwd(home)
-#' # 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
-#' system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
-#' untar("hgmm_100_fastqs.tar")
-#' home=paste(home,"/fastqs",sep="")
-#' cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10/refdata-cellranger-hg19_and_mm10-2.1.0",  fastq.folder=getwd(),  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch", version="2")
-#' 
-#' sraDownload(group = "docker", sra.name = "SRR7762358", data.folder = getwd(), scratch.folder = "/data/scratch", threads = 8)
-#' system("mv ./SRR7762358/SRR7762358.fastq.gz ./SRR7762358/SRR7762358_S1_L001_R1_001.fastq.gz")
-#' cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/refdata-cellranger-GRCh38-3.0.0",  fastq.folder=getwd(), sample="SRR7762358",  nosecondary=TRUE, scratch.folder="/data/scratch", version="3")
+#' setwd("/data/genomes/hg38refcellranger")
 #'
+#' cellrangerIndexing(group="docker", scratch.folder="/data/scratch", 
+#'             gtf.url="ftp://ftp.ensembl.org/pub/release-87/gtf/homo_sapiens/Homo_sapiens.GRCh38.87.gtf.gz",
+#'             fasta.url="ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz",
+#'             genomeFolder = getwd(), bio.type="protein_coding", nThreads = 8)
 #' }
 #'
 #'
