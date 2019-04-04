@@ -8,15 +8,17 @@ topx(group = c("sudo", "docker"), file, threshold, separator,
   logged = FALSE, type = c("expression", "variance"))
 }
 \arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included}
+
 \item{threshold, }{integer used for filtering indicate the number of top expressed genes to be selected}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
 
 \item{logged, }{boolean TRUE or FALSE, if FALSE gene expression data are log10 transformed before being plotted.}
 
 \item{type, }{expression refers to the selection of the top expressed genes, varinace to the the selectionof the top variable genes}
-
-\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
-
-\item{file.name, }{counts table tab delimited. Matrix data file must be in data.folder.}
 }
 \value{
 a filtered tab delimited file and a histogram of the gene by gene total expression
@@ -29,7 +31,7 @@ This function select the X top genes givea a user defined threshold
 
  system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
  system("gzip -d singlecells_counts.txt.gz")
- topx(data.folder=getwd(),file.name="singlecells_counts.txt",threshold=10000, logged=FALSE, type="expression")
+ topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"),threshold=10000, logged=FALSE, type="expression")
 }
 
 }
