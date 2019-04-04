@@ -21,14 +21,14 @@
 #'
 #' @export
 topx <- function(group=c("sudo","docker"),file, threshold, separator, logged=FALSE, type=c("expression", "variance")){
-data.folder=dirname(file)
-positions=length(strsplit(basename(file),"\\.")[[1]])
-matrixNameC=strsplit(basename(file),"\\.")[[1]]
-matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
-format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
-if(separator=="\t"){
-separator="tab"
-}
+  data.folder=dirname(file)
+  positions=length(strsplit(basename(file),"\\.")[[1]])
+  matrixNameC=strsplit(basename(file),"\\.")[[1]]
+  matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
+  format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
+  if(separator=="\t"){
+    separator="tab"
+  }
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
@@ -94,11 +94,4 @@ separator="tab"
   system("rm  -fR tempFolderID")
   system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
-  
-  
-  
-
-
-  setwd(home)
-
 }
