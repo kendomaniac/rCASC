@@ -45,7 +45,7 @@ counts.table=matrixName
                counts <- read.table(file, sep=sep, header=T, row.names=1, stringsAsFactors = F)
 
        names(counts) <- gsub("_","-",names(counts))
-       clusters <- read.table(cluster.file, sep="\t", header=T, row.names=1, stringsAsFactors = F)
+       clusters <- read.table(cluster.file, sep=sep, header=T, row.names=1, stringsAsFactors = F)
        rownames(clusters) <- gsub("_","-",rownames(clusters))
 
        if(!identical(names(counts), rownames(clusters))){
