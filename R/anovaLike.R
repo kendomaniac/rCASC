@@ -70,7 +70,7 @@ counts.table=matrixName
        de <- de.full[,1:length(others.nu)]
        names(de) <- others.nu
        names(de.full) <- c(others.nu, c( "logCPM", "F", "PValue", "FDR"))
-       write.table(de, paste("logFC_filtered_DE_", sub(".txt","_reordered.txt", counts.table), sep=""), sep="\t", col.names = NA)
-       write.table(de.full, paste("filtered_DE_", sub(".txt","_reordered.txt", counts.table), sep=""), sep="\t", col.names = NA)
+       write.table(de, paste("logFC_filtered_DE_", sub(".txt","_reordered.txt", counts.table),".",file.type,sep=""), sep=sep, col.names = NA)
+       write.table(de.full, paste("filtered_DE_", sub(".txt","_reordered.txt", counts.table),".",file.type, sep=""), sep=sep, col.names = NA)
 
 }
