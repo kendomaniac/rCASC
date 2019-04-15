@@ -58,7 +58,7 @@ counts.table=matrixName
       tmp.n <- as.numeric(sapply(strsplit(names(others), "_"), function(x)x[2]))
        others <- others[,order(tmp.n)]
        counts <- data.frame(ref, others, check.names = F)
-       write.table(counts, sub(".txt","_reordered.txt", counts.table), sep="\t", col.names = NA)
+       write.table(counts, sub(".txt","_reordered.txt", counts.table), sep=sep, col.names = NA)
 
        deDetection(group=group, data.folder=data.folder, counts.table=sub(".txt","_reordered.txt", counts.table),
                    file.type=file.type, logFC.threshold=logFC.threshold, FDR.threshold=FDR.threshold,
