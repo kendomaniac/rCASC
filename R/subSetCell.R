@@ -14,7 +14,7 @@
 
 #'}
 #' @export
-subSetCell<- function(group=c("sudo","docker"), scratch.folder, file, separator,cells.number){
+subSetCell<- function(group=c("sudo","docker"), scratch.folder, file, separator, cells.number){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])

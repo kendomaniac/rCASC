@@ -23,4 +23,7 @@ docker.io/rcaloger/seuratpermutation
 docker.io/rcaloger/seuratanalysis
 docker.io/rcaloger/seuratprior
 docker.io/rcaloger/ribomitoumi
+docker.io/rcaloger/mergematrix
+docker.io/rcaloger/clusterstability
+docker.io/rcaloger/unstablefiltering
 docker.io/repbioinfo/sra.2018.01
