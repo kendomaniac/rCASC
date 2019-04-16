@@ -45,7 +45,7 @@ counts.table=matrixName
                counts <- read.table(file, sep=sep, header=T, row.names=1, stringsAsFactors = F)
 
        names(counts) <- gsub("_","-",names(counts))
-       clusters <- read.table(cluster.file, sep="\t", header=T, row.names=1, stringsAsFactors = F)
+       clusters <- read.table(cluster.file, sep=sep, header=T, row.names=1, stringsAsFactors = F)
        rownames(clusters) <- gsub("_","-",rownames(clusters))
 
        if(!identical(names(counts), rownames(clusters))){
@@ -58,7 +58,7 @@ counts.table=matrixName
       tmp.n <- as.numeric(sapply(strsplit(names(others), "_"), function(x)x[2]))
        others <- others[,order(tmp.n)]
        counts <- data.frame(ref, others, check.names = F)
-       write.table(counts, sub(".txt","_reordered.txt", counts.table), sep="\t", col.names = NA)
+       write.table(counts, sub(".txt","_reordered.txt", counts.table), sep=sep, col.names = NA)
 
        deDetection(group=group, data.folder=data.folder, counts.table=sub(".txt","_reordered.txt", counts.table),
                    file.type=file.type, logFC.threshold=logFC.threshold, FDR.threshold=FDR.threshold,
@@ -67,10 +67,10 @@ counts.table=matrixName
        de.full <- read.table(paste("filtered_DE_", sub(".txt","_reordered.txt", counts.table), sep=""), sep="\t", header=T, row.names=1, stringsAsFactors = F)
        others.nu <- unique(as.numeric(sapply(strsplit(names(others), "_"), function(x)x[2])))
        others.nu <- paste(rep("C",length(others.nu)),others.nu, sep="")
-       de <- de.full[,1:4]
+       de <- de.full[,1:length(others.nu)]
        names(de) <- others.nu
        names(de.full) <- c(others.nu, c( "logCPM", "F", "PValue", "FDR"))
-       write.table(de, paste("logFC_filtered_DE_", sub(".txt","_reordered.txt", counts.table), sep=""), sep="\t", col.names = NA)
-       write.table(de.full, paste("filtered_DE_", sub(".txt","_reordered.txt", counts.table), sep=""), sep="\t", col.names = NA)
+       write.table(de, paste("logFC_filtered_DE_", sub(".txt","_reordered.txt", counts.table),".",file.type,sep=""), sep=sep, col.names = NA)
+       write.table(de.full, paste("filtered_DE_", sub(".txt","_reordered.txt", counts.table),".",file.type, sep=""), sep=sep, col.names = NA)
 
 }
