@@ -6,6 +6,8 @@
 #' @param nCluster, number of cluster that has to be analyzed
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.
+#' @param sparse, boolean for sparse matrix
+#' @param format, output file format
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return stability plot for each nCluster,two files with score information for each cell for each permutation.
@@ -28,13 +30,21 @@
 #'       logTen=0, pcaDimensions=6, seed=111)
 #'}
 #' @export
-permAnalysisSeurat <- function(group=c("sudo","docker"), scratch.folder, file,nCluster,separator,sp=0.8){
+permAnalysisSeurat <- function(group=c("sudo","docker"), scratch.folder, file,nCluster,separator,sp=0.8,sparse=FALSE,format="NULL"){
 
+if(!sparse){
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
 matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
 format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
+}else{
+  matrixName=strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])]
+  data.folder=paste(strsplit(dirname(file),"/")[[1]][-length(strsplit(dirname(file),"/")[[1]])],collapse="/")
+  if(format=="NULL"){
+  stop("Format output cannot be NULL for sparse matrix")
+  }
+}
 
   #running time 1
   ptm <- proc.time()
@@ -87,10 +97,9 @@ separator="tab"
     return(3)
   }
 system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
-system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/seuratanalysis Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator," ",sp,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/seuratanalysis Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator," ",sp," ",sparse,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
@@ -136,4 +145,4 @@ resultRun <- runDocker(group=group, params=params)
   system("rm  -fR tempFolderID")
   system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
-}
+} 
