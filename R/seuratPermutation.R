@@ -1,3 +1,4 @@
+
 #' @title Seurat Permutation
 #' @description This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
@@ -10,6 +11,8 @@
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
 #' @param pcaDimensions, 	0 for automatic selection of PC elbow.
 #' @param seed, important value to reproduce the same results with same input
+#' @param sparse, boolean for sparse matrix
+#' @param format, output file format
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
@@ -34,14 +37,21 @@
 #'}
 
 #' @export
-seuratPermutation <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0,pcaDimensions,seed=1111){
+seuratPermutation <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0,pcaDimensions,seed=1111,sparse=FALSE,format="NULL"){
 
+if(!sparse){
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
 matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
 format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
-
+}else{
+  matrixName=strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])]
+  data.folder=paste(strsplit(dirname(file),"/")[[1]][-length(strsplit(dirname(file),"/")[[1]])],collapse="/")
+  if(format=="NULL"){
+  stop("Format output cannot be NULL for sparse matrix")
+  }
+}
 
   #running time 1
   ptm <- proc.time()
@@ -89,11 +99,15 @@ separator="tab"
 
  dir.create(paste(scrat_tmp.folder,"/",matrixName,sep=""))
  dir.create(paste(data.folder,"/Results",sep=""))
+ if(sparse==FALSE){
 system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/",sep=""))
+}else{
+system(paste("cp -r ",data.folder,"/",matrixName,"/ ",scrat_tmp.folder,"/",sep=""))
 
+}
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/seuratpermutation Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",format," ",separator," ",logTen," ",pcaDimensions," ",seed, sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/seuratpermutation Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",format," ",separator," ",logTen," ",pcaDimensions," ",seed," ",sparse,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
