@@ -12,7 +12,7 @@
 #' @param pcaDimensions, 	0 for automatic selection of PC elbow.
 #' @param seed, important value to reproduce the same results with same input
 #' @param sparse, boolean for sparse matrix
-#' @param format, output file format
+#' @param format, output file format csv or txt
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
