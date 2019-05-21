@@ -4,12 +4,15 @@
 \alias{h5tocvs}
 \title{h5 to csv}
 \usage{
-h5tocvs(group = c("sudo", "docker"), file)
+h5tocvs(group = c("sudo", "docker"), file, type = c("h5",
+  "10xgenomics"))
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
-\item{file, }{path of the h5 file. Full path MUST be included.}
+\item{file, }{path of the h5 file. Full path MUST be included. or the the 10xgenomics folder with tsv and mtx files}
+
+\item{type, }{h5 refers to h5 files and 10xgenomics to the folder containing barcodes.tsv, genes.tsv and matrix.mtx}
 }
 \value{
 a csv file results_cellranger
@@ -24,7 +27,8 @@ library(rCASC)
 #download from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106268 the GSE106268_RAW.tar file
 system("tar xvf GSE106268_RAW.tar")
 
-h5tocvs(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1.h5",sep="/"))
+h5tocvs(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1.h5",sep="/"), type="h5"))
+h5tocvs(group="docker", file=paste(getwd(),"Bladder-10X_P4_3",sep="/"), type="10xgenomics"))
 }
 
 

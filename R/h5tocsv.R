@@ -1,7 +1,8 @@
 #' @title h5 to csv
 #' @description This function takes h5 file from cellranger output and convert it in csv table.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
-#' @param file,  path of the h5 file. Full path MUST be included.
+#' @param file,  path of the h5 file. Full path MUST be included. or the the 10xgenomics folder with tsv and mtx files
+#' @param type, h5 refers to h5 files and 10xgenomics to the folder containing barcodes.tsv, genes.tsv and matrix.mtx
 #' 
 #' @author Raffaele Calogero, raffaele [dot] calogero [at] unito [dot] com, University of Torino
 #'
@@ -14,22 +15,29 @@
 #' #download from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106268 the GSE106268_RAW.tar file
 #' system("tar xvf GSE106268_RAW.tar")
 #' 
-#' h5tocvs(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1.h5",sep="/"))
+#' h5tocvs(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1.h5",sep="/"), type="h5"))
+#' h5tocvs(group="docker", file=paste(getwd(),"Bladder-10X_P4_3",sep="/"), type="10xgenomics"))
 #' }
 #'
 #'
 #' @export
  
-h5tocvs <- function(group=c("sudo","docker"),  file){
+h5tocvs <- function(group=c("sudo","docker"),  file, type=c("h5","10xgenomics")){
 
   dockerImage="docker.io/repbioinfo/cellranger.2018.03"
   
-  data.folder=dirname(file)
-  positions=length(strsplit(basename(file),"\\.")[[1]])
-  matrixNameC=strsplit(basename(file),"\\.")[[1]]
-  counts.table=paste(matrixNameC[seq(1,positions-1)],collapse="")
-  matrixName=paste(counts.table, ".h5", sep="")
-  matrixNameOut=paste(counts.table, ".csv", sep="")
+  if(type=="h5"){
+    data.folder=dirname(file)
+    positions=length(strsplit(basename(file),"\\.")[[1]])
+    matrixNameC=strsplit(basename(file),"\\.")[[1]]
+    counts.table=paste(matrixNameC[seq(1,positions-1)],collapse="")
+    matrixName=paste(counts.table, ".h5", sep="")
+    matrixNameOut=paste(counts.table, ".csv", sep="")
+  }else{
+    data.folder=dirname(file)
+    matrixName=basename(file)
+    matrixNameOut=paste(matrixName, ".csv", sep="")
+  }
 
   home <- getwd()
   #running time 1
@@ -54,8 +62,11 @@ h5tocvs <- function(group=c("sudo","docker"),  file){
     return(10)
   }
   
-
-  params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv /data/",matrixName, " /data/",matrixNameOut, sep="")
+  if(type =="h5"){
+    params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv /data/",matrixName, " /data/",matrixNameOut, sep="")
+  }else{
+    params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv /data/",matrixName, " /data/",matrixNameOut, sep="")
+  }
   
   #Run docker
   resultRun <- runDocker(group=group, params=params)
