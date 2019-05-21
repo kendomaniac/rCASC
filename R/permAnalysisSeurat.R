@@ -7,7 +7,7 @@
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.
 #' @param sparse, boolean for sparse matrix
-#' @param format, output file format
+#' @param format, output file format csv or txt
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return stability plot for each nCluster,two files with score information for each cell for each permutation.
