@@ -27,7 +27,7 @@
 #'  seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
 #'       file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
 #'       nPerm=160, permAtTime=8, percent=10, separator="\t",
-#'       logTen=0, pcaDimensions=6, seed=111)
+#'       logTen=0, pcaDimensions=6, seed=111, format="NULL")
 #'}
 #' @export
 permAnalysisSeurat <- function(group=c("sudo","docker"), scratch.folder, file,nCluster,separator,sp=0.8,sparse=FALSE,format="NULL"){

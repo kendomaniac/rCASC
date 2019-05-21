@@ -6,7 +6,7 @@
 \usage{
 seuratPermutation(group = c("sudo", "docker"), scratch.folder, file,
   nPerm, permAtTime, percent, separator, logTen = 0, pcaDimensions,
-  seed = 1111)
+  seed = 1111, sparse = FALSE, format = "NULL")
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -28,6 +28,10 @@ seuratPermutation(group = c("sudo", "docker"), scratch.folder, file,
 \item{pcaDimensions, }{0 for automatic selection of PC elbow.}
 
 \item{seed, }{important value to reproduce the same results with same input}
+
+\item{sparse, }{boolean for sparse matrix}
+
+\item{format, }{output file format}
 }
 \value{
 To write

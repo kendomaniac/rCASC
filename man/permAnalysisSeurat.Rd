@@ -5,7 +5,7 @@
 \title{Permutation Analysis Seurat}
 \usage{
 permAnalysisSeurat(group = c("sudo", "docker"), scratch.folder, file,
-  nCluster, separator, sp = 0.8)
+  nCluster, separator, sp = 0.8, sparse = FALSE, format = "NULL")
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -19,6 +19,10 @@ permAnalysisSeurat(group = c("sudo", "docker"), scratch.folder, file,
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
 \item{sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+
+\item{sparse, }{boolean for sparse matrix}
+
+\item{format, }{output file format}
 }
 \value{
 stability plot for each nCluster,two files with score information for each cell for each permutation.
@@ -41,7 +45,7 @@ This function analyze the data that came up from permutationClustering script.
  seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
       file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
       nPerm=160, permAtTime=8, percent=10, separator="\\t",
-      logTen=0, pcaDimensions=6, seed=111)
+      logTen=0, pcaDimensions=6, seed=111, format="NULL")
 }
 }
 \author{

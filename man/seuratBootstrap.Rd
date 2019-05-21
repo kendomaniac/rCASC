@@ -6,7 +6,7 @@
 \usage{
 seuratBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
   permAtTime, percent, separator, logTen = 0, pcaDimensions,
-  seed = 111)
+  seed = 111, sparse = FALSE, format = "NULL")
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -28,6 +28,10 @@ seuratBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 \item{pcaDimensions, }{PCA threshold selected using seuratPCAEval function.}
 
 \item{seed, }{important value to reproduce the same results with same input}
+
+\item{sparse, }{boolean for sparse matrix}
+
+\item{format, }{output file format}
 }
 \value{
 VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.

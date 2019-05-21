@@ -5,7 +5,8 @@
 \title{Permutations and Clustering}
 \usage{
 seuratPCAEval(group = c("sudo", "docker"), scratch.folder, file,
-  separator, logTen = 0, seed = 1111)
+  separator, logTen = 0, seed = 1111, sparse = FALSE,
+  format = "NULL")
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -19,6 +20,10 @@ seuratPCAEval(group = c("sudo", "docker"), scratch.folder, file,
 \item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
 
 \item{seed, }{important value to reproduce the same results with same input}
+
+\item{sparse, }{boolean for sparse matrix}
+
+\item{format, }{output file format}
 }
 \value{
 Plot with PCA scores is provided to detect the PCA dimensions to be used in Seurat clustering algorithm
@@ -39,7 +44,7 @@ This function executes a ubuntu docker that produces a specific number of permut
  
  seuratPCAEval(group="docker",scratch.folder="/data/scratch/", 
           file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
-          separator="\\t", logTen = 0, seed = 111)
+          separator="\\t", logTen = 0, seed = 111, format="NULL")
 }
 }
 \author{
