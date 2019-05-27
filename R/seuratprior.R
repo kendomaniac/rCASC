@@ -8,7 +8,9 @@
 #' @param seed, important value to reproduce the same results with same input
 #' @param PCADim, dimensions of PCA for seurat clustering
 #' @param geneNumber, numbers of specific genes for each clusters
-#' @param nCluster, number of cluster analysis. 
+#' @param nCluster, number of cluster analysis.
+#' @param sparse, boolean for sparse matrix
+#' @param format, output file format
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
@@ -28,13 +30,21 @@
 #'  seuratPrior(group="docker", scratch.folder="/data/scratch/", file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), separator="\t", logTen=0, seed=111, PCADim=6, geneNumber = 100, nCluster=5)
 #'}
 #' @export
-seuratPrior <- function(group=c("sudo","docker"), scratch.folder, file, separator, logTen=0, seed=111, PCADim, geneNumber, nCluster){
+seuratPrior <- function(group=c("sudo","docker"), scratch.folder, file, separator, logTen=0, seed=111, PCADim, geneNumber, nCluster,sparse=FALSE,format="NULL"){
 
+if(!sparse){
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
 matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
 format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
+}else{
+  matrixName=strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])]
+  data.folder=paste(strsplit(dirname(file),"/")[[1]][-length(strsplit(dirname(file),"/")[[1]])],collapse="/")
+  if(format=="NULL"){
+  stop("Format output cannot be NULL for sparse matrix")
+  }
+}
 
 
   #running time 1
@@ -80,14 +90,18 @@ if(separator=="\t"){
 separator="tab"
 }
 
- dir.create(paste(scrat_tmp.folder,"/",matrixName,sep=""))
- dir.create(paste(data.folder,"/Results",sep=""))
+ if(sparse==FALSE){
 system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/",sep=""))
 system(paste("cp -R ",data.folder,"/Results/",matrixName," ",scrat_tmp.folder,"/",sep=""))
 
+}else{
+system(paste("cp -r ",data.folder,"/",matrixName,"/ ",scrat_tmp.folder,"/",sep=""))
+system(paste("cp -R ",data.folder,"/Results/",matrixName," ",scrat_tmp.folder,"/",sep=""))
+
+}
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/seuratprior Rscript /home/main.R ",matrixName," ",format," ",separator," ",logTen," ", seed," ",PCADim," ",geneNumber," ",nCluster,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/seuratprior Rscript /home/main.R ",matrixName," ",format," ",separator," ",logTen," ", seed," ",PCADim," ",geneNumber," ",nCluster," ",sparse,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
@@ -136,4 +150,4 @@ resultRun <- runDocker(group=group, params=params)
   system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
 
   setwd(home)
-}
+} 
