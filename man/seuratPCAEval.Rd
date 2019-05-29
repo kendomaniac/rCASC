@@ -23,7 +23,7 @@ seuratPCAEval(group = c("sudo", "docker"), scratch.folder, file,
 
 \item{sparse, }{boolean for sparse matrix}
 
-\item{format, }{output file format}
+\item{format, }{output file format csv or txt}
 }
 \value{
 Plot with PCA scores is provided to detect the PCA dimensions to be used in Seurat clustering algorithm

@@ -5,7 +5,8 @@
 \title{seuratprior}
 \usage{
 seuratPrior(group = c("sudo", "docker"), scratch.folder, file, separator,
-  logTen = 0, seed = 111, PCADim, geneNumber, nCluster)
+  logTen = 0, seed = 111, PCADim, geneNumber, nCluster,
+  sparse = FALSE, format = "NULL")
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -25,6 +26,10 @@ seuratPrior(group = c("sudo", "docker"), scratch.folder, file, separator,
 \item{geneNumber, }{numbers of specific genes for each clusters}
 
 \item{nCluster, }{number of cluster analysis.}
+
+\item{sparse, }{boolean for sparse matrix}
+
+\item{format, }{output file format}
 }
 \value{
 ....

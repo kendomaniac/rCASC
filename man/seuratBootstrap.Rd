@@ -31,7 +31,7 @@ seuratBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{sparse, }{boolean for sparse matrix}
 
-\item{format, }{output file format}
+\item{format, }{output file format csv or txt}
 }
 \value{
 VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.

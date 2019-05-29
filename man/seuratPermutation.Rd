@@ -31,7 +31,7 @@ seuratPermutation(group = c("sudo", "docker"), scratch.folder, file,
 
 \item{sparse, }{boolean for sparse matrix}
 
-\item{format, }{output file format}
+\item{format, }{output file format csv or txt}
 }
 \value{
 To write

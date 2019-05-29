@@ -22,7 +22,7 @@ permAnalysisSeurat(group = c("sudo", "docker"), scratch.folder, file,
 
 \item{sparse, }{boolean for sparse matrix}
 
-\item{format, }{output file format}
+\item{format, }{output file format csv or txt}
 }
 \value{
 stability plot for each nCluster,two files with score information for each cell for each permutation.
