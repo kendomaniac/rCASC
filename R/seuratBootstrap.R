@@ -42,12 +42,14 @@ seuratBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPer
     
   }else{
   
-  
-  
-  
     seuratPermutation(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, separator=separator, logTen=logTen, pcaDimensions=pcaDimensions, seed=seed,sparse,format=format)
-  cluster.path <- paste(data.folder=dirname(file), "Results", strsplit(basename(file),"\\.")[[1]][1], sep="/")
-  cluster <- as.numeric(list.dirs(cluster.path, full.names = FALSE, recursive = FALSE))
+   matrixName=strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])]
+data.folder=paste(strsplit(dirname(file),"/")[[1]][-length(strsplit(dirname(file),"/")[[1]])],collapse="/")
+cluster.path <- paste(data.folder=data.folder, "Results",strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])], sep="/")
+    
+    
+
+    cluster <- as.numeric(list.dirs(cluster.path, full.names = FALSE, recursive = FALSE))
   if(length(cluster)==1){
     permAnalysisSeurat(group=group, scratch.folder=scratch.folder,file=file, nCluster=cluster, separator=separator, sp=0.8,sparse=sparse,format=format)
   } else{
