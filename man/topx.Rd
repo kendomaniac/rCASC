@@ -18,7 +18,7 @@ topx(group = c("sudo", "docker"), file, threshold, separator,
 
 \item{logged, }{boolean TRUE or FALSE, if FALSE gene expression data are log10 transformed before being plotted.}
 
-\item{type, }{expression refers to the selection of the top expressed genes, varinace to the the selectionof the top variable genes}
+\item{type, }{expression refers to the selection of the top expressed genes, variance to the the selectionof the top variable genes}
 }
 \value{
 a filtered tab delimited file and a histogram of the gene by gene total expression
@@ -31,7 +31,7 @@ This function select the X top genes givea a user defined threshold
 
  system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
  system("gzip -d singlecells_counts.txt.gz")
- topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"),threshold=10000, logged=FALSE, type="expression")
+ topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"),threshold=10000, logged=FALSE, type="expression", separator="\\t")
 }
 
 }
