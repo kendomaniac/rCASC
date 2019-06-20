@@ -4,7 +4,7 @@
 #' @param file, a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included
 #' @param threshold, integer used for filtering indicate the number of top expressed genes to be selected
 #' @param logged, boolean TRUE or FALSE, if FALSE gene expression data are log10 transformed before being plotted.
-#' @param type, expression refers to the selection of the top expressed genes, variance to the the selectionof the top variable genes
+#' @param type, expression refers to the selection of the top expressed genes, variance to the the selection of the top variable genes
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #'
 #' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, UNITO

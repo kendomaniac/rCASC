@@ -18,7 +18,7 @@ topx(group = c("sudo", "docker"), file, threshold, separator,
 
 \item{logged, }{boolean TRUE or FALSE, if FALSE gene expression data are log10 transformed before being plotted.}
 
-\item{type, }{expression refers to the selection of the top expressed genes, variance to the the selectionof the top variable genes}
+\item{type, }{expression refers to the selection of the top expressed genes, variance to the the selection of the top variable genes}
 }
 \value{
 a filtered tab delimited file and a histogram of the gene by gene total expression
