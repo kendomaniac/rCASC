@@ -27,3 +27,5 @@ docker.io/rcaloger/mergematrix
 docker.io/rcaloger/clusterstability
 docker.io/rcaloger/unstablefiltering
 docker.io/repbioinfo/sra.2018.01
+docker.io/rcaloger/scanpypermutation
+
