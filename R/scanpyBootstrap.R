@@ -24,11 +24,11 @@
 #'}
 #' @export
 
-scanpyBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, perplexity=40, pca_number=50, seed=111, format="NULL", sparse=FALSE){
+scanpyBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, perplexity=40, pca_number=50, seed=111, format="NULL"){
 
 
   
-   scanpyPermutation(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, separator=separator,pca_number=pca_number,seed=seed,sparse=sparse,format=format,perplexity=perplexity)
+   scanpyPermutation(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, separator=separator,pca_number=pca_number,seed=seed,sparse=TRUE,format=format,perplexity=perplexity)
    matrixName=strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])]
    data.folder=paste(strsplit(dirname(file),"/")[[1]][-length(strsplit(dirname(file),"/")[[1]])],collapse="/")
    cluster.path <- paste(data.folder=data.folder, "Results",strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])], sep="/")
