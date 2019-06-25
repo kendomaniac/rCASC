@@ -20,15 +20,15 @@
 #' system("wget http://130.192.119.59/public/section4.1_examples.zip")
 #' unzip("section4.1_examples.zip")
 #' setwd("section4.1_examples")
-#' seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111, sparse=FALSE,format="NULL")
+#' scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pca_number=6, seed=111, sparse=FALSE,format="NULL")
 #'}
 #' @export
 
-scanpyBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, perplexity=40, pca_number=50, seed=111,format="NULL"){
+scanpyBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, perplexity=40, pca_number=50, seed=111, format="NULL", sparse=FALSE){
 
 
   
-   scanpyPermutation(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, separator=separator,pca_number=pca_number,seed=seed,sparse=TRUE,format=format,perplexity=perplexity)
+   scanpyPermutation(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, separator=separator,pca_number=pca_number,seed=seed,sparse=sparse,format=format,perplexity=perplexity)
    matrixName=strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])]
    data.folder=paste(strsplit(dirname(file),"/")[[1]][-length(strsplit(dirname(file),"/")[[1]])],collapse="/")
    cluster.path <- paste(data.folder=data.folder, "Results",strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])], sep="/")

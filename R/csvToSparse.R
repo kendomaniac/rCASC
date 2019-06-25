@@ -78,6 +78,7 @@ resultRun <- runDocker(group=group, params=params)
   #waiting for the end of the container work
   if(resultRun==0){
     #system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
+    cat("\nmatrix conversion is finished\n")
   }
   #running time 2
   ptm <- proc.time() - ptm
@@ -87,22 +88,22 @@ resultRun <- runDocker(group=group, params=params)
     con <- file("run.info", "r")
     tmp.run <- readLines(con)
     close(con)
-    tmp.run[length(tmp.run)+1] <- paste("user run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("elapsed run time mins ",ptm[3]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("csvToSparse user run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("csvToSparse system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("csvToSparse elapsed run time mins ",ptm[3]/60, sep="")
     writeLines(tmp.run,"run.info")
   }else{
     tmp.run <- NULL
-    tmp.run[1] <- paste("run time mins ",ptm[1]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("system run time mins ",ptm[2]/60, sep="")
-    tmp.run[length(tmp.run)+1] <- paste("elapsed run time mins ",ptm[3]/60, sep="")
+    tmp.run[1] <- paste("csvToSparse run time mins ",ptm[1]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("csvToSparse system run time mins ",ptm[2]/60, sep="")
+    tmp.run[length(tmp.run)+1] <- paste("csvToSparse elapsed run time mins ",ptm[3]/60, sep="")
 
     writeLines(tmp.run,"run.info")
   }
 
   #saving log and removing docker container
   container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
-  system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
+  system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),"_csvToSparse.log", sep=""))
   system(paste("docker rm ", container.id, sep=""))
 
 
