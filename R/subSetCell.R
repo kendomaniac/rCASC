@@ -4,14 +4,19 @@
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param cells.number, number of cells for subsetting
+#' @param cells.number, number of cells to be extracted
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return subset matrix
+#' @return subsetted matrix
 #' @examples
 #' \dontrun{
-
+#' system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+#' unzip("annotated_setPace_10000_noC5.txt.zip")
+#' 
+#' subSetCell<- function(group="docker", scratch.folder="/data/scratch", 
+#'                        file=paste(getwd(), "annotated_setPace_10000_noC5.txt",sep="/"), 
+#'                        separator="\t", cells.number=200)
 #'}
 #' @export
 subSetCell<- function(group=c("sudo","docker"), scratch.folder, file, separator, cells.number){

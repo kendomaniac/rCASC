@@ -6,10 +6,13 @@
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return number of row and columns of a cells counts table
+#' @return a file called dimensions.txt containing the number of row and columns of a cells counts table
 #' @examples
 #' \dontrun{
-#dimensions("docker",scratch.folder="/data/scratch",file="/media/lucastormreig/8799-82B31/PHD/CASC8.1Stable/CASC8.0STABLE/new/clusterStability/annotated_10000_Buettner.csv", separator=",")
+#' system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+#' unzip("annotated_setPace_10000_noC5.txt.zip")
+#' dimensions(group="docker", scratch.folder="/data/scratch",
+#'             file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
 
 #'}
 #' @export

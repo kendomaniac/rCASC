@@ -16,13 +16,17 @@ dimensions(group = c("sudo", "docker"), scratch.folder, file, separator)
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
-number of row and columns of a cells counts table
+a file called dimensions.txt containing the number of row and columns of a cells counts table
 }
 \description{
 This function executes a ubuntu docker that counts row and colums of a counts table.
 }
 \examples{
 \dontrun{
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+dimensions(group="docker", scratch.folder="/data/scratch",
+            file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), separator="\\t")
 }
 }
 \author{

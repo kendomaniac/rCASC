@@ -16,13 +16,18 @@ csvToSparse(group = c("sudo", "docker"), scratch.folder, file, separator)
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
-plot with cluster stability
+three files: matrix.mtx, barcodes.tsv and genes.tsv
 }
 \description{
-This function executes a ubuntu docker that create the sparse matrix from the dense
+This function executes a ubuntu docker that create a sparse matrix, without 0s, from a dense one, including 0s
 }
 \examples{
 \dontrun{
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+csvToSparse(group="docker", scratch="/data/scratch", 
+            file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), 
+            separator="\\t")
 }
 }
 \author{

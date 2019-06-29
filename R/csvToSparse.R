@@ -1,5 +1,5 @@
 #' @title csv to Sparse
-#' @description This function executes a ubuntu docker that create the sparse matrix from the dense
+#' @description This function executes a ubuntu docker that create a sparse matrix, without 0s, from a dense one, including 0s
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
@@ -7,10 +7,16 @@
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return plot with cluster stability
+#' @return three files: matrix.mtx, barcodes.tsv and genes.tsv
+#' 
 #' @examples
 #' \dontrun{
-#clusterStability("sudo","/media/lucastormreig/8799-82B31/PHD/CASC8.1Stable/CASC8.0STABLE/new/clusterStability/",file="/media/lucastormreig/8799-82B31/PHD/CASC8.1Stable/CASC8.0STABLE/new/clusterStability/annotated_10000_Buettner.csv",nPerm=3,range1=3,range2=3,separator=",",logTen=0,clustering="SIMLR",pcaDimensions=3)
+
+#' system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+#' unzip("annotated_setPace_10000_noC5.txt.zip")
+#' csvToSparse(group="docker", scratch="/data/scratch", 
+#'             file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), 
+#'             separator="\t")
 
 #'}
 #' @export

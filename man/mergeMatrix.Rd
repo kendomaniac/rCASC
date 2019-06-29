@@ -12,26 +12,35 @@ mergeMatrix(group = c("sudo", "docker"), scratch.folder, file1, file2,
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
-\item{file1, }{a character string indicating the path of the file, with file name and extension included}
+\item{file1, }{a character string indicating the path of the first matrix to be merged, with file name and extension included}
 
-\item{file2, }{a character string indicating the path of the file, with file name and extension included}
+\item{file2, }{a character string indicating the path of the second matrix to be merged, with file name and extension included}
 
 \item{separator1, }{separator used in count file, e.g. '\\t', ','}
 
 \item{separator2, }{separator used in count file, e.g. '\\t', ','}
 
-\item{name1, }{the name that will be in the header of the matrix1 cells ,leave to NULL if you dont want to put anything else}
+\item{name1, }{the name that will be the prefix in the header of the matrix1 cells ,NULL will not add any prefix}
 
-\item{name2, }{the name that will be in the header of the matrix2 cells ,leave to NULL if you dont want to put anything else}
+\item{name2, }{the name that will be the prefix in the header of the matrix2 cells ,NULL will not add any prefix}
 }
 \value{
-plot with cluster stability
+a merged matrix
 }
 \description{
 This function executes a ubuntu docker that merge two matrix
 }
 \examples{
 \dontrun{
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+subSetCell(group="docker", scratch.folder="/data/scratch", 
+           file=paste(getwd(), "annotated_setPace_10000_noC5.txt",sep="/"), 
+           separator="\\t", cells.number=200)
+mergeMatrix(group="docker", scratch.folder="/data/scratch", 
+            file1=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"),
+            file2=paste(getwd(),"subset_200_annotated_setPace_10000_noC5.txt", sep="/"), 
+            separator1="\\t",separator2="\\t",name1="test1",name2="test2")
 }
 }
 \author{

@@ -7,6 +7,7 @@
 #' @param permAtTime, number of permutations computed in parallel
 #' @param percent, percentage of randomly selected cells removed in each permutation
 #' @param separator, separator used in count file, e.g. '\\t', ','
+#' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
 #' @param perplexity, perplexity value for tsne projection
 #' @param seed, important value to reproduce the same results with same input
 #' @param format, output file format csv or txt

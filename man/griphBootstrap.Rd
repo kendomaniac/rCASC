@@ -23,6 +23,8 @@ griphBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
 \item{perplexity, }{perplexity value for tsne projection}
 
 \item{seed, }{important value to reproduce the same results with same input}

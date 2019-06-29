@@ -1,12 +1,12 @@
-#' @title h5 to csv
-#' @description This function takes h5 file from cellranger output and convert it in csv table.
+#' @title sparse to dense
+#' @description This function takes h5 or mtx file from cellranger output and convert it in a csv table.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
-#' @param file,  path of the h5 file. Full path MUST be included. or the the 10xgenomics folder with tsv and mtx files
+#' @param file,  path of the sparse matrix file. For h5 file the full path MUST be included. For mtx matrix the folder MUST contain tsv and mtx files and the FULL path to mtx matrix MUST be provided
 #' @param type, h5 refers to h5 files and 10xgenomics to the folder containing barcodes.tsv, genes.tsv and matrix.mtx
 #' 
 #' @author Raffaele Calogero, raffaele [dot] calogero [at] unito [dot] com, University of Torino
 #'
-#' @return a csv file results_cellranger
+#' @return a dense matrix, with 0s, in csv and txt format
 #'
 #' @examples
 #' \dontrun{
@@ -14,15 +14,19 @@
 #' library(rCASC)
 #' #download from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106268 the GSE106268_RAW.tar file
 #' system("tar xvf GSE106268_RAW.tar")
-#' 
 #' h5tocvs(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1.h5",sep="/"), type="h5"))
-#' h5tocvs(group="docker", file=paste(getwd(),"Bladder-10X_P4_3",sep="/"), type="10xgenomics"))
+#' system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+#' unzip("annotated_setPace_10000_noC5.txt.zip")
+#' csvToSparse(group="docker", scratch="/data/scratch", file=paste(getwd(), 
+#'             "annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
+
+#' h5tocsv(group="docker", file=paste(getwd(),"matrix.mtx",sep="/"), type="10xgenomics")
 #' }
 #'
 #'
 #' @export
  
-h5tocvs <- function(group=c("sudo","docker"),  file, type=c("h5","10xgenomics")){
+h5tocsv <- function(group=c("sudo","docker"),  file, type=c("h5","10xgenomics")){
 
   dockerImage="docker.io/repbioinfo/cellranger.2018.03"
   
@@ -36,6 +40,7 @@ h5tocvs <- function(group=c("sudo","docker"),  file, type=c("h5","10xgenomics"))
   }else{
     data.folder=dirname(file)
     matrixName=basename(file)
+	matrixName = sapply(strsplit(matrixName, '\\.'), function(x)x[1])
     matrixNameOut=paste(matrixName, ".csv", sep="")
   }
 
@@ -65,7 +70,7 @@ h5tocvs <- function(group=c("sudo","docker"),  file, type=c("h5","10xgenomics"))
   if(type =="h5"){
     params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv /data/",matrixName, " /data/",matrixNameOut, sep="")
   }else{
-    params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv /data/",matrixName, " /data/",matrixNameOut, sep="")
+    params <- paste("--cidfile ", data.folder,"/dockerID -v ", data.folder, ":/data -d ", dockerImage, " /bin/cellranger mat2csv /data/", " /data/",matrixNameOut, sep="")
   }
   
   #Run docker

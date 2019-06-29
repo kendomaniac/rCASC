@@ -16,16 +16,22 @@ subSetCell(group = c("sudo", "docker"), scratch.folder, file, separator,
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
-\item{cells.number, }{number of cells for subsetting}
+\item{cells.number, }{number of cells to be extracted}
 }
 \value{
-subset matrix
+subsetted matrix
 }
 \description{
 This function executes a ubuntu docker that subset a matrix
 }
 \examples{
 \dontrun{
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+
+subSetCell<- function(group="docker", scratch.folder="/data/scratch", 
+                       file=paste(getwd(), "annotated_setPace_10000_noC5.txt",sep="/"), 
+                       separator="\\t", cells.number=200)
 }
 }
 \author{
