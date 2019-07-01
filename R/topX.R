@@ -1,8 +1,8 @@
 #' @title A function to selectec top X on the basis of gene/transcript expression
-#' @description This function select the X top genes givea a user defined threshold
+#' @description This function select the X top genes given a user defined threshold
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param file, a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included
-#' @param threshold, integer used for filtering indicate the number of top expressed genes to be selected
+#' @param threshold, integer used for filtering indicate the number of top expressed/vaying genes to be selected
 #' @param logged, boolean TRUE or FALSE, if FALSE gene expression data are log10 transformed before being plotted.
 #' @param type, expression refers to the selection of the top expressed genes, variance to the the selection of the top variable genes
 #' @param separator, separator used in count file, e.g. '\\t', ','
@@ -16,7 +16,11 @@
 #'
 #'  system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
 #'  system("gzip -d singlecells_counts.txt.gz")
-#'  topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"),threshold=10000, logged=FALSE, type="expression", separator="\t")
+#'  topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"),
+#'        threshold=10000, logged=FALSE, type="expression", separator="\t")
+#'        
+#'  topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"), 
+#'        threshold=10000, logged=FALSE, type="variance", separator="\t")
 #' }
 #'
 #' @export

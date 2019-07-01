@@ -1,9 +1,10 @@
-#' @title Plotting the distribution of zeros in cells eliminating all genes without counts
-#' @description This function plots the zeros distributions in cells and removes genes without counts
-#' @param file, a character string indicating the path of the file tab delimited  of cells un-normalized expression counts
-#' @param threshold, a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having no expression in any cell.
+#' @title A function plotting the distribution of zeros in cells eliminating all genes without a certain fraction of 0 in the samples
+#' @description This function plots the zeros distributions in cells and removes genes without  a certain fraction of 0 in the samples
+#' @param file, a character string indicating the path of the cells un-normalized expression counts table
+#' @param threshold, a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having 0 in all cells.
 #' @param sep, separator used in count file, e.g. '\\t', ','
-#' @return a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *filtered* in which the filtered data are saved.
+#' @author Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
+#' @return a PDF providing zeros distributions before removal of all genes without a certain fraction of 0 in the samples. A file with the prefix *filtered* in which the filtered data are saved.
 #' @examples
 #' \dontrun{
 #'     #downloading fastq files

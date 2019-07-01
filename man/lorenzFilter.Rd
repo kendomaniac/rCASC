@@ -19,10 +19,10 @@ lorenzFilter(group = c("sudo", "docker"), scratch.folder, file, p_value,
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
-The output is a tab delimited counts table. Output will be in the same format and with the same separator of input.
+The output is a filtered counts table. Output will be in the same format and with the same separator of input.
 }
 \description{
-This function executes a docker that produces ....
+This function executes a docker that embeds Lorenz filter from Diaz at al. Bioinformatics 2016
 }
 \examples{
 \dontrun{
@@ -30,11 +30,11 @@ This function executes a docker that produces ....
      library(casc)
      system("unzip testSCumi_mm10.csv.zip")
      #filtering low quality cells
-     lorenzFilter(group="docker",scratch.folder="/data/scratch/",
-                  file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
-                  p_value=0.05,separator=',')
+     lorenzFilter(group="docker",scratch.folder="/data/scratch/", 
+                  file=paste(getwd(),"testSCumi_mm10.csv", sep="/"),
+                  p_value=0.05, separator=',')
 }
 }
 \author{
-Name Family name, myemail [at] somewhere [dot] org, Affiliation
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 }

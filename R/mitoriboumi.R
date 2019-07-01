@@ -1,23 +1,28 @@
 #' @title MitoRiboUmi
-#' @description This function executes a ubuntu docker that produces informations ribosomal mitochondrial fraction in each cell
+#' @description This function executes a ubuntu docker showing ribosomal mitochondrial protein genes fraction in each cell
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param gtf.name, name for the gtf file tu be used.
-#' @param bio.type, ENSEMBL biotype of interest
-#' @param umiXgene, umi to filter genes.
+#' @param bio.type, ENSEMBL biotype of interest, default for single-cell protein_coding
+#' @param umiXgene, a integer defining how many UMI are required to call a gene as present. default: 3
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return Csv file with cluster component informations and dataPlot and pie chart based on true Label
+#' @return a pdf file called Ribo_mito.pdf
 #' @examples
 #'\dontrun{
-#'    system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
-#'    system("gzip -d singlecells_counts.txt.gz")
-#'    mitoRiboUmi(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "singlecells_counts.txt", sep="/"),separator="\t", gtf="genome.gtf", biotype="protein_coding")
+#'    system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz")
+#'    system("gzip -d Mus_musculus.GRCm38.94.gtf.gz")
+#'    system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+#'    unzip("testSCumi_mm10.csv.zip")
+#'    mitoRiboUmi(group="docker", file=paste(getwd(), "testSCumi_mm10.csv", sep="/"), 
+#'                 scratch.folder="/data/scratch", separator=",", umiXgene=3, 
+#'                 gtf.name="Mus_musculus.GRCm38.94.gtf", bio.type="protein_coding")
+
 #'}
 #' @export
-mitoRiboUmi <- function(group=c("sudo","docker"), scratch.folder,file,separator,gtf.name,bio.type,umiXgene){
+mitoRiboUmi <- function(group=c("sudo","docker"), scratch.folder, file,separator, gtf.name, bio.type, umiXgene){
 
 
   data.folder=dirname(file)

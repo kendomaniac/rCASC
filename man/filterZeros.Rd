@@ -2,22 +2,22 @@
 % Please edit documentation in R/filterZeros.R
 \name{filterZeros}
 \alias{filterZeros}
-\title{Plotting the distribution of zeros in cells eliminating all genes without counts}
+\title{A function plotting the distribution of zeros in cells eliminating all genes without a certain fraction of 0 in the samples}
 \usage{
 filterZeros(file, threshold = 0, sep)
 }
 \arguments{
-\item{file, }{a character string indicating the path of the file tab delimited  of cells un-normalized expression counts}
+\item{file, }{a character string indicating the path of the cells un-normalized expression counts table}
 
-\item{threshold, }{a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having no expression in any cell.}
+\item{threshold, }{a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having 0 in all cells.}
 
 \item{sep, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
-a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *filtered* in which the filtered data are saved.
+a PDF providing zeros distributions before removal of all genes without a certain fraction of 0 in the samples. A file with the prefix *filtered* in which the filtered data are saved.
 }
 \description{
-This function plots the zeros distributions in cells and removes genes without counts
+This function plots the zeros distributions in cells and removes genes without  a certain fraction of 0 in the samples
 }
 \examples{
 \dontrun{
@@ -26,4 +26,7 @@ This function plots the zeros distributions in cells and removes genes without c
     system("gzip -d singlecells_counts.txt.gz")
     filterZeros(file=paste(getwd(),"singlecells_counts.txt",sep="/"), threshold=0.1, sep="\\t")
 }
+}
+\author{
+Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
 }

@@ -12,7 +12,7 @@ topx(group = c("sudo", "docker"), file, threshold, separator,
 
 \item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included}
 
-\item{threshold, }{integer used for filtering indicate the number of top expressed genes to be selected}
+\item{threshold, }{integer used for filtering indicate the number of top expressed/vaying genes to be selected}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
@@ -31,7 +31,11 @@ This function select the X top genes givea a user defined threshold
 
  system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
  system("gzip -d singlecells_counts.txt.gz")
- topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"),threshold=10000, logged=FALSE, type="expression", separator="\\t")
+ topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"),
+       threshold=10000, logged=FALSE, type="expression", separator="\\t")
+       
+ topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"), 
+       threshold=10000, logged=FALSE, type="variance", separator="\\t")
 }
 
 }

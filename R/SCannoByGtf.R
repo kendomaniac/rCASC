@@ -14,13 +14,13 @@
 #' @param thresholdGenes, parameter to filter cells according to the number og significative genes expressed
 #' @author Raffaele Calogero, Luca Alessandri
 
-#' @return one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.
+#' @return one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal. Filtered_annotated annotated counts table with only cells and genes given by filtering thresholds. A pdf showing the effect of genes counts of the filtering and a filteredStatistics.txt indicating how many cell and genes were filtered out
 
 #' @import utils
 #' @examples
 #' \dontrun{
 #'         system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
-#'      library(casc)
+#'      library(rCASC)
 #'      system("unzip testSCumi_mm10.csv.zip")
 #'      #filtering low quality cells
 #'      lorenzFilter(group="docker",scratch.folder="/data/scratch/",
@@ -30,16 +30,14 @@
 #'      #download mouse GTF for mm10
 #'      system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
 #'      system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
-#'      scannobyGtf(group="docker", file=paste(getwd(),"lorenz_testSCumi_mm10.csv",sep="/"),
-#'                    gtf.name="Mus_musculus.GRCm38.92.gtf",
-#' biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3,
-#' riboStart.percentage=20, riboEnd.percentage=70, mitoStart.percentage=1, mitoEnd.percentage=100)
-
+#'      scannobyGtf(group="docker", file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
+#'                   gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
+#'                   mt=TRUE, ribo.proteins=TRUE, umiXgene=3, riboStart.percentage=0, 
+#'                   riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
 #' }
 #'
 #' @export
-scannobyGtf <- function(group=c("docker","sudo"),file, gtf.name,
-                        biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), umiXgene=3, riboStart.percentage=20, riboEnd.percentage=70, mitoStart.percentage=1, mitoEnd.percentage=100,thresholdGenes=250){
+scannobyGtf <- function(group=c("docker","sudo"),file, gtf.name, biotype=NULL, mt=c(TRUE, FALSE), ribo.proteins=c(TRUE, FALSE), umiXgene=3, riboStart.percentage=20, riboEnd.percentage=70, mitoStart.percentage=1, mitoEnd.percentage=100,thresholdGenes=250){
 
   R1=riboStart.percentage
   R2=riboEnd.percentage

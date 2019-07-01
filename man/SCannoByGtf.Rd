@@ -36,7 +36,7 @@ scannobyGtf(group = c("docker", "sudo"), file, gtf.name,
 \item{thresholdGenes, }{parameter to filter cells according to the number og significative genes expressed}
 }
 \value{
-one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.
+one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal. Filtered_annotated annotated counts table with only cells and genes given by filtering thresholds. A pdf showing the effect of genes counts of the filtering and a filteredStatistics.txt indicating how many cell and genes were filtered out
 }
 \description{
 This function executes the docker container annotate.1, where refGenome is used to annotate a single cell counts table with ensembl gene ids on first column using ENSEMBL GTF annotation
@@ -44,7 +44,7 @@ This function executes the docker container annotate.1, where refGenome is used 
 \examples{
 \dontrun{
         system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
-     library(casc)
+     library(rCASC)
      system("unzip testSCumi_mm10.csv.zip")
      #filtering low quality cells
      lorenzFilter(group="docker",scratch.folder="/data/scratch/",
@@ -54,10 +54,10 @@ This function executes the docker container annotate.1, where refGenome is used 
      #download mouse GTF for mm10
      system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
      system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
-     scannobyGtf(group="docker", file=paste(getwd(),"lorenz_testSCumi_mm10.csv",sep="/"),
-                   gtf.name="Mus_musculus.GRCm38.92.gtf",
-biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3,
-riboStart.percentage=20, riboEnd.percentage=70, mitoStart.percentage=1, mitoEnd.percentage=100)
+     scannobyGtf(group="docker", file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
+                  gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
+                  mt=TRUE, ribo.proteins=TRUE, umiXgene=3, riboStart.percentage=0, 
+                  riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
 }
 
 }

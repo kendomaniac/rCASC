@@ -9,10 +9,9 @@
 #'
 #' @examples
 #' \dontrun{
-#'     #downloading fastq files
-#'     system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
-#'     system("gzip -d singlecells_counts.txt.gz")
-#'     genesUmi(file=paste(getwd(),"singlecells_counts.txt",sep="/"), umiXgene=3, sep="\t")
+#' system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+#' unzip("testSCumi_mm10.csv.zip")
+#' genesUmi(file=paste(getwd(),"testSCumi_mm10.csv",sep="/"), umiXgene=3, sep=",")
 #' }
 genesUmi <- function(file, umiXgene=3, sep){
 

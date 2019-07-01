@@ -1,14 +1,14 @@
 #' @title A function to handle sigle cell Lorenz Quality filter for Single-cells
-#' @description This function executes a docker that produces ....
+#' @description This function executes a docker that embeds Lorenz filter from Diaz at al. Bioinformatics 2016
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included
 #' @param p_value, lorenz statistics threshold, suggest value 0.05, i.e. 5\% probability that the cell of low quality is selected
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #'
-#' @author Name Family name, myemail [at] somewhere [dot] org, Affiliation
+#' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return The output is a tab delimited counts table. Output will be in the same format and with the same separator of input.
+#' @return The output is a filtered counts table. Output will be in the same format and with the same separator of input.
 #'
 #' @examples
 #' \dontrun{
@@ -16,9 +16,9 @@
 #'      library(casc)
 #'      system("unzip testSCumi_mm10.csv.zip")
 #'      #filtering low quality cells
-#'      lorenzFilter(group="docker",scratch.folder="/data/scratch/",
-#'                   file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
-#'                   p_value=0.05,separator=',')
+#'      lorenzFilter(group="docker",scratch.folder="/data/scratch/", 
+#'                   file=paste(getwd(),"testSCumi_mm10.csv", sep="/"),
+#'                   p_value=0.05, separator=',')
 #' }
 #' @export
 lorenzFilter <- function(group=c("sudo","docker"), scratch.folder, file, p_value, separator){
