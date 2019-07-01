@@ -18,17 +18,17 @@ ccRemove(group = c("sudo", "docker"), scratch.folder, file, separator,
 
 \item{seed, }{is important to reproduce the same results with the same input}
 
-\item{cutoff, }{larger p-value to use 3 is almost equal to 0.05}
+\item{cutoff, }{a cut-off equal to 3 is almost equal to 0.05 p.value}
 
 \item{species, }{human or mouse}
 
 \item{rawCount, }{1 for raw 0 otherwise}
 }
 \value{
-will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/
+return a normalized matrix, whith prefix LS_cc_, in which cell cycle effect is removed
 }
 \description{
-This function executes a ubuntu docker that remove the effect of cell cycle
+This function executes a ubuntu docker that remove the effect of cell cycle from a single cells dataset
 }
 \examples{
 \dontrun{

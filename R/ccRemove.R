@@ -1,17 +1,17 @@
 
 #' @title Cc remove
-#' @description This function executes a ubuntu docker that remove the effect of cell cycle
+#' @description This function executes a ubuntu docker that remove the effect of cell cycle from a single cells dataset
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv"
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param seed, is important to reproduce the same results with the same input
-#' @param cutoff, larger p-value to use 3 is almost equal to 0.05
+#' @param cutoff, a cut-off equal to 3 is almost equal to 0.05 p.value
 #' @param species, human or mouse
 #' @param rawCount, 1 for raw 0 otherwise
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/
+#' @return return a normalized matrix, whith prefix LS_cc_, in which cell cycle effect is removed
 #' @examples
 #'\dontrun{
 #' system("wget http://130.192.119.59/public/annotated_lorenz_testSCumi_mm10.csv.zip")

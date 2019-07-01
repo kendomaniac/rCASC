@@ -24,7 +24,7 @@ topx(group = c("sudo", "docker"), file, threshold, separator,
 a filtered tab delimited file and a histogram of the gene by gene total expression
 }
 \description{
-This function select the X top genes givea a user defined threshold
+This function select the X top genes given a user defined threshold
 }
 \examples{
 \dontrun{
