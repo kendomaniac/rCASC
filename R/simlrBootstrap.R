@@ -1,5 +1,5 @@
-#' @title Permutations and Clustering
-#' @description This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+#' @title Clustering with SIMLR
+#' @description This function executes a ubuntu docker that produces a specific number of permutation with SIMLR clustering.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
@@ -19,7 +19,7 @@
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
+#' @return A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
 #' @examples
 #' \dontrun{
 #' system("wget http://130.192.119.59/public/section4.1_examples.zip")

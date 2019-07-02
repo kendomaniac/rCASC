@@ -2,7 +2,7 @@
 % Please edit documentation in R/simlrBootstrap.R
 \name{simlrBootstrap}
 \alias{simlrBootstrap}
-\title{Permutations and Clustering}
+\title{Clustering with SIMLR}
 \usage{
 simlrBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
   permAtTime, percent, range1, range2, separator, logTen = 0,
@@ -41,10 +41,10 @@ simlrBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 \item{minLogMean, }{min value for Log mean for genes feature selection}
 }
 \value{
-VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
+A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
 }
 \description{
-This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+This function executes a ubuntu docker that produces a specific number of permutation with SIMLR clustering.
 }
 \examples{
 \dontrun{
