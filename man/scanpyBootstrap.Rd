@@ -29,7 +29,7 @@ scanpyBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{seed, }{important value to reproduce the same results with same input}
 
-\item{format, }{output file format csv or txt.  Mandatory because scanpy unly accepts sparse matrices}
+\item{format, }{output file format csv or txt.  Mandatory because scanpy only accepts sparse matrices}
 }
 \value{
 A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells

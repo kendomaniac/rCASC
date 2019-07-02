@@ -10,7 +10,7 @@
 #' @param perplexity, perplexity value for tsne projection
 #' @param pca_number, PCA threshold selected using seuratPCAEval function.
 #' @param seed, important value to reproduce the same results with same input
-#' @param format, output file format csv or txt.  Mandatory because scanpy unly accepts sparse matrices
+#' @param format, output file format csv or txt.  Mandatory because scanpy only accepts sparse matrices
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
