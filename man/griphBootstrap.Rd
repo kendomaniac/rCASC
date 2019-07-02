@@ -5,8 +5,7 @@
 \title{Executing clustering with griph.}
 \usage{
 griphBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
-  permAtTime, percent, separator, logTen = 0, perplexity = 10,
-  seed = 111, format = NULL)
+  permAtTime, percent, separator, logTen = 0, seed = 111)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -25,11 +24,7 @@ griphBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
 
-\item{perplexity, }{number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.. The performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data.  A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50}
-
 \item{seed, }{important value to reproduce the same results with same input}
-
-\item{format, }{output file format csv or txt. Only required if sparse matrix is used}
 }
 \value{
 A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
@@ -45,7 +40,7 @@ setwd("section4.1_examples")
 griphBootstrap(group="docker",scratch.folder="/data/scratch/",
                file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
                nPerm=160, permAtTime=8, percent=10, separator="\\t",logTen=0, 
-               seed=111, format="NULL")
+               seed=111)
 }
 }
 \author{

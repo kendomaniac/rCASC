@@ -21,9 +21,9 @@
 #' unzip("section4.1_examples.zip")
 #' setwd("section4.1_examples")
 #' scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",
-#'                  file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
-#'                  nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, 
-#'                  pca_number=6, seed=111, sparse=FALSE,format="NULL")
+#'                 file=paste(getwd(), "matrix.mtx", sep="/"), 
+#'                 nPerm=160, permAtTime=8, percent=10, separator="\t", 
+#'                 perplexity=10, pca_number=6, seed=111, format="txt")
 #'}
 #' @export
 
