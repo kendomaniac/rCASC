@@ -2,7 +2,7 @@
 % Please edit documentation in R/scanpyBootstrap.R
 \name{scanpyBootstrap}
 \alias{scanpyBootstrap}
-\title{Permutations and Clustering}
+\title{Executing clustering with scanpy}
 \usage{
 scanpyBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
   permAtTime, percent, separator, perplexity = 40, pca_number = 50,
@@ -29,20 +29,23 @@ scanpyBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{seed, }{important value to reproduce the same results with same input}
 
-\item{format, }{output file format csv or txt}
+\item{format, }{output file format csv or txt.  Mandatory because scanpy unly accepts sparse matrices}
 }
 \value{
-VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
+A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
 }
 \description{
-This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+This function executes a ubuntu docker that produces a specific number of permutation using scanpy as clustering tool.
 }
 \examples{
 \dontrun{
 system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
-scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, separator="\\t",logTen=0, pca_number=6, seed=111, sparse=FALSE,format="NULL")
+scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",
+                 file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                 nPerm=160, permAtTime=8, percent=10, separator="\\t",logTen=0, 
+                 pca_number=6, seed=111, sparse=FALSE,format="NULL")
 }
 }
 \author{

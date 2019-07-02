@@ -1,5 +1,5 @@
-#' @title Permutations and Clustering
-#' @description This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+#' @title Executing clustering with scanpy
+#' @description This function executes a ubuntu docker that produces a specific number of permutation using scanpy as clustering tool.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
@@ -10,17 +10,20 @@
 #' @param perplexity, perplexity value for tsne projection
 #' @param pca_number, PCA threshold selected using seuratPCAEval function.
 #' @param seed, important value to reproduce the same results with same input
-#' @param format, output file format csv or txt
+#' @param format, output file format csv or txt.  Mandatory because scanpy unly accepts sparse matrices
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
+#' @return A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
 #' @examples
 #' \dontrun{
 #' system("wget http://130.192.119.59/public/section4.1_examples.zip")
 #' unzip("section4.1_examples.zip")
 #' setwd("section4.1_examples")
-#' scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pca_number=6, seed=111, sparse=FALSE,format="NULL")
+#' scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",
+#'                  file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+#'                  nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, 
+#'                  pca_number=6, seed=111, sparse=FALSE,format="NULL")
 #'}
 #' @export
 
