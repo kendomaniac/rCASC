@@ -2,7 +2,7 @@
 % Please edit documentation in R/tsneBootstrap.R
 \name{tsneBootstrap}
 \alias{tsneBootstrap}
-\title{Permutations and Clustering}
+\title{Executing clustering with tSne}
 \usage{
 tsneBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
   permAtTime, percent, range1, range2, separator, logTen = 0,
@@ -35,13 +35,13 @@ tsneBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{clusterPermErr, }{probability error in depicting the number of clusters in each permutation, default = 0.05}
 
-\item{perplexity, }{Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.}
+\item{perplexity, }{number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.  the performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data.  A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50}
 }
 \value{
-VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
+A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
 }
 \description{
-This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+This function executes a ubuntu docker that produces a specific number of permutation using tSne as clustering tool.
 }
 \examples{
 \dontrun{

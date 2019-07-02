@@ -8,7 +8,7 @@
 #' @param percent, percentage of randomly selected cells removed in each permutation
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
-#' @param perplexity, perplexity value for tsne projection
+#' @param perplexity, number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.. The performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data.  A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50
 #' @param seed, important value to reproduce the same results with same input
 #' @param format, output file format csv or txt. Only required if sparse matrix is used
 

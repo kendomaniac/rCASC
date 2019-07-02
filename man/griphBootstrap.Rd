@@ -25,7 +25,7 @@ griphBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
 
 \item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
 
-\item{perplexity, }{perplexity value for tsne projection}
+\item{perplexity, }{number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.. The performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data.  A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50}
 
 \item{seed, }{important value to reproduce the same results with same input}
 

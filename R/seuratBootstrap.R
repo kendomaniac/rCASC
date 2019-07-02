@@ -28,9 +28,9 @@
 seuratBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0, pcaDimensions, seed=111,sparse=FALSE,format="NULL"){
 
   if(!sparse){
-  seuratPermutation(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, separator=separator, logTen=logTen, pcaDimensions=pcaDimensions, seed=seed)
-  cluster.path <- paste(data.folder=dirname(file), "Results", strsplit(basename(file),"\\.")[[1]][1], sep="/")
-  cluster <- as.numeric(list.dirs(cluster.path, full.names = FALSE, recursive = FALSE))
+    seuratPermutation(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, separator=separator, logTen=logTen, pcaDimensions=pcaDimensions, seed=seed)
+    cluster.path <- paste(data.folder=dirname(file), "Results", strsplit(basename(file),"\\.")[[1]][1], sep="/")
+    cluster <- as.numeric(list.dirs(cluster.path, full.names = FALSE, recursive = FALSE))
   if(length(cluster)==1){
     permAnalysisSeurat(group=group, scratch.folder=scratch.folder,file=file, nCluster=cluster, separator=separator, sp=0.8)
   } else{
@@ -44,8 +44,8 @@ seuratBootstrap <- function(group=c("sudo","docker"), scratch.folder, file, nPer
   
     seuratPermutation(group=group, scratch.folder=scratch.folder, file=file, nPerm=nPerm, permAtTime=permAtTime, percent=percent, separator=separator, logTen=logTen, pcaDimensions=pcaDimensions, seed=seed,sparse,format=format)
    matrixName=strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])]
-data.folder=paste(strsplit(dirname(file),"/")[[1]][-length(strsplit(dirname(file),"/")[[1]])],collapse="/")
-cluster.path <- paste(data.folder=data.folder, "Results",strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])], sep="/")
+   data.folder=paste(strsplit(dirname(file),"/")[[1]][-length(strsplit(dirname(file),"/")[[1]])],collapse="/")
+   cluster.path <- paste(data.folder=data.folder, "Results",strsplit(dirname(file),"/")[[1]][length(strsplit(dirname(file),"/")[[1]])], sep="/")
     
     
 
