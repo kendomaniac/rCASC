@@ -30,7 +30,8 @@
 #' @export
 permAnalysisGriph <- function(group=c("sudo","docker"), scratch.folder, file,nCluster,separator,sp=0.8){
 
-  data.folder=dirname(file)
+sparse="FALSE"
+data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
 matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
@@ -90,7 +91,7 @@ system(paste("cp -r ",data.folder,"/Results/* ",scrat_tmp.folder,sep=""))
 system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/seuratanalysis Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator," ",sp, " FALSE",sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/seuratanalysis Rscript /home/main.R ",matrixName," ",nCluster," ",format," ",separator," ",sp, " ", sparse, sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
