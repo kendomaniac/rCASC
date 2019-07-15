@@ -6,8 +6,8 @@
 #' @param file2, a character string indicating the path of the second matrix to be merged, with file name and extension included
 #' @param separator1, separator used in count file, e.g. '\\t', ','
 #' @param separator2, separator used in count file, e.g. '\\t', ','
-#' @param name1, the name that will be the prefix in the header of the matrix1 cells ,NULL will not add any prefix
-#' @param name2, the name that will be the prefix in the header of the matrix2 cells ,NULL will not add any prefix
+#' @param name1, the name that will be the prefix in the header of the matrix1 cells , null will not add any prefix
+#' @param name2, the name that will be the prefix in the header of the matrix2 cells , null will not add any prefix
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'

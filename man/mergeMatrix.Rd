@@ -20,9 +20,9 @@ mergeMatrix(group = c("sudo", "docker"), scratch.folder, file1, file2,
 
 \item{separator2, }{separator used in count file, e.g. '\\t', ','}
 
-\item{name1, }{the name that will be the prefix in the header of the matrix1 cells ,NULL will not add any prefix}
+\item{name1, }{the name that will be the prefix in the header of the matrix1 cells , null will not add any prefix}
 
-\item{name2, }{the name that will be the prefix in the header of the matrix2 cells ,NULL will not add any prefix}
+\item{name2, }{the name that will be the prefix in the header of the matrix2 cells , null will not add any prefix}
 }
 \value{
 a merged matrix
