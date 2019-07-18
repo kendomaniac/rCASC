@@ -172,8 +172,14 @@ yCoord2=colSums(b2)
     #////////////////////////////////////////////////
     dev.off()
   }
-fm=read.table(paste("filtered_annotated_",matrixName,".",file.type,sep=""),header=TRUE,row.names=1)
-  if(length(intersect(names(which(umi.sum0<thresholdGenes)),colnames(fm)))!=0){
+  
+ if(file.type=="csv"){
+fm=read.table(paste("filtered_annotated_",matrixName,".",file.type,sep=""),header=TRUE,row.names=1,sep=",")
+}else{
+ fm=read.table(paste("filtered_annotated_",matrixName,".",file.type,sep=""),header=TRUE,row.names=1,sep="\t")
+
+ }
+   if(length(intersect(names(which(umi.sum0<thresholdGenes)),colnames(fm)))!=0){
   for(i in intersect(names(which(umi.sum0<thresholdGenes)),colnames(fm))){
     fm=fm[,-which(colnames(fm)==i)]
   
