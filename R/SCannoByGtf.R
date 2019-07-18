@@ -179,15 +179,30 @@ fm=read.table(paste("filtered_annotated_",matrixName,".",file.type,sep=""),heade
  fm=read.table(paste("filtered_annotated_",matrixName,".",file.type,sep=""),header=TRUE,row.names=1,sep="\t")
 
  }
-   if(length(intersect(names(which(umi.sum0<thresholdGenes)),colnames(fm)))!=0){
-  for(i in intersect(names(which(umi.sum0<thresholdGenes)),colnames(fm))){
+  
+ if(file.type=="csv"){
+om=read.table(paste(matrixName,".",file.type,sep=""),header=TRUE,row.names=1,sep=",")
+}else{
+ om=read.table(paste(matrixName,".",file.type,sep=""),header=TRUE,row.names=1,sep="\t")
+
+ }  
+
+ b=om
+b[b<umiXgene]=0
+b[b>=umiXgene]=1
+yCoord=colSums(b) 
+  
+ 
+    
+   if(length(intersect(names(which(yCoord<thresholdGenes)),colnames(fm)))!=0){
+  for(i in intersect(names(which(yCoord<thresholdGenes)),colnames(fm))){
     fm=fm[,-which(colnames(fm)==i)]
   
   }
   write.table(fm,paste("filtered_annotated_",matrixName,".",file.type,sep=""),col.names=NA)
   }
   cat("\nannotated_genes.pdf is ready\n")
-  write(paste(nrow(tmp0)-nrow(tmp),"filtered genes \n",ncol(tmp0)-ncol(fm),"filtered cells"),"filteredStatistics.txt")
+  write(paste(nrow(om)," Original genes Number \n",ncol(om)," Original Cells Number \n",nrow(fm)," Filtered genes Number \n",ncol(fm)," Filtered Cells Number \n",nrow(om)-nrow(fm)," Genes removed \n",ncol(om)-ncol(fm)," Cells removed \n"),"filteredStatistics.txt")
 
   #running time 2
   ptm <- proc.time() - ptm
