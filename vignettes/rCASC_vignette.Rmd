@@ -1,43 +1,30 @@
 ---
-title: "rCASC vignette"
-author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
-date: "26/12/2018"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{<rCASC vignette>} 
-  %\VignetteEngine{knitr::knitr}
-  %\usepackage[utf8]{inputenc}
+title: "rCASC Supplementary data"
+author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Nicola Licheri, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
+date: "30/07/2019"
+output: rmarkdown::html_vignette:
 
-
-
-header-includes:
-- \usepackage{makeidx}
-- \makeindex
-- \usepackage{setspace}\doublespacing
-- \usepackage{pdfpages}
----
-
-\newpage
-\tableofcontents
+    fig_caption: yes
 
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(fig.pos = 'h')
 ```
 
+
 ## **Section 1** rCASC: a single cell analysis workflow designed to provide data reproducibility
 
  
 Since the end of the 90's omics high-throughput technologies have generated an enormous amount of data, reaching today an exponential growth phase. Analysis of omics big data is a revolutionary means of understanding the molecular basis of disease regulation and susceptibility, and this resource is accessible to the biological/medical community via bioinformatics frameworks. However, because of the fast evolution of computation tools and omics methods, the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important issue [[*Nature, 2018*](https://www.nature.com/collections/prbfkwmwvz)] and there is a mandatory need to guarantee robust and reliable results to the research community [[*Global Engage Blog*](http://www.global-engage.com/life-science/reproducibility-computational-biology/)].
 
-Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [[*Kulkarni et al.*](https://rdcu.be/9gMq)] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al.*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
+Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason, we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [[*Kulkarni et al.*](https://rdcu.be/9gMq)] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al.*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
 
-rCASC, reproducible Cluster Analysis of Single Cells, is part of the [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [[*PLoS Comp Biol. 2013*](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285)]. rCASC is designed to provide a workflow for cell-subpopulation discovery: 
+rCASC, reproducible Cluster Analysis of Single Cells, is part of the [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [[*PLoS Comp Biol. 2013*](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285)]. rCASC is designed to provide a workflow (Figure below) for cell-subpopulation discovery. 
 
 ```{r fig.1, fig.cap="rCASC workflow", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 
-include_graphics('../inst/img/rcasc_workflow.jpg')
+include_graphics('../inst/img/fig1.jpg')
 
 ```
 
@@ -47,7 +34,7 @@ The workflow allows the direct analysis of fastq files generated with [*10X Geno
 \pagebreak
 
 ### **Section 1.1** Minimal hardware requirements to run rCASC
-The RAM and CPU requirements are dependent on the data set under analysis, e.g. 500-600 cells can be effectively analysed using the hardware described by Beccuti [[*Bioinformatics 2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]: 
+The RAM and CPU requirements are dependent on the dataset under analysis, e.g. up to 2000 cells can be effectively analyzed using the hardware described by Beccuti [[*Bioinformatics2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]: 
 
 - 32 Gb RAM 
 
@@ -110,32 +97,9 @@ This session refers to the generation of a counts table starting from fastq file
 
 \pagebreak
 
+### **Section 2.1** inDrop seq
 
-### **Section 2.3** SRA download (New)
-
-The function **sraDownload** allows to download for NIH SRA repository fastq files.
-
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help):
-    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
-    + *data.folder*,	a character string indicating the working folder where output folder will be written (The output folder will contain the downloaded fastq file/s)
-    + *scratch.folder*,	a character string indicating the temporary folder for data preprocessing
-    + *threads*,	a integer indicating the number of threads to be used from fasterq-dumper
-
-
-```{r, echo=TRUE, eval=FALSE}
-
-library(rCASC)
-#Downloading fastq from NCBI SRA
-sraDownload(group="docker", sra.name="SRR7762358", data.folder=getwd(), scratch.folder="/data/scratch", threads=8)
-system("mv ./SRR7762358/SRR7762358.fastq.gz ./SRR7762358/SRR7762358_S1_L001_R1_001.fastq.gz")
-
-```
-\fontsize{10}{10}\selectfont
-
-
-### **Section 2.2** inDrop seq
-
-inDrop single-cell sequencing approach was originally published by Klein [[*Cell 2015*](https://www.ncbi.nlm.nih.gov/pubmed/26000487)]. Then, the authors published the detailed protocol in [[*Zilionis et al. Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which has different primer design comparing to the original paper:
+inDrop single-cell sequencing approach was originally published by Klein [[*Cell 2015*](https://www.ncbi.nlm.nih.gov/pubmed/26000487)]. Then, the authors published the detailed protocol in [[*Zilionis et al. Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which has different primer design comparing to the original paper (Figure below). 
 
 ```{r fig.2, fig.cap="inDrop library structure", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
@@ -143,7 +107,7 @@ include_graphics('../inst/img/indrop_v2.jpeg')
 ```
 
 
-The analysis shown below is based on the protocol in Zilionis [[*Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which is the version 2 of the inDrop technology, actually distributed by [*1CellBio*](https://1cell-bio.com/product/indrop-system/): 
+The analysis shown below is based on the protocol in Zilionis [[*Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which is the version 2 (Figure  below) of the inDrop technology, actually distributed by [*1CellBio*](https://1cell-bio.com/product/indrop-system/). 
 
 
 ```{r fig.3, fig.cap="inDrop v2", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
@@ -152,9 +116,9 @@ include_graphics('../inst/img/indropv2.jpg')
 ```
 
 
-#### **Section 2.2.1** inDrop data analysis
+#### **Section 2.1.1** inDrop data analysis
 
-There are two main functions, **indropIndex** and **indropCounts**, allowing the generation of a counts table starting from fastq files:
+There are two main functions, **indropIndex** and **indropCounts**, allowing the generation of a counts table starting from fastq files.
 
 ```{r fig.101, fig.cap="GUI: inDrop related panels: A) inDrop Index generation, B) inDrop counts table generation", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
@@ -162,9 +126,9 @@ include_graphics('../inst/img/gui2.png')
 ```
 
     
-##### **Section 2.2.1.1** indropIndex: Creates a reference genome for inDrop V2 
+##### **Section 2.1.1.1** indropIndex: Creates a reference genome for inDrop V2 
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above, panel A):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below panel A):
     + *index.folder*: the folder where the reference genome will be created 
 
     + *ensembl.urlgenome*:	the link to the ENSEMBL unmasked genome sequence of interest.
@@ -185,9 +149,9 @@ indropIndex(group="docker", index.folder=getwd(),
 \fontsize{10}{10}\selectfont
 
 
-##### **Section 2.2.1.2** indropCounts: Converts fastq in UMI counts using [*inDrop workflow*](https://github.com/indrops)
+##### **Section 2.1.1.2** indropCounts: Converts fastq in UMI counts using [*inDrop workflow*](https://github.com/indrops)
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above, panel B):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below panel B):
 
     + *scratch.folder*,	a character string indicating the path of the scratch folder
     + *fastq.folder (GUI FastQ folder)*,	a character string indicating the folder where input data are located and where output will be written
@@ -196,14 +160,14 @@ indropIndex(group="docker", index.folder=getwd(),
     + *bowtie.index.prefix*,	the prefix name of the bowtie index. If genome was generated with indropIndex function the bowtie index is genome (default).
     + *M*, integer. Ignore reads with more than M alignments, after filtering on distance from transcript end, suggested value 10
     + *U*, integer. Ignore counts from UMI that should be split among more than U genes, suggested value 2
-    + *D*, integer. Maximal distance from transcript end, suggested valur 400.
-    + *low.complexity.mask*, boulean, masking low complexity regions
+    + *D*, integer. Maximal distance from transcript end, suggested value 400.
+    + *low.complexity.mask*, boolean, masking low complexity regions
 
 
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
-
+# Example is part of an unpublished mouse blood cells 
 system("wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz")
 system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
 library(rCASC)
@@ -214,17 +178,49 @@ indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(
 ```
 \fontsize{10}{10}\selectfont
 
-### **Section 2.3** 10XGenomics
+### **Section 2.2** 10XGenomics
 
-The rCASC function, **cellrangerCount** allows the generation of a counts table starting from fastq files. This function implements [*Cellranger*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview), the 10xGenomics tool allowing the conversion of the fastqs, generated with 10XGenomics platform, into a count matrix: 
+The rCASC function, **cellrangerCount** allows the generation of a counts table starting from fastq files. This function implements [*Cellranger*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview), the 10xGenomics tool allowing the conversion of the fastqs, generated with 10XGenomics platform, into a count matrix. 
 
 ```{r fig.102, fig.cap="GUI: 10XGenomics counts table generation", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/gui3.png')
 ```
 
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *fastq (GUI FastQ folder)*, the path to the folder, where 10XGenomics fastq.gz files are located.
+    + *transcriptome (GUI Transcriptome folder)*,	the path to the Cellranger compatible transcriptome reference
+    + *scratch.folder (GUI Scratch folder)*, a character string indicating the path of the scratch folder
+    + *expect.cells (GUI Expected cells)*, optional setting the number of recovered cells. Default: 3000 cells
 
-Genome indexes are retrieved from [10Xgenomics repository](https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest).
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+home <- getwd()
+library(rCASC)
+downloadContainers()
+setwd("/data/genomes/cellranger_hg19mm10")
+#getting the human and mouse cellranger index
+system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
+setwd(home)
+# downloading 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
+system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
+system("tar xvf hgmm_100_fastqs.tar")
+# The cellranger analysis is run without the generation of the secondary analysis
+cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  
+                fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, 
+                nosecondary=TRUE, scratch.folder="/data/scratch")
+```
+\fontsize{10}{10}\selectfont
+ 
+ 
+The analysis done above took 56.4 mins on a [*SeqBox*](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 500Gb SSD.
+
+The output of the above analysis are two counts matrices **results_cellranger.cvs** and **results_cellranger.txt** and a folder called **results_cellranger**, which contains the full cellranger output, more information on cellranger output can be found at [*10XGenomics web site*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview).
+ 
+
+Genome indexes can be retrieved from [10Xgenomics repository](https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest)
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -243,66 +239,65 @@ system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and
 ```
 \fontsize{10}{10}\selectfont
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
-    + *fastq (GUI FastQ folder)*, the path to the folder, where 10XGenomics fastq.gz files are located.
-    + *transcriptome (GUI Transcriptome folder)*,	the path to the Cellranger compatible transcriptome reference
-    + *scratch.folder (GUI Scratch folder)*, a character string indicating the path of the scratch folder
-    + *expect.cells (GUI Expected cells)*, optional setting the number of recovered cells. Default: 3000 cells
-    + *version*, cell ranger version number, as default version 2 but version 3 is nowa also available.
-    
-\fontsize{8}{8}\selectfont
-```{r, echo=TRUE, eval=FALSE}
+or can be generated using the **cellrangeIndexing**
 
-home <- getwd()
-library(rCASC)
-setwd("/data/genomes/cellranger_hg19mm10")
-#getting the human and mouse cellranger index
-system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
-setwd(home)
-# downloading 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
-system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
-system("tar xvf hgmm_100_fastqs.tar")
-# The cellranger analysis is run without the generation of the secondary analysis
-cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  
-                fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, 
-                nosecondary=TRUE, scratch.folder="/data/scratch", version="2")
-```
-\fontsize{10}{10}\selectfont
- 
-The analysis done above took 56.4 mins on a [*SeqBox*](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 500Gb SSD.
-
-The output of the above analysis are two counts matrices **results_cellranger.cvs** and **results_cellranger.txt** and a folder called **results_cellranger**, which contains the full cellranger output, more information on cellranger output can be found at [*10XGenomics web site*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview).
-
-In case a h5 matrix is available the function **h5tocvs** can convert the h5 format in csv and txt conventional matrices
-
-```{r, echo=TRUE, eval=FALSE}
-
-#download from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106268 the GSE106268_RAW.tar file using a web browser
-system("tar xvf GSE106268_RAW.tar")
-h5tocvs(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1.h5",sep="/"))
-
+```{r fig.102a, fig.cap="GUI: 10XGenomics genome indexing", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/cellrangeIndex.png')
 ```
 
 - *Parameters* (only those without default; for the full list of parameters please refer to the function help):
-    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
-    + *file*,	path of the h5 file. Full path MUST be included.
+    + *group*,	a character string. two options: sudo or docker, depending to which group the user belongs
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *genomeFolder*,	path for the genome folder
+    + *gtf.url*,	url for ENSEMBL gtf download
+    + *fasta.url*, url for genome assembly fasta download
+    + *bio.type*,	 ENSEMBL biotype to select the subset of genes of interest from the ENSEMBL gtf
 
 
-## **Section 3** Counts matrix editing
+```{r, echo=TRUE, eval=FALSE}
 
-This paragraph describes a set of functions that can be used to remove low quality cells and non-informative genes from counts tables generated by any single-cell sequencing platform.
+library(rCASC)
+setwd("/data/genomes/hg38refcellranger")
+cellrangerIndexing(group="docker", scratch.folder="/data/scratch", 
+  gtf.url="ftp://ftp.ensembl.org/pub/release-87/gtf/homo_sapiens/Homo_sapiens.GRCh38.87.gtf.gz",
+  fasta.url=
+    "ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz",
+  genomeFolder = getwd(), bio.type="protein_coding", nThreads = 8)
+
+```
+
+
+
+
+### **Section 2.3** Smart-seq full transcript sequencing.
+
+Smart-seq protocol generates a full transcript library for each cell, i.e. a fastq file for each cell. To convert fastq in counts we suggest to use **rnaseqCounts** or **wrapperSalmon** counts from [*docker4seq*](https://github.com/kendomaniac/docker4seq) package [[*Kulkarni et al.*](https://www.ncbi.nlm.nih.gov/pubmed/30367595)]. Both above-mentioned functions are compliant with minimal hardware requirements indicated for rCASC and are part, as rCASC, of the [*Reproducible Bioinformatics Project*](http://reproducible-bioinformatics.org/). **rnaseqCounts** is a wrapper executing on each fastq: 
+
+- quality evaluation of fastq with [*FastQC*](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) software, 
+
+- trimming of adapters with [*skewer*](https://www.ncbi.nlm.nih.gov/pubmed/?term=24925680), 
+
+- mapping reads on genome using [*STAR*](https://www.ncbi.nlm.nih.gov/pubmed/23104886) and counting isoforms and genes with [*RSEM*](https://www.ncbi.nlm.nih.gov/pubmed/21816040). 
+
+**wrapperSalmon** instead implements FastQC and skewer and calculates isoforms and genes counts using [*Salmon*](https://github.com/COMBINE-lab/salmon) software.
+
+## **Section 3** Counts matrix manipulation
+
+This paragraph describes a set of functions that can be used to remove low quality cells and non-informative genes from counts tables generated by any single-cell sequencing platform, Figure below}.
 
 - **Counts manipulation**:
-    + Removing non informative genes: **filterZeros**
-    + Plotting detected genes versus total number of UMIs (Unique Molecular Identifier)/reads: **mitoRiboUmi**
+    + Plotting detected genes versus total number of UMIs (Unique Molecular Identifier)/reads: **mitoRiboUmi**, **genesUmi**
+    + ENSEMBL annotation and genes filtering: **scannobyGtf**
     + Removing low quality cells: **lorenzFilter**
+    + Selecting the top X variable/expressed genes: **topx**
+    + Removing non informative genes: **filterZeros**
+    + Converting a count table in log10: **counts2log**
     + Data normalization: **scnorm**, minimal requirements 10K counts/cell, works best with whole transcript sequencing
     + Data normalization: **umiNorm**, global normalization methods TMM and RLE are suitable for UMI data
-    + ENSEMBL annotation and mitochodrial/ribosomal genes removal: **scannobyGtf**
-    + Converting a count table in log10: **counts2log**
     + Removing cell cycle bias: **recatPrediction**/**ccremove**
 
-```{r fig.103, fig.cap="GUI: Counts manipulation menu", echo=FALSE, eval=TRUE, out.width="20%", fig.align="center"}
+```{r fig.103, fig.cap="GUI: Counts manipulation menu", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/gui4.png')
 ```
@@ -319,7 +314,7 @@ include_graphics('../inst/img/gui5.png')
 
 
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *file (GUI Counts table)*,	a character string indicating the path of the tab delimited file of cells un-normalized expression counts
     + *threshold (GUI Threshold)*,	a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having no expression in any cell.
     + *sep (GUI Separator)*,	separator used in count file, e.g. '\\t', ','
@@ -330,7 +325,7 @@ The output is a PDF providing zeros distributions before and after removal of ge
 \newline
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
-
+# Subset of a mouse single cell experiment made to quickly test Lorenz filter.
 system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
 unzip("testSCumi_mm10.csv.zip")
 tmp <- read.table("testSCumi_mm10.csv", sep=",", header=T, row.names=1)
@@ -353,7 +348,7 @@ include_graphics('../inst/img/filterZero.jpeg')
 
 ### **Section 3.2** Plotting genes numbers versus total UMIs/reads in each cell
 
-To estimate the overall amount of genes detectable in each cell, the function **genesUmi** generates a plot of the number of genes present in a cell with respect to the total number of UMI in the same cell. The number of UMIs required to call a gene present in a cell is a parameter defined by the user, the suggested value is 3 UMIs. The function **mitoRiboUmi** plots **genesUmi** output and also generate the percentage of mitochondrial protein genes with respect to percentage of ribosomal protein genes fro each cell. 
+To estimate the overall number of genes detectable in each cell, the function **genesUmi** generates a plot of the number of genes present in a cell with respect to the total number of UMI in the same cell. The number of UMIs required to call a gene present in a cell is a parameter defined by the user, the suggested value is 3 UMIs. The function **mitoRiboUmi** plots **genesUmi** output and also generate the percentage of mitochondrial protein genes with respect to percentage of ribosomal protein genes for each cell. 
 
 
 ```{r fig.105, fig.cap="GUI: Genes versus counts panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
@@ -366,7 +361,7 @@ include_graphics('../inst/img/gui6.png')
     + *umiXgene (UMIs X genes)*,	an integer defining how many UMIs are required to call a gene present. default: 3
     + *sep*,	separator used in count file, e.g. '\\t', ','
 
-- *Parameters mitoRiboUmi* (only those without default; for the full list of parameters please refer to the function help) (Figure \ref{fig:fig.105}):
+- *Parameters mitoRiboUmi* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *file (GUI Counts table)*,	a character string indicating the path of the file tab delimited of cells un-normalized expression counts.
     + *scratch.folder*, 	a character string indicating the path of the scratch folder
     + *umiXgene (UMIs X genes)*,	an integer defining how many UMIs are required to call a gene present. default: 3
@@ -374,24 +369,28 @@ include_graphics('../inst/img/gui6.png')
     + *gtf.name*, name for the gtf file to be used
     + *bio.type*, ENSEMBL biotype of interest, default "protein_coding"
     
-The output are two pdfs named respectively **genes.umi.pdf** (Figure below, panel A), where each dot represents a cell. X axis is the total number of UMIs/reads mapped on each cell in log10 format and Y axis is the number of detected genes and **Ribo_mito.pdf** (Figure below, panel B), Percentage of mitochondrial protein genes plotted with respect to percentage of ribosomal protein genes. Cells are colored on the basis of total number detected genes. The latter plot is useful to identify stressed cells, i.e. those with high percentage of mitochondrial genes (Figure below, panel B, black cells), and low informative cells, i.e. those in which genes are few and mainly ribosomal/mitochondrial (Figure below, panel B, black and green cells). 
+The output are two pdfs named respectively **genes.umi.pdf** (Figure below panel A), where each dot represents a cell. X axis is the total number of UMIs/reads mapped on each cell in log10 format and Y axis is the number of detected genes and **Ribo_mito.pdf** (Figure below panel B), Percentage of mitochondrial protein genes plotted with respect to percentage of ribosomal protein genes. Cells are colored on the basis of total number detected genes. The latter plot is useful to identify stressed cells, i.e. those with high percentage of mitochondrial genes (Figure below panel B, black cells), and low informative cells, i.e. those in which genes are few and mainly ribosomal/mitochondrial (Figure below panel B, black and green cells). 
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
+#N.B. geneUmi and mitoRiboUmi expect as input a raw counts table having as rownames ENSEMBL IDs
+
 library(rCASC)
 system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz")
 system("gzip -d Mus_musculus.GRCm38.94.gtf.gz")
-mitoRiboUmi(group="docker", file=paste(getwd(), "filtered_testSCumi_mm10.txt", sep="/"), 
-            scratch.folder="/data/scratch", separator="\t", umiXgene=3, 
+system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+unzip("testSCumi_mm10.csv.zip")
+mitoRiboUmi(group="docker", file=paste(getwd(), "testSCumi_mm10.csv", sep="/"), 
+            scratch.folder="/data/scratch", separator=",", umiXgene=3, 
             gtf.name="Mus_musculus.GRCm38.94.gtf", bio.type="protein_coding")
 
-genesUmi(file=paste(getwd(),"filtered_testSCumi_mm10.txt",sep="/"), umiXgene=3, sep="\t")
+genesUmi(file=paste(getwd(),"testSCumi_mm10.csv",sep="/"), umiXgene=3, sep=",")
 
 ```
 \fontsize{10}{10}\selectfont
 
-In Figure \ref{fig:fig.6} it is shown the distribution of genes in cells for 'filtered_testSCumi_mm10.txt' counts table. 
+In Figure below, it is shown the distribution of genes in cells for 'filtered_testSCumi_mm10.txt' counts table. 
 
 ```{r fig.6, fig.cap="mitoRiboUmi output: A) Number of detected genes plotted for each cell with respect to the total number of UMI/reads in that cell. B) Percentage of mitochondrial protein genes plotted with respect to percentage of ribosomal protein genes. Cells are colored on the basis of total number detected genes", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
@@ -415,52 +414,59 @@ Sequencing depth, which affects differential expression analysis and sub-populat
 
 - robustness of gene expression, i.e. number of reads associated to a gene. 
 
-In particular, the number of genes called present in the experiment is the key element for the discrimination between sub-populations. In Figure below} it shown the effect of sequencing depth on the number of detectable genes in a set of 10XGenomics sequencing experiments (25K sequenced reads/cell extracted from CD19 B-cells [[*Zheng et al*](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)],  83K sequenced reads/cell extracted from  naive CD8+ T-cells [[*GSM2833284*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2833284)], and 250K sequenced reads/cell from an unpublished brain mouse experiment) and in an unpublished whole transcript human MAIT-cells  single-cell sequencing done on Fluidigm C1 (25K, 100K, and 250K sequenced reads/cell were subsampled from the original fastqs). 
-3 UMI are used as minimal threshold to call present a gene in 10XGenomics experiments and 5 reads [[*Tarazona et al. 2011*](https://genome.cshlp.org/content/21/12/2213.long)] as minimal threshold to call a gene present in single cell whole transcriptome experiments.  
+In particular, the number of genes called present in the experiment is the key element for the discrimination between sub-populations. In Figure below, it is shown the effect of sequencing depth on the number of detectable genes in a set of 10XGenomics sequencing experiments (25K sequenced reads/cell extracted from CD19 B-cells [[*Zheng et al 2016*](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)],  83K sequenced reads/cell extracted from  naive CD8+ T-cells [[*GSM2833284*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2833284)], and 250K sequenced reads/cell from an unpublished brain mouse experiment) and in an unpublished whole transcript human MAIT-cells  single-cell sequencing done on Fluidigm C1 (25K, 100K, and 250K sequenced reads/cell were subsampled from the original fastqs). 
+3 UMIs are used as minimal threshold to call present a gene in 10XGenomics experiments and 5 reads [[*Tarazona et al. 2011*](https://genome.cshlp.org/content/21/12/2213.long)] as minimal threshold to call a gene present in single cell whole transcriptome experiments.  
 
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
-#10XGenomics experiments
+#Raw counts for 288 cells randomly extracted from the Zheng data set downloaded from 10XGenomics.
 system("wget http://130.192.119.59/public/Zheng_cd19_288cells.txt.zip")
 unzip("Zheng_cd19_288cells.txt.zip")
 library(rCASC)
-genesUmi(file=paste(getwd(),"Zheng_cd19_288cells.txt",sep="/"), umiXgene=3)
+genesUmi(file=paste(getwd(),"testSCumi_mm10.csv",sep="/"), umiXgene=3, sep=",")
 system("mv genes.umi.pdf genes.umi_25k.pdf")
-
+#raw counts for 288 cells randomly extracted from the full GSM2833284 dataset. 
+#Raw counts table was generated with cellranger 2.0 starting from the h5 file deposited on GEO.
 system("wget http://130.192.119.59/public/GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
 unzip("GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
 library(rCASC)
-genesUmi(file=paste(getwd(),"GSM2833284_Naive_WT_Rep1_288cell.txt",sep="/"), umiXgene=3)
+genesUmi(file=paste(getwd(),"GSM2833284_Naive_WT_Rep1_288cell.txt",sep="/"), umiXgene=3, sep="\t")
 system("mv genes.umi.pdf genes.umi_86k.pdf")
-
+#raw counts from 288 cells randomly extracted from an unpublished brain dataset.
+#Raw counts table was generated with cellranger 2.0
 system("wget http://130.192.119.59/public/brain_unpublished_288cells.txt.zip")
 unzip("brain_unpublished_288cells.txt.zip")
 library(rCASC)
-genesUmi(file=paste(getwd(),"brain_unpublished_288cells.txt",sep="/"), umiXgene=3)
+genesUmi(file=paste(getwd(),"brain_unpublished_288cells.txt",sep="/"), umiXgene=3, sep="\t")
 system("mv genes.umi.pdf genes.umi_250k.pdf")
 
-#whole transcript experiment
+#Smart-seq experiment: Unpublished human MAIT cells. 
+#Counts table was generated using the rnaseqCounts function implemented in docker4seq package 
+#(https://github.com/kendomaniac/docker4seq)
 system("wget http://130.192.119.59/public/c1_experiment.zip")
 unzip("c1_experiment.zip")
 setwd("c1_experiment")
 library(rCASC)
-genesUmi(file=paste(getwd(),"250K_counts.txt",sep="/"), umiXgene=5)
+genesUmi(file=paste(getwd(),"250K_counts.txt",sep="/"), umiXgene=5, sep="\t")
 system("mv genes.umi.pdf genes.umi_250K.pdf")
-genesUmi(file=paste(getwd(),"100K_counts.txt",sep="/"), umiXgene=5)
+genesUmi(file=paste(getwd(),"100K_counts.txt",sep="/"), umiXgene=5, sep="\t")
 system("mv genes.umi.pdf genes.umi_100K.pdf")
-genesUmi(file=paste(getwd(),"25K_counts.txt",sep="/"), umiXgene=5)
+genesUmi(file=paste(getwd(),"25K_counts.txt",sep="/"), umiXgene=5, sep="\t")
 system("mv genes.umi.pdf genes.umi_25K.pdf")
 
 ```
 \fontsize{10}{10}\selectfont
 
-Figure below} clearly shows that the number of genes detectable by 10XGenomics sequencing (Figure below, panels A-C) is far less of those detectable using a whole transcript experiment (Figure below, panels D-F). In the case of 25K reads/cells in 3' end sequencing (Figure \ref{fig:fig.6.2}A) the number of called genes goes from a doxen of genes to 350. In  a whole transcript sequencing experiment where 25K reads/cells were considered (Figure below, panel D), 350 genes is the lowest number of genes detectable in a cell. In 10XGenomics experiment with 250K reads/cell the range of detectable genes goes from few hunderd to 2000, which is relatively similar to the number of detectable genes in a whole transcripts experiment  where the same number of reads/cells were considered. 
-The larger scattering and the overall lower number of detectable genes in 3' end sequencing experiment, with respect to whole transcript experiments, is a peculiarity of the technology [[*Ziegenhain et al.*](https://www.ncbi.nlm.nih.gov/pubmed/28212749)].  
-It has also to be highlighted that cells with a very low number of genes called present will have a gene repertoire made mainly of housekeeping genes, ribosomal and mitochondrial genes, see Figure \ref{fig:fig.8} in **Section 3.4**. Thus, the lack of cell-type specific genes make these cells useless for the identification of functional cell sub-populations.  
+Figure below clearly shows that the number of genes detectable by 10XGenomics sequencing (Figure below panels A-C) is far less of those detectable using a whole transcript experiment (Figure below panels D-F). In the case of 25K reads/cells in 3' end sequencing (Figure below panel A) the number of called genes goes from a dozen of genes to 350. In a whole transcript sequencing experiment where 25K reads/cells were considered (Figure below panel D), 350 genes is the lowest number of genes detectable in a cell. In 10XGenomics experiment with 250K reads/cell the range of detectable genes goes from few hundred to 2000, which is relatively similar to the number of detectable genes in a whole transcripts experiment  where the same number of reads/cells were considered. 
+The larger scattering and the overall lower number of detectable genes in 3' end sequencing experiment, with respect to whole transcript experiments, is a peculiarity of the technology [[*Ziegenhain et al. 2017*](https://www.ncbi.nlm.nih.gov/pubmed/28212749)].  
+It has also to be highlighted that cells with a very low number of genes called present will have a genes repertoire made mainly of housekeeping genes, ribosomal and mitochondrial genes, see Figure below in **Section 3.4**. Thus, the lack of cell-type specific genes makes these cells useless for the identification of functional cell sub-populations.
 
-```{r fig.6.2, fig.cap="Number of detected genes with respect to mapped reads. A) 25K reads/cell 10XGenomics platform, 3\' end sequencing. B) 83K reads/cell 10XGenomics platform, 3\' end sequencing. C) 250K reads/cell 10XGenomics platform, 3\' end sequencing. D) 25K reads/cell C1 platform, whole transcript sequencing, E) 100K reads/cell C1 platform, whole transcript sequencing, F) 250K reads/cell C1 platform, whole transcript sequencing.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+
+However, it has to be underlined that each cell type is characterized by a peculiar transcriptional rate and therefore, the technical assessment of the reads per cell vs. genes detected between different cell types, i.e. Figure below panels A-C, might be bias by differences in the transcriptional rate of the different cells used in this specific example. Instead, the above-mentioned bias does not affect, Figure below panels D-F, because they are generated by a down sampling of a set of cells sequenced with the smart-seq protocol at a coverage of 1 million reads/cell. 
+
+```{r fig.6.2, fig.cap="Number of detected genes with respect to mapped reads. A) 25K reads/cell 10XGenomics platform, 3\' end sequencing v2 chemistry. B) 83K reads/cell 10XGenomics platform, 3\' end sequencing v2 chemistry. C) 250K reads/cell 10XGenomics platform, 3\' end sequencing v2 chemistry. D) 25K reads/cell C1 platform, whole transcript sequencing, E) 100K reads/cell C1 platform, whole transcript sequencing, F) 250K reads/cell C1 platform, whole transcript sequencing.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/seq_depth.jpeg')
 ```
@@ -471,11 +477,11 @@ We have further investigated the following point:
 
 - Is the number of total UMIs/cell affecting the separation between sub-populations?
 
-To address the above point we used two types of cells belonging to the T-cells [[*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)]. The two sets of cells were sequenced with a coverage of approximately 21K reads/cell: 
+To address the above point, we used two types of cells belonging to the T-cells [[*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)]. The two sets of cells were sequenced with a coverage of approximately 21K reads/cell: 
 
-- T-cytotoxic (10209 cells, Figure \ref{fig:fig.27}A) cells, 
+- T-cytotoxic (10209 cells, Figure below panel A) cells, 
 
-- T-regulatory (10263, Figure \ref{fig:fig.27}B) cells. 
+- T-regulatory (10263, Figure below panel B) cells. 
 
 We generated three datasets:
 
@@ -485,32 +491,37 @@ We generated three datasets:
 
 - **d3m**, which is made of 100 cells randomly selected within cells having, in each of the two datasets, a total UMIs/cell smaller than 1000 in each cell.
 
-The separation between T-cytoxic and T-regulatory achievable with PCA is shown in Figure below, panels C-E.
+The separation between T-cytotoxic and T-regulatory achievable with PCA is shown in Figure below panels C-E.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 system("wget http://130.192.119.59/public/counts_effect.zip")
-unzip(counts_effect.zip)
+unzip("counts_effect.zip")
 setwd("counts_effect")
-
-topx(data.folder=getwd(),file.name="df3.4.txt",threshold=1000, logged=FALSE)
+#dots are only accepted in the file type separator!
+system("mv df3.4.txt df3_4.txt")
+topx(group="docker", file=paste(getwd(),"df3_4.txt", sep="/"), threshold=1000, logged=FALSE, type="expression", separator = "\t")
 library(docker4seq)
-pca(experiment.table="df3.4_1000.txt", type="counts",
+
+#N.B. if the type parameter of pca function is set to "counts", 
+#raw counts are converted in log10 counts before executing PCA analysis.
+
+pca(experiment.table="filitered_expression_df3_4.txt", type="counts",
     legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
     principal.components=c(1,2), pdf = TRUE,
     output.folder=getwd())
 
-topx(data.folder=getwd(),file.name="df3.txt",threshold=1000, logged=FALSE)
-library(docker4seq)
-pca(experiment.table="df3_1000.txt", type="counts",
+topx(group="docker", file=paste(getwd(),"df3.txt", sep="/"),threshold=1000, logged=FALSE, type="expression", separator = "\t")
+
+pca(experiment.table="filitered_expression_df3.txt", type="counts",
     legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
     principal.components=c(1,2), pdf = TRUE,
     output.folder=getwd())
 
-topx(data.folder=getwd(),file.name="df3m.txt",threshold=1000, logged=FALSE)
-library(docker4seq)
-pca(experiment.table="df3m_1000.txt", type="counts",
+topx(group="docker", file=paste(getwd(),"df3m.txt", sep="/"),threshold=1000, logged=FALSE, type="expression", separator = "\t")
+
+pca(experiment.table="filitered_expression_df3m.txt", type="counts",
     legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
     principal.components=c(1,2), pdf = TRUE,
     output.folder=getwd())
@@ -519,16 +530,16 @@ pca(experiment.table="df3m_1000.txt", type="counts",
 \fontsize{10}{10}\selectfont  
 
 
-```{r fig.27, fig.cap="Detectable genes in a Zheng  data subset. A) T-cytotoxic genes versus total cell reads plot. B) T-regulatory  genes versus total cell reads plot. C) d3m set, made of cells with less than 1000 counts each, D) df3, made of cells with counts between 1000 and 2511. E) d3.4, made of cells with more than 2511 counts each.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.27, fig.cap="Detectable genes in a Zheng  data subset. A) T-cytotoxic genes versus total cell reads plot. B) T-regulatory  genes versus total cell reads plot. C) d3m set, made of cells with less than 1000 counts each, D) df3, made of cells with counts between 1000 and 2511. E) d3.4, made of cells with more than 2511 counts each. T-cytotoxic red dots, T-regulatory light blue dots", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/counts_effect1.png')
 ```
 
 \pagebreak
 
-It is notable that only the datasets including cells with more than 2511 UMIs/cell (Figure above, panel E) is the one where the separation between the two T-cell types improves. In the d3 and d3m (Figure above, panels C,D) the amount of variance explained by the first component is much lower of that observable in d3.4 and the datasets are intersperse. 
+It is notable that only the dataset including cells with more than 2511 UMIs/cell (Figure below panel E) is the one where the separation between the two T-cell types improves. In the d3 and d3m (Figure below panels C,D) the amount of variance explained by the first component is much lower of that observable in d3.4 and the datasets are intersperse. 
 
-Thus, since 3' end sequencing platforms (10Xgenomics, inDrop) has the advantage to produce high number of sequenced cells, users might decide to selected for clustering only the subset of cells with the highest number of genes called present. 
+Thus, since 3' end sequencing platforms (10Xgenomics, inDrop) has the advantage to produce high number of sequenced cells, users might decide to select for clustering only the subset of cells with the highest number of genes called present. 
 
 ### **Section 3.3** Identifying and removing cell low-quality outliers
 
@@ -540,10 +551,10 @@ include_graphics('../inst/img/gui7.png')
 ```
 
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *scratch.folder (GUI Scratch folder)*,	the path of the scratch folder
     + *file (GUI Counts table)*,	full path to the count file MUST be provided
-    + *p_value (GUI p-value)*,	 lorenz statistics threshold, suggested value 0.05 (i.e. 5% probability that the a cell of low quality is selected)
+    + *p_value (GUI p-value)*,	 lorenz statistics threshold, suggested value 0.05 (i.e. 5% probability that a cell of low quality is selected)
     + *separator (GUI Separator)*,	separator used in count file, e.g. '\\t', ','
 
 The output is a counts table without low quality cells and with the prefix **lorenz_filtered_**. Output will be in the same format and with the same separator of input.
@@ -554,35 +565,39 @@ The output is a counts table without low quality cells and with the prefix **lor
 system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
 unzip("testSCumi_mm10.csv.zip")
 #IMPORTANT: full path to the file MUST be cell count file included!
+
+#N.B. The input file for lorenzFilter are raw counts
+
 library(rCASC)
 # the p_value indicate the probability that a low quality cell is retained in the 
 # dataset filtered on the basis of Lorenz Statistics.
 lorenzFilter(group="docker",scratch.folder="/data/scratch/", 
-               file=paste(getwd(),"filtered_testSCumi_mm10.txt", sep="/"),
-               p_value=0.05, separator='\t')
+               file=paste(getwd(),"testSCumi_mm10.csv", sep="/"),
+               p_value=0.05, separator=',')
 
-tmp0 <- read.table("filtered_testSCumi_mm10.txt", sep="\t", header=T, row.names=1)
+tmp0 <- read.table("testSCumi_mm10.csv", sep=",", header=T, row.names=1)
+dim(tmp0)
 #806 cells
 
-tmp <- read.table("lorenz_filtered_testSCumi_mm10.txt", sep="\t", header=T, row.names=1)
-#785 cells
+tmp <- read.table("lorenz_testSCumi_mm10.csv", sep=",", header=T, row.names=1)
+dim(tmp)
+#782 cells
 
 ```
 \fontsize{10}{10}\selectfont
 
 
-In the example above 21 cells were removed because of their low quality (Figure below). 
+In the example above 24 cells were removed because of their low quality (Figure below). 
 
-```{r fig.7, fig.cap="Effect of Lorenz filtering, cells shown in blue have been discarded because of their low quality.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+```{r fig.7, fig.cap="Lorenz filtering: cells retained after filtering are labelled in red, instead cells discarded because of their low quality are labelled in blue.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
-include_graphics('../inst/img/lorenz_filter.jpg')
+include_graphics('../inst/img/lorenz_filter.png')
 ```
 
-\newpage
 
-### **Section 3.4** Annotation and mitocondrial/ribosomal protein genes removal
+### **Section 3.4** Annotation and mitochondrial/ribosomal protein genes removal
 
-The function **scannobyGtf** allows the annotation of single-cell matrix, if ENSEMBL gene ids are provided. The function requires the ENSEMBL GTF of the organism under analysis and allows the selection of specific annotation biotypes, e.g. protein_coding:
+The function **scannobyGtf** allows the annotation of single-cell matrix, if ENSEMBL gene ids are provided. The function requires the ENSEMBL GTF of the organism under analysis and allows the selection of specific annotation biotypes, e.g. protein_coding.
 
 ```{r fig.107, fig.cap="GUI: Annotation panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
@@ -590,7 +605,7 @@ include_graphics('../inst/img/gui8.png')
 ```
 
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *file (GUI Counts table)*,	full path to the count file MUST be provided
     + *gtf.name*,	ENSEMBL gtf file name. GTF is located in the same folder where counts file is.
     + *biotype*,	biotype of interest. See [*www.ensembl.org/info/genome/genebuild/biotypes.html*](https://www.ensembl.org/info/genome/genebuild/biotypes.html) for more information
@@ -598,9 +613,10 @@ include_graphics('../inst/img/gui8.png')
     + *ribo.proteins (GUI Ribo Proteins)*,	a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed
     + *umiXgene (GUI UMIs X gene)*,	a integer defining how many UMIs are required to call a gene as present. default: 3
     + *riboStart.percentage*, start range for ribosomal percentage, cells within the range are kept
-    + *riboEnd.percentage*, end range for ribosomal percentagem cells within the range are kept
+    + *riboEnd.percentage*, end range for ribosomal percentage, cells within the range are kept
     + *mitoStart.percentage*, start range for mitochondrial percentage, cells within the range are retained
     + *mitoEnd.percentage*, end range for mitochondrial percentage, cells within the range are retained
+    + *thresholdGenes*, parameter to filter cells according to the number og significative genes expressed
 
 
 \fontsize{8}{8}\selectfont
@@ -609,40 +625,33 @@ include_graphics('../inst/img/gui8.png')
 #running annotation and removal of mito and ribo proteins genes
 system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz")
 system("gunzip Mus_musculus.GRCm38.94.gtf.gz")
-scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.txt",sep="/"),
+scannobyGtf(group="docker", file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
                     gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE, umiXgene=3, riboStart.percentage=0, 
-                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100)
-
-genesUmi(file=paste(getwd(),"annotated_lorenz_filtered_testSCumi_mm10.txt",sep="/"), umiXgene=3, sep="\t")
-genesUmi(file=paste(getwd(),"filtered_annotated_lorenz_filtered_testSCumi_mm10.txt",sep="/"), umiXgene=3, sep="\t")
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
 
 ```
 \fontsize{10}{10}\selectfont
 
-The output are a file with prefix **annotated_**, containing all annotated genes and a file with prefix **filtered_annotated_** wich contain the filtered subset of cells.
+The output are a file with prefix **annotated_**, containing all annotated genes and a file with prefix **filtered_annotated_** which contain the filtered subset of cells. Furthermore, the **filteredStatistics.txt** indicates how many cells and genes were removed.
 
-Ribosomal RNA and ribosomal proteins represent a significant part of cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis [[*Montanaro et al. 2008*](https://www.ncbi.nlm.nih.gov/pubmed/18583314)]. Thus, ribosomal proteins expression might represent one of the major confounding factor in cluster formation between active and dormient cells. Furthermore, the main function of mitochondria is to produce energy through aerobic respiration. The number of cell mitochondria depends on its metabolic demands [[*Nasrallah and Horvath 2014*](https://www.ncbi.nlm.nih.gov/pubmed/25200564)]. This might also affect clustering, favoring the separation between metabolic active and resting cells, with respect to functional differences between sub-populations.
-*scannobyGtf* allows also the removal of mitocondrial and ribosomal protein genes.
+Ribosomal RNA and ribosomal proteins represent a significant part of cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis [[*Montanaro et al. 2008*](https://www.ncbi.nlm.nih.gov/pubmed/18583314)]. Thus, ribosomal proteins expression might represent one of the major confounding factor in cluster formation between active and quiescent cells. Furthermore, the main function of mitochondria is to produce energy through aerobic respiration. The number of cell mitochondria depends on its metabolic demands [[*Nasrallah and Horvath 2014*](https://www.ncbi.nlm.nih.gov/pubmed/25200564)]. This might also affect clustering, favoring the separation between metabolic active and resting cells, with respect to functional differences between sub-populations.
+*scannobyGtf* allows also the removal of mitochondrial and ribosomal protein genes.
 \newline
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 library(rCASC)
-scannobyGtf(group="docker", file=paste(getwd(),"lorenz_filtered_testSCumi_mm10.txt",sep="/"),
+scannobyGtf(group="docker", file=paste(getwd(),"testSCumi_mm10.txt",sep="/"),
                     gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
                     mt=FALSE, ribo.proteins=FALSE,umiXgene=3,
                     riboStart.percentage=10, riboEnd.percentage=70, mitoStart.percentage=0, 
-                    mitoEnd.percentage=5)
-
-genesUmi(file=paste(getwd(),"annotated_lorenz_filtered_testSCumi_mm10.txt",sep="/"), umiXgene=3, sep="\t")
-genesUmi(file=paste(getwd(),"filtered_annotated_lorenz_filtered_testSCumi_mm10.txt",sep="/"), umiXgene=3, sep="\t")
-
+                    mitoEnd.percentage=5, thresholdGenes=100)
 
 ```
 \fontsize{10}{10}\selectfont
 
-In figure below, panel B is shown the effect of the removal of both mitochondrial and ribosomal protein genes and the removal of cells characterized by high percentage of mtochondrial protein genes (>5\%) and too litte (<10\%) or too much (>70\%) ribosomal protein genes . 
+In figure below panel B is shown the effect of the removal of both mitochondrial and ribosomal protein genes and the removal of cells characterized by high percentage of mitochondrial protein genes (>5\%) and too litte (<10\%) or too much (>70\%) ribosomal protein genes . 
 
 ```{r fig.8, fig.cap="Removing mitochondrial and ribosomal proteins genes. A) All annotated cells. B) Only cells passing the filters", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
@@ -652,7 +661,15 @@ include_graphics('../inst/img/noMT-rib.png')
 
 ### **Section 3.5** Top expressed genes
 
-For clustering purposes user might decide to use the top expressed genes. The function **topx** select the X top expressed genes given a user defined threshold. The function also produces a pdf file gene_expression_distribution.pdf showing the changes in the UMIs/gene expression distribution upon **topx** filtering:
+For clustering purposes user might decide to use the top expressed/variable genes. The function **topx** provides two options:
+
+- the selection of the X top expressed genes given a user defined threshold, parameter type="expression"
+
+- the selection of the X top variable genes given a user defined threshold, parameter type="variance"
+
+    + gene variance is calculated using edgeR Tag-wise dispersion. The method estimates the gene-wise dispersion implementing a conditional maximum likelihood procedure. For more information please refer to edgeR Bioconductor package manual.
+
+The function also produces a pdf file gene_expression_distribution.pdf showing the changes in the UMIs/gene expression distribution upon **topx** filtering.
 
 
 ```{r fig.108, fig.cap="GUI: Top X expressed genes panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
@@ -661,43 +678,45 @@ include_graphics('../inst/img/gui9.png')
 ```
 
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *file (GUI Counts table)*,	full path to the count file MUST be provided
     + *threshold (GUI Top expressed  genes)*,	number of top expressed genes to be selected. Default 0, i.e. only genes will all cell values equal to 0 will be removed
     + *logged (GUI Logged)*,	 boolean, if FALSE gene expression data are log10 transformed before being plotted.
+    + *type*, expression refers to the selection of the top expressed genes, variance to the the selection of the top variable genes
+    + *separator*, separator used in count file, e.g. '\\t', ','
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
  
 library(rCASC)
-genesUmi(file=paste(getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10.txt", sep="/"), umiXgene=3, sep="\t")
-topx(file=paste(getwd(),file.name="lorenz_filtered_testSCumi_mm10.txt, sep="/")",threshold=10000, logged=FALSE)
-genesUmi(file=paste(getwd(), counts.matrix="lorenz_filtered_testSCumi_mm10_10000.txt", sep="/"), umiXgene=3,  sep="\t")
+genesUmi(file=paste(getwd(), counts.matrix="testSCumi_mm10.csv", sep="/"), umiXgene=3, sep="\t")
+topx(group="docker", file=paste(getwd(),file.name="testSCumi_mm10.csv", sep="/"),threshold=10000, logged=FALSE, type="expression", separator=",")
+genesUmi(file=paste(getwd(), counts.matrix="testSCumi_mm10_10000.txt", sep="/"), umiXgene=3,  sep="\t")
 
 ```
 \fontsize{10}{10}\selectfont
 
-**IMPORTANT**: The core clustering tool in rCASC is SIMLR, **Section 5**. SIMLR requires that the number of genes must be larger then the number of analysed cells. 
+**IMPORTANT**: The core clustering tool in rCASC is SIMLR, **Section 5**. SIMLR requires that the number of genes must be larger than the number of analyzed cells. 
 
 
 ### **Section 3.6** Data normalization
 
-[*The best way to normalize single-cell RNA-seq data has not yet been resolved*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5549838/), expecially in the case of UMI data. We inserted in our workflow two possible options:
+[*The best way to normalize single-cell RNA-seq data has not yet been resolved*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5549838/), especially in the case of UMI data. We inserted in our workflow two possible options:
 
 - [*SCnorm*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473255/), which works best with whole transcript data.
 
-- [*scone*](https://www.biorxiv.org/content/early/2017/12/16/235382), which provides different global scaling methods that can be applyed to UMI single-cell data.
+- [*scone*](https://www.biorxiv.org/content/early/2017/12/16/235382), which provides different global scaling methods that can be applied to UMI single-cell data.
 
 #### **Section 3.6.1** SCnorm
 
 [*SCnorm*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473255/) performs a quantile-regression based approach for robust normalization of single-cell RNA-seq data.  SCnorm groups genes based on their count-depth relationship then applies a quantile regression to each group in order to estimate scaling factors which will remove the effect of sequencing depth from the counts.
 
-IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, because of lack of algoritm convergence in these situations. 
+IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, because of lack of algorithm convergence in these situations. 
 
 ##### **Section 3.6.1.1** Check counts-depth relationship
 
 Before normalizing using **scnorm**, it is advised to check the data count-depth relationship.
-If all genes have a similar relationship then a global normalization strategy such as median-by-ratio in the DESeq package or TMM in edgeR will also be adequate. However, when the count-depth relationship varies among genes global scaling strategies leads to poor normalization. In these cases the normalization provided by SCnorm is recommended:
+If all genes have a similar relationship then a global normalization strategy such as median-by-ratio in the DESeq package or TMM in edgeR will also be adequate. However, when the count-depth relationship varies among genes global scaling strategies leads to poor normalization. In these cases, the normalization provided by SCnorm is recommended.
 
 ```{r fig.109, fig.cap="GUI: SCnorm: check counts-depth relationship panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
@@ -706,19 +725,21 @@ include_graphics('../inst/img/gui10.png')
 
 **checkCountDepth** provides a wrapper, in rCASC, for the checkCountDepth of the [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *file (GUI Counts table)*,	full path to the file MUST be included. Only tab delimited files are supported
     + *conditions*,	vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.
     + *ditherCounts (GUI UMI)*,	boolean. Setting to TRUE might improve results with UMI data.
     + *FilterCellProportion (GUI Min non-zero cells)*, a value indicating the proportion of non-zero expression estimates required to include the genes into the evaluation. Default is .10, and will not go below a proportion which uses less than 10 total cells/samples
     + *FilterExpression (GUI Med non-zero expr. threshold)*, a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots
 #' @param ditherCounts, Setting to TRUE might improve results with UMI data, default is FALSE
-#' @param outputName, specify the path and/or name of output files.
-    + *outputName*,	name of output files.
+#' @param outputName, specify the path and/or name of output file.
+    + *outputName*,	name of output file.
     + *nCores*,	number of cores to use.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
+
+#N.B. checkCountDepth function requires as input raw counts table
 
 #this specific example is an UMI counts table made of 12 cells having at least 10K UMIs/cell.
 system("wget http://130.192.119.59/public/example_UMI.txt.zip")
@@ -733,16 +754,16 @@ checkCountDepth(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 
 The output is a PDF (Figure below), providing a view of the counts distribution, and a file selected.genes.txt, which contains the genes selected to run the analysis.
 
-```{r fig.9, fig.cap="checkCountDepth output plot", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+```{r fig.9, fig.cap="checkCountDepth output plot provides an evaluation of count-depth relationship in un-normalized data. The effects of the normalization procedure is shown in the following figure.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/checkCountDepth0.jpg')
 ```
 
-\pagebreak
+
 
 ##### **Section 3.6.1.2** scnorm
 
-The **scnorm** function executes SCnorm from [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  returns  the  normalized expression count:
+The **scnorm** function executes SCnorm from [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  returns  the  normalized expression count.
 
 ```{r fig.110, fig.cap="GUI: SCnorm: counts-depth normalization panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
@@ -750,10 +771,10 @@ include_graphics('../inst/img/gui11.png')
 ```
 
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *file (GUI Counts table)*,	full path to the file MUST be included. Only tab delimited files are supported
     + *conditions*,	vector of condition labels, this should correspond to the columns of the un-normalized expression matrix.
-    + *outputName*,	specify the name of output files.
+    + *outputName*,	specify the name of output file.
     + *nCores*,	number of cores to use.
     + *filtercellNum (Min non-zero cells)*,	 the number of non-zero expression estimate required to include the genes into the SCnorm fitting (default = 10). The initial grouping fits a quantile regression to each gene, making this value too low gives unstable fits.
     + *ditherCount (GUI UMI)*,	boolean. Setting to TRUE might improve results with UMI data.
@@ -764,6 +785,8 @@ include_graphics('../inst/img/gui11.png')
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
+
+#N.B. scnorm function requires as input raw counts table
 
 system("wget http://130.192.119.59/public/example_UMI.txt.zip")
 unzip("example_UMI.txt.zip")
@@ -778,7 +801,7 @@ scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 
 The output files are  plots of the normalization effects (Figure below), a tab delimited file containing the normalized data, with the prefix **normalized_**,  and **discarded_genes.txt**, which contains the discarded genes.
 
-```{r fig.10, fig.cap="Effect of the SCnorm on the dataset in Figure 9", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+```{r fig.10, fig.cap="Effect of the SCnorm on the dataset in the previous figure", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/scnorm.jpeg')
 ```
@@ -832,7 +855,7 @@ umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
 \fontsize{10}{10}\selectfont
 
 
-**IMPORTANT**: In case sub-population discovery is the analysis task, it is important to check if a specific normalization is compliant with the clustering approach in use. For example in the case of [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the rCASC core clustering tool, the normalizations provided in **scone** are not compliant, because they remove some of the features required to run the SIMLR multikernel learning analysis. TMM is instead compliant with the rCASC implementation of [**tSne**](https://lvdmaaten.github.io/tsne/). In case [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html) clustering is used the data set does not required any normalization since a normalization procedure is included in the algorithm.
+**IMPORTANT**: In case sub-population discovery is the analysis task, it is important to check if a specific normalization is compliant with the clustering approach in use. For example, in the case of [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the rCASC core clustering tool, the normalizations provided in **scone** are not compliant, because they remove some of the features required to run the SIMLR multi-kernel learning analysis. TMM is instead compliant with the rCASC implementation of [**tSne**](https://lvdmaaten.github.io/tsne/). In case [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html) clustering is used the dataset does not required any normalization since a normalization procedure is included in the algorithm.
 
 ### **Section 3.7** Log conversion of a count table
 
@@ -845,7 +868,7 @@ include_graphics('../inst/img/gui13.png')
 
 The function **counts2log** can convert a count table in a log10 values saved in a comma separated or tab delimited file.
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *file (GUI Counts table)*,	full path to the file MUST be included.
     + *log.base*,	the base of the log to be used for the transformation
 
@@ -875,7 +898,7 @@ include_graphics('../inst/img/gui14.png')
 
 **reCAT** prediction step is implemented in rCASC in the function **recatPrediction**, which requires a data set annotated using **scannobyGtf**.
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *scratch.folder*,	the path of the scratch folder
     + *file (GUI Counts table)*,	the path to the input file
     + *separator*,	separator used in count file, e.g. '\\t', ','
@@ -885,11 +908,11 @@ include_graphics('../inst/img/gui14.png')
 
 To show the differences existing between a dataset characterized by cell cycle bias and one that is not, we used two datasets:
 
-- the dataset published by [[*Buettner et al.*](https://www.ncbi.nlm.nih.gov/pubmed/25599176)], containing naive-T-cells and T-helper2-cells mixed together and sorted on the basis of the cell cycle state. 
+- the dataset published by [[*Buettner et al. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176)], containing naive-T-cells and T-helper2-cells mixed together and sorted on the basis of the cell cycle state. 
 
-- The quiescent naive T-cell dataset part of the publication of [*Pace et al.*](https://www.ncbi.nlm.nih.gov/pubmed/?term=29326266), expected to be in G0. 
+- The quiescent naive T-cells dataset part of the publication of [*Pace et al.*](https://www.ncbi.nlm.nih.gov/pubmed/?term=29326266), expected to be in G0. 
 
-To execute the analysis on the same number of cells, 288 cells were randomly selected from quiescent naive T-cell dataset. In Figure below, panel A the presence of oscillatory behaviour is evident in the predicted cells time serie and the G1 and G2M trends are indicated respectively in blue and red dashed curves. On the other hand the oscillatory behaviour is totally absent (Figure below, panel B) in the naive T-cells, which are expected to be quiescent in G0.
+To execute the analysis on the same number of cells, 288 cells were randomly selected from quiescent naive T-cells dataset. In Figure below panel A the presence of oscillatory behavior is evident in the predicted cells time series and the G1 and G2M trends are indicated respectively in blue and red dashed curves. On the other hand, the oscillatory behavior is totally absent (Figure below panel B) in the naive T-cells, which are expected to be quiescent in G0.
 
 ```{r fig.13, fig.cap="Cell cycle assignment to the cells. A) Buettner et al. (Nat. Biotechnol. 2015) raw dataset, cells are expected to be distributed in G1, S and G2M, B) Naive T-cells, expected to be mainly in G0 (Science 2018).", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
@@ -900,35 +923,36 @@ include_graphics('../inst/img/recat1.jpeg')
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
-#preparing the data for the analysis
+#Raw from the Buettner publication
  system("wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip")
  unzip("buettner_G1G2MS_counts.txt.zip")
 
-#annotatiing the data set to obtain the gene names in the format ensemblID:symbol 
+#annotating the data set to obtain the gene names in the format ensemblID:symbol 
 scannobyGtf(group="docker", file=paste(getwd(),"buettner_G1G2MS_counts.txt",sep="/"),
-                    gtf.name="Mus_musculus.GRCm38.92.gtf", biotype="protein_coding", 
+                    gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
-                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100)
-
-#selecting the top 10000 most expressed genes
-topx(data.folder=getwd(),file.name="annotated_buettner_G1G2MS_counts.txt",threshold=10000, logged=FALSE)
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
 
 #running cell cycle prediction
 recatPrediction(group="docker",scratch.folder="/data/scratch",
-                file=paste(getwd(), "annotated_buettner_G1G2MS_counts_10000.txt", sep="/"), 
+                file=paste(getwd(), "annotated_buettner_G1G2MS_counts.txt", sep="/"), 
                 separator="\t", geneNameControl=1, window=10, seed=111)
 
 
-#same analysis as above on 10XGenomix data of quescent naive-T cells
+#same analysis as above on 10XGenomix data of quiescent naive-T cells. 
+#Raw counts table was generated with cellranger 2.0 starting from the h5 files at GEO.
 system("wget http://130.192.119.59/public/GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
 unzip("GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
 scannobyGtf(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1_288cell.txt",sep="/"),
-                    gtf.name="Mus_musculus.GRCm38.92.gtf", biotype="protein_coding", 
+                    gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
-                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100)
-topx(data.folder=getwd(),file.name="annotated_GSM2833284_Naive_WT_Rep1_288cell.txt",threshold=10000, logged=FALSE)
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
+
+
+#N.B. recatPrediction function requires as input raw counts table previously annotated with scannobyGtf function
+
 recatPrediction(group="docker",scratch.folder="/data/scratch",
-                file=paste(getwd(), "annotated_GSM2833284_Naive_WT_Rep1_288cell_10000.txt", sep="/"), 
+                file=paste(getwd(), "annotated_GSM2833284_Naive_WT_Rep1_288cell.txt", sep="/"), 
                 separator="\t", geneNameControl=1, window=10, seed=111)
 
 
@@ -945,7 +969,7 @@ include_graphics('../inst/img/gui15.png')
 
 **ccRemover** software is implemented in rCASC in the function **ccRemove**, which also requires a data set annotated using **scannobyGtf**.
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *scratch.folder*,	the path of the scratch folder
     + *file (GUI Counts table)*,	the path to the input file, including the counts table name
     + *separator*,	separator used in count file, e.g. '\\t', ','
@@ -959,45 +983,51 @@ include_graphics('../inst/img/gui15.png')
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
+#N.B. ccRemove function requires as input raw counts table previously anntoated with scannobyGtf function 
+
 #removing cell cycle effect
 ccRemove(group="docker" , scratch.folder="/data/scratch",
-        file=paste(getwd(),"annotated_buettner_G1G2MS_counts_10000.txt", sep="/"), separator="\t",
+        file=paste(getwd(),"annotated_buettner_G1G2MS_counts.txt", sep="/"), separator="\t",
         seed=111, cutoff=3, species="mouse", rawCount=1)
 
 ```
 \fontsize{10}{10}\selectfont
 
-The analyses above were done using a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 GB RAM and 500 GB SSD. They took  54 and 40 mins for recatPrediction respectively on Buettner and the naive T-cell datasets. 28 mins were needed by ccRemove on Buettner data set. ccRemover analysis produces a ready-for-clustering data normalized matrix. The matrix can be identify by the prefix **LS_cc_**.
-**ccRemove** output is compliant with [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the rCASC core clustering tool. **ccRemove** output does not require log transformation when applied to SIMLR.
+
+
+
+The analyses above were done using a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 GB RAM and 500 GB SSD. They took  in total 54 and 40 mins for recatPrediction respectively on Buettner and the naive T-cells datasets. 28 mins were needed by ccRemove on Buettner data set. ccRemover analysis produces a ready-for-clustering data normalized matrix. The matrix can be identified by the prefix **LS_cc_**.
+**ccRemove** output is compliant with [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the rCASC core clustering tool. **ccRemove** output does NOT require log transformation when applied to SIMLR.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 #visualizing the dataset before and after cell cycle bias removal
 #reformat the matrix header to be suitable with docker4seq PCA plotting function
-tmp <- read.table("annotated_buettner_G1G2MS_counts_10000.txt", sep="\t", header=T, row.names=1)
+tmp <- read.table("annotated_buettner_G1G2MS_counts.txt", sep="\t", header=T, row.names=1)
+tmp.n <- strsplit(names(tmp), "_")
 tmp.n1 <- sapply(tmp.n, function(x)x[1])
 tmp.n2 <- sapply(tmp.n, function(x)x[2])
 names(tmp) <- paste(tmp.n2, tmp.n1, sep="_")
-write.table(tmp, "annotated_buettner_G1G2MS_counts_10000bis.txt", sep="\t", col.names=NA)
+write.table(tmp, "annotated_buettner_G1G2MS_countsbis.txt", sep="\t", col.names=NA)
 
 library(devtools)
 install_github("kendomaniac/docker4seq", ref="master")
 library(docker4seq)
-
-pca(experiment.table="annotated_buettner_G1G2MS_counts_10000bis.txt", type="counts", 
+#N/B. setting type parameter to "counts" data will be log10 transformed before PCA analysis
+pca(experiment.table="annotated_buettner_G1G2MS_countsbis.txt", type="counts", 
       legend.position="topright", covariatesInNames=TRUE, samplesName=FALSE,
       principal.components=c(1,2), pdf = TRUE, 
       output.folder=getwd())
 
 #reformat the matrix header to be suitable with docker4seq PCA plotting function
-tmp <- read.table("LS_cc_annotated_buettner_G1G2MS_counts_10000.txt", sep="\t", header=T, row.names=1)
+tmp <- read.table("LS_cc_annotated_buettner_G1G2MS_counts.txt", sep="\t", header=T, row.names=1)
 tmp.n1 <- sapply(tmp.n, function(x)x[1])
 tmp.n2 <- sapply(tmp.n, function(x)x[2])
 names(tmp) <- paste(tmp.n2, tmp.n1, sep="_")
-write.table(tmp, "LS_cc_annotated_buettner_G1G2MS_counts_10000bis.txt", sep="\t", col.names=NA)
+write.table(tmp, "LS_cc_annotated_buettner_G1G2MS_countsbis.txt", sep="\t", col.names=NA)
 
-pca(experiment.table="LS_cc_annotated_buettner_G1G2MS_counts_10000bis.txt", type="TPM", 
+pca(experiment.table="LS_cc_annotated_buettner_G1G2MS_countsbis.txt", type="TPM", 
       legend.position="topright", covariatesInNames=TRUE, samplesName=FALSE,
       principal.components=c(1,2), pdf = TRUE, 
       output.folder=getwd())
@@ -1006,28 +1036,28 @@ pca(experiment.table="LS_cc_annotated_buettner_G1G2MS_counts_10000bis.txt", type
 ```
 \fontsize{10}{10}\selectfont
 
-In Figure below} are shown the results obtained using the ccRemove implementation in rCASC, using the Buettner dataset. The removal of the cell cycle effect (Figure below, panel B) is clearly shown by a reduction of the variance explained by PC1 and PC2 in the PCA plot.
+In Figure below are shown the results obtained using the ccRemove implementation in rCASC, using the Buettner dataset. The removal of the cell cycle effect (Figure below panel B) is clearly shown by a reduction of the variance explained by PC1 and PC2 in the PCA plot.
 
-```{r fig.14, fig.cap="rCASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat. Biotechnol. 2015) raw dataset, B) PCA analysis of ccRemove cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.14, fig.cap="rCASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat. Biotechnol. 2015) log10 transformed raw data, B) PCA analysis of ccRemove cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/buettner_raw_ccremover.jpeg')
 ```
 
-## **Section 4** Estimating the number of cluster to be used for cell sub-population discovery.
+## **Section 4** Estimating the number of clusters to be used for cell sub-population discovery.
 
-```{r fig.115, fig.cap="GUI: Clustering panel", echo=FALSE, eval=TRUE, out.width="30%", fig.align="center"}
+```{r fig.115, fig.cap="GUI: Clustering panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/gui16.png')
 ```
 
 
-The rCASC core clustering tool is [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), which requires as input the number of clusters to be used to aggregate cell sub-populations. Unfortunately, there is no definitive answer to the definition of the most probable number of clusters, in which cells will aggregate. Some of the possible ways to identify the most probable number of clusters is summaries in: [*"Determining the optimal number of clusters: 3 must known methods - Unsupervised Machine Learning"*](http://www.sthda.com/english/wiki/print.php?id=239).
+The rCASC core clustering tool is [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), which requires as input the number of clusters to be used to aggregate cell sub-populations. Unfortunately, there is no definitive answer to the definition of the most probable number of clusters, in which cells will aggregate. Some of the possible ways to identify the most probable number of clusters is summarised in: [*"Determining the optimal number of clusters: 3 must known methods - Unsupervised Machine Learning"*](http://www.sthda.com/english/wiki/print.php?id=239).
 
 Another important aspect is how the number of detectable clusters might change if the number of cells changes in the dataset, e.g. upon removal of a random subset of cells. Because single-cell experiment, at least today, are rarely characterized by biological replications and frequently they represent the initial step of an analysis aimed at the identification for new cell sub-populations, it is very important to assess the stability of cells aggregations detected by clustering methods.
 
 ### **Section 4.1** Estimating the number of cluster to be used for cell sub-population discovery by community detection method.
 
-In rCASC, the identification of the optimal number of clusters is addressed, in presence of cells number perturbations, with [*griph*](https://ppapasaikas.github.io/griph/). The clustering performed by griph is graph-based and uses the community detection method  [*louvain modularity*](http://igraph.org/r/doc/cluster_louvain.html). Griph algorithm is closer to agglomerative clustering methods, since every node is initially assigned to its own community and communities are subsequently built by iterative merging. Griph is embedded **clusterNgriph** function, which evaluates the number of clusters in which a set of cells will aggregate upon a user defined leave-N\%-out cells bootstraps. In the example below the number of clusters are detected for the file 'annotated_buettner_G1G2MS_counts_10000bis.txt', used in **Section 3.8**.
+In rCASC, the identification of the optimal number of clusters is addressed, in presence of cells number perturbations, with [*griph*](https://ppapasaikas.github.io/griph/). The clustering performed by griph is graph-based and uses the community detection method  [*Louvain modularity*](http://igraph.org/r/doc/cluster_louvain.html). Griph algorithm is closer to agglomerative clustering methods, since every node is initially assigned to its own community and communities are subsequently built by iterative merging. Griph is embedded **clusterNgriph** function, which evaluates the number of clusters in which a set of cells will aggregate upon a user defined leave-N\%-out cells bootstraps. In the example below the number of clusters are detected for the file 'annotated_buettner_G1G2MS_counts_10000bis.txt', used in **Section 3.8**.
 
 ```{r fig.116, fig.cap="GUI: Range of numbers of clusters estimation panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
@@ -1035,7 +1065,7 @@ include_graphics('../inst/img/gui17.png')
 ```
 
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *scratch.folder*,	the path of the scratch folder
     + *file (GUI Matrix counts)*,	the path to the input file, including the counts table name
     + *nPerm*,	number of permutations to perform
@@ -1047,6 +1077,9 @@ include_graphics('../inst/img/gui17.png')
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
+
+#N.B. If the input is a raw count table, before griph analysis data are log10 transformed
+
 library(rCASC)
 clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
               "annotated_buettner_G1G2MS_counts_10000bis.txt", sep="/"), nPerm=160, 
@@ -1055,98 +1088,77 @@ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
 ```
 \fontsize{10}{10}\selectfont
 
-In Figure below} it is shown the output generated by **clusterNgriph**. The output folder is called **Results** and it is located in the folder from which the analysis started. Within Results is present a folder named as the dataset used for the analysis. In this case 'annotated_buettner_G1G2MS_counts_10000bis'. In the latter folder is present a folder, in this specific example '5', named with the number of clusters that were more represented as result of the bootstrap analysis. The file indicated with the blue arrow contains all the information to generate the griph output plot, used as reference to allocate cells to a specific cluster at each bootstrap step. The file indicated with the green arrow contains the cluster position for each cell over all bootstrap steps. The file indicated with the red arrow contains the cells removed at  each bootstrap steps. The file called 'hist.pdf', indicated with the black arrow, is the plot of the frequency of different number of clusters generated by griph as consequence of the bootstrap steps. In this specific case, over 160 permutations, 80 produced 5 clusters, 70 produced 4 clusters and 10 produced 6 clusters. 
+In Figure below it is shown the output generated by **clusterNgriph**. The output folder is called **Results** and it is located in the folder from which the analysis started. Within Results is present a folder named as the dataset used for the analysis. In this case 'annotated_buettner_G1G2MS_counts_10000bis'. In the latter folder is present a folder, in this specific example '5', named with the number of clusters that were more represented as result of the bootstrap analysis. The file indicated with the blue arrow contains all the information to generate the griph output plot, used as reference to allocate cells to a specific cluster at each bootstrap step. The file indicated with the green arrow contains the cluster position for each cell over all bootstrap steps. The file indicated with the red arrow contains the cells removed at  each bootstrap step. The file called 'hist.pdf', indicated with the black arrow, is the plot of the frequency of different number of clusters generated by griph as consequence of the bootstrap steps. In this specific case, over 160 permutations, 80 produced 5 clusters, 70 produced 4 clusters and 10 produced 6 clusters. 
 
 ```{r fig.14a, fig.cap="Output of clusterNgriph", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/griph3.jpeg')
 ```
 
-It has to be noted that in principle, since this dataset has a strong cell cycle effect, we would have expected ideally only three clusters: G1, S and G2M. This toy experiment clearly shows that perturbation of the dataset under analysis can affect the number of detectable clusters. Thus, to identify the clustering condition that guarantee the greatest cell stability in a cluster, in our opinion it is mandatory clustering cells taking in account perturbation effects. In Section 4.2 we further investigate this issue. 
+It has to be noted that in principle, since this dataset has a strong cell cycle effect, we would have expected ideally only three clusters: G1, S and G2M. This toy experiment clearly shows that perturbation of the dataset under analysis can affect the number of detectable clusters. Thus, to identify the clustering condition which guarantees the greatest cell stability in a cluster, in our opinion it is mandatory clustering cells taking in account perturbation effects. In Section 4.2 we further investigate this issue. 
 
 #### **Section 4.2** K-mean clustering: Investigating how cell sub-populations aggregation is affected by dataset perturbations.
 
 As indicated above we are interested to identify not only the optimal cluster number but also if the cluster number is affected by removal of a random subset of cells. 
 To observe the effect of datasets perturbation in clustering we built 4 datasets combining different cell types available in [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper (Bold cell types are those that were progressively substituted in setA):
 
-- setA 100 cell randomly selected for each cell type:
+- setA 100 cells randomly selected for each cell type:
     + (B) B-cells (25K reads/cell), (M) Monocytes  (100K reads/cell), (S) Stem cells (24.7K reads/cell), (NK) Natural Killer cells (29K reads/cell),  (N) Naive T-cells (19K reads/cell)
 
-- setB 100 cell randomly selected for each cell type:
-    + (B) B-cells, (M) Monocytes, (H) **T-helper cells** (21K reads/cell), (NK) Natural Killer, (N) Naive T-cell
+- setB 100 cells randomly selected for each cell type:
+    + (B) B-cells, (M) Monocytes, (H) **T-helper cells** (21K reads/cell), (NK) Natural Killer, (N) Naive T-cells
     
-- setC 100 cell randomly selected for each cell type:
-    + (C) **Cytotoxic T-cells** (28.6K reads/cell), (M) Monocytes, **T-helper cells**, (NK) Natural Killer,  (N) Naive T-cell
+- setC 100 cells randomly selected for each cell type:
+    + (C) **Cytotoxic T-cells** (28.6K reads/cell), (M) Monocytes, **T-helper cells**, (NK) Natural Killer,  (N) Naive T-cells
     
-- setD 100 cell randomly selected for each cell type:
-    + (C) **Cytotoxic T-cells**, (NC) **Naive cytotoxic T-cells** (20K reads/cell), (H) **T-helper cells**, (NK) Natural Killer, (N) Naive T-cell
+- setD 100 cells randomly selected for each cell type:
+    + (C) **Cytotoxic T-cells**, (NC) **Naive cytotoxic T-cells** (20K reads/cell), (H) **T-helper cells**, (NK) Natural Killer, (N) Naive T-cells
 
 Moving from SetA to setD we added progressively cells coming from T-cell populations, making the cell-type partitioning more challenging because of the similarities between T-cell sub-populations.
     
-We used PCA (Figure below, panels A-D) to visualize the dissimilarity between cells populations. PCA measures the variance between the elements of the dataset and the most important differences in variance are estimated by the PC1.
+We used PCA (Figure below panels A-D) to visualize the dissimilarity between cells populations. PCA measures the variance between the elements of the dataset and the most important differences in variance are estimated by the PC1.
 
 
 \fontsize{8}{8}\selectfont    
 ```{r, echo=TRUE, eval=FALSE}
 
-system("wget https://130.192.119.59/public/section4.1_examples.zip")
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 system("cd section4.1_examples")
 
 #visualizing the complexity of the datasets using PCA
 library(docker4seq)
-topx(data.folder=getwd(),file.name="bmsnkn_5x100cells.txt",threshold=1000, logged=FALSE)
-tmp <- read.table("bmsnkn_5x100cells_1000.txt", sep="\t", header=T, row.names=1)
-tmp.n <- strsplit(names(tmp), "_")
-tmp.n <- sapply(tmp.n, function(x)x[2])
-tmp.n1 <- paste(tmp.n, seq(1:length(tmp.n)),"_",tmp.n, sep="")
-names(tmp) <- tmp.n1
-logtmp <- log10(tmp + 1)
-write.table(logtmp, "log10_bmsnkn_5x100cells_1000.txt", sep="\t", col.names = NA)
+topx(group="docker",file=paste(getwd(),"bmsnkn_5x100cells.txt", sep="/"),threshold=1000, logged=FALSE, type="expression", separator="\t")
+#converting filtered data in log10
+counts2log(file=paste(getwd(), "filtered_expression_bmsnkn_5x100cells.txt", sep="/"), log.base=10)
 
-pca(experiment.table="log10_bmsnkn_5x100cells_1000.txt", type="FPKM",
+
+#N.B. if the type parameter is set to FPKM or TPM, it is assumed that data are already log10 transformed
+pca(experiment.table="filtered_expression_bmsnkn_5x100cells.txt", type="FPKM",
     legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
     principal.components=c(1,2), pdf = TRUE,
     output.folder=getwd())
 
-topx(data.folder=getwd(),file.name="bmHnkn_5x100cells.txt",threshold=1000, logged=FALSE)
-tmp <- read.table("bmHnkn_5x100cells_1000.txt", sep="\t", header=T, row.names=1)
-tmp.n <- strsplit(names(tmp), "_")
-tmp.n <- sapply(tmp.n, function(x)x[2])
-tmp.n1 <- paste(tmp.n, seq(1:length(tmp.n)),"_",tmp.n, sep="")
-names(tmp) <- tmp.n1
-logtmp <- log10(tmp + 1)
-write.table(logtmp, "log10_bmHnkn_5x100cells_1000.txt", sep="\t", col.names = NA)
+topx(data.folder=getwd(),file.name="bmHnkn_5x100cells.txt",threshold=1000, logged=FALSE, type="expression", separator="\t")
+counts2log(file=paste(getwd(), "filtered_expression_bmHnkn_5x100cells.txt", sep="/"), log.base=10)
 
-pca(experiment.table="log10_bmHnkn_5x100cells_1000.txt", type="FPKM",
+pca(experiment.table="filtered_expression_bmHnkn_5x100cells.txt", type="FPKM",
     legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
     principal.components=c(1,2), pdf = TRUE,
     output.folder=getwd())
 
-topx(data.folder=getwd(),file.name="CmHnkn_5x100cells.txt",threshold=1000, logged=FALSE)
-tmp <- read.table("CmHnkn_5x100cells_1000.txt", sep="\t", header=T, row.names=1)
-tmp.n <- strsplit(names(tmp), "_")
-tmp.n <- sapply(tmp.n, function(x)x[2])
-tmp.n1 <- paste(tmp.n, seq(1:length(tmp.n)),"_",tmp.n, sep="")
-names(tmp) <- tmp.n1
-logtmp <- log10(tmp + 1)
-write.table(logtmp, "log10_CmHnkn_5x100cells_1000.txt", sep="\t", col.names = NA)
+topx(data.folder=getwd(),file.name="CmHnkn_5x100cells.txt",threshold=1000, logged=FALSE, type="expression", separator="\t")
+counts2log(file=paste(getwd(), "filtered_expression_CmHnkn_5x100cells.txt", sep="/"), log.base=10)
 
-pca(experiment.table="log10_CmHnkn_5x100cells_1000.txt", type="FPKM",
+pca(experiment.table="filtered_expression_CmHnkn_5x100cells.txt", type="FPKM",
     legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
     principal.components=c(1,2), pdf = TRUE,
     output.folder=getwd())
 
-topx(data.folder=getwd(),file.name="CNCHnkn_5x100cells.txt",threshold=1000, logged=FALSE)
-tmp <- read.table("CNCHnkn_5x100cells_1000.txt", sep="\t", header=T, row.names=1)
-tmp.n <- strsplit(names(tmp), "_")
-tmp.n <- sapply(tmp.n, function(x)x[2])
-tmp.n1 <- paste(tmp.n, seq(1:length(tmp.n)),"_",tmp.n, sep="")
-names(tmp) <- tmp.n1
-logtmp <- log10(tmp + 1)
-write.table(logtmp, "log10_CNCHnkn_5x100cells_1000.txt", sep="\t", col.names = NA)
+topx(data.folder=getwd(),file.name="CNCHnkn_5x100cells.txt",threshold=1000, logged=FALSE, type="expression", separator="\t")
+counts2log(file=paste(getwd(), "filtered_expression_CNCHnkn_5x100cells.txt", sep="/"), log.base=10)
 
-pca(experiment.table="log10_CNCHnkn_5x100cells_1000.txt", type="FPKM",
+pca(experiment.table="filtered_expression_CNCHnkn_5x100cells.txt", type="FPKM",
     legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
     principal.components=c(1,2), pdf = TRUE,
     output.folder=getwd())
@@ -1157,12 +1169,12 @@ pca(experiment.table="log10_CNCHnkn_5x100cells_1000.txt", type="FPKM",
 \fontsize{10}{10}\selectfont
 
 
-```{r fig.15, fig.cap="PCA is getting progressively unable to discriminate between the different cell subpopulations as the set of cells are getting functionally more similar to each other: A) PCA of setA, B) PCA of setB, C) PCA of setC, D) PCA of setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+```{r fig.15, fig.cap="PCA is getting progressively unable to discriminate between the different cell subpopulations as the set of cells are getting functionally more similar to each other: A) PCA of setA, B) PCA of setB, C) PCA of setC, D) PCA of setD.", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/griph1.png')
 ```
 
-PC1 shows that, as the differences between cell populations become smaller, moving from setA to setD, the aggregation in homogeneous groups of cells is compromised (Figure above, panels A-D).  
+PC1 shows that, as the differences between cell populations become smaller, moving from setA to setD, the aggregation in homogeneous groups of cells is compromised (Figure below panels A-D).  
 
 To observe the effect of the reduced dissimilarity between populations on the stability of the number of clusters, we use the rCASC **clusterNgriph** function on the above mentioned 4 datasets using 160 permutations/each, and randomly removing in each permutation 10\% of the cells. Each analysis took approximately 60 mins on a SeqBox hardware. 
 
@@ -1199,19 +1211,21 @@ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
 
 \fontsize{10}{10}\selectfont
 
-It is notable that as the differences between the cells populations is narrowing (i.e in setA cells types are quite different in overall functional activity, as in setD four out of five cell types are T-cells sub-populations) the fluctuations in the detected number of clusters increase. In setA, where PCA is able to discriminate between the five cell populations (Figure below, panel A), out of 160 bootstraps only 1 gave a number of clusters different from the effective number of cell sub-populations (Figure below, panel A). In all the other three subsets perturbations result in a higher number of events in which number of clusters different from 5 (Figure below, panels B-D). 
+It is notable that as the differences between the cells populations is narrowing (i.e in setA cells types are quite different in overall functional activity, as in setD four out of five cell types are T-cells sub-populations) the fluctuations in the detected number of clusters increase. In setA, where PCA is able to discriminate between the five cell populations (Figure below panel A), out of 160 bootstraps only 1 gave a number of clusters different from the effective number of cell sub-populations (Figure below panel A). In all the other three subsets perturbations result in a higher number of events in which number of clusters differs from 5 (Figure below panels B-D). 
 
 ```{r fig.16, fig.cap="Clusters number is dependent by the cell type similarity: A) number of clusters detectable by griph in setA, B) number of clusters detectable by griph in setB, C) number of clusters detectable by griph in setC, D) number of clusters detectable by griph in setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/griph2.png')
 ```
 
-As highlighted in **Section 3.2.1**, the difficulties in detecting a stable number of clusters, upon dataset perturbation, is due to the limited number of detected genes. To further support this hypothesis we run a comparison between the most expressed genes in the cell types used in the above example.
+As highlighted in **Section 3.2.1**, the difficulties in detecting a stable number of clusters, upon dataset perturbations, is due to the limited number of detected genes. To further support this hypothesis, we run a comparison between the most expressed genes in the cell types used in the above example.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
 #downloading datasets
+#section4.1_examples.zip contains raw counts from Zheng experiment available at 10XGenomics web site
+#100 cells  were randomly extracted from from each sorted cell type dataset.
 system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
@@ -1245,7 +1259,7 @@ overlap <- function(x,y){
   return(overlap.v)
 }
 
-#calculating the level of identity between lists of increasing lengths all comparisons are run with respect to naive T-cell.
+#calculating the level of identity between lists of increasing lengths all comparisons are run with respect to naive T-cells.
 naiveCyto.naiveT <- overlap(names(naiveT.s), names(naiveCyto.s))
 b.naiveT <- overlap(names(naiveT.s), names(b.s))
 mono.naiveT <- overlap(names(naiveT.s), names(mono.s))
@@ -1282,7 +1296,6 @@ include_graphics('../inst/img/griph4.jpeg')
 The results described in this section indicate that **clusterNgriph** is a valuable instrument to define a range of numbers of clusters to be further investigated with supervised clustering approaches.
 
 
-
 ## **Section 5** K-mean clustering: detecting cell sub-populations by mean of kernel based similarity learning ([*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)).
 
 The number of clustering and dimension reduction methods for single cell progressively increased over the last few years. Last year [*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) published SIMLR, a framework which learns a similarity measure from single-cell RNA-seq data in order to perform dimensions reduction. We decided to select this method as core clustering tool in rCASC, because outperformed eight methods published before 2017 [[*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)].
@@ -1290,13 +1303,15 @@ The number of clustering and dimension reduction methods for single cell progres
 
 Specifically, we use SIMLR as clustering method recording the effects of data perturbation, i.e. removal of random subset of cells, on the clustering structure. Although, we think SIMLR provides important advantages with respect to other clustering methods, rCASC framework can embed also other data reduction tools. At the present time, tSne is also implemented within the rCASC data permutation framework.
 
-One of the peculiarity of rCASC is the user tunable bootstrap procedure. rCASC represents bootstrap results via a cell stability score (Figure below). In brief, a set of cells to be organized in clusters  (Figure below, panel A) is analysed with SIMLR, applying a users defined k number of clusters (Figure below, panel B). A user defined \% of cells is removed from the original data set and these cells are clustered again (Figure below, panel C). The clusters obtained in each bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure below, panels D-E). If the Jaccard index is greater of a user defined threshold, e.g. 0.8, the cluster is called confirmed in the bootstrap step (Figure below, panel F). Then to each cell, belonging to the confirmed cluster, *cell stability score* value is increased of 1 unit (Figure below, panel G). At the end of the bootstrap procedure, cells are labeled with different symbols describing their *cell stability score* in a specific cluster (Figure below, panel H).
+One of the peculiarities of rCASC is the user tunable bootstrap procedure. rCASC represents bootstrap results via a cell stability score (Figure below). In brief, a set of cells to be organized in clusters  (Figure below panel A) is analyzed with SIMLR, applying a user defined k number of clusters (Figure below panel B). A user defined \% of cells is removed from the original data set and these cells are clustered again (Figure below panel C). The clusters obtained in each bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure below panel D-E). If the Jaccard index is greater of a user defined threshold, e.g. 0.8, the cluster is called confirmed in the bootstrap step (Figure below panel F). Then to each cell, belonging to the confirmed cluster, *cell stability score* value is increased of 1 unit (Figure below panel G). At the end of the bootstrap procedure, cells are labeled with different symbols describing their *cell stability score* in a specific cluster (Figure below panel H).
 
 ```{r fig.19, fig.cap="Cell stability score", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/simlr_2.jpeg')
 ```
 
+### **Section 5.1** Cell Stability Score: mathematical description.
+\includepdf[pages={-}]{./def.pdf}
 
 SIMLR is embedded in **simlrBootstrap** function within the rCASC bootstrap framework. 
 
@@ -1306,7 +1321,7 @@ include_graphics('../inst/img/gui18.png')
 ```
 
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
     + *scratch.folder*,	the path of the scratch folder
     + *file (GUI Counts table)*,	the path of the file, with file name and extension included
     + *nPerm*,	number of permutations to be executed
@@ -1317,7 +1332,7 @@ include_graphics('../inst/img/gui18.png')
     + *separator*,	separator used in count file, e.g. '\\t', ','
     + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
     + *seed*,	important value to reproduce the same results with same input, default is 111
-    + *sp*,	minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
+    + *sp*,	minimum number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
     + *clusterPermErr*,	probability error in depicting the number of clusters in each permutation, default = 0.05
 
 \fontsize{8}{8}\selectfont
@@ -1335,8 +1350,9 @@ system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
 scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
-                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100)
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
 #running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
+#N.B. if raw counts are provide as input data will be log10 transformed before SIMLR analysis
 simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
                file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
                nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
@@ -1346,7 +1362,7 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
 scannobyGtf(group="docker", file=paste(getwd(),"bmHnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
-                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100)
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
 #running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
 simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
                file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
@@ -1356,29 +1372,74 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
 ```
 \fontsize{10}{10}\selectfont
 
-The output of **simlrBootstrap** function is described in Figure \ref{fig:fig.20}. The output is localized in the *Results* folder (Figure below, Folder 1), which is created in the folder where the analysis started. This folder contains the count matrices used in the analyses. In this example the count matrices are those belonging to setA and B (see Section 4.1). In the *Results* folder  are also present folders labeled with the name of the count matrix used in the analysis (Figure \ref{fig:fig.20} Folder 2, annotated\_bmsnkn\_5x100cells, annotated\_bmHnkn\_5x100cells). In each of these folders there are a set of folders indicated with a number that refers to the analysed range of number of clusters (Figure below, Folder 3). In this specific example  the range of clusters goes from 4 to 6. In each *NameOfCountMatrix* folder there is a file called **\_Stability\_Violin\_Plot.pdf** (Figure below, panel A) which represents the distribution of the cells stability scores over the bootstraps in the range of number of clusters investigated. In this example, it is clear that the analysis done with 5 clusters is the one providing the highest stability of cells within each cluster. The other plot that is also available in the folder (Figure below, Folders 4) is **NameOfCountMatrix\_vioplot.pdf**, Figure below, panel B, which contains the distribution of the [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) values for each cluster over the bootstraps. [*Silhuette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) value is a measure of computation cluster stability, and evaluates how similar an object is to its own cluster (cohesion) compared to other clusters (separation). Clearly the information provided by Silhuette plot is much less informative for the definition of the optimal clustering number with respect to the information provided by the cells stability score (Figure below blue arrow). In each clustering folder there is a pdf named *NameOfCountMatrix_Stability_Plot.pdf*, which contains two plots (Figure below, panels C-D) generated with the clustering program. The plot in Figure below, panel C provides a 2D view of the clustering results. In this plot each cell is labeled with a symbol indicating its cell stability score. In this specific example of the plot generated with 5 clusters shows that all cells remain in a cluster between 75 to 100\% of the bootstraps (+ symbol). The plot, Figure below, panel D, shows the genes detectable in each cell in function of the total number of reads/cell. In this plot cells are colored with the same color of their belonging cluster. This plot is useful to observe if the clustering is biased by the number of genes called in each cluster. In this specific example, only the blue cluster is charaterized by a number of detected genes, which is larger of those detectable in the other clusters (Figure below, panel D). This is expected, since blue cluster is made of Monocytes, which have been sequenced to 100K reads/cells, as all other cells in setA were sequenced between 19 to 29K reads/cell, see **Section 4.2**.
+The output of **simlrBootstrap** function is described in Figure below. The output is localized in the *Results* folder (Figure below Folder 1), which is created in the folder where the analysis started. This folder contains the count matrices used in the analyses. In this example the count matrices are those belonging to setA and B (see Section 4.1). In the *Results* folder  are also present folders labeled with the name of the count matrix used in the analysis (Figure below Folder 2, annotated\_bmsnkn\_5x100cells, annotated\_bmHnkn\_5x100cells). In each of these folders there are a set of folders indicated with a number that refers to the analyzed range of number of clusters (Figure below Folder 3). In this specific example  the range of clusters goes from 4 to 6. In each *NameOfCountMatrix* folder there is a file called **\_Stability\_Violin\_Plot.pdf** (Figure below panel A) which represents the distribution of the cells stability scores over the bootstraps in the range of number of clusters investigated. Figure below panel A clearly show that the analysis done with k=5 is the one providing the highest stability of cells within each cluster. The other plot that is also available in the folder (Figure below Folders 4) is **NameOfCountMatrix\_vioplot.pdf**, Figure below panel B, which contains the distribution of the [*Silhouette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) values for each cluster over the bootstraps. [*Silhouette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) value is a measure of computation cluster stability, and evaluates how similar an object is to its own cluster (cohesion) compared to other clusters (separation). Clearly the information provided by Silhouette plot is much less informative for the definition of the optimal clustering number with respect to the information provided by the cells stability score (Figure below blue arrow). In each clustering folder there is a pdf named *NameOfCountMatrix_Stability_Plot.pdf*, which contains two plots (Figure below panels C-D) generated by the clustering program. These plots provide a 2D view of the clustering results from two different perspectives. In Figure below panel C plot each cell is colored on the basis of the belonging cluster and it is labeled with a symbol indicating its cell stability score (CSS). Instead, in the plot in Figure below panel D each cell is colored on the basis of its CSS: 0-25\% black, 25-50\% green, 50-75\% gold and 75-100\% red. 
+Here, we show the plots generated with k=6 to better describe the information described in the above-mentioned clusters plots, as in k=5 clusters all cells have a CSS greater than 75\%. In Figures below panel C and D it is shown that 4 out of 6 clusters cells remain in a cluster between 75 to 100\% of the bootstraps (+ symbol in Figure below panel C and red dots in Figure below panel D). The plot, Figure below panel E, shows the genes detectable in each cell in function of the total number of reads/cell. In this plot cells are colored with the same color of their belonging cluster. This plot is useful to observe if the clustering is biased by the number of genes called in each cluster. In this specific example, only the green cluster is characterized by a number of detected genes, which is larger of those detectable in the other clusters (Figure below panel E). This is expected, since blue cluster is made of Monocytes, which have been sequenced to 100K reads/cells, as all other cells in setA were sequenced between 19 to 29K reads/cell, see **Section 4.2**.
 
-```{r fig.20, fig.cap="simlrBootstrap output", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+```{r fig.20, fig.cap="simlrBootstrap output. A) Cell Stability violin plot for the range of investigated clusters. B) Silhouette violin plot for the range of investigated clusters. C) SIMLR analysis: cells are partitioned in 6 cluster, defined by different colors. D) Cells colored on the basis of their Stability Score. E) Genes versus UMI counts, where cells are colored on the basis of their belonging cluster", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
-include_graphics('../inst/img/simlr_3.jpeg')
+include_graphics('../inst/img/simlr_3.png')
 ```
 
 
 
- In Figure below are shown the effects, on cell stability, in SIMLR analysis done with 4 and 6 clusters for SetA (*annotated_bmsnkn_5x100cells.txt*) counts matrix. Using 4 as number of clusters, Figure below, panel A, some of the cells in each cluster show a reduced stability (50-75\%, triangle) and arrows highlights cells characterized by a cell stability score between 25 to 50\%. The circles in Figure below, panel B show the clusters where the full cluster has a cell stability between 50 to 75\%. This observation indicates that the stability score is a useful measure to identify the optimal number of partitions to be used, i.e. the highest cell stability score  was observed when five clusters were selected, corresponding to the number of cell types combined in SetA, see **Section 4.1**. 
+ In Figure below are shown the effects, on cell stability, in SIMLR analysis done with 4 and 6 clusters for SetA (*annotated_bmsnkn_5x100cells.txt*) counts matrix. Using 4 as number of clusters, Figure below panel A, some of the cells in each cluster show a reduced stability (50-75\%, triangle) and arrows highlights cells characterized by a cell stability score between 25 to 50\%. The circles in Figure below panel B show the clusters where the full cluster has a cell stability between 50 to 75\%. This observation indicates that the stability score is a useful measure to identify the optimal number of partitions to be used, i.e. the highest cell stability score  was observed when five clusters were selected, corresponding to the number of cell types combined in SetA, see **Section 4.2**. 
  
-```{r fig.21, fig.cap="Clustering output including cell stability score", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+```{r fig.21, fig.cap="Clustering output including cell stability score. Different in stability observable between the partition of cells in 5 (A) or 6 clusters (B). Partition in 5 clusters is more stable upon perturbation than partition in 6 clusters. Circles indicates clusters in which CSS is between 50-75. All other clusters have CSS between 75 to 100. Arrows indicate the cells with CSS between 25-50.", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/simlr_4.jpeg')
 ```
 
-\pagebreak
+
+The effect of the perturbations induced in the clustering upon the removal of 10%, 20%, 30% and 50% of the data set was also investigated in SetA (*annotated_bmsnkn_5x100cells.txt*), Figure below.
+
+```{r, echo=TRUE, eval=FALSE}
+#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
+               separator="\t",logTen=0, seed=111)
+
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=20, range1=5, range2=5, 
+               separator="\t",logTen=0, seed=111)
+
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=30, range1=5, range2=5, 
+               separator="\t",logTen=0, seed=111)
+
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=50, range1=5, range2=5, 
+               separator="\t",logTen=0, seed=111)
+
+```
+
+
+```{r fig.21a, fig.cap="Cell stability score for SIMLR analysis with k=5 clusters removing progressively 10 (A), 20 (B), 30 (C) and  50 (D) percent of the cells at each permutation.", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/permutations.png')
+```
+
+Increasing the fraction of cells removed at each permutation affects, in a negative way, the overall cell stability score of each cell in each cluster. However, the reduction in CSS is not identical for all clusters. In Figure above, it is clear that cluster 2, completely made of NK cells, is the most stable cluster to the perturbations induced by increasing the number of removed cells. On the other side, cluster 4, mainly made by stem cells (92 cells), together with few B-cells (2 cells) and Monocytes (7 cells) is the least stable. Sorting by increasing CSS the cells in cluster 4, Figure above panel D, all B-cells and Monocytes are found within the first 15 most unstable cells. This observation suggests that studying CSS, increasing the fraction of cells removed at each permutation, could highlight the presence of cells located at the boundaries of different clusters. In this specific example, clusters 1, which is mainly composed of B-cells and few stem cells (2 cells), and cluster 3, which is fully made of Monocytes, could represent the exchange clusters for the most unstable cells detected in cluster 4.
+
+
+```{r fig.21b, fig.cap="Investigating cell stability score relation with clusters cells heterogeneity. SIMLR analysis was performed on both datasets using 160 permutations and k=5. A) Set A, Section 4.2, SIMLR clusters structure, B)  Set C, Section 4.2, SIMLR clusters structure. C) Set A CSS plot, D)  Set C, CSS plot.", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/css.png')
+```
+
+We investigated clusters composition of two sets of cells described in section 4.2: SetA and SetC. 
+SetA is made of cell types with different biological characteristics, i.e. (B) B-cells, (M) Monocytes, (S) Stem cells, (NK) Natural Killer cells, (N) Naive T-cells. 
+SetC contains Monocytes, Natural Killer cells and with T-cells subpopulations, i.e. (C) Cytotoxic T-cells, (H) T-helper cells and Naive T-cells, Figure above. CSS provides indications on clusters cells heterogeneity. In Figure above panel A and C, clusters characterized by high cell stability score are mainly constituted by one cell type. On the other hand, as CSS decrease, Figure above panel B and D, clusters become characterized by an increasing heterogeneity in the cell types composition. E.g. In Figure above panel B and D, cluster 5 (violet) has a CSS between 75% to 100% and it is made only by monocytes, cluster 2 (light green), which has a CSS between 50% and 75%, has a 11% contamination of T-helper cells. Cluster 3 (green), which has a CSS between 25 to 50%, is contaminated by 12% Cytotoxic T-cells and 4% T-helper cells. Finally, clusters 1 and 4, characterized by CSS between 0% to 25%, are very heterogeneous incorporating 4 out of 5 cell types present in this dataset.
+
 
 ### **Section 5.2** Visualizing the cell clusters relocation during bootstraps.
 
-The function **permutationMovie** allows the generation of a video showing the relocation of cells at each bootstrap. In this example we use the results shown in Figure above, panel B, where circles show the clusters where all cells have a cell stability between 50 to 75\%. 
+The function **permutationMovie** allows the generation of a video showing the relocation of cells at each bootstrap. In this example we use the results shown in Figure above panel B, where circles show the clusters where all cells have a cell stability between 50 to 75\%. 
 
-```{r fig.118, fig.cap="GUI: Permutation effect  video panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.118, fig.cap="GUI: Permutation effect  video panel. Clusters are identified by different colors", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/gui19.png')
 ```
@@ -1407,7 +1468,7 @@ bootstrapsVideo(group="docker", scratch.folder="/data/scratch",
 
 The video was generated in 8 minutes on SeqBox hardware. The video is saved in the cluster folder used for the analysis and it has the name **outputname.mp4**. The video generated with the above script is accessible [*here*](https://youtu.be/ZBP9W-WU-WQ).
 
-In Figure below, panel A is shown a screenshot of the output of **bootstrapsVideo**. The output of this function provides extra information with respect to the standard output of the **simlrBootstrap** and **tsneBootstrap**, since the video provides an overview of the area (colored circles) in which the cells of a specific cluster are localized as consequence of the bootstraps. This visualization provides a better description of the maximum size of the clusters and simplify the identification of clusters that are more near to each other, because of clusters structure, Figure below, panel A. In this specific example, is notable that, even if the yellow cluster has a high cell stability score, Figure below, panel B, its size is much greater of those observable for all the other clusters, because few cells with lower cell stability score (50-75\%, triangle) are located very near to the blue cluster, arrow in Figure below, panel B.
+In Figure below panel A is shown a screenshot of the output of **bootstrapsVideo**. The output of this function provides extra information with respect to the standard output of the **simlrBootstrap** and **tsneBootstrap**, since the video provides an overview of the area (colored circles) in which the cells of a specific cluster are localized as consequence of the bootstraps. This visualization provides a better description of the maximum size of the clusters and simplify the identification of clusters that are more near to each other, because of clusters structure, Figure below panel A. In this specific example, is notable that, even if the yellow cluster has a high cell stability score, Figure below panel B, its size is much greater of that observable for all the other clusters, because few cells with lower cell stability score (50-75\%, triangle) are located very near to the blue cluster, arrow in Figure below panel B.
 
 ```{r fig.23, fig.cap="Comparing the output of bootstrapsVideo with respect to the one produced by simlrBootstrap. A) Output of bootstrapsVideo. B) simlrBootstrap output. ", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
 library(knitr)
@@ -1416,14 +1477,74 @@ include_graphics('../inst/img/bootstrapsVideo_2.jpeg')
 
 \pagebreak
 
+### **Section 5.3** Estimating cluster stability.
 
-## **Section 6** Hierarchical clustering: [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html) graph-based clustering.
+[*Hennig*](http://discovery.ucl.ac.uk/148823/) published an elegant paper entitled Cluster-wise assessment of cluster stability. The [*R package fpc*](https://cran.r-project.org/web/packages/fpc/index.html) is associated to the paper. In this package, Jaccard index is used to evaluate the similarity between clusters. The calculated score (cluster stability measurement, CSM) is intended to provide an overall quality score for each of the clusters in toto. In particular, the clusterboot function allows to evaluate the cluster stability using a personalized clustering function. We have implemented this function to estimate CSM of the clusters generated with SIMLR, Seurat and tSne.
+
+
+
+```{r fig.23a, fig.cap="Estimating cluster stability. ", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/csm0.png')
+```
+
+\pagebreak
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to perform the pValue to evaluate clustering
+    + *range1*,	first number of cluster for k means algorithm
+    + *range2*,	last number of cluster for k means algorithm
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *clustering*,	clustering method to use : "SIMLR" , "tSne", "griph"
+    + *perplexity*,	Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.Setting this parameter when use a clustering method different by tSne will be ignored.
+    + *pcaDimensions*,	dimensions to use for pca reduction for Seurat
+    + *seed*,	important value to reproduce the same results with same input
+
+
+```{r, echo=TRUE, eval=FALSE}
+#SetA
+clusterStability(group="docker",scratch.folder="/data/scratch/", 
+                 file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                 nPerm=160, range1=5, range2=5, separator="\t", 
+                 logTen=0, cluster="SIMLR", pcaDimensions=3)
+#SetC
+clusterStability(group="docker",scratch.folder="/data/scratch/", 
+                 file=paste(getwd(), "CNCHnkn_5x100cells.txt", sep="/"), 
+                 nPerm=160, range1=5, range2=5, separator="\t", 
+                 logTen=0, cluster="SIMLR", pcaDimensions=3)
+
+```
+
+
+
+
+The output of **clusterStability** are two plots, Figure below.
+
+```{r fig.23b, fig.cap="Estimating cluster stability output for SetA and SetC: A) Violin plot of Jaccard similarity value for SetA clusters. B) Violin plot of Jaccard similarity value for SetC clusters. C) Jaccard frequency distributions over each of SetA clusters. D) Jaccard frequency distributions over each of SetC clusters.", echo=FALSE, eval=TRUE, out.width="110%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/csm1.png')
+```
+
+Cluster stability measurement (CSM), Figure  above, which provides an overview of the stability of the cluster in toto, are in agreement with the CSS for SetA and SetC, Figure above.   
+
+\pagebreak
+
+## **Section 6** Clustering (autonomously detecting the number of clusters required for data partitioning): [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html), [*griph*](https://github.com/ppapasaikas/griph) and [*scanpy*](https://scanpy.readthedocs.io/en/stable/) graph-based clustering.
+
+[*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html), [*griph*](https://github.com/ppapasaikas/griph) and [*scanpy*](https://scanpy.readthedocs.io/en/stable/) use similar clustering approaches. However, time required for clustering, in the rCASC framework, is quite different as the number of cell increases, see (Fig. 7 in main manuscript).
+
+### **Section 6.1**: [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html)
 
 Recently [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al.*](https://f1000research.com/articles/7-1141/v2) described, in their independent comparison papers, that [*Seurat*](https://satijalab.org/seurat/) delivered the overall best performance in cells clustering. Thus, we decided to include in our workflow also this clustering tool. Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metagene’ that combines information across a correlated gene set. 
+The bootstrap approach described in **section 5.1** is also applied to Seurat clustering to assign cell stability score to the clustered cells.
 The first step of the analysis is the identification of the how many PCs have to be to included.
 
 
-**seuratPCAEval** function allows the exploration of PCs to determine relevant sources of heterogeneity and to define the range of PCs to be used:  
+**seuratPCAEval** function allows the exploration of PCs to determine relevant sources of heterogeneity and to define the range of PCs to be used.  
 
 ```{r fig.119, fig.cap="GUI: Estimating PCA range for Seurat panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
@@ -1441,6 +1562,11 @@ include_graphics('../inst/img/gui20.png')
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
+#N.B. seuratPCAEval requires in input raw counts or log10 transformed raw counts
+#Before clustering data are normalized as suggested from the Seurat workflow 
+#using Seurat  NormalizeData function, with LogNormalize as normalization.method 
+#and 10000 as scale.factor parameters
+
 system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
@@ -1454,14 +1580,14 @@ seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
 
 \fontsize{10}{10}\selectfont
 
-```{r fig.32, fig.cap="Seurat clustering, A) Seurat dataset PC component. B) Clustering results", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+```{r fig.32, fig.cap="Seurat clustering: A) Seurat dataset PC component. B) Clustering results. Clusters are identified by different colors and CSS is given by different symbols: square 0-25, circle 25-50, triangle 50-75, cross 75-100", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
 library(knitr)
 include_graphics('../inst/img/seurat01.png')
 ```
 
-The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "bmsnkn_5x100cells". In the latter folder is present a PCA plot (PCE_bowPlot.pdf, Figure above, panel A), which allow the identification of the PCs to use, defining a cutoff where there is a clear elbow in the graph. In this example, it looks like the elbow would fall around PC 6. 
+The function generates a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "bmsnkn_5x100cells". In the latter folder is present a PCA plot (PCE_bowPlot.pdf, Figure above panel A), which allows the identification of the PCs to use, defining a cutoff where there is a clear elbow in the graph. In this example, it looks like the elbow would fall around PC 6. 
 
-**seuratBootstrap** function executes the seurat clustering (data reduction method PCA) and estimates cell stability score:  
+**seuratBootstrap** function executes the seurat clustering (data reduction method PCA) and estimates cell stability score.  
 
 ```{r fig.120, fig.cap="GUI: Seurat clustering panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
@@ -1484,22 +1610,105 @@ include_graphics('../inst/img/gui21.png')
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
 
+#N.B. seuratBootstrap requires in input raw counts or log10 transformed raw counts
 
-seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
-                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111)
+seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",
+                logTen=0, pcaDimensions=6, seed=111)
 
 ```
 \fontsize{10}{10}\selectfont
 
 
-The function generate a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "bmsnkn_5x100cells.txt". In the latter folder is present a folder with the number of cluster detected by Seurat, in this specific case **5**. In **5** folder there is the file with extension  **\_Stability_Plot.pdf**, which is the clustering picture with cells labeled with their stability score). The file with the extension **\_clusterP.txt**,containing for each permutation the location of each cell in the clusters.  The file with the extension **\_killedCell.txt**, where are saved the cells removed at each permutation. The file with the extension **\_score.txt**, containing the scores assigned at each permutation to each cell. The file with extension **\_scoreSum.txt** containing the Cell stability score for each cell. The file with extension **\_clustering.output.txt**, summarizing all information required to generate the **\_Stability_Plot.pdf** plot.
+The function generates a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "bmsnkn_5x100cells.txt". In the latter folder is present a folder with the number of clusters detected by Seurat, in this specific case **5**. In **5** folder there is the file with extension  **\_Stability_Plot.pdf**, which is the clustering picture with cells labeled with their stability score, Figure above panel B). The file with the extension **\_clusterP.txt**, containing for each permutation the location of each cell in the clusters.  The file with the extension **\_killedCell.txt**, where are saved the cells removed at each permutation. The file with the extension **\_score.txt**, containing the scores assigned at each permutation to each cell. The file with extension **\_scoreSum.txt** containing the Cell stability score for each cell. The file with extension **\_clustering.output.txt**, summarizing all information required to generate the **\_Stability_Plot.pdf** plot.
 
 
-### **Section 6.1** Comparing SIMLR, tSne and Seurat clustering
+### **Section 6.2**: [*griph*](https://github.com/ppapasaikas/griph)
+
+Griph was used as tool for clustering in [Serra et al. 2019](https://www.ncbi.nlm.nih.gov/pubmed/31019299). It runs faster than Seurat as the number of cells increases.
+
+```{r fig.120a, fig.cap="GUI: Griph clustering panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui120a.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations computed in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *perplexity*,	perplexity value for tsne projection
+    + *seed*,	important value to reproduce the same results with same input
+
+
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. griphBootstrap requires in input raw counts or log10 transformed raw counts
+
+griphBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, 
+                seed=111)
+
+```
+\fontsize{10}{10}\selectfont
+
+
+
+### **Section 6.3**: [*scanpy*](https://scanpy.readthedocs.io/en/stable/)
+
+Scanpy is a scalable toolkit for analyzing large single-cell gene expression data [Wolf et al. 2019](https://www.ncbi.nlm.nih.gov/pubmed/29409532). It runs faster than Seurat and griph as the number of cells increases.
+
+```{r fig.120b, fig.cap="GUI: Griph clustering panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui120b.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations computed in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    + *perplexity*,	perplexity value for tsne projection
+    + *pca_number*,	PCA threshold selected using seuratPCAEval function.
+    + *seed*,	important value to reproduce the same results with same input
+    + *format*,	output file format csv or txt. Mandatory because scanpy only accepts sparse matrices
+
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. scanpy requires in input raw counts in sparse format
+
+scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "matrix.mtx", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t", 
+                perplexity=10, pca_number=6, seed=111, format="txt")
+
+```
+\fontsize{10}{10}\selectfont
+
+
+### **Section 6.4** Comparing SIMLR, tSne, Seurat, griph and scanpy clustering.
 
 In Wang [[*2017*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)] article it is demonstrated that SIMLR outperforms other data reduction methods. [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al.*](https://f1000research.com/articles/7-1141/v2) described that [*Seurat*](https://satijalab.org/seurat/) delivers the overall best performance in cells clustering. 
-Here, we run a comparison between SIMLR, tSne and Seurat clustering (data reduction by PCA) within the rCASC bootstrap framework to observe how cells stability score is affected by the three clustering methods.
-
+Here, we run a comparison between SIMLR, tSne, Seurat, griph and scanpy within the rCASC bootstrap framework to observe how cells stability score is affected by the three clustering methods.
+The bootstrap approach described in section 5.1 is also applied to tSne, Seurat, griph and scanpy clustering to assign cell stability score to the clustered cells. 
+In rCASC tSne is implemented using the [*Rtsne*](https://cran.r-project.org/web/packages/Rtsne/index.html) package. Rtsne performs a data reduction on which k-mean clustering is applied.
 tSne is embedded in **tsneBootstrap** function within the rCASC bootstrap framework. 
 
 ```{r fig.121, fig.cap="GUI: tSne clustering panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
@@ -1519,9 +1728,9 @@ include_graphics('../inst/img/gui22.png')
     + *separator*,	separator used in count file, e.g. '\\t', ','
     + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
     + *seed*,	important value to reproduce the same results with same input, default is 111
-    + *sp*,	minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
+    + *sp*,	minimum number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
     + *clusterPermErr*,	probability error in depicting the number of clusters in each permutation, default = 0.05
-    + *perplexity*,	number of close neighbors for each point. This parameter is specific for tSne. Default value is 10. 
+    + *perplexity*,	number of close neighbors for each point. This parameter is specific for tSne. Default value is 10. the performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data. A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50. 
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -1541,7 +1750,7 @@ scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
                     gtf.name="genome.gtf", biotype="protein_coding", 
                     mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
                     riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100)
-
+#N.B. tsneBootstrap requires in input raw counts or log10 transformed raw counts
 #running tSne analysis using the range of clusters suggested by clusterNgriph in session 4.2
 tsneBootstrap(group="docker",scratch.folder="/data/scratch/",
               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
@@ -1564,36 +1773,63 @@ seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
 seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
                 nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111)
 # required time 194 mins
+
+#running griph clustering
+
+griphBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, 
+                seed=111)
+
+# required time 61 mins
+
+#running scanpy clustering
+scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "matrix.mtx", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t", 
+                perplexity=10, pca_number=6, seed=111, format="txt")
+
+#please note that an error like this might appear but is not affecting the overall results:
+#Error response from daemon: can not get logs from container which is dead or marked for removal
+
+
+# required time 9 mins
+
 ```
 \fontsize{10}{10}\selectfont
 
 
-We run the analysis on the SetA described in Section 4.1. Both SIMLR and tSne are able to detect that five clusters provides the more stable organization in terms of cells stability score (Figure below, panels A-B). However, SIMLR clustering produces highly stable clusters (Figure below, panel C), as instead tSne clustering produces much less stable clusters (Figure below, panel D). From the point of view of the computation time the two clustering methods are relatively similar. The above mentioned analysis took 159 mins for tSne and 168 mins for SIMLR. Seurat clustering detected 5 clusters, Figure \ref{fig:fig.32}B, as SIMLR and tSne. The cell stability score for SIMLR (Figure below, panel C) and Seurat (Figure below, panel B) are superimposable and computation time is very similar to the other two methods.
+We run the analysis on the SetA described in Section 4.1. SIMLR Seurat and griph detect the 5 clusters, i.e. 5 cell types, and all clusters show an high CSC (Figure below panels A-C). However, tSne detects the 5 clusters, but they are less stable in terms of CSS (Figure below panel E). For scanpy we tested various combination of perplexity and PCs number but we failed to find a condition detecting the 5 clusters and clusters stability is very poor.
+From the point of view of the computation time, the above mentioned analysis took 159 mins for tSne, 168 mins for SIMLR, 194 mins for Seurat, 61 mins for griph and only 9 minus for scanpy.
 
 
-```{r fig.22, fig.cap="Comparing SIMLR and tSne within rCASC bootstrap framework. A,C) SetA clustered with SIMLR. B,D) SetA clustered with tSne.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.122, fig.cap="Comparing SIMLR and tSne within rCASC bootstrap framework. A) SetA clustered with SIMLR. B) SetA clustered with Seurat, C) SetA clustered with griph, D) SetA clustered with scanpy, E) SetA clustered with tSne. N.B. Colors do not define the same cluster in figure A and B.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+
 library(knitr)
-include_graphics('../inst/img/simlr_5.jpeg')
+include_graphics('../inst/img/5clusters.png')
 ```
+
 
 \pagebreak
 
-
 ## **Section 7** Detecting the genes playing the major role in clusters formation
 
-Nowaday there are a lot of methods for the identification of differentally expressed genes between two populations of single-cell experiments [[*Soneson et al.*](https://www.ncbi.nlm.nih.gov/pubmed/29481549)]. However, the number of tools applicable to single-cells and allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR and Seurat also provide ranking score for the genes, which are affecting mostly the clusters organization. SIMLR and Seurat gene ranking do not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
-The three methods are part of the rCASC framework:
+Nowadays there are a lot of methods for the identification of differentially expressed genes between two populations of single-cell experiments [[*Soneson et al.*](https://www.ncbi.nlm.nih.gov/pubmed/29481549)]. However, the number of tools applicable to single-cells and allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR and Seurat also provide ranking score for the genes, which are affecting mostly the clusters organization. SIMLR and Seurat gene ranking do not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
+The three methods are part of the rCASC framework.
 
-```{r fig.122a, fig.cap="GUI: Feature selection panel", echo=FALSE, eval=TRUE, out.width="30%", fig.align="center"}
+```{r fig.722a, fig.cap="GUI: Feature selection panel", echo=FALSE, eval=TRUE, out.width="30%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/gui23a.png')
 ```
+
+
+
 
 ### **Section 7.1** A statistical approach to select genes affecting clusters formation: EdgeR ANOVA-like
 
 The function **anovaLike** executes edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette.
 
-```{r fig.122, fig.cap="GUI: ANOVA-like feature selection panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.722, fig.cap="GUI: ANOVA-like feature selection panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/gui23.png')
 ```
@@ -1613,11 +1849,11 @@ The input file is a counts table, which is modified by **anovaLike** adding the 
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE,eval=FALSE}
-
+#dataset derived from the analysis shown in section 8
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt")
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 unzip("annotated_setPace_10000_noC5.txt.zip")
-
+#N.B. anovaLike requires in input raw counts 
 anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_10000_noC5.txt",
         file.type="txt", cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", ref.cluster=3,
         logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
@@ -1629,10 +1865,10 @@ anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_1
 \fontsize{10}{10}\selectfont
 
 
-The function **clustersFeatures** selects the genes, which are more up-regulated in a specific cluster using **anovaLike** outputs: 
+The function **clustersFeatures** selects the genes, which are more up-regulated in a specific cluster using **anovaLike** outputs. 
 
 
-```{r fig.123, fig.cap="GUI: ANOVA like prioritization features panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.723, fig.cap="GUI: ANOVA like prioritization features panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/gui24.png')
 ```
@@ -1641,10 +1877,10 @@ include_graphics('../inst/img/gui24.png')
 - *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
     + *fileLogFC*,	a character string indicating the absolute path to logFC_filtered_DE_ file generated by anovaLike function
     + *fileCounts*,	a character string indicating the absolute path to reordered counts table file generated by anovaLike function
-    + *delta*,	the minimal distance between the max value of FC for a gene in a cluster of interest and the nearest other max FC in any of the other clusters. This value define the minimal distance with respect to the same gene in an other cluster to identify it as a cluster specific gene.
+    + *delta*,	the minimal distance between the max value of FC for a gene in a cluster of interest and the nearest other max FC in any of the other clusters. This value defines the minimal distance with respect to the same gene in another cluster to identify it as a cluster specific gene.
     + *sep*,	separator used in count file, e.g. '\\t', ','
 
-This function focus only on upregulated genes because the ANOVA-like procedure compares all clusters with respect to a reference cluster. Thus, up-regulated genes are genes specific of the cluster under analysis as those down-regulated are characteristics of the reference cluster. The delta parameter describes the minimal distance existing, for a specific gene average logFC in a specific cluster, with respect to all the other clusters under analysis. The output of the function are four tab delimited files:
+This function focus only on upregulated genes because the ANOVA-like procedure compares all clusters with respect to a reference cluster. Thus, up-regulated genes are genes specific of the cluster under analysis as those down-regulated are characteristics of the reference cluster. The delta parameter describes the minimal distance existing, for a specific gene average logFC in a specific cluster, with respect to all the other clusters under analysis. The outputs of the function are four tab delimited files:
 
 - the file with prefix **onlyUP\_**, followed by the counts table name, i.e. the count table only containing the selected genes,
 
@@ -1655,7 +1891,7 @@ This function focus only on upregulated genes because the ANOVA-like procedure c
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
-
+#dataset derived from the exemplary analysis shown in section 8
 system("wget http://130.192.119.59/public/clusters.features.zip")
 unzip("clusters.features.zip")
 setwd("clusters.features")
@@ -1667,13 +1903,16 @@ clustersFeatures(group="docker", data.folder=getwd(),
 ```
 \fontsize{10}{10}\selectfont
 
+
+
+
 #### **Section 7.1.1** Visualizing cluster specific genes by heatmap.
 
 The gene-features extracted by **clustersFeatures** cannot be used again in **simlrBootstrap**, if the overall number of genes is smaller of the cell number, for more information see SIMLR publication.  This limitation does not apply to tsneBootstrap.
  
 The function **hfc** allows to create a heatmap for the results generated from **simrBootstrap/tsneBootstrap** and the output of **clustersFeatures**.
 
-```{r fig.124, fig.cap="GUI: Heatmap for prioritized genes panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.724, fig.cap="GUI: Heatmap for prioritized genes panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/gui25.png')
 ```
@@ -1706,7 +1945,7 @@ hfc(group="docker",scratch.folder="/data/scratch",
 \fontsize{10}{10}\selectfont
 
  
-The output is made of four pdf:
+The output is made of four pdf (Figure below):
 
 - *lfn-parameter*_hfc_log10.pdf counts in log10 format, e.g. onlyUP_clusters_specific_geneSYMBOLs_hfc_log10.pdf
 
@@ -1717,9 +1956,9 @@ The output is made of four pdf:
 - *lfn-parameter*_hfc_all_genes.pdf
 
 
-```{r fig.28, fig.cap="Output of hfc. A) Path of location of hfc function results. The output is located in cluster folder used for the analysis, B) Log10 counts heatmap. On the top of the figure clusters are represented as bars of different colors, C) Z-score heatmap, D) Cell Stability Score for each cell in each cluster, for more information see Section 5, E) SIMLR clustering output for each gene within those used to generate the heatmap. Cells are colored on the basis of the amount of CPMs for the gene under analysis.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.728, fig.cap="Output of hfc. A) Path of location of hfc function results. The output is located in cluster folder used for the analysis, B) Log10 counts heatmap, high number of counts is indicated by bright yellow color as instead low number of counts is indicated by bright blue color. On the top of the figure clusters are represented as bars of different colors, C) Z-score heatmap, high positive Z-score is indicated by bright yellow color as instead high negative Z-core is indicated by bright blue color, D) Cell Stability Score for each cell in each cluster, for more information see Section 5, CSS is represented with different colors lines on the basis of the belonging cluster, E) SIMLR clustering output for each gene within those used to generate the heatmap. Cells are colored on the basis of the amount of CPMs for the gene under analysis, blue color refers to low CPM as instead bright yellow indicates high CPM.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center", fig.pos="H"}
 library(knitr)
-include_graphics('../inst/img/hfc1.jpeg')
+include_graphics('../inst/img/hfc1.png')
 ```
 
 
@@ -1730,7 +1969,7 @@ SIMLR gene prioritization approach relies on the output similarity and does not 
 
 The function **genesPrioritization** executes SIMLR gene prioritization within the rCASC bootstrap framework. 
 
-```{r fig.125, fig.cap="GUI: SIMLR genes prioritization panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.725, fig.cap="GUI: SIMLR genes prioritization panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/gui26.png')
 ```
@@ -1746,13 +1985,15 @@ include_graphics('../inst/img/gui26.png')
     + *separator*,	separator used in count file, e.g. '\\t', ','
     + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
     + *seed*,	important value to reproduce the same results with same input
-    + *sp*,	minimun number of percentage of cells that has to be in common between two permutation to be the same cluster, default 0.8.
+    + *sp*,	minimum number of percentage of cells that has to be in common between two permutation to be the same cluster, default 0.8.
     + *clusterPermErr*,	error that can be done by each permutation in cluster number depicting, default=0.05
     
 \fontsize{8}{8}\selectfont    
 ```{r, echo=TRUE, eval=FALSE}
+#dataset derived from the exemplary analysis shown in section 8
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 unzip("annotated_setPace_10000_noC5.txt.zip")
+#N.B. genesPrioritization requires in input raw counts or log10 transformed raw counts
 genesPrioritization(group="docker",scratch.folder="/data/scratch/",
                     file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), 
                     nPerm=160, permAtTime=8, percent=10, nCluster=5, separator="\t", 
@@ -1761,40 +2002,43 @@ genesPrioritization(group="docker",scratch.folder="/data/scratch/",
 ```
 \fontsize{10}{10}\selectfont
 
-The output of the function are a pdf named **geneRank.pdf**, containing the overall distribution of  -log10 expression mean with respect to the Delta confidence of a gene being important for clustering, and a tab delimited file with the extension **\_pvalList.txt** which contains, for each bootstrap, the gene importance score for clustering. 
+The output of the function are a pdf named **geneRank.pdf** (Figure below), containing the overall distribution of  -log10 expression mean with respect to the Delta confidence of a gene being important for clustering, and a tab delimited file with the extension **\_pvalList.txt** which contains, for each bootstrap, the gene importance score for clustering. 
 
 
 The function **genesSelection** allows to run a selection of the most interesting genes for clustering on the basis of two parameters: 
 
 - maxDeltaConfidence:
-    + max value for Delta confidence for genes feature selection. Default is 0.01
+    + max value for Delta confidence for genes features selection. Default is 0.01
 
 - minLogMean:
     + min value for Log mean for genes feature selection. Default is 0.05 
     
-The above values can be set in the **genesSelection** function on the basis of the output of **geneRank.pdf**.
+The above values can be set in the **genesSelection** function on the basis of the output of geneRank.pdf (Figure below).
 
-```{r fig.126, fig.cap="GUI: SIMLR genes selection panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.726, fig.cap="GUI: SIMLR genes selection panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/gui27.png')
 ```
 
 
-- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above}):
     + *scratch.folder*,	path of the scratch folder
     + *file (GUI Matrix count)*,	the path of the counts file, with file name and extension included
     + *nCluster*,	the number of clusters, where prioritization was run. In the working folder should be present the Result folder generated by **genesPrioritization** function.
     + *separator*,	separator used in count file, e.g. '\\t', ','
     + *seed*,	important value to reproduce the same results with same input, default 111
-    + *sp*,	minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
+    + *sp*,	minimum number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
     + *clusterPermErr*,	probability error in depicting the number of clusters in each permutation, default = 0.05
     + *maxDeltaConfidence*,	max value for Delta confidence for genes feature selection
     + *minLogMean*, min value for Log mean for genes feature selection 
 
 \fontsize{8}{8}\selectfont    
 ```{r, echo=TRUE, eval=FALSE}
-
-genesSelection(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), nCluster=5, separator="\t", seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=0.01, minLogMean=20)
+#dataset derived from the exemplary analysis shown in section 8
+genesSelection(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), 
+               nCluster=5, separator="\t", seed=111, sp=0.8, clusterPermErr=0.05, 
+               maxDeltaConfidence=0.01, minLogMean=20)
 
 #mv annotated_setPace_10000_noC5_clusters_specific_geneSYMBOLs.txt in the main folder  
 
@@ -1807,7 +2051,7 @@ hfc(group="docker",scratch.folder="/data/scratch",
 ```
 \fontsize{10}{10}\selectfont
 
-```{r fig.29, fig.cap="genePrioritization and genesSelection outputs. A) Prioritization plot, from this plot the maxDeltaConfidence (x axis) and the minLogMean (y axis), required by genesSelection can be extrapolated, i.e. in this case respectively 0.01 and 20. B) log10 counts heatmap from the output of genesSelection: 577 genes. C) Z-score heatmap. D) Cell stability score. E) simlrBootstrap output. F) Single gene CPM expression in SIMLR clusters. The expression is available for each of the genes from genesSelection output", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.729, fig.cap="genePrioritization and genesSelection outputs. A) Prioritization plot, from this plot the maxDeltaConfidence (x axis) and the minLogMean (y axis), required by genesSelection can be extrapolated, i.e. in this case respectively 0.01 and 20. B) log10 counts heatmap from the output of genesSelection: 577 genes, high number of counts is indicated by bright yellow color as instead low number of counts is indicated by bright blue color. On the top of the figure clusters are represented as bars of different colors. C) Z-score heatmap, high positive Z-score is indicated by bright yellow color as instead high negative Z-core is indicated by bright blue color. D) Cell stability score. E) simlrBootstrap output. F) Single gene CPM expression in SIMLR clusters, Cells are colored on the basis of the amount of CPMs for the gene under analysis, blue color refers to low CPM as instead bright yellow indicates high CPM. The expression is available for each of the genes from genesSelection output", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/geneselection.jpeg')
 ```
@@ -1816,11 +2060,14 @@ include_graphics('../inst/img/geneselection.jpeg')
 
 The output of **genesSelection** is a file with extension **_clusters_specific_geneSYMBOLs.txt**, which can be used as input for **hfc** function, see **Section 6.1.1**. The list of prioritized genes cannot not be associated to a specific cluster as in the case of the anovaLike, see **Section 6.1**. Thus, more information will be provided on the cluster specificity from the heatmap visualization, see **hfc** function. 
 
+
+
+
 ### **Section 7.3** Seurat genes prioritization
 
 Seurat gene prioritization is performed by **seuratPrior** function.
 
-```{r fig.127, fig.cap="GUI: Seurat genes prioritization panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.727, fig.cap="GUI: Seurat genes prioritization panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/gui28.png')
 ```
@@ -1832,8 +2079,8 @@ include_graphics('../inst/img/gui28.png')
     + *separator*,	separator used in count file, e.g. '\\t', ','
     + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
     + *seed*,	important value to reproduce the same results with same input
-    + *PCADim*,	dimensions of PCA for seurat clustering
-    + *geneNumber*,	numbers of specific genes for each clusters
+    + *PCADim*,	dimensions of PCA for Seurat clustering
+    + *geneNumber*,	numbers of specific genes for each cluster
     + *nCluster*,	number of cluster analysis.
 
 \fontsize{8}{8}\selectfont
@@ -1846,6 +2093,7 @@ setwd("section4.1_examples")
 library(rCASC)
 
 #running Seurat PC distribution
+#N.B. Seurat functions requires in input raw counts or log10 transformed raw counts
 seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
               file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
               separator="\t", logTen = 0, seed = 111)
@@ -1862,16 +2110,145 @@ seuratPrior(group="docker", scratch.folder="/data/scratch/",
 ```
 \fontsize{10}{10}\selectfont
 
-The output is a file with the prefix **Markers\_**:
+The output is a file with the prefix **Markers\_**
 
-```{r fig.33, fig.cap="Seurat gene prioritization", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+```{r fig.733, fig.cap="Seurat gene prioritization", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/seurat02.png')
 ```
 
-\pagebreak 
+\pagebreak
 
-## **Section 8** An example of rCASC analysis: [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264).
+## **Section 8** Supporting tools
+
+The Conversion of a dense matrix, with 0s in sparse format, not including 0s, is performed by **csvToSparse** function and the conversion from a sparse to a dense matrix is done by **h5tocsv**
+
+```{r fig.800, fig.cap="GUI: dense to sparse and  sparse to dense matrix conversion panels", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui800.png')
+```
+
+
+- *csvToSparse parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+    
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+
+    + *separator*, separator used in count file, e.g. '\t', ','
+
+
+```{r, echo=T, eval=F}
+
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+csvToSparse(group="docker", scratch="/data/scratch", file=paste(getwd(), 
+            "annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
+
+
+```
+
+
+- *h5tocsv parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+
+    +*file*,	path of the sparse matrix file. For h5 file the full path MUST be included. For mtx matrix the folder MUST contain tsv and mtx files and the FULL path to mtx matrix MUST be provided
+
+    + *type*,	h5 refers to h5 files and 10xgenomics to the folder containing barcodes.tsv, genes.tsv and matrix.mtx
+
+```{r, echo=T, eval=F}
+
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+csvToSparse(group="docker", scratch="/data/scratch", file=paste(getwd(), 
+            "annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
+h5tocsv(group="docker", file=paste(getwd(),"matrix.mtx",sep="/"), type="10xgenomics")
+
+```
+
+
+A random subset from a matrix can be extracted using **subSetCell** function. Two matrices can be merged using **mergeMatrix** function.
+
+```{r fig.801, fig.cap="GUI: Random selection a subset of cells from a matrix file panel and merge matrices panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui801.png')
+```
+
+
+- *subSetCell parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+
+    + *separator*,	separator used in count file, e.g. '\t', ','
+
+    + *cells.number*,	number of cells to be extracted
+
+
+- *mergeMatrix parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+
+    + *separator*,	separator used in count file, e.g. '\t', ','
+
+    + *cells.number*,	number of cells to be extracted
+    
+
+```{r, echo=T, eval=F}
+
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+
+subSetCell(group="docker", scratch.folder="/data/scratch", 
+            file=paste(getwd(), "annotated_setPace_10000_noC5.txt",sep="/"), 
+            separator="\t", cells.number=200)
+
+mergeMatrix(group="docker", scratch.folder="/data/scratch",file1=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"),file2=paste(getwd(),"subset_200_annotated_setPace_10000_noC5.txt", sep="/"), separator1="\t",separator2="\t",name1="test1",name2="test2")
+
+
+```
+
+
+The function **dimensions** generates a file containing the size of the matrix under analysis.
+
+```{r fig.802, fig.cap="GUI: Calculating the number of rows and columns panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui802.png')
+```
+
+
+- *dimensions parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+
+    +*scratch.folder*,	a character string indicating the path of the scratch folder
+
+    +*file*,	a character string indicating the path of the file, with file name and extension included
+
+    +*separator*,	separator used in count file, e.g. '\t', ','
+
+
+```{r, echo=T, eval=F}
+
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+
+dimensions(group="docker", scratch.folder="/data/scratch",
+           file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), 
+           separator="\t")
+
+
+```
+
+\pagebreak
+
+## **Section 9** An example of rCASC analysis: [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264).
 
 [Pace et al.](https://www.ncbi.nlm.nih.gov/pubmed/29326266) explored the role of histone methyltransferase Suv39h1 in murine CD8+ T cells activated after Listeria monocytogenes infection.  They showed that Suv39h1 controls the expression of a set of stem cell-related memory genes and its silencing increases long-term memory reprogramming capacity. The single-cell sequencing data from the [*Pace's Science  paper*](https://www.ncbi.nlm.nih.gov/pubmed/29326266):
 
@@ -1885,28 +2262,28 @@ include_graphics('../inst/img/seurat02.png')
 
 
 
-### **Section 8.1** Selecting subsets of cells with the highest number of called genes.
+### **Section 9.1** Selecting subsets of cells with the highest number of called genes.
 
-On the basis of our observation in **Section 3.2.1**, we selected, for each of the above mentioned groups, the cells with higher number of total reads/cell. Specifically we analysed a total of 600 cells, combining respectively 50 cells from **N** and **Nd** and 250 cells for **NA** and **NdA**.  The rational of the different number of cells for the naive and the activated is due to the expectation that activated cells will be organize in mutiple clusters and naive are expected to be homogeneous. Cell labels in the counts table were modified adding the groups *N*, *Nd*, *NA* and *NdA*.
+On the basis of our observation in **Section 3.2.1**, we selected, for each of the above mentioned groups, the cells with higher number of total reads/cell. Specifically, we analyzed 600 cells, combining respectively 50 cells from **N** and **Nd** and 250 cells for **NA** and **NdA**.  The rational of the different number of cells for the naive and the activated is due to the expectation that activated cells will be organize in multiple clusters and naive are expected to be homogeneous. Cell labels in the counts table were modified adding the groups *N*, *Nd*, *NA* and *NdA*.
 
-Using this dataset we tried to address the following questions: 
+Using this dataset, we tried to address the following questions: 
 
-1. Does Suv39h1 silence gene expression programs in naive CD8+ T cells?
+1. Does Suv39h1 silence gene expression program in naive CD8+ T cells?
 
-2. Does Suv39h1 silence gene expression programs in activated CD8+ T cells?
+2. Does Suv39h1 silence gene expression program in activated CD8+ T cells?
 
 3. Does Suv39h1 silencing affect the differentiation of new subsets of activated CD8+ T lymphocytes?
 
 
 With the script below we have performed the following steps:
 
-- annotating the counts table with **scannobyGt** function, 
+- annotating the counts table with **scannobyGtf** function, 
 
-- removing the ribosomal and mitochondrial genes with **scannobyGt** function, 
+- removing the ribosomal and mitochondrial genes with **scannobyGtf** function, 
 
 - selecting the most expressed 10K genes for the analysis with **topx** function,
 
-- detecting the range of interesting number of cluster to be used for data partitioning (6-9) with **clusterNgriph**
+- detecting the range of interesting number of clusters to be used for data partitioning (6-9) with **clusterNgriph**
 
 - identifying 6 as the optimal number of clusters and evaluated the cell stability in each cluster with **simlrBootstrap**
 
@@ -1914,6 +2291,8 @@ With the script below we have performed the following steps:
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
+#Dataset constructed for demonstration purposes using raw counts from GSE106264. 
+#Raw counts were generated with cellranger 2.0 from h5 files.
 system("wget http://130.192.119.59/public/setPace.txt.zip")
 unzip("setPace.txt.zip")
 
@@ -1949,7 +2328,7 @@ bootstrapsVideo(group="docker", scratch.folder="/data/scratch",
 
 \pagebreak
 
-```{r fig.24, fig.cap="Analysis of a subset of cells from GSE106264 dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 6 clusters with simlrBootstrap, in parentesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters. D) Permutation 55 extracted from the video generate with bootstrapsVideo.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.924, fig.cap="Analysis of a subset of cells from GSE106264 dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 6 clusters with simlrBootstrap, in parenthesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters. D) Permutation 55 extracted from the video generate with bootstrapsVideo.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/pace_1.jpeg')
 
@@ -1957,11 +2336,18 @@ include_graphics('../inst/img/pace_1.jpeg')
 
 
 
-In Figure above are summarized the results of the analysis executed on the Pace's dataset.  Data perturbations, Figure above, panel A, allows data organization between 6 to 9 clusters, where 7 clusters is the most represented group. Cell stability score, from the SIMLR analysis executed on the above range of clusters, is shown in Figure above, panel B. Six clusters show a slighly higher stability with respect to the others. The overall stability of 6 clusters is however sub-optimal, since it is spread between 0 and 0.9  cell stability score.  In Figure above, panel C it is shown the clusters structure generated with SIMLR on 6 clusters.  Clusters 1, 3 and 4 show a quite good stability, Figure above, panel C. Cluster 3 is made of 44 **N** (88\%) and 48 **Nd** (96\%), suggesting that naive CD8+ T lymphocytes are not affected by the silencing of Suv39h1 gene. Cluster 1 contains 16 **NA** (6.4\%) and 14 **NdA** (5.6\%). Cluster 2 is made of 44.8\% of **NA** and 39.6\% of **NdA** cells. Clusters 1 and 2 group together, interdependently from Suv39h1 gene silencing. Cluster 6 is made of 35\% **NA** and 13.6\% of **NdA**.  In cluster 6 the amount of **NA** and **NdA** is unbalance, suggesting that the Suv39h1 silencing does not guarantee the efficient differentiation of the cell subpopulation in cluster 6. Cluster 4 only contains **NdA** (33\%), indicating that at least a subpopulation of activated Suv39h1-silenced cells has a specific transcription profile that differentiate them from the wild type activated cells. Cluster 5 is made of 6 **N** cells, 2 **Nd** cells, 34 **NA** cells, 21 **NdA** cells. Despite the presence of a limited amount of naive cells, which might be explained as partially activated, cluster 5 is made mainly of activated cells, i.e. 13.6\% NA and 8.4\% NdA of total cells. The cluster structure (Figure above, panel D) and cell cluster stability scores (Figure above, panel C) might suggest that  cluster 5 is made of a precursor subset.
+In Figure above, they are summarized the results of the analysis executed on the Pace's dataset. A limitation of the clustering based on SIMLR is due to the need of providing as input the number of clusters (k) in which the data should be organized. Instead of asking to user to define arbitrarily the k number of clusters, we used [*griph*](https://github.com/ppapasaikas/griph) as tool to identify a range of k clusters to be inspected by SIMLR. Figure above panel A shows the frequency of k number of clusters, in which the Pace’s dataset can be organized using griph software, upon 160 bootstraps in which 10% of the cells is randomly removed from the initial data set. Griph analysis identify a range of clusters going from k=6 to k=9. K=7 is the most represented data organization detected by griph, followed by 8, 6 and 9 clusters.
+The range of k clusters detected using griph is then investigated with SIMLR. SIMLR is run for each k of the k-range defined with griph tool. CSS violin plot (Figure above panel B) shows that the mean stability for k=6 ($\overline{CSS}$ ~ 0.5) is higher than the others ks ($\overline{CSS}$ < 0.3). Clusters k=7 and k=8 do not represent the most stable organizations in terms of CSS (Figure above panel B), although they are the most frequent organizations observed in griph analysis (Figure above panel A). Since the best $\overline{CSS}$ is observed in k=6, we explored these clusters (Figure above panel C). In Figure above panel C clusters 1, 3 and 4 show a quite good stability, since cells stay in these clusters between 75 to 100\% of the bootstraps. 
+The inspection of Pace’s experiment groups organization (i.e. **N**= naïve WT, **Nd**= naïve Suv39h1 KO, **NA**=activated WT, **NdA**=activated Suv39h1 KO) in k=6 clusters, Figure above panel C,  show that cluster number 4 is the only one containing only NdA (33\% of the total NdA) cells. Thus, suggesting that a subpopulation of activated Suv39h1-silenced cells has a specific transcription profile, which differentiates them from all wild type activated cells. Another interesting cluster is number 6, where the amount of NA and NdA is unbalance, 35\% NA and 13.6\% of NdA, suggesting that Suv39h1 silencing does not guarantee at the same efficiency the differentiation of this cell subpopulation as in the case of wild type cells. Cluster 5 is the most heterogeneous cluster. It is composed by 6 N cells, 2 Nd cells, 34 NA cells, 21 NdA cells. Despite the presence of a limited number of naive cells, which might be explained as partially activated, cluster 5 is composed by an unbalance number of activated cells, i.e. 13.6\% NA and 8.4\% NdA of total cells. However, since cluster 5 is characterized by a very low CSS (0-25\%) it is possible that this cluster contains cells localized at the boundaries of clusters 2, 3 and 6. On the other side clusters 1, 2, 3 have nearly the same number of wild type and Suv39h1 silenced cells, suggesting that these subsets of cells are not influenced by Suv39h1 silencing: 
 
+- cluster 1 contains nearly the same amount of activated wild type, 16 NA (6.4\%), and Suv39h1 KO cells, 14 NdA (5.6\%);
 
-**NB** \% always refers to the total number of cells used in this example (50 N, 50 Nd, 250 NA, 250 NdA); [*annotated_setPace_10000_clustering.output.txt*](http://130.192.119.59/public/annotated_setPace_10000_clustering.output.txt), contains all information required to reproduce clusters shown in Figure above, panel C. 
-In Figure above, panel D it is shown permutation 55 of the output of **bootstrapsVideo**, which can be seen [*here*](https://youtu.be/w5Jj8QxKXRU). This permutation is representative of the majority of the observed permutations. From **bootstrapsVideo** analysis is clear that cluster 5 is strongly affecting the cell score stability of clusters 6 and 2 ad for less extent that of cluster 3. 
+- cluster 2 is made of 44.8\% of NA and 39.6\% of NdA cells;
+
+- cluster 3 is made of 44 N (88\%) and 48 Nd (96\%).
+
+**NB** \% always refers to the total number of cells used in this example (50 N, 50 Nd, 250 NA, 250 NdA); [*annotated_setPace_10000_clustering.output.txt*](http://130.192.119.59/public/annotated_setPace_10000_clustering.output.txt), contains all information required to reproduce clusters shown in Figure above panel C. 
+In Figure above panel D it is shown permutation 55 of the output of **bootstrapsVideo**, which can be seen [*here*](https://youtu.be/w5Jj8QxKXRU). This permutation is representative of the majority of the observed permutations. From **bootstrapsVideo** analysis is clear that cluster 5 is strongly affecting the cell score stability of clusters 6 and 2, and for less extent that of cluster 3. 
 
 This analysis can provide some preliminary answers to the questions raised above:
 
@@ -1975,15 +2361,15 @@ This analysis can provide some preliminary answers to the questions raised above
     
 3. Does Suv39h1 silencing affect the differentiation of new subsets of activated CD8+ T lymphocytes?
 
-    a.  Yes, Cluster 4 represents a unique Suv39h1 subset of activated CD8+ T cells.
+    a.  Yes, cluster 4 represents a unique Suv39h1 subset of activated CD8+ T cells.
     
 
 
 
 
-### **Section 8.2** Improving clustering results
+### **Section 9.2** Improving clustering results
 
-On the basis of Figure \ref{fig:fig.24}D and the output of [*bootstrapsVideo*](https://youtu.be/w5Jj8QxKXRU) clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus, we investigated  if, removing cluster 5 cells (Figure above, panel C), cell stability score for cluster 6 and 2 could be improved.
+On the basis of Figure above panel D and the output of [*bootstrapsVideo*](https://youtu.be/w5Jj8QxKXRU) clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus, we investigated  if, removing cluster 5 cells (Figure above panel C), cell stability score for cluster 6 and 2 could be improved.
 
 \fontsize{8}{8}\selectfont
 ```{r, echo=TRUE, eval=FALSE}
@@ -2017,15 +2403,15 @@ simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
 ```
 \fontsize{10}{10}\selectfont
 
-The results of the analysis done removing cells associated to cluster 5 are shown in Figure \ref{fig:fig.25}. The range of clusters suggested by **clusterNgriph** are between 5 and 9, Figure below, panel A. The best cells stability score is observable for 5 clusters, Figure below, panel B. **simlrBootstrap** results show a large improvment of the overall stablity of the clusters Figure below, panel C with respect to the previous analysis, Figure above, panel C. It is also notable that the samples organization with in clusters agrees with preliminary answers in Section 5.1.1 .
+The results of the analysis done removing cells associated to cluster 5 are shown in Figure below. The range of clusters suggested by **clusterNgriph** are between 5 and 9, Figure below panel A. The best cells stability score is observable for 5 clusters, Figure below panel B. **simlrBootstrap** results show a large improvement of the overall stability of the clusters Figure below panel C with respect to the previous analysis, Figure below panel C. It is also notable that the samples organization with in clusters agrees with preliminary answers in Section 5.1.1 .
 
-```{r fig.25, fig.cap="Analysis of Pace dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 5 clusters with simlrBootstrap, in parentesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+```{r fig.925, fig.cap="Analysis of Pace dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 5 clusters with simlrBootstrap, in parenthesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/pace_2.jpeg')
 
 ```
 
-### **Section 8.3** Detecting the genes playing the major role in clusters generation: EdgeR ANOVA-like analysis
+### **Section 9.3** Detecting the genes playing the major role in clusters generation: EdgeR ANOVA-like analysis
 
 We detected a total of 2742 differentially expressed genes using the naive cluster 3 as reference in an ANOVA-like analysis, see **Section 6.1**. 
 
@@ -2063,21 +2449,53 @@ clustersFeatures(group="docker", data.folder=getwd(),
 \fontsize{10}{10}\selectfont
 
 
-We analysed the results coming out of the **clustersFeatures** selection focusing on the two clusters that are different in cell ratio between wt and Suv39h1-defective T-cells: cluster 1, showing a 2.4:1 ratio between wt and Suv39h1-defective T-cells,  and 2, only detected in Suv39h1-defective T-cells, Figure above, panel C. 31 genes were detected as specific for cluster 1. [*EnrichR*](http://amp.pharm.mssm.edu/Enrichr/) analysis indicated the overepresentation of STAT3 in ENCODE and ChEA Consensus TFs from ChIP-X datasets and TNFRSF13B, CCL5, CCL4 and CXCR6 in Cytokine-cytokine receptor interaction dataset. On the basis of the above observations and on a PUBMED search ([*Ccl5*](https://www.ncbi.nlm.nih.gov/pubmed/16982880), [*STAT3*](https://www.ncbi.nlm.nih.gov/pubmed/23830147), [*Ccl9*](https://www.ncbi.nlm.nih.gov/pubmed/27883012) and [*Cxcr6*](https://www.ncbi.nlm.nih.gov/pubmed/28855310)), we suggest that cluster 1 is made of early activated precursors having some traits of memory cells. This cluster is also characterized by an unbalance ratio between activated wt T-cells and Suv39h1-defective T-cells.
+We analyzed the results coming out of the **clustersFeatures** selection focusing on the two clusters that are different in cell ratio between wt and Suv39h1-defective T-cells: cluster 1, showing a 2.4:1 ratio between wt and Suv39h1-defective T-cells,  and 2, only detected in Suv39h1-defective T-cells, Figure above panel C. 31 genes were detected as specific for cluster 1. [*EnrichR*](http://amp.pharm.mssm.edu/Enrichr/) analysis indicated the over-representation of STAT3 in ENCODE and ChEA Consensus TFs from ChIP-X datasets and TNFRSF13B, CCL5, CCL4 and CXCR6 in Cytokine-cytokine receptor interaction dataset. On the basis of the above observations and on a PUBMED search ([*Ccl5*](https://www.ncbi.nlm.nih.gov/pubmed/16982880), [*STAT3*](https://www.ncbi.nlm.nih.gov/pubmed/23830147), [*Ccl9*](https://www.ncbi.nlm.nih.gov/pubmed/27883012) and [*Cxcr6*](https://www.ncbi.nlm.nih.gov/pubmed/28855310)), we suggest that cluster 1 is made of early activated precursors having some traits of memory cells. This cluster is also characterized by an unbalance ratio between activated wt T-cells and Suv39h1-defective T-cells.
 
 The cluster 2 has some traits of memory cells, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths and GO Biological process enrichment for **response to cytokine**. Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
 
 
-The analysis of cluster 2 was extended using Ingenuity Pathways Analysis (IPA). This sub-population of cells, only detectable within Suv39h1-defective T-cells, is enriched for immuno-related functions: Development of hematopoietic progenitor cells, Adhesion of lymphocytes, Quantity of T-lymphocytes, systemic autoimmune syndrome. A subset of cluster 2 genes can be also aggregated in a network characterized by various transcription factors (Figure below). Interestingly, in this network are present Id3, Bach2 IL7R and Myc. Combining the information that Bach2 is associated to the generation ([*Roychoudhuri et al. 2016*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/27158840)) of long-lived memory cells and Id3  to their maintainance ([*Yang et al. 2011*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/22057289)) together with the knowledge that IL7R/Myc expression is found to be associated to a longer persistence of mouse memory T-cell ([*Pace et al. 2018*](https://www.ncbi.nlm.nih.gov/pubmed/?term=29326266)) it coud be suggested that cells belonging to this cluster are precursors of long-lived memory cells. 
+The analysis of cluster 2 was extended using Ingenuity Pathways Analysis (IPA). This sub-population of cells, only detectable within Suv39h1-defective T-cells, is enriched for immuno-related functions: Development of hematopoietic progenitor cells, Adhesion of lymphocytes, Quantity of T-lymphocytes, systemic autoimmune syndrome. A subset of cluster 2 genes can be also aggregated in a network characterized by various transcription factors (Figure below). Interestingly, in this network are present Id3, Bach2 IL7R and Myc. Combining the information that Bach2 is associated to the generation ([*Roychoudhuri et al. 2016*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/27158840)) of long-lived memory cells and Id3  to their maintenance ([*Yang et al. 2011*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/22057289)) together with the knowledge that IL7R/Myc expression is found to be associated to a longer persistence of mouse memory T-cell ([*Pace et al. 2018*](https://www.ncbi.nlm.nih.gov/pubmed/?term=29326266)) it could be suggested that cells belonging to this cluster are precursors of long-lived memory cells. 
 
 
-```{r fig.26, fig.cap="IPA C2 connected genes. ", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+```{r fig.926, fig.cap="IPA C2 connected genes. ", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center", fig.pos="H"}
 library(knitr)
 include_graphics('../inst/img/c2_connected.png')
 ```
 
 
-The paper [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extends the information provided from the single cell analysis in Pace paper, suggesting the presence of an enriched Suv39h1-defective memory subset, cluster 2. Noteworthy, this example suggests that even few hunders cells are sufficient to discriminate between sub-populations.
+The paper [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extends the information provided from the single cell analysis in Pace paper, suggesting the presence of an enriched Suv39h1-defective memory subset, cluster 2 in Figure above panel C. Noteworthy, this example suggests that even few hundreds cells are sufficient to discriminate between sub-populations.
+
+
+## **Section 10** Tips and tricks
+
+In this section we highlight some points that might help data analysis.
+
+
+### **Section 10.1** Data preprocessing
+
+Lorenz statistics (*lorenzeFilter* function) was designed using C1 - Fluidigm and smart-seq libraries. There are no evidences that it performes optimally on UMI based sequencing. In case of UMI, we suggest the use of  *topx* and *filterZeros* functions, which respectively allow the selection of a user defined set of genes with high dispersion/expression and the removal of genes with a user defined fraction of 0s.
+
+
+Unless there is a specific interest on mitochondrial and ribosomal protein genes, we suggest to remove them before performing clustering (*scannobyGtf*, function). Specifically ribosomal genes represent a high fraction of the UMI counts associated to a cell and might result in driving the cells partioning.
+
+The normalization for sequencing depth (*checkCountDepth* and *scnorm* functions) was designed for smart-seq single cell sequencing data. This normalization can be applied  to UMI sequencing data but it requires at least 10K UMIs/cell.
+
+Cell cycle estimation (*recatPrediction* function) and removal (*ccRemove** function) were designed for smart-seq single cell sequencing data. In our hands they are also working on UMI seqencing data althought, if the cell number exceed few thousands, cell cycle estimation became very slow. We suggest to perform cell cycle estimation on a random subset of few hundreds cells (*subSetCell* function) of the data set under analysis.
+
+
+### **Section 10.2** Clustering
+
+
+As part of the output of the clustering procedure there is a plot of the number of detected genes as function of the number of cell UMIs. In this plot, each cell is colored on the basis of the cluster it belongs. This plot helps in understanding if cell clusters simply correlate with number of genes called in each cell. Ideally, there should not be any correlation between clusters and number of genes detected in a cell, since clustering should be driven by cells' biological content and not by the number of detected genes.
+
+
+On the basis of our tests SIMLR and Seurat generated results comparable in terms of CSS and clusters homogeneity. Since griph and scanpy results correlate less with SIMLR and Seurat, we suggest to use them only if a very large set of cells has to be analysed, e.g. >20K cells.
+
+
+
+
+
+
 
 
 
