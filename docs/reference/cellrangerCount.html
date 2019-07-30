@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.4</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/rCASC_vignette.html">rCASC vignette</a>
+      <a href="../articles/rCASC_vignette.html">rCASC Supplementary data</a>
     </li>
   </ul>
 </li>
@@ -121,7 +121,7 @@
   <span class='no'>fastq.folder</span>, <span class='kw'>sample</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>expect.cells</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>force.cells</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nosecondary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>chemistry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>r1.length</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>r2.length</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lanes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>localcores</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>localmem</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>scratch.folder</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='st'>"2"</span>)</pre>
+  <span class='kw'>localcores</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>localmem</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>scratch.folder</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='st'>"3"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,7 +152,7 @@
     </tr>
     <tr>
       <th>nosecondary, </th>
-      <td><p>optional flag to skip secondary analysis of the gene-barcode matrix (dimensionality reduction, clustering and visualization). Set this if you plan to use cellranger reanalyze or your own custom analysis.</p></td>
+      <td><p>optional flag, default TRUE, to skip secondary analysis of the gene-barcode matrix (dimensionality reduction, clustering and visualization). Set this if you plan to use cellranger reanalyze or your own custom analysis.</p></td>
     </tr>
     <tr>
       <th>chemistry, </th>

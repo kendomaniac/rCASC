@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Cc remove — ccRemove" />
 
-<meta property="og:description" content="This function executes a ubuntu docker that remove the effect of cell cycle" />
+<meta property="og:description" content="This function executes a ubuntu docker that remove the effect of cell cycle from a single cells dataset" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.4</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/rCASC_vignette.html">rCASC vignette</a>
+      <a href="../articles/rCASC_vignette.html">rCASC Supplementary data</a>
     </li>
   </ul>
 </li>
@@ -113,7 +113,7 @@
 
     <div class="ref-description">
     
-    <p>This function executes a ubuntu docker that remove the effect of cell cycle</p>
+    <p>This function executes a ubuntu docker that remove the effect of cell cycle from a single cells dataset</p>
     
     </div>
 
@@ -145,7 +145,7 @@
     </tr>
     <tr>
       <th>cutoff, </th>
-      <td><p>larger p-value to use 3 is almost equal to 0.05</p></td>
+      <td><p>a cut-off equal to 3 is almost equal to 0.05 p.value</p></td>
     </tr>
     <tr>
       <th>species, </th>
@@ -159,7 +159,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/</p>
+    <p>return a normalized matrix, whith prefix LS_cc_, in which cell cycle effect is removed</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

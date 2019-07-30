@@ -2,10 +2,13 @@
 title: "rCASC Supplementary data"
 author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Nicola Licheri, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
 date: "30/07/2019"
-output: rmarkdown::html_vignette:
+output: rmarkdown::html_vignette
 
-    fig_caption: yes
-
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Your Vignette Title}
+  %\VignetteEncoding{UTF-8}
+---
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(fig.pos = 'h')

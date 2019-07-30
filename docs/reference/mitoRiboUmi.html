@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="MitoRiboUmi — mitoRiboUmi" />
 
-<meta property="og:description" content="This function executes a ubuntu docker that produces informations ribosomal mitochondrial fraction in each cell" />
+<meta property="og:description" content="This function executes a ubuntu docker showing ribosomal mitochondrial protein genes fraction in each cell" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.4</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/rCASC_vignette.html">rCASC vignette</a>
+      <a href="../articles/rCASC_vignette.html">rCASC Supplementary data</a>
     </li>
   </ul>
 </li>
@@ -113,7 +113,7 @@
 
     <div class="ref-description">
     
-    <p>This function executes a ubuntu docker that produces informations ribosomal mitochondrial fraction in each cell</p>
+    <p>This function executes a ubuntu docker showing ribosomal mitochondrial protein genes fraction in each cell</p>
     
     </div>
 
@@ -145,24 +145,28 @@
     </tr>
     <tr>
       <th>bio.type, </th>
-      <td><p>ENSEMBL biotype of interest</p></td>
+      <td><p>ENSEMBL biotype of interest, default for single-cell protein_coding</p></td>
     </tr>
     <tr>
       <th>umiXgene, </th>
-      <td><p>umi to filter genes.</p></td>
+      <td><p>a integer defining how many UMI are required to call a gene as present. default: 3</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Csv file with cluster component informations and dataPlot and pie chart based on true Label</p>
+    <p>a pdf file called Ribo_mito.pdf</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"wget http://130.192.119.59/public/singlecells_counts.txt.gz"</span>)
-   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"gzip -d singlecells_counts.txt.gz"</span>)
-   <span class='fu'>mitoRiboUmi</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>,<span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/data/scratch/"</span>,<span class='kw'>file</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a></span>(), <span class='st'>"singlecells_counts.txt"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"/"</span>),<span class='kw'>separator</span><span class='kw'>=</span><span class='st'>"\t"</span>, <span class='kw'>gtf</span><span class='kw'>=</span><span class='st'>"genome.gtf"</span>, <span class='kw'>biotype</span><span class='kw'>=</span><span class='st'>"protein_coding"</span>)
+   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span>)
+   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"gzip -d Mus_musculus.GRCm38.94.gtf.gz"</span>)
+   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span>)
+   <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/unzip'>unzip</a></span>(<span class='st'>"testSCumi_mm10.csv.zip"</span>)
+   <span class='fu'>mitoRiboUmi</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a></span>(), <span class='st'>"testSCumi_mm10.csv"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"/"</span>),
+                <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/data/scratch"</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>, <span class='kw'>umiXgene</span><span class='kw'>=</span><span class='fl'>3</span>,
+                <span class='kw'>gtf.name</span><span class='kw'>=</span><span class='st'>"Mus_musculus.GRCm38.94.gtf"</span>, <span class='kw'>bio.type</span><span class='kw'>=</span><span class='st'>"protein_coding"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

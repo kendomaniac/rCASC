@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plotting the distribution of zeros in cells eliminating all genes without counts — filterZeros • rCASC</title>
+<title>A function plotting the distribution of zeros in cells eliminating all genes without a certain fraction of 0 in the samples — filterZeros • rCASC</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Plotting the distribution of zeros in cells eliminating all genes without counts — filterZeros" />
+<meta property="og:title" content="A function plotting the distribution of zeros in cells eliminating all genes without a certain fraction of 0 in the samples — filterZeros" />
 
-<meta property="og:description" content="This function plots the zeros distributions in cells and removes genes without counts" />
+<meta property="og:description" content="This function plots the zeros distributions in cells and removes genes without  a certain fraction of 0 in the samples" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.4</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/rCASC_vignette.html">rCASC vignette</a>
+      <a href="../articles/rCASC_vignette.html">rCASC Supplementary data</a>
     </li>
   </ul>
 </li>
@@ -106,14 +106,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plotting the distribution of zeros in cells eliminating all genes without counts</h1>
+    <h1>A function plotting the distribution of zeros in cells eliminating all genes without a certain fraction of 0 in the samples</h1>
     
     <div class="hidden name"><code>filterZeros.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function plots the zeros distributions in cells and removes genes without counts</p>
+    <p>This function plots the zeros distributions in cells and removes genes without  a certain fraction of 0 in the samples</p>
     
     </div>
 
@@ -124,11 +124,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>file, </th>
-      <td><p>a character string indicating the path of the file tab delimited  of cells un-normalized expression counts</p></td>
+      <td><p>a character string indicating the path of the cells un-normalized expression counts table</p></td>
     </tr>
     <tr>
       <th>threshold, </th>
-      <td><p>a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having no expression in any cell.</p></td>
+      <td><p>a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having 0 in all cells.</p></td>
     </tr>
     <tr>
       <th>sep, </th>
@@ -138,7 +138,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a PDF providing zeros distributions before removal of all genes without counts. A tab delimited file with the prefix *filtered* in which the filtered data are saved.</p>
+    <p>a PDF providing zeros distributions before removal of all genes without a certain fraction of 0 in the samples. A file with the prefix *filtered* in which the filtered data are saved.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -159,6 +159,8 @@
       <li><a href="#examples">Examples</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino</p>
   </div>
 </div>
 

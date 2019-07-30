@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Permutations and Clustering — clusterNgriph • rCASC</title>
+<title>Defining with griph the range of  number of clusters to be used with SIMLR — clusterNgriph • rCASC</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Permutations and Clustering — clusterNgriph" />
+<meta property="og:title" content="Defining with griph the range of  number of clusters to be used with SIMLR — clusterNgriph" />
 
-<meta property="og:description" content="This function executes a ubuntu docker that produces a specific number of permutation to evaluate the range of optimal number of clusters using griph algorithm. For more info see CSC vignette." />
+<meta property="og:description" content="This function executes a ubuntu docker that produces a specific number of permutation to evaluate the range of optimal number of clusters using griph algorithm. For more info see rCASC vignette." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.4</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/rCASC_vignette.html">rCASC vignette</a>
+      <a href="../articles/rCASC_vignette.html">rCASC Supplementary data</a>
     </li>
   </ul>
 </li>
@@ -106,14 +106,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Permutations and Clustering</h1>
+    <h1>Defining with griph the range of  number of clusters to be used with SIMLR</h1>
     
     <div class="hidden name"><code>clusterNgriph.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function executes a ubuntu docker that produces a specific number of permutation to evaluate the range of optimal number of clusters using griph algorithm. For more info see CSC vignette.</p>
+    <p>This function executes a ubuntu docker that produces a specific number of permutation to evaluate the range of optimal number of clusters using griph algorithm. For more info see rCASC vignette.</p>
     
     </div>
 
@@ -163,7 +163,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.</p>
+    <p>A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters selected as optimal by griph, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells, hist.pdf describing the number of times a specific number of clusters was used during permutations</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

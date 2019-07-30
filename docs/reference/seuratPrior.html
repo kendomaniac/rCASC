@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.4</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/rCASC_vignette.html">rCASC vignette</a>
+      <a href="../articles/rCASC_vignette.html">rCASC Supplementary data</a>
     </li>
   </ul>
 </li>
@@ -118,7 +118,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>seuratPrior</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>scratch.folder</span>, <span class='no'>file</span>, <span class='no'>separator</span>,
-  <span class='kw'>logTen</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>111</span>, <span class='no'>PCADim</span>, <span class='no'>geneNumber</span>, <span class='no'>nCluster</span>)</pre>
+  <span class='kw'>logTen</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>111</span>, <span class='no'>PCADim</span>, <span class='no'>geneNumber</span>, <span class='no'>nCluster</span>,
+  <span class='kw'>sparse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"NULL"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,6 +159,14 @@
     <tr>
       <th>nCluster, </th>
       <td><p>number of cluster analysis.</p></td>
+    </tr>
+    <tr>
+      <th>sparse, </th>
+      <td><p>boolean for sparse matrix</p></td>
+    </tr>
+    <tr>
+      <th>format, </th>
+      <td><p>output file format</p></td>
     </tr>
     </table>
     

@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.4</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/rCASC_vignette.html">rCASC vignette</a>
+      <a href="../articles/rCASC_vignette.html">rCASC Supplementary data</a>
     </li>
   </ul>
 </li>
@@ -121,7 +121,7 @@
   <span class='kw'>biotype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mt</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='kw'>ribo.proteins</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>TRUE</span>,
   <span class='fl'>FALSE</span>), <span class='kw'>umiXgene</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>riboStart.percentage</span> <span class='kw'>=</span> <span class='fl'>20</span>,
   <span class='kw'>riboEnd.percentage</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>mitoStart.percentage</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>mitoEnd.percentage</span> <span class='kw'>=</span> <span class='fl'>100</span>)</pre>
+  <span class='kw'>mitoEnd.percentage</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>thresholdGenes</span> <span class='kw'>=</span> <span class='fl'>250</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,17 +170,21 @@
       <th>mitoEnd.percentage, </th>
       <td><p>end range for mitochondrial percentage, cells within the range are retained</p></td>
     </tr>
+    <tr>
+      <th>thresholdGenes, </th>
+      <td><p>parameter to filter cells according to the number og significative genes expressed</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal.</p>
+    <p>one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal. Filtered_annotated annotated counts table with only cells and genes given by filtering thresholds. A pdf showing the effect of genes counts of the filtering and a filteredStatistics.txt indicating how many cell and genes were filtered out</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
         <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span>)
-     <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>casc</span>)
+     <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>rCASC</span>)
      <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"unzip testSCumi_mm10.csv.zip"</span>)
      <span class='co'>#filtering low quality cells</span>
      <span class='fu'><a href='lorenzFilter.html'>lorenzFilter</a></span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>,<span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/data/scratch/"</span>,
@@ -190,10 +194,10 @@
      <span class='co'>#download mouse GTF for mm10</span>
      <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz"</span>)
      <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system'>system</a></span>(<span class='st'>"gunzip Mus_musculus.GRCm38.92.gtf.gz"</span>)
-     <span class='fu'>scannobyGtf</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a></span>(),<span class='st'>"lorenz_testSCumi_mm10.csv"</span>,<span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"/"</span>),
-                   <span class='kw'>gtf.name</span><span class='kw'>=</span><span class='st'>"Mus_musculus.GRCm38.92.gtf"</span>,
-<span class='kw'>biotype</span><span class='kw'>=</span><span class='st'>"protein_coding"</span>, <span class='kw'>mt</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>ribo.proteins</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>umiXgene</span><span class='kw'>=</span><span class='fl'>3</span>,
-<span class='kw'>riboStart.percentage</span><span class='kw'>=</span><span class='fl'>20</span>, <span class='kw'>riboEnd.percentage</span><span class='kw'>=</span><span class='fl'>70</span>, <span class='kw'>mitoStart.percentage</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>mitoEnd.percentage</span><span class='kw'>=</span><span class='fl'>100</span>)
+     <span class='fu'>scannobyGtf</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a></span>(),<span class='st'>"testSCumi_mm10.csv"</span>,<span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"/"</span>),
+                  <span class='kw'>gtf.name</span><span class='kw'>=</span><span class='st'>"Mus_musculus.GRCm38.94.gtf"</span>, <span class='kw'>biotype</span><span class='kw'>=</span><span class='st'>"protein_coding"</span>,
+                  <span class='kw'>mt</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>ribo.proteins</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>umiXgene</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>riboStart.percentage</span><span class='kw'>=</span><span class='fl'>0</span>,
+                  <span class='kw'>riboEnd.percentage</span><span class='kw'>=</span><span class='fl'>100</span>, <span class='kw'>mitoStart.percentage</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>mitoEnd.percentage</span><span class='kw'>=</span><span class='fl'>100</span>, <span class='kw'>thresholdGenes</span><span class='kw'>=</span><span class='fl'>100</span>)
 <span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
