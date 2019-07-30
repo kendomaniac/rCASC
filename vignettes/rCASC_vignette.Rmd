@@ -37,6 +37,7 @@ The workflow allows the direct analysis of fastq files generated with [*10X Geno
 \pagebreak
 
 ### **Section 1.1** Minimal hardware requirements to run rCASC
+
 The RAM and CPU requirements are dependent on the dataset under analysis, e.g. up to 2000 cells can be effectively analyzed using the hardware described by Beccuti [[*Bioinformatics2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]: 
 
 - 32 Gb RAM 
