@@ -1,5 +1,5 @@
 ---
-title: "rCASC Supplementary data"
+title: "rCASC vignette"
 author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Nicola Licheri, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
 date: "30/07/2019"
 output: rmarkdown::html_vignette
