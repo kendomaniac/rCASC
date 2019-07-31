@@ -75,7 +75,7 @@ separator="tab"
 system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/",sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/permutationclustering Rscript /home/subsetCell.R ",paste(matrixName,".",format,sep="")," ",cells.number," ",separator,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationclustering Rscript /home/subsetCell.R ",paste(matrixName,".",format,sep="")," ",cells.number," ",separator,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 

@@ -96,7 +96,7 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,se
 
 
   #executing the docker job
-params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/cellcycle_1 Rscript /home/main.R ",matrixName," ",format," ",separator2," ",window," ",seed,sep="")
+params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/cellcycle_1 Rscript /home/main.R ",matrixName," ",format," ",separator2," ",window," ",seed,sep="")
 resultRun <- runDocker(group=group, params=params)
 
   #waiting for the end of the container work

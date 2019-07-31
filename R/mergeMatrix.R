@@ -92,7 +92,7 @@ system(paste("cp ",data.folder1,"/",matrixName1,".",format1," ",scrat_tmp.folder
 system(paste("cp ",data.folder2,"/",matrixName2,".",format2," ",scrat_tmp.folder,"/",sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/rcaloger/mergematrix Rscript /home/main.R ",matrixName1," ",format1," ",separator1," ",matrixName2," ",format2," ",separator2," ",name1," ",name2,sep="")
+    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/mergematrix Rscript /home/main.R ",matrixName1," ",format1," ",separator1," ",matrixName2," ",format2," ",separator2," ",name1," ",name2,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 

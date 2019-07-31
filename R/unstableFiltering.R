@@ -72,7 +72,7 @@ system(paste("cp -r ",data.folder,"/* ",scrat_tmp.folder,"/",sep=""))
 
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/unstablefiltering Rscript /home/main.R ",matrixName," ",format," ",separator," ",sThreshold," ",nCluster,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/unstablefiltering Rscript /home/main.R ",matrixName," ",format," ",separator," ",sThreshold," ",nCluster,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 

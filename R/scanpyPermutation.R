@@ -106,7 +106,7 @@ system(paste("cp -r ",data.folder,"/",matrixName,"/ ",scrat_tmp.folder,"/",sep="
 }
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/scanpypermutation python3 /home/main2.py ",matrixName," ",nPerm," ",percent," ",format," ",separator," ",perplexity," ",pca_number," ",seed," ",permAtTime,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/scanpypermutation python3 /home/main2.py ",matrixName," ",nPerm," ",percent," ",format," ",separator," ",perplexity," ",pca_number," ",seed," ",permAtTime,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 

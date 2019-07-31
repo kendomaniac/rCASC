@@ -83,7 +83,7 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,se
 system(paste("cp ",data.folder,"/",houseK,".",format," ",scrat_tmp.folder,sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/housekeep Rscript /home/main.R ",matrixName," ",format," ",separator2," ",logTen," ",houseK," ",topCell, sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/housekeep Rscript /home/main.R ",matrixName," ",format," ",separator2," ",logTen," ",houseK," ",topCell, sep="")
 
 resultRun <- runDocker(group=group, params=params)
 

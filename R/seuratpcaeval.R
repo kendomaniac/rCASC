@@ -96,7 +96,7 @@ seuratPCAEval <- function(group=c("sudo","docker"), scratch.folder, file, separa
   }
 
   #executing the docker job
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/rcaloger/seuratpcaeval Rscript /home/main.R ",matrixName," ",format," ",separator," ",logTen," ", seed," ",sparse, sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/seuratpcaeval Rscript /home/main.R ",matrixName," ",format," ",separator," ",logTen," ", seed," ",sparse, sep="")
 
   resultRun <- runDocker(group=group, params=params)
 
