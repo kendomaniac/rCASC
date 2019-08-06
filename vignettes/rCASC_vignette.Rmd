@@ -146,8 +146,8 @@ include_graphics('../inst/img/gui2.png')
 library(rCASC)
 #running indropCounts index build
 indropIndex(group="docker", index.folder=getwd(),
- ensembl.urlgenome="ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
- ensembl.urlgtf="ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.gtf.gz")
+ ensembl.urlgenome="ftp.ensembl.org/pub/release-97/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.primary_assembly.fa.gz",
+ ensembl.urlgtf="ftp.ensembl.org/pub/release-97/gtf/mus_musculus/Mus_musculus.GRCm38.97.gtf.gz")
 
 ```
 \fontsize{10}{10}\selectfont
@@ -264,9 +264,9 @@ include_graphics('../inst/img/cellrangeIndex.png')
 library(rCASC)
 setwd("/data/genomes/hg38refcellranger")
 cellrangerIndexing(group="docker", scratch.folder="/data/scratch", 
-  gtf.url="ftp://ftp.ensembl.org/pub/release-87/gtf/homo_sapiens/Homo_sapiens.GRCh38.87.gtf.gz",
+  gtf.url="ftp.ensembl.org/pub/release-97/gtf/homo_sapiens/Homo_sapiens.GRCh38.97.gtf.gz",
   fasta.url=
-    "ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz",
+    "ftp.ensembl.org/pub/release-97/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
   genomeFolder = getwd(), bio.type="protein_coding", nThreads = 8)
 
 ```
@@ -381,7 +381,7 @@ The output are two pdfs named respectively **genes.umi.pdf** (Figure below panel
 #N.B. geneUmi and mitoRiboUmi expect as input a raw counts table having as rownames ENSEMBL IDs
 
 library(rCASC)
-system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz")
+system("wget ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz")
 system("gzip -d Mus_musculus.GRCm38.94.gtf.gz")
 system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
 unzip("testSCumi_mm10.csv.zip")
@@ -627,7 +627,7 @@ include_graphics('../inst/img/gui8.png')
 ```{r, echo=TRUE, eval=FALSE}
 
 #running annotation and removal of mito and ribo proteins genes
-system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz")
+system("wget ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz")
 system("gunzip Mus_musculus.GRCm38.94.gtf.gz")
 scannobyGtf(group="docker", file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
                     gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
@@ -693,9 +693,9 @@ include_graphics('../inst/img/gui9.png')
 ```{r, echo=TRUE, eval=FALSE}
  
 library(rCASC)
-genesUmi(file=paste(getwd(), counts.matrix="testSCumi_mm10.csv", sep="/"), umiXgene=3, sep="\t")
+genesUmi(file=paste(getwd(), counts.matrix="testSCumi_mm10.csv", sep="/"), umiXgene=3, sep=",")
 topx(group="docker", file=paste(getwd(),file.name="testSCumi_mm10.csv", sep="/"),threshold=10000, logged=FALSE, type="expression", separator=",")
-genesUmi(file=paste(getwd(), counts.matrix="testSCumi_mm10_10000.txt", sep="/"), umiXgene=3,  sep="\t")
+genesUmi(file=paste(getwd(), counts.matrix="filtered_expression_testSCumi_mm10.csv", sep="/"), umiXgene=3,  sep=",")
 
 ```
 \fontsize{10}{10}\selectfont

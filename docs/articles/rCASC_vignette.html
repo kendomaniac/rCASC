@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.1</span>
       </span>
     </div>
 
@@ -73,7 +73,7 @@
       <h1>rCASC vignette</h1>
                         <h4 class="author">Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Nicola Licheri, Gennaro De Libero, Luigia Pace, and Raffaele A Calogero</h4>
             
-            <h4 class="date">30/07/2019</h4>
+            <h4 class="date">06/08/2019</h4>
       
       
       <div class="hidden name"><code>rCASC_vignette.Rmd</code></div>
@@ -186,8 +186,8 @@ GUI: inDrop related panels: A) inDrop Index generation, B) inDrop counts table g
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rCASC)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#running indropCounts index build</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="../reference/indropIndex.html">indropIndex</a></span>(<span class="dt">group=</span><span class="st">"docker"</span>, <span class="dt">index.folder=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd</a></span>(),</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"> <span class="dt">ensembl.urlgenome=</span><span class="st">"ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz"</span>,</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"> <span class="dt">ensembl.urlgtf=</span><span class="st">"ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.gtf.gz"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-4" data-line-number="4"> <span class="dt">ensembl.urlgenome=</span><span class="st">"ftp.ensembl.org/pub/release-97/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.primary_assembly.fa.gz"</span>,</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"> <span class="dt">ensembl.urlgtf=</span><span class="st">"ftp.ensembl.org/pub/release-97/gtf/mus_musculus/Mus_musculus.GRCm38.97.gtf.gz"</span>)</a></code></pre></div>
 
 </div>
 <div id="section-2-1-1-2-indropcounts-converts-fastq-in-umi-counts-using-indrop-workflow" class="section level5">
@@ -314,9 +314,9 @@ GUI: 10XGenomics genome indexing
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rCASC)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">setwd</a></span>(<span class="st">"/data/genomes/hg38refcellranger"</span>)</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="../reference/cellrangerIndexing.html">cellrangerIndexing</a></span>(<span class="dt">group=</span><span class="st">"docker"</span>, <span class="dt">scratch.folder=</span><span class="st">"/data/scratch"</span>, </a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="dt">gtf.url=</span><span class="st">"ftp://ftp.ensembl.org/pub/release-87/gtf/homo_sapiens/Homo_sapiens.GRCh38.87.gtf.gz"</span>,</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="dt">gtf.url=</span><span class="st">"ftp.ensembl.org/pub/release-97/gtf/homo_sapiens/Homo_sapiens.GRCh38.97.gtf.gz"</span>,</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">  <span class="dt">fasta.url=</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="st">"ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz"</span>,</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="st">"ftp.ensembl.org/pub/release-97/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz"</span>,</a>
 <a class="sourceLine" id="cb7-7" data-line-number="7">  <span class="dt">genomeFolder =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd</a></span>(), <span class="dt">bio.type=</span><span class="st">"protein_coding"</span>, <span class="dt">nThreads =</span> <span class="dv">8</span>)</a></code></pre></div>
 </div>
 <div id="section-2-3-smart-seq-full-transcript-sequencing-" class="section level3">
@@ -449,7 +449,7 @@ GUI: Genes versus counts panel
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co">#N.B. geneUmi and mitoRiboUmi expect as input a raw counts table having as rownames ENSEMBL IDs</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rCASC)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system">system</a></span>(<span class="st">"wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span>)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system">system</a></span>(<span class="st">"wget ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span>)</a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system">system</a></span>(<span class="st">"gzip -d Mus_musculus.GRCm38.94.gtf.gz"</span>)</a>
 <a class="sourceLine" id="cb9-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system">system</a></span>(<span class="st">"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span>)</a>
 <a class="sourceLine" id="cb9-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/unzip">unzip</a></span>(<span class="st">"testSCumi_mm10.csv.zip"</span>)</a>
@@ -677,7 +677,7 @@ GUI: Annotation panel
 </li>
 </ul>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">#running annotation and removal of mito and ribo proteins genes</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system">system</a></span>(<span class="st">"wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system">system</a></span>(<span class="st">"wget ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span>)</a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system">system</a></span>(<span class="st">"gunzip Mus_musculus.GRCm38.94.gtf.gz"</span>)</a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"><span class="kw"><a href="../reference/scannobyGtf.html">scannobyGtf</a></span>(<span class="dt">group=</span><span class="st">"docker"</span>, <span class="dt">file=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd</a></span>(),<span class="st">"testSCumi_mm10.csv"</span>,<span class="dt">sep=</span><span class="st">"/"</span>),</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">                    <span class="dt">gtf.name=</span><span class="st">"Mus_musculus.GRCm38.94.gtf"</span>, <span class="dt">biotype=</span><span class="st">"protein_coding"</span>, </a>
@@ -737,9 +737,9 @@ GUI: Top X expressed genes panel
 </li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rCASC)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="../reference/genesUmi.html">genesUmi</a></span>(<span class="dt">file=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd</a></span>(), <span class="dt">counts.matrix=</span><span class="st">"testSCumi_mm10.csv"</span>, <span class="dt">sep=</span><span class="st">"/"</span>), <span class="dt">umiXgene=</span><span class="dv">3</span>, <span class="dt">sep=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="../reference/genesUmi.html">genesUmi</a></span>(<span class="dt">file=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd</a></span>(), <span class="dt">counts.matrix=</span><span class="st">"testSCumi_mm10.csv"</span>, <span class="dt">sep=</span><span class="st">"/"</span>), <span class="dt">umiXgene=</span><span class="dv">3</span>, <span class="dt">sep=</span><span class="st">","</span>)</a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="../reference/topx.html">topx</a></span>(<span class="dt">group=</span><span class="st">"docker"</span>, <span class="dt">file=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd</a></span>(),<span class="dt">file.name=</span><span class="st">"testSCumi_mm10.csv"</span>, <span class="dt">sep=</span><span class="st">"/"</span>),<span class="dt">threshold=</span><span class="dv">10000</span>, <span class="dt">logged=</span><span class="ot">FALSE</span>, <span class="dt">type=</span><span class="st">"expression"</span>, <span class="dt">separator=</span><span class="st">","</span>)</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="kw"><a href="../reference/genesUmi.html">genesUmi</a></span>(<span class="dt">file=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd</a></span>(), <span class="dt">counts.matrix=</span><span class="st">"testSCumi_mm10_10000.txt"</span>, <span class="dt">sep=</span><span class="st">"/"</span>), <span class="dt">umiXgene=</span><span class="dv">3</span>,  <span class="dt">sep=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="kw"><a href="../reference/genesUmi.html">genesUmi</a></span>(<span class="dt">file=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd</a></span>(), <span class="dt">counts.matrix=</span><span class="st">"filtered_expression_testSCumi_mm10.csv"</span>, <span class="dt">sep=</span><span class="st">"/"</span>), <span class="dt">umiXgene=</span><span class="dv">3</span>,  <span class="dt">sep=</span><span class="st">","</span>)</a></code></pre></div>
 
 <p><strong>IMPORTANT</strong>: The core clustering tool in rCASC is SIMLR, <strong>Section 5</strong>. SIMLR requires that the number of genes must be larger than the number of analyzed cells.</p>
 </div>
