@@ -14,7 +14,7 @@
 #' library(rCASC)
 #' #download from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106268 the GSE106268_RAW.tar file
 #' system("tar xvf GSE106268_RAW.tar")
-#' h5tocvs(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1.h5",sep="/"), type="h5"))
+#' h5tocsv(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1.h5",sep="/"), type="h5"))
 #' system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 #' unzip("annotated_setPace_10000_noC5.txt.zip")
 #' csvToSparse(group="docker", scratch="/data/scratch", file=paste(getwd(), 
