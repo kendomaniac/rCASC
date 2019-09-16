@@ -199,7 +199,10 @@ yCoord=colSums(b)
     fm=fm[,-which(colnames(fm)==i)]
   
   }
-  write.table(fm,paste("filtered_annotated_",matrixName,".",file.type,sep=""),col.names=NA)
+   if(file.type=="csv"){
+  write.table(fm,paste("filtered_annotated_",matrixName,".",file.type,sep=""),col.names=NA,sep=",")
+  }else{write.table(fm,paste("filtered_annotated_",matrixName,".",file.type,sep=""),col.names=NA,sep="\t")
+}
   }
   cat("\nannotated_genes.pdf is ready\n")
   write(paste(nrow(om)," Original genes Number \n",ncol(om)," Original Cells Number \n",nrow(fm)," Filtered genes Number \n",ncol(fm)," Filtered Cells Number \n",nrow(om)-nrow(fm)," Genes removed \n",ncol(om)-ncol(fm)," Cells removed \n"),"filteredStatistics.txt")
