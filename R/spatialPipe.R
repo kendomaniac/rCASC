@@ -6,7 +6,8 @@
 #' @param genome.folder, a character string indicating the path of the genome folder. 
 #' @param f1, a character string indicating the name of first fasta file
 #' @param f2, a character string indicating the name of second fasta file
-#' @param nameEXP, a character string indicating the name of the experiment
+#' @param gtf, boh
+#' @param nameExp, a character string indicating the name of the experiment
 #' @param ids, a character string indicating the name of the ids(barcodes txt files)
 
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino

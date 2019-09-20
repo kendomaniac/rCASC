@@ -16,13 +16,15 @@ stpipeline(group = c("sudo", "docker"), scratch.folder, data.folder,
 
 \item{genome.folder, }{a character string indicating the path of the genome folder.}
 
+\item{gtf, }{boh}
+
 \item{f1, }{a character string indicating the name of first fasta file}
 
 \item{f2, }{a character string indicating the name of second fasta file}
 
-\item{ids, }{a character string indicating the name of the ids(barcodes txt files)}
+\item{nameExp, }{a character string indicating the name of the experiment}
 
-\item{nameEXP, }{a character string indicating the name of the experiment}
+\item{ids, }{a character string indicating the name of the ids(barcodes txt files)}
 }
 \value{
 count matrix from spatial transcriptomics
