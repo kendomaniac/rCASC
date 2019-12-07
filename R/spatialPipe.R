@@ -66,7 +66,8 @@ stpipeline <- function(group=c("sudo","docker"), scratch.folder,data.folder,geno
 system(paste("cp -r ",data.folder,"/* ",scrat_tmp.folder,sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ",genome.folder,":/genome -d docker.io/rcaloger/stpipeline python3 /data2/st_pipeline-master/scripts/st_pipeline_run.py --expName ",nameExp," --ids /scratch/",ids," --ref-map /genome/ --log-file log_file.txt --output-folder /data --ref-annotation /scratch/",gtf," /scratch/",f1," /scratch/",f2,sep="")
+    #params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ",genome.folder,":/genome -d docker.io/rcaloger/stpipeline python3 /data2/st_pipeline-master/scripts/st_pipeline_run.py --expName ",nameExp," --ids /scratch/",ids," --ref-map /genome/ --log-file log_file.txt --output-folder /data --ref-annotation /scratch/",gtf," /scratch/",f1," /scratch/",f2,sep="")
+params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ",genome.folder,":/genome -d docker.io/rcaloger/stpipeline python3 /data2/st_pipeline-master/scripts/st_pipeline_run.py --expName ",nameExp," --ref-map /genome/ --log-file log_file.txt --output-folder /data --ref-annotation /scratch/",gtf," /scratch/",f1," /scratch/",f2,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
