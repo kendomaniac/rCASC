@@ -2,23 +2,26 @@
 #' @description Create count matrix from spatial transcriptomics fasta
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param data.folder, a character string indicating the path of the data folder. GTF, ids and fasta files have to be here.Results will be copied in this folder
+#' @param data.folder, a character string indicating the path of the result folder.
 #' @param genome.folder, a character string indicating the path of the genome folder. 
-#' @param f1, a character string indicating the name of first fasta file
-#' @param f2, a character string indicating the name of second fasta file
-#' @param gtf, boh
-#' @param nameExp, a character string indicating the name of the experiment
-#' @param ids, a character string indicating the name of the ids(barcodes txt files)
+#' @param fastqPathFolder, a character string indicating the path of fastq folder
+#' @param imgNameAndPath, path and name of tiff image file required for analysis. 
+#' @param slide, identificative number from dataset download
+#' @param area, identificative value from dataset download 
 
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return count matrix from spatial transcriptomics
 #' @examples
 #'\dontrun{
-#'
+#' Dataset="curl -O http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"
+#' DatasetImage="curl -O http://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_image.tif"
+#' referenceGenomeHG38="curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz"
+#' referenceGenomeMM10="curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-mm10-3.0.0.tar.gz"
+#' stpipeline("docker",scratch.folder="/run/media/user/Maxtor4/scratch",data.folder="/run/media/user/Maxtor4/prova2",genome.folder="/home/user/spatial/refdata-cellranger-mm10-3.0.0",fastqPathFolder="/home/user/spatial/V1_Mouse_Kidney_fastqs",ID="hey",imgNameAndPath="/home/user/spatial/V1_Mouse_Kidney_image.tif",slide="V19L29-096",area="B1")
 #'}
 #' @export
-stpipeline <- function(group=c("sudo","docker"), scratch.folder,data.folder,genome.folder,gtf,f1=NULL,f2=NULL,nameExp,ids){
+stpipeline <- function(group=c("sudo","docker"), scratch.folder,data.folder,genome.folder,fastqPathFolder,ID,imgNameAndPath,slide=NULL,area=NULL){
 
 
   #running time 1
@@ -57,18 +60,25 @@ stpipeline <- function(group=c("sudo","docker"), scratch.folder,data.folder,geno
   scrat_tmp.folder=file.path(scratch.folder, tmp.folder)
   writeLines(scrat_tmp.folder,paste(data.folder,"/tempFolderID", sep=""))
   cat("\ncreating a folder in scratch folder\n")
-  dir.create(file.path(scrat_tmp.folder))
+
   #preprocess matrix and copying files
 
 
 
- 
-system(paste("cp -r ",data.folder,"/* ",scrat_tmp.folder,sep=""))
+dir.create(paste(scrat_tmp.folder))
+  dir.create(file.path(paste(scrat_tmp.folder,"/fastq",sep="")))
+system(paste("cp -r ",fastqPathFolder,"/* ",scrat_tmp.folder,"/fastq",sep=""))
+system(paste("cp -r ",imgNameAndPath," ",scrat_tmp.folder,"/",sep=""))
+ imgname=basename(imgNameAndPath)
 
   #executing the docker job
     #params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ",genome.folder,":/genome -d docker.io/rcaloger/stpipeline python3 /data2/st_pipeline-master/scripts/st_pipeline_run.py --expName ",nameExp," --ids /scratch/",ids," --ref-map /genome/ --log-file log_file.txt --output-folder /data --ref-annotation /scratch/",gtf," /scratch/",f1," /scratch/",f2,sep="")
-params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ",genome.folder,":/genome -d docker.io/rcaloger/stpipeline python3 /data2/st_pipeline-master/scripts/st_pipeline_run.py --expName ",nameExp," --ref-map /genome/ --log-file log_file.txt --output-folder /data --ref-annotation /scratch/",gtf," /scratch/",f1," /scratch/",f2,sep="")
+if(is.null(slide) & is.null(area)){
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ",genome.folder,":/genome -d repbioinfo/stpipelineofficial /home/spatial.sh ",ID," ",basename(imgNameAndPath),sep="")
+}else{
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ",genome.folder,":/genome -d repbioinfo/stpipelineofficial /home/spatial2.sh ",ID," ",basename(imgNameAndPath)," ",slide," ",area,sep="")
 
+}
 resultRun <- runDocker(group=group, params=params)
 
  
@@ -111,3 +121,4 @@ resultRun <- runDocker(group=group, params=params)
   system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 } 
+ 
