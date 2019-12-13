@@ -28,4 +28,5 @@ docker.io/repbioinfo/clusterstability
 docker.io/repbioinfo/unstablefiltering
 docker.io/repbioinfo/sra.2018.01
 docker.io/repbioinfo/scanpypermutation
+docker.io/repbioinfo/stpipelineofficial
 
