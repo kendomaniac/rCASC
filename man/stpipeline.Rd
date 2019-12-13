@@ -5,26 +5,25 @@
 \title{Spatial transcriptomics pipeline}
 \usage{
 stpipeline(group = c("sudo", "docker"), scratch.folder, data.folder,
-  genome.folder, gtf, f1 = NULL, f2 = NULL, nameExp, ids)
+  genome.folder, fastqPathFolder, ID, imgNameAndPath, slide = NULL,
+  area = NULL)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
-\item{data.folder, }{a character string indicating the path of the data folder. GTF, ids and fasta files have to be here.Results will be copied in this folder}
+\item{data.folder, }{a character string indicating the path of the result folder.}
 
 \item{genome.folder, }{a character string indicating the path of the genome folder.}
 
-\item{gtf, }{boh}
+\item{fastqPathFolder, }{a character string indicating the path of fastq folder}
 
-\item{f1, }{a character string indicating the name of first fasta file}
+\item{imgNameAndPath, }{path and name of tiff image file required for analysis.}
 
-\item{f2, }{a character string indicating the name of second fasta file}
+\item{slide, }{identificative number from dataset download}
 
-\item{nameExp, }{a character string indicating the name of the experiment}
-
-\item{ids, }{a character string indicating the name of the ids(barcodes txt files)}
+\item{area, }{identificative value from dataset download}
 }
 \value{
 count matrix from spatial transcriptomics
@@ -34,7 +33,11 @@ Create count matrix from spatial transcriptomics fasta
 }
 \examples{
 \dontrun{
-
+Dataset="curl -O http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"
+DatasetImage="curl -O http://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_image.tif"
+referenceGenomeHG38="curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz"
+referenceGenomeMM10="curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-mm10-3.0.0.tar.gz"
+stpipeline(group="docker", scratch.folder="/run/media/user/Maxtor4/scratch", data.folder="/run/media/user/Maxtor4/prova2", genome.folder="/home/user/spatial/refdata-cellranger-mm10-3.0.0", fastqPathFolder="/home/user/spatial/V1_Mouse_Kidney_fastqs", ID="hey",imgNameAndPath="/home/user/spatial/V1_Mouse_Kidney_image.tif",slide="V19L29-096",area="B1")
 }
 }
 \author{
