@@ -14,6 +14,10 @@
 #' @return count matrix from spatial transcriptomics
 #' @examples
 #'\dontrun{
+#' Dataset="curl -O http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"
+#' DatasetImage="curl -O http://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_image.tif"
+#' referenceGenomeHG38="curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz"
+#' referenceGenomeMM10="curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-mm10-3.0.0.tar.gz"
 #' stpipeline("docker",scratch.folder="/run/media/user/Maxtor4/scratch",data.folder="/run/media/user/Maxtor4/prova2",genome.folder="/home/user/spatial/refdata-cellranger-mm10-3.0.0",fastqPathFolder="/home/user/spatial/V1_Mouse_Kidney_fastqs",ID="hey",imgNameAndPath="/home/user/spatial/V1_Mouse_Kidney_image.tif",slide="V19L29-096",area="B1")
 #'}
 #' @export
