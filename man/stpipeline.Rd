@@ -19,6 +19,8 @@ stpipeline(group = c("sudo", "docker"), scratch.folder, data.folder,
 
 \item{fastqPathFolder, }{a character string indicating the path of fastq folder}
 
+\item{ID, }{a character string indicating the name of the project}
+
 \item{imgNameAndPath, }{path and name of tiff image file required for analysis.}
 
 \item{slide, }{identificative number from dataset download}

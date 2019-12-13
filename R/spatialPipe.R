@@ -5,6 +5,7 @@
 #' @param data.folder, a character string indicating the path of the result folder.
 #' @param genome.folder, a character string indicating the path of the genome folder. 
 #' @param fastqPathFolder, a character string indicating the path of fastq folder
+#' @param ID, a character string indicating the name of the project
 #' @param imgNameAndPath, path and name of tiff image file required for analysis. 
 #' @param slide, identificative number from dataset download
 #' @param area, identificative value from dataset download 
