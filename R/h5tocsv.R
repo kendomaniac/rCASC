@@ -77,10 +77,10 @@ h5tocsv <- function(group=c("sudo","docker"),  file, type=c("h5","10xgenomics"))
   resultRun <- runDocker(group=group, params=params)
   #waiting for the end of the container work
   if(resultRun==0 && type=="h5"){
-    system(paste("sed \'s|,|\t|g\' ", data.folder,"/",counts.table,".csv > ", data.folder,"/",counts.table,".txt", sep=""))
+  #  system(paste("sed \'s|,|\t|g\' ", data.folder,"/",counts.table,".csv > ", data.folder,"/",counts.table,".txt", sep=""))
     cat("\nCellranger h5 matrix conversion is finished\n")
   }else{
-    system(paste("sed \'s|,|\t|g\' ", data.folder,"/",matrixName,".csv > ", data.folder,"/",matrixName,".txt", sep=""))
+  #  system(paste("sed \'s|,|\t|g\' ", data.folder,"/",matrixName,".csv > ", data.folder,"/",matrixName,".txt", sep=""))
     cat("\nCellranger tsv, mtx matrices conversion is finished\n")
   }
   
