@@ -1,7 +1,7 @@
 ---
 title: "rCASC vignette"
 author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Nicola Licheri, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
-date: "06/08/2019"
+date: "16/12/2019"
 output: rmarkdown::html_vignette
 
 vignette: >
@@ -271,10 +271,44 @@ cellrangerIndexing(group="docker", scratch.folder="/data/scratch",
 
 ```
 
+### **Section 2.3**  Spatial transcriptomics
+
+10XGenomics acquired Spatial transcriptomics and released inNovember 2019 their updated version of the spatial transcriptomics kits and software. We have implemented spatial transcritomoics from fastq to counts in the function **stpipeline**
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help):
+    + *group*,	a character string. two options: sudo or docker, depending to which group the user belongs
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *data.folder*,	a character string indicating the path of the result folder
+    + *genome.folder*,	a character string indicating the path of the genome folder
+    + *fastqPathFolder*, a character string indicating the path of fastq folder
+    + *ID*,	 a character string indicating the name of the project
+    + *imgNameAndPat*, a character string indicating the path with the name of tiff image file required for analysis. Mandatory
+    + *slide*,	 Visium slide serial number, default NULL (parameter not required)
+    + *area*,	 Visium capture area identifier. Options for Visium are A1, B1, C1, D1, default NULL (parameter not required)
+
+```{r, echo=TRUE, eval=FALSE}
+
+library(rCASC)
+Dataset="wget http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"
+# DatasetImage
+system("wget http://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_image.tif")
+# referenceGenomeHG38
+system("wget http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz")
+# referenceGenomeMM10
+system("wget http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-mm10-3.0.0.tar.gz")
+
+stpipeline(group="docker", scratch.folder="/run/media/user/Maxtor4/scratch", 
+           data.folder="/run/media/user/Maxtor4/prova2", 
+           genome.folder="/home/user/spatial/refdata-cellranger-mm10-3.0.0", 
+           fastqPathFolder="/home/user/spatial/V1_Mouse_Kidney_fastqs", 
+           ID="hey",imgNameAndPath="/home/user/spatial/V1_Mouse_Kidney_image.tif",
+           slide="V19L29-096",area="B1")
+```
+
+Results are organized as indicated by 10XGenomics, with the addition of a comma separated file of the cells counts table.
 
 
-
-### **Section 2.3** Smart-seq full transcript sequencing.
+### **Section 2.4** Smart-seq full transcript sequencing.
 
 Smart-seq protocol generates a full transcript library for each cell, i.e. a fastq file for each cell. To convert fastq in counts we suggest to use **rnaseqCounts** or **wrapperSalmon** counts from [*docker4seq*](https://github.com/kendomaniac/docker4seq) package [[*Kulkarni et al.*](https://www.ncbi.nlm.nih.gov/pubmed/30367595)]. Both above-mentioned functions are compliant with minimal hardware requirements indicated for rCASC and are part, as rCASC, of the [*Reproducible Bioinformatics Project*](http://reproducible-bioinformatics.org/). **rnaseqCounts** is a wrapper executing on each fastq: 
 
@@ -285,6 +319,10 @@ Smart-seq protocol generates a full transcript library for each cell, i.e. a fas
 - mapping reads on genome using [*STAR*](https://www.ncbi.nlm.nih.gov/pubmed/23104886) and counting isoforms and genes with [*RSEM*](https://www.ncbi.nlm.nih.gov/pubmed/21816040). 
 
 **wrapperSalmon** instead implements FastQC and skewer and calculates isoforms and genes counts using [*Salmon*](https://github.com/COMBINE-lab/salmon) software.
+
+
+
+
 
 ## **Section 3** Counts matrix manipulation
 

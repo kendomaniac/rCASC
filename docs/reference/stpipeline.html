@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cells count table size — dimensions • rCASC</title>
+<title>Spatial transcriptomics pipeline — stpipeline • rCASC</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Cells count table size — dimensions" />
-<meta property="og:description" content="This function executes a ubuntu docker that counts row and colums of a counts table." />
+<meta property="og:title" content="Spatial transcriptomics pipeline — stpipeline" />
+<meta property="og:description" content="Create count matrix from spatial transcriptomics fasta" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,16 +112,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cells count table size</h1>
+    <h1>Spatial transcriptomics pipeline</h1>
     
-    <div class="hidden name"><code>dimensions.Rd</code></div>
+    <div class="hidden name"><code>stpipeline.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that counts row and colums of a counts table.</p>
+    <p>Create count matrix from spatial transcriptomics fasta</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dimensions</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>scratch.folder</span>, <span class='no'>file</span>, <span class='no'>separator</span>)</pre>
+    <pre class="usage"><span class='fu'>stpipeline</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>scratch.folder</span>, <span class='no'>data.folder</span>,
+  <span class='no'>genome.folder</span>, <span class='no'>fastqPathFolder</span>, <span class='no'>ID</span>, <span class='no'>imgNameAndPath</span>, <span class='kw'>slide</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>area</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,25 +137,46 @@
       <td><p>a character string indicating the path of the scratch folder</p></td>
     </tr>
     <tr>
-      <th>file, </th>
-      <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
+      <th>data.folder, </th>
+      <td><p>a character string indicating the path of the result folder.</p></td>
     </tr>
     <tr>
-      <th>separator, </th>
-      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+      <th>genome.folder, </th>
+      <td><p>a character string indicating the path of the genome folder.</p></td>
+    </tr>
+    <tr>
+      <th>fastqPathFolder, </th>
+      <td><p>a character string indicating the path of fastq folder</p></td>
+    </tr>
+    <tr>
+      <th>ID, </th>
+      <td><p>a character string indicating the name of the project</p></td>
+    </tr>
+    <tr>
+      <th>imgNameAndPath, </th>
+      <td><p>path and name of tiff image file required for analysis.</p></td>
+    </tr>
+    <tr>
+      <th>slide, </th>
+      <td><p>identificative number from dataset download</p></td>
+    </tr>
+    <tr>
+      <th>area, </th>
+      <td><p>identificative value from dataset download</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a file called dimensions.txt containing the number of row and columns of a cells counts table</p>
+    <p>count matrix from spatial transcriptomics</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span>(<span class='st'>"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span>(<span class='st'>"annotated_setPace_10000_noC5.txt.zip"</span>)
-<span class='fu'>dimensions</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/data/scratch"</span>,
-            <span class='kw'>file</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),<span class='st'>"annotated_setPace_10000_noC5.txt"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"/"</span>), <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>"\t"</span>)
+<span class='no'>Dataset</span><span class='kw'>=</span><span class='st'>"curl -O http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"</span>
+<span class='no'>DatasetImage</span><span class='kw'>=</span><span class='st'>"curl -O http://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_image.tif"</span>
+<span class='no'>referenceGenomeHG38</span><span class='kw'>=</span><span class='st'>"curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz"</span>
+<span class='no'>referenceGenomeMM10</span><span class='kw'>=</span><span class='st'>"curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-mm10-3.0.0.tar.gz"</span>
+<span class='fu'>stpipeline</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/run/media/user/Maxtor4/scratch"</span>, <span class='kw'>data.folder</span><span class='kw'>=</span><span class='st'>"/run/media/user/Maxtor4/prova2"</span>, <span class='kw'>genome.folder</span><span class='kw'>=</span><span class='st'>"/home/user/spatial/refdata-cellranger-mm10-3.0.0"</span>, <span class='kw'>fastqPathFolder</span><span class='kw'>=</span><span class='st'>"/home/user/spatial/V1_Mouse_Kidney_fastqs"</span>, <span class='kw'>ID</span><span class='kw'>=</span><span class='st'>"hey"</span>,<span class='kw'>imgNameAndPath</span><span class='kw'>=</span><span class='st'>"/home/user/spatial/V1_Mouse_Kidney_image.tif"</span>,<span class='kw'>slide</span><span class='kw'>=</span><span class='st'>"V19L29-096"</span>,<span class='kw'>area</span><span class='kw'>=</span><span class='st'>"B1"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -165,7 +188,7 @@
     </ul>
 
     <h2>Author</h2>
-    <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
+    <p>Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
   </div>
 </div>
 
