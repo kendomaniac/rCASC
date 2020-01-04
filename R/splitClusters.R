@@ -8,7 +8,7 @@
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return plot with cluster stability
+#' @return one Matrix for each cluster
 #' @examples
 #' \dontrun{
 #splitClusters(group="sudo", scratch.folder="/data/scratch", file="/media/lucastormreig/8799-82B36/PHD/CASC8.1Stable/CASC8.0STABLE/new/splitInClusters/data/annotated_lorenz_testSCumi_mm10.csv", separator=",",3)
