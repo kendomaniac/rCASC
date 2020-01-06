@@ -71,7 +71,7 @@ cometsc <- function(group=c("sudo","docker"), file, scratch.folder, threads=1,  
   system(paste("cp -r ", file," ",scrat_tmp.folder,sep=""))
   
   #executing the docker job
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/cometsc.2020.01 sh /bin/cometsc.sh ", matrixName, " ", threads, " ", X, " ", K, " ", counts, " ", skipvis, " ", nCluster," ", separator, sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/cometsc.2020.01 bash /bin/cometsc.sh ", matrixName, " ", threads, " ", X, " ", K, " ", counts, " ", skipvis, " ", nCluster," ", separator, sep="")
   resultRun <- runDocker(group=group, params=params)
   
   #waiting for the end of the container work
@@ -105,7 +105,7 @@ cometsc <- function(group=c("sudo","docker"), file, scratch.folder, threads=1,  
   system(paste("docker rm ", container.id, sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
-  system(paste("rm -R ",scrat_tmp.folder))
+  # system(paste("rm -R ",scrat_tmp.folder))
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
