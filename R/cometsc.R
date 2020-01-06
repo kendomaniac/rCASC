@@ -22,7 +22,7 @@
 #' }
 #'
 #' @export
-cometsc <- function(group=c("sudo","docker"), file, threads=1,  X=0.15, K=2, counts=c("True", "False"), skipvis=c("True", "False"), nCluster, separator){
+cometsc <- function(group=c("sudo","docker"), file, scratch.folder, threads=1,  X=0.15, K=2, counts=c("True", "False"), skipvis=c("True", "False"), nCluster, separator){
 
   data.folder=dirname(file)
   positions=length(strsplit(basename(file),"\\.")[[1]])

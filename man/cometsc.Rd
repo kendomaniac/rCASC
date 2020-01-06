@@ -4,14 +4,16 @@
 \alias{cometsc}
 \title{Marker genes discovery with COMETSC}
 \usage{
-cometsc(group = c("sudo", "docker"), file, threads = 1, X = 0.15,
-  K = 2, counts = c("True", "False"), skipvis = c("True", "False"),
-  nCluster, separator)
+cometsc(group = c("sudo", "docker"), file, scratch.folder, threads = 1,
+  X = 0.15, K = 2, counts = c("True", "False"), skipvis = c("True",
+  "False"), nCluster, separator)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
 
 \item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{scratch.folder, }{temporary folder where calculation is made}
 
 \item{threads, }{integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster}
 
@@ -26,8 +28,6 @@ cometsc(group = c("sudo", "docker"), file, threads = 1, X = 0.15,
 \item{nCluster, }{number of interested cluster used for analysis}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
-
-\item{scratch.folder, }{temporary folder where calculation is made}
 }
 \value{
 folders with prefix output. More info in output at https://hgmd.readthedocs.io/en/latest/Output.html
