@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Imputing dropouts — impute • rCASC</title>
+<title>Marker genes discovery with COMETSC — cometsc • rCASC</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Imputing dropouts — impute" />
-<meta property="og:description" content="This function executes a wrapper for scImpute: Accurate And Robust Inputation For Single Cell RNA-Seq Data (Li WV Nature Communications, vol. 9, Article number: 997, 2018)" />
+<meta property="og:title" content="Marker genes discovery with COMETSC — cometsc" />
+<meta property="og:description" content="This function executes a ubuntu docker for cometsc (https://github.com/MSingerLab/COMETSC)" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,17 +112,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Imputing dropouts</h1>
+    <h1>Marker genes discovery with COMETSC</h1>
     
-    <div class="hidden name"><code>impute.Rd</code></div>
+    <div class="hidden name"><code>cometsc.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a wrapper for scImpute: Accurate And Robust Inputation For Single Cell RNA-Seq Data (Li WV Nature Communications, vol. 9, Article number: 997, 2018)</p>
+    <p>This function executes a ubuntu docker for cometsc (https://github.com/MSingerLab/COMETSC)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>impute</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>data.folder</span>, <span class='no'>counts.matrix</span>,
-  <span class='no'>drop.thre</span>, <span class='no'>cores</span>, <span class='kw'>refining</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>cometsc</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>file</span>, <span class='no'>scratch.folder</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>X</span> <span class='kw'>=</span> <span class='fl'>0.15</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"True"</span>, <span class='st'>"False"</span>), <span class='kw'>skipvis</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"True"</span>,
+  <span class='st'>"False"</span>), <span class='no'>nCluster</span>, <span class='no'>separator</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,39 +133,53 @@
       <td><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></td>
     </tr>
     <tr>
-      <th>data.folder, </th>
-      <td><p>a character string indicating the folder where tab separated file of cells counts is located</p></td>
+      <th>file, </th>
+      <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
     </tr>
     <tr>
-      <th>counts.matrix, </th>
-      <td><p>a character string indicating the  tab separated file of cells  counts</p></td>
+      <th>scratch.folder, </th>
+      <td><p>temporary folder where calculation is made</p></td>
     </tr>
     <tr>
-      <th>drop.thre, </th>
-      <td><p>A number between 0 and 1, specifying the threshold to determine dropout values</p></td>
+      <th>threads, </th>
+      <td><p>integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster</p></td>
     </tr>
     <tr>
-      <th>cores, </th>
-      <td><p>a integer specifying the number of cores used for parallel computation.</p></td>
+      <th>X, </th>
+      <td><p>from 0 to 1 argument for XL-mHG default 0.15, for more info see cometsc help.</p></td>
     </tr>
     <tr>
-      <th>refining, </th>
-      <td><p>boolean FALSE, TRUE, if TRUE it execute again scImpute but setting a different drop.thre. Rerunning to change drop.thre hase to be done in the same folder where the first run was done.</p></td>
+      <th>K, </th>
+      <td><p>the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big</p></td>
+    </tr>
+    <tr>
+      <th>counts, </th>
+      <td><p>if set to True it will graph the log(expression+1). To be used if unlogged data are provided</p></td>
+    </tr>
+    <tr>
+      <th>skipvis, </th>
+      <td><p>set to True to skip visualizations</p></td>
+    </tr>
+    <tr>
+      <th>nCluster, </th>
+      <td><p>number of interested cluster used for analysis</p></td>
+    </tr>
+    <tr>
+      <th>separator, </th>
+      <td><p>separator used in count file, e.g. '\t', ','</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A matrix file with imputed data.</p>
+    <p>folders with prefix output. More info in output at https://hgmd.readthedocs.io/en/latest/Output.html</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-    <span class='co'>#downloading fastq files</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span>(<span class='st'>"wget http://130.192.119.59/public/singlecells_counts.txt.gz"</span>)
-    <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span>(<span class='st'>"gzip -d singlecells_counts.txt.gz"</span>)
-    <span class='fu'>cascImpute</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>data.folder</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
-         <span class='kw'>counts.matrix</span><span class='kw'>=</span><span class='st'>"singlecells_counts.txt"</span>,
-         <span class='kw'>drop.thre</span><span class='kw'>=</span><span class='fl'>0.5</span>, <span class='kw'>cores</span><span class='kw'>=</span><span class='fl'>8</span>, <span class='kw'>refining</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+    <span class='co'>#running cometsc</span>
+    <span class='fu'>cometsc</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='st'>"/Users/raffaelecalogero/Desktop/AXLN1/data/topx_veanno.csv"</span>,
+           <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/Users/raffaelecalogero/Desktop"</span>,
+           <span class='kw'>threads</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>counts</span><span class='kw'>=</span><span class='st'>"True"</span>, <span class='kw'>skipvis</span><span class='kw'>=</span><span class='st'>"False"</span>, <span class='kw'>nCluster</span><span class='kw'>=</span><span class='fl'>8</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -175,6 +190,8 @@
       <li><a href="#examples">Examples</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Raffaele Calogero,raffaele.calogero [at] unito [dot] it, University of Torino</p>
   </div>
 </div>
 

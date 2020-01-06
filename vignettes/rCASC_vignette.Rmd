@@ -2161,6 +2161,46 @@ include_graphics('../inst/img/seurat02.png')
 
 \pagebreak
 
+
+### **Section 7.4** Comet genes prioritization
+
+COMET is described in [*Delaney et al. 2019*](https://www.ncbi.nlm.nih.gov/pubmed/?term=31657111). COMET is a computational framework for the identification of candidate marker panels consisting of one or more genes for cell populations of interest identified with single-cell RNA-seq data.
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *file (GUI Matrix count)*,	a character string indicating the path of the file, with file name and extension included
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *threads*,	integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster
+    + *X*,	from 0 to 1 argument for XL-mHG default 0.15, for more info see [*cometsc help*](https://hgmd.readthedocs.io/en/latest/details.html)
+    + *K*,	the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big
+    + *counts*,	If set to True it will graph the log(expression+1). To be used if unlogged data are provided
+    + *skipvis*, set to True to skip visualizations
+    + *nCluster*,	number of interested cluster used for analysis
+    
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/AXLN1.tar.gz")
+system("gzip -d AXLN1.tar.gz")
+system("tar xvf AXLN1.tar")
+
+library(rCASC)
+
+cometsc(group="docker", file=paste(getwd(), "topx_veanno.csv",sep="/"), 
+           scratch.folder=getwd(),
+            threads=1, counts="True", skipvis="False", nCluster=8, separator=",") 
+
+#WARNING: the computation takes about 2h if only 1 core is used
+```
+
+Output is made of output\_pickles, outputdata, outputvis folders. Details on output structure can be found [**here**](https://hgmd.readthedocs.io/en/latest/Output.html#). In Fig. below is shown an example of a gene top ranked as the best genes able to separate cluster 4 from the others.
+
+```{r fig.741, fig.cap="COMET genes prioritization. A) Seurat clustering for a T-cell from lympho node of an healty donor. B) Top ranked singleton for cluster 4", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/comet01.png')
+```
+
+
+
 ## **Section 8** Supporting tools
 
 The Conversion of a dense matrix, with 0s in sparse format, not including 0s, is performed by **csvToSparse** function and the conversion from a sparse to a dense matrix is done by **h5tocsv**

@@ -5,8 +5,8 @@
 #' @param threads, integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster
 #' @param X, from 0 to 1 argument for XL-mHG default 0.15, for more info see cometsc help.
 #' @param K, the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big
-#' @param counts, If set to True it will graph the log(expression+1). To be used if unlogged data are provided
-#' @param skipvis, Set to True to skip visualizations
+#' @param counts, if set to True it will graph the log(expression+1). To be used if unlogged data are provided
+#' @param skipvis, set to True to skip visualizations
 #' @param nCluster, number of interested cluster used for analysis
 #' @param scratch.folder, temporary folder where calculation is made
 #' @param separator, separator used in count file, e.g. '\\t', ','
@@ -76,7 +76,7 @@ cometsc <- function(group=c("sudo","docker"), file, scratch.folder, threads=1,  
   
   #waiting for the end of the container work
   if(resultRun==0){
-    system(paste("cp -r ", scrat_tmp.folder,"/output* ",data.folder,"/Results/", sep=""))
+    system(paste("cp -R ", scrat_tmp.folder,"/output* ",data.folder,"/Results/", sep=""))
   }
   #running time 2
   ptm <- proc.time() - ptm
@@ -109,6 +109,6 @@ cometsc <- function(group=c("sudo","docker"), file, scratch.folder, threads=1,  
   system("rm -fR out.info")
   system("rm -fR dockerID")
   system("rm  -fR tempFolderID")
-  system(paste("cp ",paste(path.package(package="docker4seq"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
+  system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
 }

@@ -21,9 +21,9 @@ cometsc(group = c("sudo", "docker"), file, scratch.folder, threads = 1,
 
 \item{K, }{the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big}
 
-\item{counts, }{If set to True it will graph the log(expression+1). To be used if unlogged data are provided}
+\item{counts, }{if set to True it will graph the log(expression+1). To be used if unlogged data are provided}
 
-\item{skipvis, }{Set to True to skip visualizations}
+\item{skipvis, }{set to True to skip visualizations}
 
 \item{nCluster, }{number of interested cluster used for analysis}
 
