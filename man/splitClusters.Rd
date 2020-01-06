@@ -19,7 +19,7 @@ splitClusters(group = c("sudo", "docker"), scratch.folder, file,
 \item{nCluster, }{interesting number of clusters}
 }
 \value{
-plot with cluster stability
+one Matrix for each cluster
 }
 \description{
 This function executes a ubuntu docker that merge two matrix

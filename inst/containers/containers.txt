@@ -29,4 +29,6 @@ docker.io/repbioinfo/unstablefiltering
 docker.io/repbioinfo/sra.2018.01
 docker.io/repbioinfo/scanpypermutation
 docker.io/repbioinfo/stpipelineofficial
+docker.io/repbioinfo/cometsc.2020.01
+
 
