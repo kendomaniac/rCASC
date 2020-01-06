@@ -10,6 +10,7 @@
 #' @param nCluster, number of interested cluster used for analysis
 #' @param scratch.folder, temporary folder where calculation is made
 #' @param separator, separator used in count file, e.g. '\\t', ','
+#' @return folders with prefix output. More info in output at https://hgmd.readthedocs.io/en/latest/Output.html
 #' @author Raffaele Calogero,raffaele.calogero [at] unito [dot] it, University of Torino
 #' 
 #' @examples

@@ -29,6 +29,9 @@ cometsc(group = c("sudo", "docker"), file, threads = 1, X = 0.15,
 
 \item{scratch.folder, }{temporary folder where calculation is made}
 }
+\value{
+folders with prefix output. More info in output at https://hgmd.readthedocs.io/en/latest/Output.html
+}
 \description{
 This function executes a ubuntu docker for cometsc (https://github.com/MSingerLab/COMETSC)
 }
