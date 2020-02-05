@@ -4,9 +4,18 @@
 \alias{genesSelection}
 \title{Genes selection from genesPrioritization output}
 \usage{
-genesSelection(group = c("sudo", "docker"), scratch.folder, file,
-  nCluster, separator, seed = 111, sp = 0.8, clusterPermErr = 0.05,
-  maxDeltaConfidence = 0.01, minLogMean = 0.05)
+genesSelection(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  seed = 111,
+  sp = 0.8,
+  clusterPermErr = 0.05,
+  maxDeltaConfidence = 0.01,
+  minLogMean = 0.05
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -40,7 +49,7 @@ This function executes a ubuntu docker that extracts the genes playin major role
 system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
-genesSelection(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nCluster=5, separator="\\t",  seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=0.01, minLogMean=0.05)
+genesSelection(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nCluster=5, separator="\t",  seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=0.01, minLogMean=0.05)
 }
 
 }

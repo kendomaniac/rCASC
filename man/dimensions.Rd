@@ -26,7 +26,7 @@ This function executes a ubuntu docker that counts row and colums of a counts ta
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 unzip("annotated_setPace_10000_noC5.txt.zip")
 dimensions(group="docker", scratch.folder="/data/scratch",
-            file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), separator="\\t")
+            file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
 }
 }
 \author{

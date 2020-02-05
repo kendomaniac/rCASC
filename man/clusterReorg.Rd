@@ -4,8 +4,16 @@
 \alias{clusterReorg}
 \title{Reorganize Cluster}
 \usage{
-clusterReorg(group = c("sudo", "docker"), scratch.folder, file, nCluster,
-  A, B, separator, sp = 0.8)
+clusterReorg(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  A,
+  B,
+  separator,
+  sp = 0.8
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

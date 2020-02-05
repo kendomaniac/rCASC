@@ -4,8 +4,14 @@
 \alias{topx}
 \title{A function to selectec top X on the basis of gene/transcript expression}
 \usage{
-topx(group = c("sudo", "docker"), file, threshold, separator,
-  logged = FALSE, type = c("expression", "variance"))
+topx(
+  group = c("sudo", "docker"),
+  file,
+  threshold,
+  separator,
+  logged = FALSE,
+  type = c("expression", "variance")
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -32,10 +38,10 @@ This function select the X top genes given a user defined threshold
  system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
  system("gzip -d singlecells_counts.txt.gz")
  topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"),
-       threshold=10000, logged=FALSE, type="expression", separator="\\t")
+       threshold=10000, logged=FALSE, type="expression", separator="\t")
        
  topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"), 
-       threshold=10000, logged=FALSE, type="variance", separator="\\t")
+       threshold=10000, logged=FALSE, type="variance", separator="\t")
 }
 
 }

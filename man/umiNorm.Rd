@@ -4,9 +4,12 @@
 \alias{umiNorm}
 \title{Running SCnorm  normalization}
 \usage{
-umiNorm(group = c("sudo", "docker"), file, outputName,
-  normMethod = c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN", "SUM_FN",
-  "TMM_FN", "UQ_FN"))
+umiNorm(
+  group = c("sudo", "docker"),
+  file,
+  outputName,
+  normMethod = c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN", "SUM_FN", "TMM_FN", "UQ_FN")
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

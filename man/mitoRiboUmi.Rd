@@ -4,8 +4,15 @@
 \alias{mitoRiboUmi}
 \title{MitoRiboUmi}
 \usage{
-mitoRiboUmi(group = c("sudo", "docker"), scratch.folder, file, separator,
-  gtf.name, bio.type, umiXgene)
+mitoRiboUmi(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  gtf.name,
+  bio.type,
+  umiXgene
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

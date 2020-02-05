@@ -4,9 +4,17 @@
 \alias{stpipeline}
 \title{Spatial transcriptomics pipeline}
 \usage{
-stpipeline(group = c("sudo", "docker"), scratch.folder, data.folder,
-  genome.folder, fastqPathFolder, ID, imgNameAndPath, slide = NULL,
-  area = NULL)
+stpipeline(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  data.folder,
+  genome.folder,
+  fastqPathFolder,
+  ID,
+  imgNameAndPath,
+  slide = NULL,
+  area = NULL
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

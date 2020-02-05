@@ -4,10 +4,20 @@
 \alias{indropCounts}
 \title{A function to handle a indrop V2 single cell data}
 \usage{
-indropCounts(group = c("sudo", "docker"), scratch.folder, fastq.folder,
-  index.folder, sample.name, split.affixes,
-  bowtie.index.prefix = "genome", M = 10, U = 2, D = 400,
-  low.complexity.mask = "False", umi.threshold = 3)
+indropCounts(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  fastq.folder,
+  index.folder,
+  sample.name,
+  split.affixes,
+  bowtie.index.prefix = "genome",
+  M = 10,
+  U = 2,
+  D = 400,
+  low.complexity.mask = "False",
+  umi.threshold = 3
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

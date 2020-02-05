@@ -4,8 +4,14 @@
 \alias{permAnalysisGriph}
 \title{Permutation Analysis Griph}
 \usage{
-permAnalysisGriph(group = c("sudo", "docker"), scratch.folder, file,
-  nCluster, separator, sp = 0.8)
+permAnalysisGriph(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  sp = 0.8
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -40,7 +46,7 @@ This function analyze the data that came up from permutationClustering script.
  
  seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
       file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
-      nPerm=160, permAtTime=8, percent=10, separator="\\t",
+      nPerm=160, permAtTime=8, percent=10, separator="\t",
       logTen=0, pcaDimensions=6, seed=111)
 }
 }

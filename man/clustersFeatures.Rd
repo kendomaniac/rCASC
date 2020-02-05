@@ -4,8 +4,13 @@
 \alias{clustersFeatures}
 \title{A function to extract priority lists of genes from ANOVAlike output}
 \usage{
-clustersFeatures(group = c("sudo", "docker"), fileLogFC, fileCounts,
-  delta = 0.5, sep)
+clustersFeatures(
+  group = c("sudo", "docker"),
+  fileLogFC,
+  fileCounts,
+  delta = 0.5,
+  sep
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -32,7 +37,7 @@ setwd("clusters.features")
 
     clustersFeatures(group="docker", fileLogFC=paste(getwd(),
        "logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt",sep="/"),
-        fileCounts=paste(getwd(),"annotated_setPace_10000_noC5_reordered.txt",sep="/"), delta=0.5, sep="\\t")
+        fileCounts=paste(getwd(),"annotated_setPace_10000_noC5_reordered.txt",sep="/"), delta=0.5, sep="\t")
 }
 
 }

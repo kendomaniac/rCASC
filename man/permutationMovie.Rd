@@ -4,8 +4,15 @@
 \alias{permutationMovie}
 \title{Permutation Movie}
 \usage{
-permutationMovie(group = c("sudo", "docker"), scratch.folder, file,
-  nCluster, separator, framePP, permutationNumber)
+permutationMovie(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  framePP,
+  permutationNumber
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

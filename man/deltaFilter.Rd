@@ -4,8 +4,16 @@
 \alias{deltaFilter}
 \title{Filterin}
 \usage{
-deltaFilter(threshold, minDelta, minNGene, original, menoRibo, separator,
-  format, wf)
+deltaFilter(
+  threshold,
+  minDelta,
+  minNGene,
+  original,
+  menoRibo,
+  separator,
+  format,
+  wf
+)
 }
 \arguments{
 \item{threshold, }{value to estimate if a gene is significatively expressed}

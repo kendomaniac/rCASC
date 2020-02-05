@@ -4,8 +4,16 @@
 \alias{mergeMatrix}
 \title{Merge matrix}
 \usage{
-mergeMatrix(group = c("sudo", "docker"), scratch.folder, file1, file2,
-  separator1, separator2, name1 = "NULL", name2 = "NULL")
+mergeMatrix(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file1,
+  file2,
+  separator1,
+  separator2,
+  name1 = "NULL",
+  name2 = "NULL"
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -36,11 +44,11 @@ system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 unzip("annotated_setPace_10000_noC5.txt.zip")
 subSetCell(group="docker", scratch.folder="/data/scratch", 
            file=paste(getwd(), "annotated_setPace_10000_noC5.txt",sep="/"), 
-           separator="\\t", cells.number=200)
+           separator="\t", cells.number=200)
 mergeMatrix(group="docker", scratch.folder="/data/scratch", 
             file1=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"),
             file2=paste(getwd(),"subset_200_annotated_setPace_10000_noC5.txt", sep="/"), 
-            separator1="\\t",separator2="\\t",name1="test1",name2="test2")
+            separator1="\t",separator2="\t",name1="test1",name2="test2")
 }
 }
 \author{

@@ -4,8 +4,13 @@
 \alias{splitClusters}
 \title{Split Matrix for each clusters}
 \usage{
-splitClusters(group = c("sudo", "docker"), scratch.folder, file,
-  separator, nCluster)
+splitClusters(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  nCluster
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

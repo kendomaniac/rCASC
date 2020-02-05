@@ -4,9 +4,16 @@
 \alias{deDetection}
 \title{A function allowing the identification of differentially expressed genes.}
 \usage{
-deDetection(group = c("sudo", "docker"), data.folder, counts.table,
-  file.type = c("txt", "csv"), logFC.threshold = 1, FDR.threshold,
-  logCPM.threshold = 4, plot = c(TRUE, FALSE))
+deDetection(
+  group = c("sudo", "docker"),
+  data.folder,
+  counts.table,
+  file.type = c("txt", "csv"),
+  logFC.threshold = 1,
+  FDR.threshold,
+  logCPM.threshold = 4,
+  plot = c(TRUE, FALSE)
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -35,7 +42,7 @@ This function executes in a docker edgeR for the idnetification of differentiall
     unzip("buettner_counts_noSymb.txt.zip")
     lorenzFilter(group="docker", scratch.folder="/data/scratch/",
                 data.folder=getwd(), matrixName="buettner_counts_noSymb",
-                p_value=0.05, format="txt", separator='\\t')
+                p_value=0.05, format="txt", separator='\t')
 
     system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
     system("gzip -d Mus_musculus.GRCm38.92.gtf.gz")

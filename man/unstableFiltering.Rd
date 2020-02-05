@@ -4,8 +4,14 @@
 \alias{unstableFiltering}
 \title{unstableFiltering}
 \usage{
-unstableFiltering(group = c("sudo", "docker"), scratch.folder, file,
-  nCluster, separator, sThreshold)
+unstableFiltering(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  sThreshold
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -28,7 +34,7 @@ This function executes a ubuntu docker that remove cells on the basis of their c
 }
 \examples{
 \dontrun{
-unstableFiltering(group="docker", scratch.folder="/media/lucastormreig/8799-82B32/PHD/CASC8.1Stable/CASC8.0STABLE/new/unstableFiltering/scratch/", file="/media/lucastormreig/8799-82B32/PHD/CASC8.1Stable/CASC8.0STABLE/new/unstableFiltering/data/testset.txt",nCluster=5, separator="\\t",sThreshold=0.75)
+unstableFiltering(group="docker", scratch.folder="/media/lucastormreig/8799-82B32/PHD/CASC8.1Stable/CASC8.0STABLE/new/unstableFiltering/scratch/", file="/media/lucastormreig/8799-82B32/PHD/CASC8.1Stable/CASC8.0STABLE/new/unstableFiltering/data/testset.txt",nCluster=5, separator="\t",sThreshold=0.75)
 }
 }
 \author{

@@ -4,8 +4,7 @@
 \alias{h5tocsv}
 \title{sparse to dense}
 \usage{
-h5tocsv(group = c("sudo", "docker"), file, type = c("h5",
-  "10xgenomics"))
+h5tocsv(group = c("sudo", "docker"), file, type = c("h5", "10xgenomics"))
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -30,7 +29,7 @@ h5tocsv(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1.h5",sep="/"
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 unzip("annotated_setPace_10000_noC5.txt.zip")
 csvToSparse(group="docker", scratch="/data/scratch", file=paste(getwd(), 
-            "annotated_setPace_10000_noC5.txt", sep="/"), separator="\\t")
+            "annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
 h5tocsv(group="docker", file=paste(getwd(),"matrix.mtx",sep="/"), type="10xgenomics")
 }
 

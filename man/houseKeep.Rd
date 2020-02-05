@@ -4,8 +4,16 @@
 \alias{houseKeep}
 \title{houseKeep Filtering}
 \usage{
-houseKeep(group = c("sudo", "docker"), scratch.folder, file, separator,
-  logTen, geneNameControl = 1, houseK, topCell)
+houseKeep(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  logTen,
+  geneNameControl = 1,
+  houseK,
+  topCell
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

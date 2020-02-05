@@ -4,9 +4,19 @@
 \alias{scanpyBootstrap}
 \title{Executing clustering with scanpy}
 \usage{
-scanpyBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
-  permAtTime, percent, separator, perplexity = 40, pca_number = 50,
-  seed = 111, format = "NULL")
+scanpyBootstrap(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  perplexity = 40,
+  pca_number = 50,
+  seed = 111,
+  format = "NULL"
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -44,7 +54,7 @@ unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
 scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",
                 file=paste(getwd(), "matrix.mtx", sep="/"), 
-                nPerm=160, permAtTime=8, percent=10, separator="\\t", 
+                nPerm=160, permAtTime=8, percent=10, separator="\t", 
                 perplexity=10, pca_number=6, seed=111, format="txt")
 }
 }

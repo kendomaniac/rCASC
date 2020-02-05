@@ -4,8 +4,13 @@
 \alias{lorenzFilter}
 \title{A function to handle sigle cell Lorenz Quality filter for Single-cells}
 \usage{
-lorenzFilter(group = c("sudo", "docker"), scratch.folder, file, p_value,
-  separator)
+lorenzFilter(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  p_value,
+  separator
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

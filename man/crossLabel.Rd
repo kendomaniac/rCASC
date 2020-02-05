@@ -4,8 +4,14 @@
 \alias{crossLabel}
 \title{Cross Label}
 \usage{
-crossLabel(group = c("sudo", "docker"), scratch.folder, file, nCluster,
-  separator, finalName)
+crossLabel(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  finalName
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

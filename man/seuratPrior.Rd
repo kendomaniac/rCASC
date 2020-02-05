@@ -4,9 +4,19 @@
 \alias{seuratPrior}
 \title{seuratprior}
 \usage{
-seuratPrior(group = c("sudo", "docker"), scratch.folder, file, separator,
-  logTen = 0, seed = 111, PCADim, geneNumber, nCluster,
-  sparse = FALSE, format = "NULL")
+seuratPrior(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  logTen = 0,
+  seed = 111,
+  PCADim,
+  geneNumber,
+  nCluster,
+  sparse = FALSE,
+  format = "NULL"
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -48,7 +58,7 @@ This function executes a ubuntu docker that produces a specific number of permut
  scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
  gtf.name="genome.gtf", biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
  
- seuratPrior(group="docker", scratch.folder="/data/scratch/", file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), separator="\\t", logTen=0, seed=111, PCADim=6, geneNumber = 100, nCluster=5)
+ seuratPrior(group="docker", scratch.folder="/data/scratch/", file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), separator="\t", logTen=0, seed=111, PCADim=6, geneNumber = 100, nCluster=5)
 }
 }
 \author{

@@ -4,9 +4,18 @@
 \alias{cometsc}
 \title{Marker genes discovery with COMETSC}
 \usage{
-cometsc(group = c("sudo", "docker"), file, scratch.folder, threads = 1,
-  X = 0.15, K = 2, counts = c("True", "False"), skipvis = c("True",
-  "False"), nCluster, separator)
+cometsc(
+  group = c("sudo", "docker"),
+  file,
+  scratch.folder,
+  threads = 1,
+  X = 0.15,
+  K = 2,
+  counts = c("True", "False"),
+  skipvis = c("True", "False"),
+  nCluster,
+  separator
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

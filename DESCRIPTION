@@ -19,4 +19,4 @@ Description: A collection of functions to analyse single cell data
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2

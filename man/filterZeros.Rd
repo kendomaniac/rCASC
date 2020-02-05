@@ -24,7 +24,7 @@ This function plots the zeros distributions in cells and removes genes without  
     #downloading fastq files
     system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
     system("gzip -d singlecells_counts.txt.gz")
-    filterZeros(file=paste(getwd(),"singlecells_counts.txt",sep="/"), threshold=0.1, sep="\\t")
+    filterZeros(file=paste(getwd(),"singlecells_counts.txt",sep="/"), threshold=0.1, sep="\t")
 }
 }
 \author{

@@ -4,9 +4,20 @@
 \alias{seuratPermutation}
 \title{Seurat Permutation}
 \usage{
-seuratPermutation(group = c("sudo", "docker"), scratch.folder, file,
-  nPerm, permAtTime, percent, separator, logTen = 0, pcaDimensions,
-  seed = 1111, sparse = FALSE, format = "NULL")
+seuratPermutation(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  logTen = 0,
+  pcaDimensions,
+  seed = 1111,
+  sparse = FALSE,
+  format = "NULL"
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -53,7 +64,7 @@ This function executes a ubuntu docker that produces a specific number of permut
  
  seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
       file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
-      nPerm=160, permAtTime=8, percent=10, separator="\\t",
+      nPerm=160, permAtTime=8, percent=10, separator="\t",
       logTen=0, pcaDimensions=6, seed=111)
 }
 }

@@ -4,8 +4,15 @@
 \alias{bootstrapsVideo}
 \title{Bootstraps vide}
 \usage{
-bootstrapsVideo(group = c("sudo", "docker"), scratch.folder, file,
-  nCluster, separator, framePP = 200, permutationNumber)
+bootstrapsVideo(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  framePP = 200,
+  permutationNumber
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

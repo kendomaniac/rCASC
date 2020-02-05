@@ -4,8 +4,17 @@
 \alias{griphBootstrap}
 \title{Executing clustering with griph.}
 \usage{
-griphBootstrap(group = c("sudo", "docker"), scratch.folder, file, nPerm,
-  permAtTime, percent, separator, logTen = 0, seed = 111)
+griphBootstrap(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  logTen = 0,
+  seed = 111
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -39,7 +48,7 @@ unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
 griphBootstrap(group="docker",scratch.folder="/data/scratch/",
                file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
-               nPerm=160, permAtTime=8, percent=10, separator="\\t",logTen=0, 
+               nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, 
                seed=111)
 }
 }

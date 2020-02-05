@@ -4,8 +4,14 @@
 \alias{impute}
 \title{Imputing dropouts}
 \usage{
-impute(group = c("sudo", "docker"), data.folder, counts.matrix,
-  drop.thre, cores, refining = FALSE)
+impute(
+  group = c("sudo", "docker"),
+  data.folder,
+  counts.matrix,
+  drop.thre,
+  cores,
+  refining = FALSE
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

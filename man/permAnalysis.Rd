@@ -4,9 +4,18 @@
 \alias{permAnalysis}
 \title{Permutation Analysis}
 \usage{
-permAnalysis(group = c("sudo", "docker"), scratch.folder, file, range1,
-  range2, separator, sp, clusterPermErr = 0.05,
-  maxDeltaConfidence = 0.01, minLogMean = 0.05)
+permAnalysis(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  range1,
+  range2,
+  separator,
+  sp,
+  clusterPermErr = 0.05,
+  maxDeltaConfidence = 0.01,
+  minLogMean = 0.05
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

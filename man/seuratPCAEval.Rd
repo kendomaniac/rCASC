@@ -4,9 +4,16 @@
 \alias{seuratPCAEval}
 \title{Estimating the range of PC components to be used in Seurat clustering}
 \usage{
-seuratPCAEval(group = c("sudo", "docker"), scratch.folder, file,
-  separator, logTen = 0, seed = 1111, sparse = FALSE,
-  format = "NULL")
+seuratPCAEval(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  logTen = 0,
+  seed = 1111,
+  sparse = FALSE,
+  format = "NULL"
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -44,7 +51,7 @@ This function estimates the information content of the PCs of the experiment, re
  
  seuratPCAEval(group="docker",scratch.folder="/data/scratch/", 
           file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
-          separator="\\t", logTen = 0, seed = 111, format="NULL")
+          separator="\t", logTen = 0, seed = 111, format="NULL")
 }
 }
 \author{

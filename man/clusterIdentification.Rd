@@ -4,8 +4,13 @@
 \alias{clusterIdentification}
 \title{Cluster identification}
 \usage{
-clusterIdentification(group = c("sudo", "docker"), scratch.folder, file,
-  nCluster, separator)
+clusterIdentification(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

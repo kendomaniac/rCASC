@@ -4,8 +4,12 @@
 \alias{indropIndex}
 \title{A function to create a genome index for indrop V2 single cell data}
 \usage{
-indropIndex(group = c("sudo", "docker"), index.folder, ensembl.urlgenome,
-  ensembl.urlgtf)
+indropIndex(
+  group = c("sudo", "docker"),
+  index.folder,
+  ensembl.urlgenome,
+  ensembl.urlgtf
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

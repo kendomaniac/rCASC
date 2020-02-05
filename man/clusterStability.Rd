@@ -4,9 +4,20 @@
 \alias{clusterStability}
 \title{Permutations and Clustering}
 \usage{
-clusterStability(group = c("sudo", "docker"), scratch.folder, file,
-  nPerm, range1 = 3, range2 = 3, separator, logTen = 0, clustering,
-  perplexity = 10, pcaDimensions, seed = 1111)
+clusterStability(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  range1 = 3,
+  range2 = 3,
+  separator,
+  logTen = 0,
+  clustering,
+  perplexity = 10,
+  pcaDimensions,
+  seed = 1111
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

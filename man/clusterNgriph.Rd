@@ -4,8 +4,17 @@
 \alias{clusterNgriph}
 \title{Defining with griph the range of  number of clusters to be used with SIMLR}
 \usage{
-clusterNgriph(group = c("sudo", "docker"), scratch.folder, file, nPerm,
-  permAtTime, percent, separator, logTen = 0, seed = 111)
+clusterNgriph(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  logTen = 0,
+  seed = 111
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -34,7 +43,7 @@ This function executes a ubuntu docker that produces a specific number of permut
 }
 \examples{
 \dontrun{
- clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=16, permAtTime=8, percent=10, separator="\\t",logTen=0, seed=111)
+ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=16, permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
 }
 }
 \author{

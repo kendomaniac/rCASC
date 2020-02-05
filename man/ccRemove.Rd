@@ -4,8 +4,16 @@
 \alias{ccRemove}
 \title{Cc remove}
 \usage{
-ccRemove(group = c("sudo", "docker"), scratch.folder, file, separator,
-  seed = 111, cutoff = 3, species, rawCount)
+ccRemove(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  seed = 111,
+  cutoff = 3,
+  species,
+  rawCount
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

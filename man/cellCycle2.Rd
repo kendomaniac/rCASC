@@ -4,8 +4,19 @@
 \alias{cellCycle2}
 \title{Cell Cycle}
 \usage{
-cellCycle2(group = c("sudo", "docker"), scratch.folder, file, separator,
-  G1_a, G1_b, S_a, S_b, G2M_a, G2M_b, seed = 111)
+cellCycle2(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  G1_a,
+  G1_b,
+  S_a,
+  S_b,
+  G2M_a,
+  G2M_b,
+  seed = 111
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}

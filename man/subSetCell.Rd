@@ -4,8 +4,13 @@
 \alias{subSetCell}
 \title{Subset Cell}
 \usage{
-subSetCell(group = c("sudo", "docker"), scratch.folder, file, separator,
-  cells.number)
+subSetCell(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  cells.number
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -31,7 +36,7 @@ unzip("annotated_setPace_10000_noC5.txt.zip")
 
 subSetCell<- function(group="docker", scratch.folder="/data/scratch", 
                        file=paste(getwd(), "annotated_setPace_10000_noC5.txt",sep="/"), 
-                       separator="\\t", cells.number=200)
+                       separator="\t", cells.number=200)
 }
 }
 \author{

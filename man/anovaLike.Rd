@@ -4,9 +4,17 @@
 \alias{anovaLike}
 \title{A function allowing the identification of differentially expressed genes.}
 \usage{
-anovaLike(group = c("sudo", "docker"), file, sep, cluster.file,
-  ref.cluster, logFC.threshold = 1, FDR.threshold,
-  logCPM.threshold = 4, plot = c(TRUE, FALSE))
+anovaLike(
+  group = c("sudo", "docker"),
+  file,
+  sep,
+  cluster.file,
+  ref.cluster,
+  logFC.threshold = 1,
+  FDR.threshold,
+  logCPM.threshold = 4,
+  plot = c(TRUE, FALSE)
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -40,7 +48,7 @@ system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clusterin
 system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 unzip("annotated_setPace_10000_noC5.txt.zip")
 anovaLike(group="docker", file=paste(getwd(),"annotated_setPace_10000_noC5.txt",sep="/"),
-       sep="\\t", cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", ref.cluster=3,
+       sep="\t", cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", ref.cluster=3,
        logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
 
 }

@@ -4,9 +4,20 @@
 \alias{genesPrioritization}
 \title{Gene prioritization with SIMLR}
 \usage{
-genesPrioritization(group = c("sudo", "docker"), scratch.folder, file,
-  nPerm, permAtTime, percent, nCluster, separator, logTen = 0,
-  seed = 111, sp = 0.8, clusterPermErr = 0.05)
+genesPrioritization(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  nCluster,
+  separator,
+  logTen = 0,
+  seed = 111,
+  sp = 0.8,
+  clusterPermErr = 0.05
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -44,7 +55,7 @@ This function executes a ubuntu docker that produces a specific number of permut
 system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
-genesPrioritization(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, nCluster=5, separator="\\t", logTen=0, seed=111, sp=0.8, clusterPermErr=0.05)
+genesPrioritization(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, nCluster=5, separator="\t", logTen=0, seed=111, sp=0.8, clusterPermErr=0.05)
 }
 
 }
