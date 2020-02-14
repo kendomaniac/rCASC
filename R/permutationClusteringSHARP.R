@@ -8,6 +8,7 @@
 #' @param percent, percentage of randomly selected cells removed in each permutation
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param logTen, 1 if the count matrix is already in log10, 0 otherwise
+#' @param perplexity, number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.  the performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data.  A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50
 #' @param seed, important value to reproduce the same results with same input
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
@@ -15,15 +16,15 @@
 #' @return VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
 #' @examples
 #' \dontrun{
-#'  permutationClustering("docker","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",4,2,10,3,4,separator=",",logTen=0,clustering="SIMLR",perplexity=0)
+#'  permutationClusteringSHARP(group="docker",scratch.folder="/home/lucastormreig/CASC2.0/permutationClustering/scratch/",file="/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",nPerm=4,permAtTime=2,percent=10,3,4,separator=",",logTen=0, perplexity, seed=1111)
 #'}
 #' @export
-permutationClusteringSHARP <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0,seed=1111){
+permutationClusteringSHARP <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0,seed=1111, perplexity=10){
   range1=0
   range2=0
-  perplexity=10
+  perplexity=perplexity
   rK=0
-   clustering="griph"
+  #clustering="griph"
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]

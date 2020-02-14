@@ -13,7 +13,8 @@ permutationClusteringSHARP(
   percent,
   separator,
   logTen = 0,
-  seed = 1111
+  seed = 1111,
+  perplexity = 10
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ permutationClusteringSHARP(
 \item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
 
 \item{seed, }{important value to reproduce the same results with same input}
+
+\item{perplexity, }{number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.  the performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data.  A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50}
 }
 \value{
 VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
@@ -43,7 +46,7 @@ This function executes a ubuntu docker that produces a specific number of permut
 }
 \examples{
 \dontrun{
- permutationClustering("docker","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",4,2,10,3,4,separator=",",logTen=0,clustering="SIMLR",perplexity=0)
+ permutationClusteringSHARP(group="docker",scratch.folder="/home/lucastormreig/CASC2.0/permutationClustering/scratch/",file="/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",nPerm=4,permAtTime=2,percent=10,3,4,separator=",",logTen=0, perplexity, seed=1111)
 }
 }
 \author{

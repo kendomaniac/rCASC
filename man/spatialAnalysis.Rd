@@ -34,7 +34,7 @@ This function analyze the data that came up from permutationClustering script wi
 }
 \examples{
 \dontrun{
-spatialAnalysis(group="sudo", scratch.folder="/scratch", file="/home/lucastormreig/newDockers/data/matrix.csv",nCluster=13,separator=",","/home/lucastormreig/newDockers/data/tissue_positions_list.csv")#
+spatialAnalysis(group="sudo", scratch.folder="/scratch", file="/home/lucastormreig/newDockers/data/matrix.csv",nCluster=13,separator=",",tissuePosition="/home/lucastormreig/newDockers/data/tissue_positions_list.csv")
 }
 }
 \author{
