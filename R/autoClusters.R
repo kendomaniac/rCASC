@@ -8,6 +8,7 @@
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param pcaDimensions, number of dimensions to use for Seurat Pca reduction. 
 #' @param seed, important value to reproduce the same results with same input
+#' @param clusterMethod, clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return 

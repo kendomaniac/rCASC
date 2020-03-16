@@ -27,6 +27,8 @@ autoencoderClustering(
 
 \item{nCluster, }{number of cluster in which the dataset is divided}
 
+\item{clusterMethod, }{clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"}
+
 \item{seed, }{important value to reproduce the same results with same input}
 
 \item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}

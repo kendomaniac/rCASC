@@ -16,7 +16,8 @@ autoencoder(
   patiencePercentage = 5,
   cl,
   seed = 1111,
-  projectName
+  projectName,
+  bN = "NULL"
 )
 }
 \arguments{
@@ -44,7 +45,7 @@ autoencoder(
 
 \item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
 
-\item{permAtTime, }{number of permutations that can be computes in parallel}
+\item{bN, }{name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided,}
 }
 \value{
 
