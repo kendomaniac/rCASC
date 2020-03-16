@@ -12,6 +12,7 @@
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param bias, bias method to use : "mirna" , "TF", "CUSTOM"
 #' @param cl, Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong.All path needs to be provided.  
+#' @param bN, name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided, 
 #' @param seed, important value to reproduce the same results with same input
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
@@ -21,7 +22,7 @@
 #'  autoencoder(group="docker",scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker/scratch",file="/home/user/Riccardo/Riccardo/1_inDocker/data/setA.csv",separator=",",nCluster=5,bias="TF",permutation=10,nEpochs=10,cl="/home/user/Riccardo/Riccardo/1_inDocker/data/setA_clustering.output.csv",projectName="testDocker")
 #'}
 #' @export
-autoencoder <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster, bias, permutation, nEpochs,patiencePercentage=5, cl,seed=1111,projectName){
+autoencoder <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster, bias, permutation, nEpochs,patiencePercentage=5, cl,seed=1111,projectName,bN="NULL"){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -75,11 +76,13 @@ separator="tab"
 
 system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/",sep=""))
 system(paste("cp ",cl," ",scrat_tmp.folder,"/",sep=""))
+system(paste("cp ",bN," ",scrat_tmp.folder,"/",sep=""))
 
 cl=basename(cl)
+  bN=basename(bN)
 print(cl)
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d repbioinfo/autoencodercpu python3 /home/autoencoder.py ",matrixNameC,".",format," ",separator," ",nCluster," ",bias," ",permutation," ",nEpochs," ",patiencePercentage," ",projectName," ",cl," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d repbioinfo/autoencodercpu python3 /home/autoencoder.py ",matrixNameC,".",format," ",separator," ",nCluster," ",bias," ",permutation," ",nEpochs," ",patiencePercentage," ",projectName," ",cl," ",seed," ",bN,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
