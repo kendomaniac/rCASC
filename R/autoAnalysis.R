@@ -18,7 +18,7 @@
 
 #'}
 #' @export
-autoencoderAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster,seed=1111,projectName,Sp,bestPerm){
+autoencoderAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster,seed=1111,projectName,Sp,bestPerm=1){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
