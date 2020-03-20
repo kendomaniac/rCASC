@@ -74,7 +74,7 @@ system(paste("cp -r ",data.folder," ",scrat_tmp.folder,"/",sep=""))
 
   #executing the docker job
  
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationanalysis Rscript /home/mainAutoencoder.R ",matrixName," ",format," ",projectName," ",separator," ",Sp," ",nCluster," ",bestPerm," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationanalysisv2 Rscript /home/mainAutoencoder.R ",matrixName," ",format," ",projectName," ",separator," ",Sp," ",nCluster," ",bestPerm," ",seed,sep="")
 
 
 resultRun <- runDocker(group=group, params=params)
