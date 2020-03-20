@@ -112,7 +112,6 @@ resultRun <- runDocker(group=group, params=params)
 
   #Copy result folder
   cat("Copying Result Folder")
-  system(paste("rm ",scrat_tmp.folder,"/*.pdf ",sep=""))
   system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/../",sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
