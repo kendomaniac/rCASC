@@ -13,7 +13,7 @@ autoencoderAnalysis(
   seed = 1111,
   projectName,
   Sp,
-  bestPerm
+  bestPerm = 1
 )
 }
 \arguments{
