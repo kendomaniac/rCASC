@@ -18,7 +18,7 @@
 
 #'}
 #' @export
-autoencoderAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster,seed=1111,projectName,Sp,bestPerm){
+autoencoderAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster,seed=1111,projectName,Sp,bestPerm=1){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -74,7 +74,7 @@ system(paste("cp -r ",data.folder," ",scrat_tmp.folder,"/",sep=""))
 
   #executing the docker job
  
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationanalysis Rscript /home/mainAutoencoder.R ",matrixName," ",format," ",projectName," ",separator," ",Sp," ",nCluster," ",bestPerm," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationanalysisv2 Rscript /home/mainAutoencoder.R ",matrixName," ",format," ",projectName," ",separator," ",Sp," ",nCluster," ",bestPerm," ",seed,sep="")
 
 
 resultRun <- runDocker(group=group, params=params)
@@ -112,7 +112,6 @@ resultRun <- runDocker(group=group, params=params)
 
   #Copy result folder
   cat("Copying Result Folder")
-  system(paste("rm ",scrat_tmp.folder,"/*.pdf ",sep=""))
   system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/../",sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
