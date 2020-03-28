@@ -6,7 +6,7 @@ Our group is deeply involved in developing workflows that guarantee both **funct
 rCASC, Cluster Analysis of Single Cells, is part of the [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [[*PLoS Comp Biol. 2013*](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285)]. rCASC is designed to provide a complete workflow (Figure 1) for cell-subpopulation discovery. 
 rCASC was published by Alessandri et al. in [GigaScience in 2019](https://academic.oup.com/gigascience/article/8/9/giz105/5565135)
 
-![Fig. 1:rCASC workflow](fig1.jpg)
+![Fig. 1:rCASC workflow](fig1.png)
 
 **rCASC** is registed with RRID SCR_017005 at [*SciCrunch*](scicrunch.org). **rCASC** is part of  [*Elixir bio.tools*](https://bio.tools/).
 
