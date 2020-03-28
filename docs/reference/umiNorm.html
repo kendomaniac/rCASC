@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.5</span>
       </span>
     </div>
 
@@ -121,9 +121,12 @@
     <p>This function is a wrapper for SCnorm: robust normalization of single-cell RNA-seq data (Bacher et al. Nature Methods 2017, 14:584–586)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>umiNorm</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>file</span>, <span class='no'>outputName</span>,
-  <span class='kw'>normMethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CLR_FN"</span>, <span class='st'>"DESEQ_FN"</span>, <span class='st'>"FQ_FN"</span>, <span class='st'>"SCRAN_FN"</span>, <span class='st'>"SUM_FN"</span>,
-  <span class='st'>"TMM_FN"</span>, <span class='st'>"UQ_FN"</span>))</pre>
+    <pre class="usage"><span class='fu'>umiNorm</span>(
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
+  <span class='no'>file</span>,
+  <span class='no'>outputName</span>,
+  <span class='kw'>normMethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CLR_FN"</span>, <span class='st'>"DESEQ_FN"</span>, <span class='st'>"FQ_FN"</span>, <span class='st'>"SCRAN_FN"</span>, <span class='st'>"SUM_FN"</span>, <span class='st'>"TMM_FN"</span>, <span class='st'>"UQ_FN"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

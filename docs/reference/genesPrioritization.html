@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.5</span>
       </span>
     </div>
 
@@ -121,9 +121,20 @@
     <p>This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering and identify the genes that play the major role in clustering.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>genesPrioritization</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>scratch.folder</span>, <span class='no'>file</span>,
-  <span class='no'>nPerm</span>, <span class='no'>permAtTime</span>, <span class='no'>percent</span>, <span class='no'>nCluster</span>, <span class='no'>separator</span>, <span class='kw'>logTen</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>111</span>, <span class='kw'>sp</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>clusterPermErr</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
+    <pre class="usage"><span class='fu'>genesPrioritization</span>(
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
+  <span class='no'>scratch.folder</span>,
+  <span class='no'>file</span>,
+  <span class='no'>nPerm</span>,
+  <span class='no'>permAtTime</span>,
+  <span class='no'>percent</span>,
+  <span class='no'>nCluster</span>,
+  <span class='no'>separator</span>,
+  <span class='kw'>logTen</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>111</span>,
+  <span class='kw'>sp</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
+  <span class='kw'>clusterPermErr</span> <span class='kw'>=</span> <span class='fl'>0.05</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

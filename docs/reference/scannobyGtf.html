@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.5</span>
       </span>
     </div>
 
@@ -121,11 +121,20 @@
     <p>This function executes the docker container annotate.1, where refGenome is used to annotate a single cell counts table with ensembl gene ids on first column using ENSEMBL GTF annotation</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scannobyGtf</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"docker"</span>, <span class='st'>"sudo"</span>), <span class='no'>file</span>, <span class='no'>gtf.name</span>,
-  <span class='kw'>biotype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='kw'>ribo.proteins</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>,
-  <span class='fl'>FALSE</span>), <span class='kw'>umiXgene</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>riboStart.percentage</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>riboEnd.percentage</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>mitoStart.percentage</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>mitoEnd.percentage</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>thresholdGenes</span> <span class='kw'>=</span> <span class='fl'>250</span>)</pre>
+    <pre class="usage"><span class='fu'>scannobyGtf</span>(
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"docker"</span>, <span class='st'>"sudo"</span>),
+  <span class='no'>file</span>,
+  <span class='no'>gtf.name</span>,
+  <span class='kw'>biotype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>),
+  <span class='kw'>ribo.proteins</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>),
+  <span class='kw'>umiXgene</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>riboStart.percentage</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>riboEnd.percentage</span> <span class='kw'>=</span> <span class='fl'>70</span>,
+  <span class='kw'>mitoStart.percentage</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>mitoEnd.percentage</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>thresholdGenes</span> <span class='kw'>=</span> <span class='fl'>250</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

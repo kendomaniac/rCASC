@@ -1,7 +1,7 @@
 ---
 title: "rCASC vignette"
 author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Nicola Licheri, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
-date: "16/12/2019"
+date: "28/03/2020"
 output: rmarkdown::html_vignette
 
 vignette: >
@@ -27,7 +27,7 @@ rCASC, reproducible Cluster Analysis of Single Cells, is part of the [*reproduci
 ```{r fig.1, fig.cap="rCASC workflow", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
 library(knitr)
 
-include_graphics('../inst/img/fig1.jpg')
+include_graphics('../inst/img/fig1.png')
 
 ```
 

@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.5</span>
       </span>
     </div>
 
@@ -121,9 +121,16 @@
     <p>This function executes in a docker edgeR for the idnetification of differentially expressed genes in single-cells RNAseq</p>
     </div>
 
-    <pre class="usage"><span class='fu'>deDetection</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>data.folder</span>, <span class='no'>counts.table</span>,
-  <span class='kw'>file.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"txt"</span>, <span class='st'>"csv"</span>), <span class='kw'>logFC.threshold</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>FDR.threshold</span>,
-  <span class='kw'>logCPM.threshold</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>))</pre>
+    <pre class="usage"><span class='fu'>deDetection</span>(
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
+  <span class='no'>data.folder</span>,
+  <span class='no'>counts.table</span>,
+  <span class='kw'>file.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"txt"</span>, <span class='st'>"csv"</span>),
+  <span class='kw'>logFC.threshold</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>FDR.threshold</span>,
+  <span class='kw'>logCPM.threshold</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

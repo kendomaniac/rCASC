@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Running SCnorm  checkCountDepth test. — checkCountDepth • rCASC</title>
+<title>Marker genes discovery with COMETSC for autoencoder results — cometsc2 • rCASC</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Running SCnorm  checkCountDepth test. — checkCountDepth" />
-<meta property="og:description" content="This function executes a check on the data count-depth relationship used by SCnorm." />
+<meta property="og:title" content="Marker genes discovery with COMETSC for autoencoder results — cometsc2" />
+<meta property="og:description" content="This function executes a ubuntu docker for cometsc (https://github.com/MSingerLab/COMETSC)" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,24 +112,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Running SCnorm  checkCountDepth test.</h1>
+    <h1>Marker genes discovery with COMETSC for autoencoder results</h1>
     
-    <div class="hidden name"><code>checkCountDepth.Rd</code></div>
+    <div class="hidden name"><code>cometsc2.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a check on the data count-depth relationship used by SCnorm.</p>
+    <p>This function executes a ubuntu docker for cometsc (https://github.com/MSingerLab/COMETSC)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>checkCountDepth</span>(
+    <pre class="usage"><span class='fu'>cometsc2</span>(
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
   <span class='no'>file</span>,
-  <span class='kw'>conditions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>FilterCellProportion</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>FilterExpression</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>ditherCounts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>outputName</span>,
-  <span class='kw'>nCores</span> <span class='kw'>=</span> <span class='fl'>8</span>
+  <span class='no'>scratch.folder</span>,
+  <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>X</span> <span class='kw'>=</span> <span class='fl'>0.15</span>,
+  <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"True"</span>, <span class='st'>"False"</span>),
+  <span class='kw'>skipvis</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"True"</span>, <span class='st'>"False"</span>),
+  <span class='no'>nCluster</span>,
+  <span class='no'>separator</span>,
+  <span class='no'>clustering.output</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -137,52 +140,60 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>group, </th>
-      <td><p>a character string. Two options: sudo or docker, depending to which group the user belongs.</p></td>
+      <td><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></td>
     </tr>
     <tr>
       <th>file, </th>
-      <td><p>a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported</p></td>
+      <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
     </tr>
     <tr>
-      <th>conditions, </th>
-      <td><p>vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.</p></td>
+      <th>scratch.folder, </th>
+      <td><p>temporary folder where calculation is made</p></td>
     </tr>
     <tr>
-      <th>FilterCellProportion, </th>
-      <td><p>a value indicating the proportion of non-zero expression estimates required to include the genes into the evaluation. Default is .10, and will not go below a proportion which uses less than 10 total cells/samples</p></td>
+      <th>threads, </th>
+      <td><p>integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster</p></td>
     </tr>
     <tr>
-      <th>FilterExpression, </th>
-      <td><p>a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots</p></td>
+      <th>X, </th>
+      <td><p>from 0 to 1 argument for XL-mHG default 0.15, for more info see cometsc help.</p></td>
     </tr>
     <tr>
-      <th>ditherCounts, </th>
-      <td><p>Setting to TRUE might improve results with UMI data, default is FALSE</p></td>
+      <th>K, </th>
+      <td><p>the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big</p></td>
     </tr>
     <tr>
-      <th>outputName, </th>
-      <td><p>specify the path and/or name of output files.</p></td>
+      <th>counts, </th>
+      <td><p>if set to True it will graph the log(expression+1). To be used if unlogged data are provided</p></td>
     </tr>
     <tr>
-      <th>nCores, </th>
-      <td><p>number of cores to use, default is detectCores() - 1.</p></td>
+      <th>skipvis, </th>
+      <td><p>set to True to skip visualizations</p></td>
+    </tr>
+    <tr>
+      <th>nCluster, </th>
+      <td><p>number of interested cluster used for analysis</p></td>
+    </tr>
+    <tr>
+      <th>separator, </th>
+      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+    </tr>
+    <tr>
+      <th>clustering.output, </th>
+      <td><p>path of the clustering.output file to use</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>pdf with the cells counts distributions</p>
+    <p>folders with prefix output. More info in output at https://hgmd.readthedocs.io/en/latest/Output.html</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-    <span class='co'>#UMI 3' end analysis</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span>(<span class='st'>"wget http://130.192.119.59/public/example_UMI.txt.zip"</span>)
-    <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span>(<span class='st'>"example_UMI.txt.zip"</span>)
-    <span class='no'>conditions</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>12</span>)
-    <span class='fu'>checkCountDepth</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(), <span class='st'>"example_UMI.txt"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"/"</span>),
-    <span class='kw'>conditions</span><span class='kw'>=</span><span class='no'>conditions</span>, <span class='kw'>FilterCellProportion</span><span class='kw'>=</span><span class='fl'>0.1</span>, <span class='kw'>FilterExpression</span><span class='kw'>=</span><span class='fl'>0</span>,
-    <span class='kw'>ditherCounts</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>outputName</span><span class='kw'>=</span><span class='st'>"example_UMI"</span>, <span class='kw'>nCores</span><span class='kw'>=</span><span class='fl'>8</span>)
-
+    <span class='co'>#running cometsc</span>
+    <span class='fu'><a href='cometsc.html'>cometsc</a></span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='st'>"/Users/raffaelecalogero/Desktop/AXLN1/data/topx_veanno.csv"</span>,
+           <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/Users/raffaelecalogero/Desktop"</span>,
+           <span class='kw'>threads</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>counts</span><span class='kw'>=</span><span class='st'>"True"</span>, <span class='kw'>skipvis</span><span class='kw'>=</span><span class='st'>"False"</span>, <span class='kw'>nCluster</span><span class='kw'>=</span><span class='fl'>8</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -193,6 +204,8 @@
       <li><a href="#examples">Examples</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Raffaele Calogero,raffaele.calogero [at] unito [dot] it, University of Torino</p>
   </div>
 </div>
 

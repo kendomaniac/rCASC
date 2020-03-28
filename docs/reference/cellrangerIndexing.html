@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.5</span>
       </span>
     </div>
 
@@ -121,19 +121,24 @@
     <p>This function creates the indexing for 10Xgenomics</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cellrangerIndexing</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>scratch.folder</span>,
-  <span class='no'>genomeFolder</span>, <span class='no'>gtf.url</span>, <span class='no'>fasta.url</span>, <span class='kw'>bio.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"protein_coding"</span>,
-  <span class='st'>"unitary_pseudogene"</span>, <span class='st'>"unprocessed_pseudogene"</span>, <span class='st'>"processed_pseudogene"</span>,
-  <span class='st'>"transcribed_unprocessed_pseudogene"</span>, <span class='st'>"processed_transcript"</span>,
-  <span class='st'>"antisense"</span>, <span class='st'>"transcribed_unitary_pseudogene"</span>, <span class='st'>"polymorphic_pseudogene"</span>,
-  <span class='st'>"lincRNA"</span>, <span class='st'>"sense_intronic"</span>, <span class='st'>"transcribed_processed_pseudogene"</span>,
-  <span class='st'>"sense_overlapping"</span>, <span class='st'>"IG_V_pseudogene"</span>, <span class='st'>"pseudogene"</span>, <span class='st'>"TR_V_gene"</span>,
-  <span class='st'>"3prime_overlapping_ncRNA"</span>, <span class='st'>"IG_V_gene"</span>, <span class='st'>"bidirectional_promoter_lncRNA"</span>,
-  <span class='st'>"snRNA"</span>, <span class='st'>"miRNA"</span>, <span class='st'>"misc_RNA"</span>, <span class='st'>"snoRNA"</span>, <span class='st'>"rRNA"</span>, <span class='st'>"IG_C_gene"</span>, <span class='st'>"IG_J_gene"</span>,
-       <span class='st'>"TR_J_gene"</span>, <span class='st'>"TR_C_gene"</span>, <span class='st'>"TR_V_pseudogene"</span>, <span class='st'>"TR_J_pseudogene"</span>,
-  <span class='st'>"IG_D_gene"</span>, <span class='st'>"ribozyme"</span>, <span class='st'>"IG_C_pseudogene"</span>, <span class='st'>"TR_D_gene"</span>, <span class='st'>"TEC"</span>,
-  <span class='st'>"IG_J_pseudogene"</span>, <span class='st'>"scRNA"</span>, <span class='st'>"scaRNA"</span>, <span class='st'>"vaultRNA"</span>, <span class='st'>"sRNA"</span>, <span class='st'>"macro_lncRNA"</span>,
-  <span class='st'>"non_coding"</span>, <span class='st'>"IG_pseudogene"</span>), <span class='no'>nThreads</span>)</pre>
+    <pre class="usage"><span class='fu'>cellrangerIndexing</span>(
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
+  <span class='no'>scratch.folder</span>,
+  <span class='no'>genomeFolder</span>,
+  <span class='no'>gtf.url</span>,
+  <span class='no'>fasta.url</span>,
+  <span class='kw'>bio.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"protein_coding"</span>, <span class='st'>"unitary_pseudogene"</span>, <span class='st'>"unprocessed_pseudogene"</span>,
+    <span class='st'>"processed_pseudogene"</span>, <span class='st'>"transcribed_unprocessed_pseudogene"</span>, <span class='st'>"processed_transcript"</span>,
+    <span class='st'>"antisense"</span>, <span class='st'>"transcribed_unitary_pseudogene"</span>, <span class='st'>"polymorphic_pseudogene"</span>, <span class='st'>"lincRNA"</span>,
+    <span class='st'>"sense_intronic"</span>, <span class='st'>"transcribed_processed_pseudogene"</span>, <span class='st'>"sense_overlapping"</span>,
+    <span class='st'>"IG_V_pseudogene"</span>, <span class='st'>"pseudogene"</span>, <span class='st'>"TR_V_gene"</span>, <span class='st'>"3prime_overlapping_ncRNA"</span>, <span class='st'>"IG_V_gene"</span>,
+    <span class='st'>"bidirectional_promoter_lncRNA"</span>, <span class='st'>"snRNA"</span>, <span class='st'>"miRNA"</span>, <span class='st'>"misc_RNA"</span>, <span class='st'>"snoRNA"</span>, <span class='st'>"rRNA"</span>,
+    <span class='st'>"IG_C_gene"</span>, <span class='st'>"IG_J_gene"</span>,      <span class='st'>"TR_J_gene"</span>, <span class='st'>"TR_C_gene"</span>, <span class='st'>"TR_V_pseudogene"</span>,
+    <span class='st'>"TR_J_pseudogene"</span>, <span class='st'>"IG_D_gene"</span>, <span class='st'>"ribozyme"</span>, <span class='st'>"IG_C_pseudogene"</span>, <span class='st'>"TR_D_gene"</span>, <span class='st'>"TEC"</span>,
+    <span class='st'>"IG_J_pseudogene"</span>, <span class='st'>"scRNA"</span>, <span class='st'>"scaRNA"</span>, <span class='st'>"vaultRNA"</span>, <span class='st'>"sRNA"</span>, <span class='st'>"macro_lncRNA"</span>,
+    <span class='st'>"non_coding"</span>, <span class='st'>"IG_pseudogene"</span>),
+  <span class='no'>nThreads</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

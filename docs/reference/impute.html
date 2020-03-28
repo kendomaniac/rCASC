@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.5</span>
       </span>
     </div>
 
@@ -121,8 +121,14 @@
     <p>This function executes a wrapper for scImpute: Accurate And Robust Inputation For Single Cell RNA-Seq Data (Li WV Nature Communications, vol. 9, Article number: 997, 2018)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>impute</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>data.folder</span>, <span class='no'>counts.matrix</span>,
-  <span class='no'>drop.thre</span>, <span class='no'>cores</span>, <span class='kw'>refining</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>impute</span>(
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
+  <span class='no'>data.folder</span>,
+  <span class='no'>counts.matrix</span>,
+  <span class='no'>drop.thre</span>,
+  <span class='no'>cores</span>,
+  <span class='kw'>refining</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

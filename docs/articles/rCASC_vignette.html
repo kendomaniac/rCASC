@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.5</span>
       </span>
     </div>
 
@@ -75,7 +75,7 @@
       <h1>rCASC vignette</h1>
                         <h4 class="author">Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Nicola Licheri, Gennaro De Libero, Luigia Pace, and Raffaele A Calogero</h4>
             
-            <h4 class="date">16/12/2019</h4>
+            <h4 class="date">28/03/2020</h4>
       
       
       <div class="hidden name"><code>rCASC_vignette.Rmd</code></div>
@@ -91,7 +91,7 @@
 <p>Our group is deeply involved in developing workflows that guarantee both <strong>functional</strong> (i.e. the information about data and the utilized tools are saved in terms of meta-data) and <strong>computation</strong> reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason, we are managing a bioinformatics community called <a href="http://www.reproducible-bioinformatics.org/"><em>reproducible-bioinformatics.org</em></a> [<a href="https://rdcu.be/9gMq"><em>Kulkarni et al.</em></a>] designed to provide to the biological community a reproducible bioinformatics ecosystem [<a href="https://academic.oup.com/bioinformatics/article/34/5/871/4562334"><em>Beccuti et al.</em></a>].</p>
 <p>rCASC, reproducible Cluster Analysis of Single Cells, is part of the <a href="http://www.reproducible-bioinformatics.org/"><em>reproducible-bioinformatics.org</em></a> project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [<a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285"><em>PLoS Comp Biol. 2013</em></a>]. rCASC is designed to provide a workflow (Figure below) for cell-subpopulation discovery.</p>
 <div class="figure" style="text-align: center">
-<img src="../inst/img/fig1.jpg" alt="rCASC workflow" width="70%"><p class="caption">
+<img src="../inst/img/fig1.png" alt="rCASC workflow" width="70%"><p class="caption">
 rCASC workflow
 </p>
 </div>
@@ -130,7 +130,7 @@ rCASC workflow
 
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"kendomaniac/rCASC"</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"kendomaniac/rCASC"</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># downloading the required docker containers</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rCASC)</a>
@@ -1111,7 +1111,7 @@ GUI: cell cycle bias removal panel
 <a class="sourceLine" id="cb23-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(tmp, <span class="st">"annotated_buettner_G1G2MS_countsbis.txt"</span>, <span class="dt">sep=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, <span class="dt">col.names=</span><span class="ot">NA</span>)</a>
 <a class="sourceLine" id="cb23-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb23-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools)</a>
-<a class="sourceLine" id="cb23-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"kendomaniac/docker4seq"</span>, <span class="dt">ref=</span><span class="st">"master"</span>)</a>
+<a class="sourceLine" id="cb23-11" data-line-number="11"><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"kendomaniac/docker4seq"</span>, <span class="dt">ref=</span><span class="st">"master"</span>)</a>
 <a class="sourceLine" id="cb23-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(docker4seq)</a>
 <a class="sourceLine" id="cb23-13" data-line-number="13"><span class="co">#N/B. setting type parameter to "counts" data will be log10 transformed before PCA analysis</span></a>
 <a class="sourceLine" id="cb23-14" data-line-number="14"><span class="kw"><a href="https://rdrr.io/pkg/docker4seq/man/pca.html">pca</a></span>(<span class="dt">experiment.table=</span><span class="st">"annotated_buettner_G1G2MS_countsbis.txt"</span>, <span class="dt">type=</span><span class="st">"counts"</span>, </a>

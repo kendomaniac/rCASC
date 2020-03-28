@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Running SCnorm  checkCountDepth test. — checkCountDepth • rCASC</title>
+<title>Autoencoder — autoencoder • rCASC</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Running SCnorm  checkCountDepth test. — checkCountDepth" />
-<meta property="og:description" content="This function executes a check on the data count-depth relationship used by SCnorm." />
+<meta property="og:title" content="Autoencoder — autoencoder" />
+<meta property="og:description" content="This function Compress data using autoencoder partially connected" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,24 +112,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Running SCnorm  checkCountDepth test.</h1>
+    <h1>Autoencoder</h1>
     
-    <div class="hidden name"><code>checkCountDepth.Rd</code></div>
+    <div class="hidden name"><code>autoencoder.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a check on the data count-depth relationship used by SCnorm.</p>
+    <p>This function Compress data using autoencoder partially connected</p>
     </div>
 
-    <pre class="usage"><span class='fu'>checkCountDepth</span>(
+    <pre class="usage"><span class='fu'>autoencoder</span>(
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
+  <span class='no'>scratch.folder</span>,
   <span class='no'>file</span>,
-  <span class='kw'>conditions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>FilterCellProportion</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>FilterExpression</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>ditherCounts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>outputName</span>,
-  <span class='kw'>nCores</span> <span class='kw'>=</span> <span class='fl'>8</span>
+  <span class='no'>separator</span>,
+  <span class='no'>nCluster</span>,
+  <span class='no'>bias</span>,
+  <span class='no'>permutation</span>,
+  <span class='no'>nEpochs</span>,
+  <span class='kw'>patiencePercentage</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='no'>cl</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1111</span>,
+  <span class='no'>projectName</span>,
+  <span class='kw'>bN</span> <span class='kw'>=</span> <span class='st'>"NULL"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -137,52 +142,67 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>group, </th>
-      <td><p>a character string. Two options: sudo or docker, depending to which group the user belongs.</p></td>
+      <td><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></td>
+    </tr>
+    <tr>
+      <th>scratch.folder, </th>
+      <td><p>a character string indicating the path of the scratch folder</p></td>
     </tr>
     <tr>
       <th>file, </th>
-      <td><p>a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported</p></td>
+      <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
     </tr>
     <tr>
-      <th>conditions, </th>
-      <td><p>vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.</p></td>
+      <th>separator, </th>
+      <td><p>separator used in count file, e.g. '\t', ','</p></td>
     </tr>
     <tr>
-      <th>FilterCellProportion, </th>
-      <td><p>a value indicating the proportion of non-zero expression estimates required to include the genes into the evaluation. Default is .10, and will not go below a proportion which uses less than 10 total cells/samples</p></td>
+      <th>nCluster, </th>
+      <td><p>number of cluster in which the dataset is divided</p></td>
     </tr>
     <tr>
-      <th>FilterExpression, </th>
-      <td><p>a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots</p></td>
+      <th>bias, </th>
+      <td><p>bias method to use : "mirna" , "TF", "CUSTOM"</p></td>
     </tr>
     <tr>
-      <th>ditherCounts, </th>
-      <td><p>Setting to TRUE might improve results with UMI data, default is FALSE</p></td>
+      <th>permutation, </th>
+      <td><p>number of permutations to perform the pValue to evaluate clustering</p></td>
     </tr>
     <tr>
-      <th>outputName, </th>
-      <td><p>specify the path and/or name of output files.</p></td>
+      <th>nEpochs, </th>
+      <td><p>number of Epochs for neural network training</p></td>
     </tr>
     <tr>
-      <th>nCores, </th>
-      <td><p>number of cores to use, default is detectCores() - 1.</p></td>
+      <th>patiencePercentage, </th>
+      <td><p>number of Epochs percentage of not training before to stop.</p></td>
+    </tr>
+    <tr>
+      <th>cl, </th>
+      <td><p>Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong.All path needs to be provided.</p></td>
+    </tr>
+    <tr>
+      <th>seed, </th>
+      <td><p>important value to reproduce the same results with same input</p></td>
+    </tr>
+    <tr>
+      <th>projectName, </th>
+      <td><p>might be different from the matrixname in order to perform different analysis on the same dataset</p></td>
+    </tr>
+    <tr>
+      <th>bN, </th>
+      <td><p>name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided,</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>pdf with the cells counts distributions</p>
+    
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-    <span class='co'>#UMI 3' end analysis</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span>(<span class='st'>"wget http://130.192.119.59/public/example_UMI.txt.zip"</span>)
-    <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span>(<span class='st'>"example_UMI.txt.zip"</span>)
-    <span class='no'>conditions</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>12</span>)
-    <span class='fu'>checkCountDepth</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(), <span class='st'>"example_UMI.txt"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"/"</span>),
-    <span class='kw'>conditions</span><span class='kw'>=</span><span class='no'>conditions</span>, <span class='kw'>FilterCellProportion</span><span class='kw'>=</span><span class='fl'>0.1</span>, <span class='kw'>FilterExpression</span><span class='kw'>=</span><span class='fl'>0</span>,
-    <span class='kw'>ditherCounts</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>outputName</span><span class='kw'>=</span><span class='st'>"example_UMI"</span>, <span class='kw'>nCores</span><span class='kw'>=</span><span class='fl'>8</span>)
-
+ <span class='fu'>autoencoder</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>,<span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker/scratch"</span>,<span class='kw'>file</span><span class='kw'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker/data/setA.csv"</span>,<span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>,<span class='kw'>nCluster</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>bias</span><span class='kw'>=</span><span class='st'>"TF"</span>,<span class='kw'>permutation</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>nEpochs</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>cl</span><span class='kw'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker/data/setA_clustering.output.csv"</span>,<span class='kw'>projectName</span><span class='kw'>=</span><span class='st'>"testDocker"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -193,6 +213,8 @@
       <li><a href="#examples">Examples</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
   </div>
 </div>
 

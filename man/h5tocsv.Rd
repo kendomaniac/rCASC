@@ -30,6 +30,7 @@ system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
 unzip("annotated_setPace_10000_noC5.txt.zip")
 csvToSparse(group="docker", scratch="/data/scratch", file=paste(getwd(), 
             "annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
+            
 h5tocsv(group="docker", file=paste(getwd(),"matrix.mtx",sep="/"), type="10xgenomics")
 }
 
