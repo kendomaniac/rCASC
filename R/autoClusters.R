@@ -9,6 +9,7 @@
 #' @param pcaDimensions, number of dimensions to use for Seurat Pca reduction. 
 #' @param seed, important value to reproduce the same results with same input
 #' @param clusterMethod, clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"
+#' @param permAtTime, number of permutation in parallel
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return 
@@ -18,7 +19,7 @@
 
 #'}
 #' @export
-autoencoderClustering <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster,clusterMethod=c("GRIPH","SIMLR","SEURAT","SHARP"),seed=1111,projectName,pcaDimensions){
+autoencoderClustering <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster,clusterMethod=c("GRIPH","SIMLR","SEURAT","SHARP"),seed=1111,projectName,pcaDimensions,permAtTime=4){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -78,7 +79,7 @@ system(paste("cp -r ",data.folder," ",scrat_tmp.folder,"/",sep=""))
 }
 
   if(clusterMethod=="SIMLR"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationclustering Rscript /home/mainSIMLR.R ",projectName," ",matrixName," ",separator," ",nCluster," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationclustering Rscript /home/mainSIMLR.R ",projectName," ",matrixName," ",separator," ",nCluster," ",seed," ",permAtTime,sep="")
 }
 
   if(clusterMethod=="SHARP"){
