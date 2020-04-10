@@ -18,7 +18,7 @@ harmony(
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
-\item{file, }{a character string indicating the path of the file, with file name and extension included}
+\item{file, }{a character string indicating the path of the file, with file name and extension included. The file must contain library normalized cells, log transformed counts, and scaled genes}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
@@ -30,7 +30,7 @@ harmony(
 stability plot for each nCluster,two files with score information for each cell for each permutation.
 }
 \description{
-This function analyze the data that came up from permutationClustering script with spatial transcriptomics data.
+This function performs integration of single cell genomics datasets. Korsunsky et al. Nature Methods 16, 1289, 2019
 }
 \examples{
 \dontrun{

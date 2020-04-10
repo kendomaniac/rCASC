@@ -13,7 +13,8 @@ autoencoderClustering(
   clusterMethod = c("GRIPH", "SIMLR", "SEURAT", "SHARP"),
   seed = 1111,
   projectName,
-  pcaDimensions
+  pcaDimensions,
+  permAtTime = 4
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ autoencoderClustering(
 \item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
 
 \item{pcaDimensions, }{number of dimensions to use for Seurat Pca reduction.}
+
+\item{permAtTime, }{number of permutation in parallel}
 }
 \value{
 

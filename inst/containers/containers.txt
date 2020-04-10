@@ -32,3 +32,5 @@ docker.io/repbioinfo/stpipelineofficial
 docker.io/repbioinfo/cometsc.2020.01
 docker.io/repbioinfo/harmony
 docker.io/repbioinfo/autoencodercpu
+docker.io/repbioinfo/permutationclusteringsharp
+docker.io/repbioinfo/spatialanalysis

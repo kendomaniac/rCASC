@@ -1,8 +1,8 @@
 #' @title Harmony
-#' @description This function analyze the data that came up from permutationClustering script with spatial transcriptomics data.
+#' @description This function performs integration of single cell genomics datasets. Korsunsky et al. Nature Methods 16, 1289, 2019
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param file, a character string indicating the path of the file, with file name and extension included
+#' @param file, a character string indicating the path of the file, with file name and extension included. The file must contain library normalized cells, log transformed counts, and scaled genes
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param meta_data, file with meta_data. All path included.Check example file. 
 #' @param usePCA, TRUE or FALSE if Harmony has to use pca or not.  

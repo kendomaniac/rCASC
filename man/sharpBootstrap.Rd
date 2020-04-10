@@ -46,7 +46,7 @@ This function executes a ubuntu docker that produces a specific number of permut
 system("wget http://130.192.119.59/public/section4.1_examples.zip")
 unzip("section4.1_examples.zip")
 setwd("section4.1_examples")
-griphBootstrap(group="docker",scratch.folder="/data/scratch/",
+sharpBootstrap(group="docker",scratch.folder="/data/scratch/",
                file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, 
                seed=111)
