@@ -2,7 +2,7 @@
 % Please edit documentation in R/SHARPBootstrap.R
 \name{sharpBootstrap}
 \alias{sharpBootstrap}
-\title{Executing clustering with griph.}
+\title{Executing clustering with SHARP.}
 \usage{
 sharpBootstrap(
   group = c("sudo", "docker"),
@@ -39,7 +39,7 @@ sharpBootstrap(
 A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
 }
 \description{
-This function executes a ubuntu docker that produces a specific number of permutations using griph as clustering tool.
+This function executes a ubuntu docker that produces a specific number of permutations using SHARP as clustering tool.
 }
 \examples{
 \dontrun{

@@ -1,5 +1,5 @@
-#' @title Executing clustering with griph. 
-#' @description This function executes a ubuntu docker that produces a specific number of permutations using griph as clustering tool.
+#' @title Executing clustering with SHARP. 
+#' @description This function executes a ubuntu docker that produces a specific number of permutations using SHARP as clustering tool.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
