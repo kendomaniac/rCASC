@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Harmony — harmony" />
-<meta property="og:description" content="This function analyze the data that came up from permutationClustering script with spatial transcriptomics data." />
+<meta property="og:description" content="This function performs integration of single cell genomics datasets. Korsunsky et al. Nature Methods 16, 1289, 2019" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.6</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function analyze the data that came up from permutationClustering script with spatial transcriptomics data.</p>
+    <p>This function performs integration of single cell genomics datasets. Korsunsky et al. Nature Methods 16, 1289, 2019</p>
     </div>
 
     <pre class="usage"><span class='fu'>harmony</span>(
@@ -143,7 +143,7 @@
     </tr>
     <tr>
       <th>file, </th>
-      <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
+      <td><p>a character string indicating the path of the file, with file name and extension included. The file must contain library normalized cells, log transformed counts, and scaled genes</p></td>
     </tr>
     <tr>
       <th>separator, </th>

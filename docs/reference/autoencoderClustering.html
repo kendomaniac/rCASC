@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.6</span>
       </span>
     </div>
 
@@ -130,7 +130,8 @@
   <span class='kw'>clusterMethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GRIPH"</span>, <span class='st'>"SIMLR"</span>, <span class='st'>"SEURAT"</span>, <span class='st'>"SHARP"</span>),
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1111</span>,
   <span class='no'>projectName</span>,
-  <span class='no'>pcaDimensions</span>
+  <span class='no'>pcaDimensions</span>,
+  <span class='kw'>permAtTime</span> <span class='kw'>=</span> <span class='fl'>4</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -171,6 +172,10 @@
     <tr>
       <th>pcaDimensions, </th>
       <td><p>number of dimensions to use for Seurat Pca reduction.</p></td>
+    </tr>
+    <tr>
+      <th>permAtTime, </th>
+      <td><p>number of permutation in parallel</p></td>
     </tr>
     </table>
 

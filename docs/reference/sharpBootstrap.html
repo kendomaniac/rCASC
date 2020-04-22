@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Executing clustering with griph. — sharpBootstrap • rCASC</title>
+<title>Executing clustering with SHARP. — sharpBootstrap • rCASC</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Executing clustering with griph. — sharpBootstrap" />
-<meta property="og:description" content="This function executes a ubuntu docker that produces a specific number of permutations using griph as clustering tool." />
+<meta property="og:title" content="Executing clustering with SHARP. — sharpBootstrap" />
+<meta property="og:description" content="This function executes a ubuntu docker that produces a specific number of permutations using SHARP as clustering tool." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.6</span>
       </span>
     </div>
 
@@ -112,13 +112,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Executing clustering with griph.</h1>
+    <h1>Executing clustering with SHARP.</h1>
     
     <div class="hidden name"><code>sharpBootstrap.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that produces a specific number of permutations using griph as clustering tool.</p>
+    <p>This function executes a ubuntu docker that produces a specific number of permutations using SHARP as clustering tool.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sharpBootstrap</span>(
@@ -183,7 +183,7 @@
 <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span>(<span class='st'>"wget http://130.192.119.59/public/section4.1_examples.zip"</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span>(<span class='st'>"section4.1_examples.zip"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span>(<span class='st'>"section4.1_examples"</span>)
-<span class='fu'><a href='griphBootstrap.html'>griphBootstrap</a></span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>,<span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/data/scratch/"</span>,
+<span class='fu'>sharpBootstrap</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>,<span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/data/scratch/"</span>,
                <span class='kw'>file</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(), <span class='st'>"bmsnkn_5x100cells.txt"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"/"</span>),
                <span class='kw'>nPerm</span><span class='kw'>=</span><span class='fl'>160</span>, <span class='kw'>permAtTime</span><span class='kw'>=</span><span class='fl'>8</span>, <span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>"\t"</span>,<span class='kw'>logTen</span><span class='kw'>=</span><span class='fl'>0</span>,
                <span class='kw'>seed</span><span class='kw'>=</span><span class='fl'>111</span>)
