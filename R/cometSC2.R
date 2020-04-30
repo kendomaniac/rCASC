@@ -79,7 +79,7 @@ cometsc2 <- function(group=c("sudo","docker"), file, scratch.folder, threads=1, 
   
   #waiting for the end of the container work
   if(resultRun==0){
-    system(paste("cp -R ", scrat_tmp.folder,"/output* ",data.folder,"/Results/", sep=""))
+    system(paste("cp -R ", scrat_tmp.folder,"/",matrixName,"/",nCluster,"/output* ",data.folder,"/Results/", sep=""))
   }
   #running time 2
   ptm <- proc.time() - ptm
