@@ -31,7 +31,7 @@ autoencoder(
 
 \item{nCluster, }{number of cluster in which the dataset is divided}
 
-\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM"}
+\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature}
 
 \item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
 

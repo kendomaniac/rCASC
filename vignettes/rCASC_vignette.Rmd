@@ -1,7 +1,7 @@
 ---
 title: "rCASC vignette"
 author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Nicola Licheri, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
-date: "28/03/2020"
+date: "30/04/2020"
 output: rmarkdown::html_vignette
 
 vignette: >
@@ -1837,15 +1837,22 @@ scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",
 
 # required time 9 mins
 
+#running SHARP clustering
+
+sharpBootstrap(group="docker",scratch.folder=getwd(), 
+               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=10, percent=10, separator="\t",
+               logTen=0, seed=111)
+
 ```
 \fontsize{10}{10}\selectfont
 
 
-We run the analysis on the SetA described in Section 4.1. SIMLR Seurat and griph detect the 5 clusters, i.e. 5 cell types, and all clusters show an high CSC (Figure below panels A-C). However, tSne detects the 5 clusters, but they are less stable in terms of CSS (Figure below panel E). For scanpy we tested various combination of perplexity and PCs number but we failed to find a condition detecting the 5 clusters and clusters stability is very poor.
+We run the analysis on the SetA described in Section 4.1. All tools but tSne+k-mean and scanpy provided very good and similar partition of the different cell types For scanpy we tested various combination of perplexity and PCs number, but we failed to find a condition detecting the 5 clusters and clusters stability was always very poor.
 From the point of view of the computation time, the above mentioned analysis took 159 mins for tSne, 168 mins for SIMLR, 194 mins for Seurat, 61 mins for griph and only 9 minus for scanpy.
 
 
-```{r fig.122, fig.cap="Comparing SIMLR and tSne within rCASC bootstrap framework. A) SetA clustered with SIMLR. B) SetA clustered with Seurat, C) SetA clustered with griph, D) SetA clustered with scanpy, E) SetA clustered with tSne. N.B. Colors do not define the same cluster in figure A and B.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+```{r fig.122, fig.cap="Comparing the clustering tools available in rCASC. : SetA clustering. All tools but scanpy detected 5 clusters. CSS for tSne+K-mean was slightly lower than for the other tools. Scanpy detected 11 totally unstable clusters, thus we could not assign the cluster composition. The cluster organization and composition is very similar between the tools but scanpy. A) tSne+K=mean, B) griph, C) SIMLR, D) Seurat, E) SHARP, F) scanpy. N.B. Colors do not define the same cluster in figure panels", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
 
 library(knitr)
 include_graphics('../inst/img/5clusters.png')
@@ -2548,12 +2555,159 @@ include_graphics('../inst/img/c2_connected.png')
 The paper [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extends the information provided from the single cell analysis in Pace paper, suggesting the presence of an enriched Suv39h1-defective memory subset, cluster 2 in Figure above panel C. Noteworthy, this example suggests that even few hundreds cells are sufficient to discriminate between sub-populations.
 
 
-## **Section 10** Tips and tricks
+
+## **Section 10** Mining clusters with Sparsely-Connected Autoencoders (SCAs)
+
+A module for the extraction of cluster-specific functional features was recently implemented in rCASC. This module uses Sparsely-Connected Autoencoders (SCAs) to grasp hidden functional features from the clusters detected using the rCASC clustering tools.
+SCAs encoding/decoding functions are one layer deep (Figure below, latent space) and this layer is sparse (not fully-connected like standard autoencoders), with connections based on known biological relationships [[*Gold et al. 2019*](https://www.researchgate.net/publication/331792510_Shallow_Sparsely-Connected_Autoencoders_for_Gene_Set_Projection), [*Lin et al. 2017*](https://academic.oup.com/nar/article/45/17/e156/4056711)]. 
+
+```{r fig.1001, fig.cap="Sparsely-Connected Autoencoder structure", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/sca.png')
+```
+
+In SCA, each encoded node represents a known biological relationships (transcription factors (TFs) targets, miRNA targets (miRNAs), cancer-related immune-signatures (ISs), kinase specific protein targets (Ks), etc.) and only receives inputs from gene nodes associated to the biological relationships. With respect to the Gold paper [[*Gold et al. 2019*](https://www.researchgate.net/publication/331792510_Shallow_Sparsely-Connected_Autoencoders_for_Gene_Set_Projection)], which is using gene sets [[*Subramanian et al. 2005*](https://www.pnas.org/content/102/43/15545)], in our implementation the latent space is based only experimentally validated data, TRRUST [[*Han et al. 2017*](https://academic.oup.com/nar/article/46/D1/D380/4566018)], miRTarBase [[*Chou et al. 2018*](https://academic.oup.com/nar/article/46/D1/D296/4595852)], RegPhos [[*Huang et al. 2014*](https://academic.oup.com/database/article/doi/10.1093/database/bau034/2634150)], KEGG [[*Kanehisa et al. 2016*](https://academic.oup.com/nar/article/45/D1/D353/2605697)], manually curated cancer-based immune-signature (*Alessandri et al. In preparation*)
+
+The function **autoencoder** calculates the neural network. 
+
+```{r, echo=T, eval=F}
+##add example
+library(rCASC)
+autoencoder(group=c("docker"), scratch=path, file=paste(path, "Data/setA.csv", sep="/"), 
+            separator=",", nCluster=5, bias="kinasi", permutation=160, 
+            nEpochs=2000, patiencePercentage=5,
+            cl=paste(path,"/Data/Results/setA/5/setA_clustering.output.csv",sep=""), 
+            seed=1111, projectName="setAKinasi", bN="NULL")
+
+
+
+```
+
+- *autoencoder parameters* (only those without default; for the full list of parameters please refer to the function help):
+
+    + *bias* ("mirna" , "TF", "CUSTOM", “kinasi”,”immunoSignature”) refers to the roles that are generating the partially connected hidden layer. If CUSTOM is selected the path to the file required to build the autoencoder structure should be assigned to the parameter bN. The hidden layer description file must have the following structure source, i.e. name of the hidden layer node, in column 1 and geneTarget, i.e. genes present in the hidden node, column 2. Headers are mandatory and row names must not be present, any extra column will be not taken in account.
+
+    + *nEpochs* is the parameter referring to the measure of the number of times all of the training vectors are used once to update the weights. At the end of this learning step the best weights for nodes will be defined. Please note that not necessarily the best weights are in the last epoch. Frequently are located in the first 1000 epochs. Thus, the ideal approach is to run 2000 epochs with 1 permutation only and check the learning rate, Figure below. The optimal epochs is selected within the flat part of the learning curve . Then, the analysis is run again with the number of permutations of your choice, 
+    
+```{r fig.1002, fig.cap="Learning rate saved in learning.jpg. In this example the maximum level of learning is obtained with 250 epochs. Thus the analysis with multiple permutations can  be done setting epoch slightly greater than 250, e.g. 500", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/learning.png')
+```
+
+    + *permutation* refers to the  number of times the neural network is calculated from scratch. The number of permutations depends on the level of consistency requested, usually 160 permutations provides robust results, but it might take some times to executeon a common laptop , thus lower number of permutation might be selected, e.g. 80. 
+
+    + *cl* refers to the full path to the **_clustering.output** file to be used, which was generated using rCASC clustering tools.
+
+    + *ProjectName* parameter refers to the name of the folder where **autoencoder** outputs will be saved. 
+    
+    
+The **autoencoder** function produces as output, in the folder **ProjectName**, a frequency table, with the same name of the counts table used in input with the parameter *file*. This frequency table indicates the % of permutations in which each hidden node for each cell was characterized by a weight different from 0 (if a hidden node is characterized by a weight equal to 0 means that it was not used in that specific permutation). 
+The **autoencoder** function produces as output many files with the extension **Xdensespace.format**, in the folder **ProjectName/Permutation**. The number of such files corresponds to the number of selected permutations.
+
+
+The function **autoencoderClustering** generates the numerical data required to understand if there is coherence between counts table derived clusters and those derived using autoencoders latent space. 
+
+
+```{r, echo=T, eval=F}
+##add example
+library(rCASC)
+autoencoderClustering(group=c("docker"), scratch.folder=path,
+                      file="/home/user/newModification/Data/Results/setAKinasi/setA.csv",
+                      separator=",", nCluster=5, clusterMethod="SIMLR", seed=1111, 
+                      projectName="setAKinasi",pcaDimensions=15,permAtTime=4,
+                      largeScale=TRUE)
+
+
+```
+
+
+- *autoencoderClustering parameters* (only those without default; for the full list of parameters please refer to the function help):
+
+    + **IMPORTANT**: *file* parameter refers to the full path of the frequency table saved in the results output folder of the **autoencoder** function.
+
+    + *projectName* parameter is the same indicated in **autoencoder** function. 
+
+    + *clusterMethod* parameter refers to any of the clustering methods available in rCASC ("GRIPH","SIMLR","SEURAT","SHARP"), not necessary should be the same used for the raw count table clustering, actually it is useful to test more than one clustering method to see which one provides the best convergence with the clusters initially generated using the genes counts table. 
+
+    + *pcaDimensions* parameter is only required when Seurat is used as clustering tool.
+    
+The **autoencoderClustering** output is a folder where the name is given by the combination of the *projectName* and the  *clusterMethod*, e.g in the above example **setAKinasi_SIMLR**. In this folder the is the file **label.csv**, where is located the cluster assignment for each cells over each permutation.
+
+The output of **autoencoderClustering** is used by the function **autoencoderAnalysis** to genererate the QCF and QCM statistics (Figure below). QCF is an extension of CSS and it measures the ability of latent space to keep aggregated cells belonging to predefined clusters generated using the gene count table. The metrics has the range between 0 and 1, where 1 indicates a high coexistence of cells within the same cluster in the bootstrap analysis, and 0 a total lack of coexistence of cells within the same cluster. In the figure below, only clusters 1 and 2 (A) can be well explained by latent space (B). 
+QCM metric is also an extension of CSS and it measures the ability of the neural network to generate consistent data over bootstraps. In the Figure below, SCA provides consistent data only for clusters 1 and 2 (C).  Informative clusters are those characterised by high QCM and QCF scores, Figure below only clusters 1 and 2 (D) are characterized by a robust neural network able to keep the cell aggregated using hidden layer knowledge. Dashed red line (Figure below, D) indicates the defined threshold to consider the latent space information suitable to support cells’ clusters. 
+
+```{r fig.1003, fig.cap="QCM and QCF. A) five clusters were detected analysing setA with griph. Each cluster is made by more than 90% by one cell type. B) QCF violin plot. C) QCM violin plot, D) Combined view of QCM and QCF", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/qcm-qcf.png')
+```
+
+Function **autoencoderAnalysis** transforms ** **autoencoderClustering** function outputs in readable results.
+
+```{r, echo=T, eval=F}
+library(rCASC)
+autoencoderAnalysis(group=c("docker"), scratch.folder=path, file="/home/user/newModification/Data/Results/setAKinasi_SIMLR/setA.csv", 
+                    separator=",", nCluster=5, seed=1111, 
+                    projectName="setAKinasi_SIMLR", Sp=0.8)
+
+```
+
+- *autoencoderAnalysis parameters* (only those without default; for the full list of parameters please refer to the function help):
+
+    + file e projectName parameters refer to the outputs of **autoencoderClustering** 
+    
+    + *sp* is the similarity threshold defined for CSS (please see above). This paramenter has as default 0.8. Reduction below 0.7 of this threshold reduce the specificity of CSS, values below 0.5 are meaningless.
+    
+The outputs of **autoencoderAnalysis** are the pdfs:
+
+- **setA_stabilityPlot.pdf** (QCF, Figure above B)
+
+- **setA_stabilityPlotUNBIAS.pdf** (QCM, Figure above C)
+
+- **setA_StabilitySignificativityJittered.pdf** (QCM versus QCF, Figure above D)
+
+The **autoFeature** creates the frequency table for COMET analysis.
+
+```{r, echo=T, eval=F}
+library(rCASC)
+autoFeature(group=c("docker"), scratch.folder=path,file="/home/user/newModification/Data/Results/setAKinasi_SIMLR/setA.csv",separator=",", nCluster=5,projectName="setAKinasi_SIMLR")
+
+```
+
+**IMPORTANT**: this function produces an output for all clusters, but only results related to clusters supported by QCM and QCF means greater than 0.5 have to be taken in account.
+
+- *autoFeature parameters* (only those without default; for the full list of parameters please refer to the function help):
+
+    + file e projectName parameters refer to the outputs of **autoencoderAnalysis** 
+
+
+**cometsc2** is a modification of **cometsc** function suitable to handle **autoencoder** frequency table, i.e. **autoencoder** frequency table contains the % of permutations in which each hidden node for each cell was characterized by a weight different from 0 (if a hidden node is characterized by a weight equal to 0 it means that it was not used in that specific permutation). **autoFeature** function is used to extract functional features from autoencoders latent space frequency table output.
+
+
+```{r, echo=T, eval=F}
+library(rCASC)
+cometsc2(group=c("docker"), file="/home/user/newModification/Data/Results/setAKinasi_SIMLR/5/freqMatrix.csv",
+         scratch.folder=path, threads=1, X=0.15, K=2, 
+         counts=c("True", "False"), skipvis=c("True", "False"), nCluster=5,
+         separator=",",
+         clustering.output=paste(path,"/Data/Results/setA/5/setA_clustering.output.csv",sep=""))
+```
+
+**IMPORTANT**: this function produces an output for all clusters, but only results related to clusters supported by **QCM and QCF means greater than 0.5|** have to be taken in account.
+
+- *cometsc2 parameters* (only those without default; for the full list of parameters please refer to the function help):
+
+    + *file* is the path to the frequency matrix generated by **autoFeature** function. 
+    
+    + *clustering.output* is the path to the clustering.output generated by rCASC on the initial counts table 
+    
+
+
+## **Section 11** Tips and tricks
 
 In this section we highlight some points that might help data analysis.
 
 
-### **Section 10.1** Data preprocessing
+### **Section 11.1** Data preprocessing
 
 Lorenz statistics (*lorenzeFilter* function) was designed using C1 - Fluidigm and smart-seq libraries. There are no evidences that it performes optimally on UMI based sequencing. In case of UMI, we suggest the use of  *topx* and *filterZeros* functions, which respectively allow the selection of a user defined set of genes with high dispersion/expression and the removal of genes with a user defined fraction of 0s.
 
@@ -2565,17 +2719,13 @@ The normalization for sequencing depth (*checkCountDepth* and *scnorm* functions
 Cell cycle estimation (*recatPrediction* function) and removal (*ccRemove** function) were designed for smart-seq single cell sequencing data. In our hands they are also working on UMI seqencing data althought, if the cell number exceed few thousands, cell cycle estimation became very slow. We suggest to perform cell cycle estimation on a random subset of few hundreds cells (*subSetCell* function) of the data set under analysis.
 
 
-### **Section 10.2** Clustering
+### **Section 11.2** Clustering
 
 
 As part of the output of the clustering procedure there is a plot of the number of detected genes as function of the number of cell UMIs. In this plot, each cell is colored on the basis of the cluster it belongs. This plot helps in understanding if cell clusters simply correlate with number of genes called in each cell. Ideally, there should not be any correlation between clusters and number of genes detected in a cell, since clustering should be driven by cells' biological content and not by the number of detected genes.
 
 
 On the basis of our tests SIMLR and Seurat generated results comparable in terms of CSS and clusters homogeneity. Since griph and scanpy results correlate less with SIMLR and Seurat, we suggest to use them only if a very large set of cells has to be analysed, e.g. >20K cells.
-
-
-
-
 
 
 

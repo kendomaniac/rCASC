@@ -14,7 +14,8 @@ autoencoderClustering(
   seed = 1111,
   projectName,
   pcaDimensions,
-  permAtTime = 4
+  permAtTime = 4,
+  largeScale = FALSE
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ autoencoderClustering(
 \item{pcaDimensions, }{number of dimensions to use for Seurat Pca reduction.}
 
 \item{permAtTime, }{number of permutation in parallel}
+
+\item{largeScale, }{boolean for SIMLR analysis, TRUE if rows are less then columns or if the computational time are huge}
 }
 \value{
 
@@ -46,7 +49,7 @@ This function Compress data using autoencoder partially connected
 }
 \examples{
 \dontrun{
- autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,"testDocker",13)
+ autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,"testDocker",13, largeScale = FALSE)
 }
 }
 \author{

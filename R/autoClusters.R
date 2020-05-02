@@ -16,7 +16,7 @@
 #' @return 
 #' @examples
 #' \dontrun{
-#'  autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,"testDocker",13)
+#'  autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,"testDocker",13, largeScale = FALSE)
 
 #'}
 #' @export

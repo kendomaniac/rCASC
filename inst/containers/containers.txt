@@ -34,3 +34,5 @@ docker.io/repbioinfo/harmony
 docker.io/repbioinfo/autoencodercpu
 docker.io/repbioinfo/permutationclusteringsharp
 docker.io/repbioinfo/spatialanalysis
+docker.io/repbioinfo/permutationanalysisv2
+docker.io/repbioinfo/autoencodercpu
