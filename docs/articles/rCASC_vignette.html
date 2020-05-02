@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.8</span>
       </span>
     </div>
 
@@ -75,7 +75,7 @@
       <h1>rCASC vignette</h1>
                         <h4 class="author">Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Nicola Licheri, Gennaro De Libero, Luigia Pace, and Raffaele A Calogero</h4>
             
-            <h4 class="date">28/03/2020</h4>
+            <h4 class="date">30/04/2020</h4>
       
       
       <div class="hidden name"><code>rCASC_vignette.Rmd</code></div>
@@ -1903,12 +1903,19 @@ GUI: tSne clustering panel
 <a class="sourceLine" id="cb36-56" data-line-number="56"><span class="co">#Error response from daemon: can not get logs from container which is dead or marked for removal</span></a>
 <a class="sourceLine" id="cb36-57" data-line-number="57"></a>
 <a class="sourceLine" id="cb36-58" data-line-number="58"></a>
-<a class="sourceLine" id="cb36-59" data-line-number="59"><span class="co"># required time 9 mins</span></a></code></pre></div>
+<a class="sourceLine" id="cb36-59" data-line-number="59"><span class="co"># required time 9 mins</span></a>
+<a class="sourceLine" id="cb36-60" data-line-number="60"></a>
+<a class="sourceLine" id="cb36-61" data-line-number="61"><span class="co">#running SHARP clustering</span></a>
+<a class="sourceLine" id="cb36-62" data-line-number="62"></a>
+<a class="sourceLine" id="cb36-63" data-line-number="63"><span class="kw"><a href="../reference/sharpBootstrap.html">sharpBootstrap</a></span>(<span class="dt">group=</span><span class="st">"docker"</span>,<span class="dt">scratch.folder=</span><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>(), </a>
+<a class="sourceLine" id="cb36-64" data-line-number="64">               <span class="dt">file=</span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>(), <span class="st">"annotated_bmsnkn_5x100cells.txt"</span>, <span class="dt">sep=</span><span class="st">"/"</span>), </a>
+<a class="sourceLine" id="cb36-65" data-line-number="65">               <span class="dt">nPerm=</span><span class="dv">160</span>, <span class="dt">permAtTime=</span><span class="dv">10</span>, <span class="dt">percent=</span><span class="dv">10</span>, <span class="dt">separator=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>,</a>
+<a class="sourceLine" id="cb36-66" data-line-number="66">               <span class="dt">logTen=</span><span class="dv">0</span>, <span class="dt">seed=</span><span class="dv">111</span>)</a></code></pre></div>
 
-<p>We run the analysis on the SetA described in Section 4.1. SIMLR Seurat and griph detect the 5 clusters, i.e. 5 cell types, and all clusters show an high CSC (Figure below panels A-C). However, tSne detects the 5 clusters, but they are less stable in terms of CSS (Figure below panel E). For scanpy we tested various combination of perplexity and PCs number but we failed to find a condition detecting the 5 clusters and clusters stability is very poor. From the point of view of the computation time, the above mentioned analysis took 159 mins for tSne, 168 mins for SIMLR, 194 mins for Seurat, 61 mins for griph and only 9 minus for scanpy.</p>
+<p>We run the analysis on the SetA described in Section 4.1. All tools but tSne+k-mean and scanpy provided very good and similar partition of the different cell types For scanpy we tested various combination of perplexity and PCs number, but we failed to find a condition detecting the 5 clusters and clusters stability was always very poor. From the point of view of the computation time, the above mentioned analysis took 159 mins for tSne, 168 mins for SIMLR, 194 mins for Seurat, 61 mins for griph and only 9 minus for scanpy.</p>
 <div class="figure" style="text-align: center">
-<img src="../inst/img/5clusters.png" alt="Comparing SIMLR and tSne within rCASC bootstrap framework. A) SetA clustered with SIMLR. B) SetA clustered with Seurat, C) SetA clustered with griph, D) SetA clustered with scanpy, E) SetA clustered with tSne. N.B. Colors do not define the same cluster in figure A and B." width="70%"><p class="caption">
-Comparing SIMLR and tSne within rCASC bootstrap framework. A) SetA clustered with SIMLR. B) SetA clustered with Seurat, C) SetA clustered with griph, D) SetA clustered with scanpy, E) SetA clustered with tSne. N.B. Colors do not define the same cluster in figure A and B.
+<img src="../inst/img/5clusters.png" alt="Comparing the clustering tools available in rCASC. : SetA clustering. All tools but scanpy detected 5 clusters. CSS for tSne+K-mean was slightly lower than for the other tools. Scanpy detected 11 totally unstable clusters, thus we could not assign the cluster composition. The cluster organization and composition is very similar between the tools but scanpy. A) tSne+K=mean, B) griph, C) SIMLR, D) Seurat, E) SHARP, F) scanpy. N.B. Colors do not define the same cluster in figure panels" width="70%"><p class="caption">
+Comparing the clustering tools available in rCASC. : SetA clustering. All tools but scanpy detected 5 clusters. CSS for tSne+K-mean was slightly lower than for the other tools. Scanpy detected 11 totally unstable clusters, thus we could not assign the cluster composition. The cluster organization and composition is very similar between the tools but scanpy. A) tSne+K=mean, B) griph, C) SIMLR, D) Seurat, E) SHARP, F) scanpy. N.B. Colors do not define the same cluster in figure panels
 </p>
 </div>
 <div style="page-break-after: always;"></div>
@@ -2563,21 +2570,136 @@ IPA C2 connected genes.
 <p>The paper <a href="https://www.ncbi.nlm.nih.gov/pubmed/29326266"><em>Pace</em></a> showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extends the information provided from the single cell analysis in Pace paper, suggesting the presence of an enriched Suv39h1-defective memory subset, cluster 2 in Figure above panel C. Noteworthy, this example suggests that even few hundreds cells are sufficient to discriminate between sub-populations.</p>
 </div>
 </div>
-<div id="section-10-tips-and-tricks" class="section level2">
+<div id="section-10-mining-clusters-with-sparsely-connected-autoencoders-scas" class="section level2">
 <h2 class="hasAnchor">
-<a href="#section-10-tips-and-tricks" class="anchor"></a><strong>Section 10</strong> Tips and tricks</h2>
+<a href="#section-10-mining-clusters-with-sparsely-connected-autoencoders-scas" class="anchor"></a><strong>Section 10</strong> Mining clusters with Sparsely-Connected Autoencoders (SCAs)</h2>
+<p>A module for the extraction of cluster-specific functional features was recently implemented in rCASC. This module uses Sparsely-Connected Autoencoders (SCAs) to grasp hidden functional features from the clusters detected using the rCASC clustering tools. SCAs encoding/decoding functions are one layer deep (Figure below, latent space) and this layer is sparse (not fully-connected like standard autoencoders), with connections based on known biological relationships [<a href="https://www.researchgate.net/publication/331792510_Shallow_Sparsely-Connected_Autoencoders_for_Gene_Set_Projection"><em>Gold et al. 2019</em></a>, <a href="https://academic.oup.com/nar/article/45/17/e156/4056711"><em>Lin et al. 2017</em></a>].</p>
+<div class="figure" style="text-align: center">
+<img src="../inst/img/sca.png" alt="Sparsely-Connected Autoencoder structure" width="60%"><p class="caption">
+Sparsely-Connected Autoencoder structure
+</p>
+</div>
+<p>In SCA, each encoded node represents a known biological relationships (transcription factors (TFs) targets, miRNA targets (miRNAs), cancer-related immune-signatures (ISs), kinase specific protein targets (Ks), etc.) and only receives inputs from gene nodes associated to the biological relationships. With respect to the Gold paper [<a href="https://www.researchgate.net/publication/331792510_Shallow_Sparsely-Connected_Autoencoders_for_Gene_Set_Projection"><em>Gold et al. 2019</em></a>], which is using gene sets [<a href="https://www.pnas.org/content/102/43/15545"><em>Subramanian et al. 2005</em></a>], in our implementation the latent space is based only experimentally validated data, TRRUST [<a href="https://academic.oup.com/nar/article/46/D1/D380/4566018"><em>Han et al. 2017</em></a>], miRTarBase [<a href="https://academic.oup.com/nar/article/46/D1/D296/4595852"><em>Chou et al. 2018</em></a>], RegPhos [<a href="https://academic.oup.com/database/article/doi/10.1093/database/bau034/2634150"><em>Huang et al. 2014</em></a>], KEGG [<a href="https://academic.oup.com/nar/article/45/D1/D353/2605697"><em>Kanehisa et al. 2016</em></a>], manually curated cancer-based immune-signature (<em>Alessandri et al. In preparation</em>)</p>
+<p>The function <strong>autoencoder</strong> calculates the neural network.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co">##add example</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rCASC)</a>
+<a class="sourceLine" id="cb52-3" data-line-number="3"><span class="kw"><a href="../reference/autoencoder.html">autoencoder</a></span>(<span class="dt">group=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"docker"</span>), <span class="dt">scratch=</span>path, <span class="dt">file=</span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(path, <span class="st">"Data/setA.csv"</span>, <span class="dt">sep=</span><span class="st">"/"</span>), </a>
+<a class="sourceLine" id="cb52-4" data-line-number="4">            <span class="dt">separator=</span><span class="st">","</span>, <span class="dt">nCluster=</span><span class="dv">5</span>, <span class="dt">bias=</span><span class="st">"kinasi"</span>, <span class="dt">permutation=</span><span class="dv">160</span>, </a>
+<a class="sourceLine" id="cb52-5" data-line-number="5">            <span class="dt">nEpochs=</span><span class="dv">2000</span>, <span class="dt">patiencePercentage=</span><span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb52-6" data-line-number="6">            <span class="dt">cl=</span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(path,<span class="st">"/Data/Results/setA/5/setA_clustering.output.csv"</span>,<span class="dt">sep=</span><span class="st">""</span>), </a>
+<a class="sourceLine" id="cb52-7" data-line-number="7">            <span class="dt">seed=</span><span class="dv">1111</span>, <span class="dt">projectName=</span><span class="st">"setAKinasi"</span>, <span class="dt">bN=</span><span class="st">"NULL"</span>)</a></code></pre></div>
+<ul>
+<li>
+<p><em>autoencoder parameters</em> (only those without default; for the full list of parameters please refer to the function help):</p>
+<ul>
+<li><p><em>bias</em> (“mirna” , “TF”, “CUSTOM”, “kinasi”,”immunoSignature”) refers to the roles that are generating the partially connected hidden layer. If CUSTOM is selected the path to the file required to build the autoencoder structure should be assigned to the parameter bN. The hidden layer description file must have the following structure source, i.e. name of the hidden layer node, in column 1 and geneTarget, i.e. genes present in the hidden node, column 2. Headers are mandatory and row names must not be present, any extra column will be not taken in account.</p></li>
+<li><p><em>nEpochs</em> is the parameter referring to the measure of the number of times all of the training vectors are used once to update the weights. At the end of this learning step the best weights for nodes will be defined. Please note that not necessarily the best weights are in the last epoch. Frequently are located in the first 1000 epochs. Thus, the ideal approach is to run 2000 epochs with 1 permutation only and check the learning rate, Figure below. The optimal epochs is selected within the flat part of the learning curve . Then, the analysis is run again with the number of permutations of your choice,</p></li>
+</ul>
+</li>
+</ul>
+<div class="figure" style="text-align: center">
+<img src="../inst/img/learning.png" alt="Learning rate saved in learning.jpg. In this example the maximum level of learning is obtained with 250 epochs. Thus the analysis with multiple permutations can  be done setting epoch slightly greater than 250, e.g. 500" width="60%"><p class="caption">
+Learning rate saved in learning.jpg. In this example the maximum level of learning is obtained with 250 epochs. Thus the analysis with multiple permutations can be done setting epoch slightly greater than 250, e.g. 500
+</p>
+</div>
+<pre><code>+ *permutation* refers to the  number of times the neural network is calculated from scratch. The number of permutations depends on the level of consistency requested, usually 160 permutations provides robust results, but it might take some times to executeon a common laptop , thus lower number of permutation might be selected, e.g. 80. 
+
++ *cl* refers to the full path to the **_clustering.output** file to be used, which was generated using rCASC clustering tools.
+
++ *ProjectName* parameter refers to the name of the folder where **autoencoder** outputs will be saved. </code></pre>
+<p>The <strong>autoencoder</strong> function produces as output, in the folder <strong>ProjectName</strong>, a frequency table, with the same name of the counts table used in input with the parameter <em>file</em>. This frequency table indicates the % of permutations in which each hidden node for each cell was characterized by a weight different from 0 (if a hidden node is characterized by a weight equal to 0 means that it was not used in that specific permutation). The <strong>autoencoder</strong> function produces as output many files with the extension <strong>Xdensespace.format</strong>, in the folder <strong>ProjectName/Permutation</strong>. The number of such files corresponds to the number of selected permutations.</p>
+<p>The function <strong>autoencoderClustering</strong> generates the numerical data required to understand if there is coherence between counts table derived clusters and those derived using autoencoders latent space.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co">##add example</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rCASC)</a>
+<a class="sourceLine" id="cb54-3" data-line-number="3"><span class="kw"><a href="../reference/autoencoderClustering.html">autoencoderClustering</a></span>(<span class="dt">group=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"docker"</span>), <span class="dt">scratch.folder=</span>path,</a>
+<a class="sourceLine" id="cb54-4" data-line-number="4">                      <span class="dt">file=</span><span class="st">"/home/user/newModification/Data/Results/setAKinasi/setA.csv"</span>,</a>
+<a class="sourceLine" id="cb54-5" data-line-number="5">                      <span class="dt">separator=</span><span class="st">","</span>, <span class="dt">nCluster=</span><span class="dv">5</span>, <span class="dt">clusterMethod=</span><span class="st">"SIMLR"</span>, <span class="dt">seed=</span><span class="dv">1111</span>, </a>
+<a class="sourceLine" id="cb54-6" data-line-number="6">                      <span class="dt">projectName=</span><span class="st">"setAKinasi"</span>,<span class="dt">pcaDimensions=</span><span class="dv">15</span>,<span class="dt">permAtTime=</span><span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb54-7" data-line-number="7">                      <span class="dt">largeScale=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<ul>
+<li>
+<p><em>autoencoderClustering parameters</em> (only those without default; for the full list of parameters please refer to the function help):</p>
+<ul>
+<li><p><strong>IMPORTANT</strong>: <em>file</em> parameter refers to the full path of the frequency table saved in the results output folder of the <strong>autoencoder</strong> function.</p></li>
+<li><p><em>projectName</em> parameter is the same indicated in <strong>autoencoder</strong> function.</p></li>
+<li><p><em>clusterMethod</em> parameter refers to any of the clustering methods available in rCASC (“GRIPH”,“SIMLR”,“SEURAT”,“SHARP”), not necessary should be the same used for the raw count table clustering, actually it is useful to test more than one clustering method to see which one provides the best convergence with the clusters initially generated using the genes counts table.</p></li>
+<li><p><em>pcaDimensions</em> parameter is only required when Seurat is used as clustering tool.</p></li>
+</ul>
+</li>
+</ul>
+<p>The <strong>autoencoderClustering</strong> output is a folder where the name is given by the combination of the <em>projectName</em> and the <em>clusterMethod</em>, e.g in the above example <strong>setAKinasi_SIMLR</strong>. In this folder the is the file <strong>label.csv</strong>, where is located the cluster assignment for each cells over each permutation.</p>
+<p>The output of <strong>autoencoderClustering</strong> is used by the function <strong>autoencoderAnalysis</strong> to genererate the QCF and QCM statistics (Figure below). QCF is an extension of CSS and it measures the ability of latent space to keep aggregated cells belonging to predefined clusters generated using the gene count table. The metrics has the range between 0 and 1, where 1 indicates a high coexistence of cells within the same cluster in the bootstrap analysis, and 0 a total lack of coexistence of cells within the same cluster. In the figure below, only clusters 1 and 2 (A) can be well explained by latent space (B). QCM metric is also an extension of CSS and it measures the ability of the neural network to generate consistent data over bootstraps. In the Figure below, SCA provides consistent data only for clusters 1 and 2 (C). Informative clusters are those characterised by high QCM and QCF scores, Figure below only clusters 1 and 2 (D) are characterized by a robust neural network able to keep the cell aggregated using hidden layer knowledge. Dashed red line (Figure below, D) indicates the defined threshold to consider the latent space information suitable to support cells’ clusters.</p>
+<div class="figure" style="text-align: center">
+<img src="../inst/img/qcm-qcf.png" alt="QCM and QCF. A) five clusters were detected analysing setA with griph. Each cluster is made by more than 90% by one cell type. B) QCF violin plot. C) QCM violin plot, D) Combined view of QCM and QCF" width="80%"><p class="caption">
+QCM and QCF. A) five clusters were detected analysing setA with griph. Each cluster is made by more than 90% by one cell type. B) QCF violin plot. C) QCM violin plot, D) Combined view of QCM and QCF
+</p>
+</div>
+<p>Function <strong>autoencoderAnalysis</strong> transforms ** <strong>autoencoderClustering</strong> function outputs in readable results.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rCASC)</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw"><a href="../reference/autoencoderAnalysis.html">autoencoderAnalysis</a></span>(<span class="dt">group=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"docker"</span>), <span class="dt">scratch.folder=</span>path, <span class="dt">file=</span><span class="st">"/home/user/newModification/Data/Results/setAKinasi_SIMLR/setA.csv"</span>, </a>
+<a class="sourceLine" id="cb55-3" data-line-number="3">                    <span class="dt">separator=</span><span class="st">","</span>, <span class="dt">nCluster=</span><span class="dv">5</span>, <span class="dt">seed=</span><span class="dv">1111</span>, </a>
+<a class="sourceLine" id="cb55-4" data-line-number="4">                    <span class="dt">projectName=</span><span class="st">"setAKinasi_SIMLR"</span>, <span class="dt">Sp=</span><span class="fl">0.8</span>)</a></code></pre></div>
+<ul>
+<li>
+<p><em>autoencoderAnalysis parameters</em> (only those without default; for the full list of parameters please refer to the function help):</p>
+<ul>
+<li><p>file e projectName parameters refer to the outputs of <strong>autoencoderClustering</strong></p></li>
+<li><p><em>sp</em> is the similarity threshold defined for CSS (please see above). This paramenter has as default 0.8. Reduction below 0.7 of this threshold reduce the specificity of CSS, values below 0.5 are meaningless.</p></li>
+</ul>
+</li>
+</ul>
+<p>The outputs of <strong>autoencoderAnalysis</strong> are the pdfs:</p>
+<ul>
+<li><p><strong>setA_stabilityPlot.pdf</strong> (QCF, Figure above B)</p></li>
+<li><p><strong>setA_stabilityPlotUNBIAS.pdf</strong> (QCM, Figure above C)</p></li>
+<li><p><strong>setA_StabilitySignificativityJittered.pdf</strong> (QCM versus QCF, Figure above D)</p></li>
+</ul>
+<p>The <strong>autoFeature</strong> creates the frequency table for COMET analysis.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rCASC)</a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="kw"><a href="../reference/autoFeature.html">autoFeature</a></span>(<span class="dt">group=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"docker"</span>), <span class="dt">scratch.folder=</span>path,<span class="dt">file=</span><span class="st">"/home/user/newModification/Data/Results/setAKinasi_SIMLR/setA.csv"</span>,<span class="dt">separator=</span><span class="st">","</span>, <span class="dt">nCluster=</span><span class="dv">5</span>,<span class="dt">projectName=</span><span class="st">"setAKinasi_SIMLR"</span>)</a></code></pre></div>
+<p><strong>IMPORTANT</strong>: this function produces an output for all clusters, but only results related to clusters supported by QCM and QCF means greater than 0.5 have to be taken in account.</p>
+<ul>
+<li>
+<p><em>autoFeature parameters</em> (only those without default; for the full list of parameters please refer to the function help):</p>
+<ul>
+<li>file e projectName parameters refer to the outputs of <strong>autoencoderAnalysis</strong>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>cometsc2</strong> is a modification of <strong>cometsc</strong> function suitable to handle <strong>autoencoder</strong> frequency table, i.e. <strong>autoencoder</strong> frequency table contains the % of permutations in which each hidden node for each cell was characterized by a weight different from 0 (if a hidden node is characterized by a weight equal to 0 it means that it was not used in that specific permutation). <strong>autoFeature</strong> function is used to extract functional features from autoencoders latent space frequency table output.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rCASC)</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw"><a href="../reference/cometsc2.html">cometsc2</a></span>(<span class="dt">group=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"docker"</span>), <span class="dt">file=</span><span class="st">"/home/user/newModification/Data/Results/setAKinasi_SIMLR/5/freqMatrix.csv"</span>,</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3">         <span class="dt">scratch.folder=</span>path, <span class="dt">threads=</span><span class="dv">1</span>, <span class="dt">X=</span><span class="fl">0.15</span>, <span class="dt">K=</span><span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb57-4" data-line-number="4">         <span class="dt">counts=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"True"</span>, <span class="st">"False"</span>), <span class="dt">skipvis=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"True"</span>, <span class="st">"False"</span>), <span class="dt">nCluster=</span><span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb57-5" data-line-number="5">         <span class="dt">separator=</span><span class="st">","</span>,</a>
+<a class="sourceLine" id="cb57-6" data-line-number="6">         <span class="dt">clustering.output=</span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(path,<span class="st">"/Data/Results/setA/5/setA_clustering.output.csv"</span>,<span class="dt">sep=</span><span class="st">""</span>))</a></code></pre></div>
+<p><strong>IMPORTANT</strong>: this function produces an output for all clusters, but only results related to clusters supported by <strong>QCM and QCF means greater than 0.5|</strong> have to be taken in account.</p>
+<ul>
+<li>
+<p><em>cometsc2 parameters</em> (only those without default; for the full list of parameters please refer to the function help):</p>
+<ul>
+<li><p><em>file</em> is the path to the frequency matrix generated by <strong>autoFeature</strong> function.</p></li>
+<li><p><em>clustering.output</em> is the path to the clustering.output generated by rCASC on the initial counts table</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="section-11-tips-and-tricks" class="section level2">
+<h2 class="hasAnchor">
+<a href="#section-11-tips-and-tricks" class="anchor"></a><strong>Section 11</strong> Tips and tricks</h2>
 <p>In this section we highlight some points that might help data analysis.</p>
-<div id="section-10-1-data-preprocessing" class="section level3">
+<div id="section-11-1-data-preprocessing" class="section level3">
 <h3 class="hasAnchor">
-<a href="#section-10-1-data-preprocessing" class="anchor"></a><strong>Section 10.1</strong> Data preprocessing</h3>
+<a href="#section-11-1-data-preprocessing" class="anchor"></a><strong>Section 11.1</strong> Data preprocessing</h3>
 <p>Lorenz statistics (<em>lorenzeFilter</em> function) was designed using C1 - Fluidigm and smart-seq libraries. There are no evidences that it performes optimally on UMI based sequencing. In case of UMI, we suggest the use of <em>topx</em> and <em>filterZeros</em> functions, which respectively allow the selection of a user defined set of genes with high dispersion/expression and the removal of genes with a user defined fraction of 0s.</p>
 <p>Unless there is a specific interest on mitochondrial and ribosomal protein genes, we suggest to remove them before performing clustering (<em>scannobyGtf</em>, function). Specifically ribosomal genes represent a high fraction of the UMI counts associated to a cell and might result in driving the cells partioning.</p>
 <p>The normalization for sequencing depth (<em>checkCountDepth</em> and <em>scnorm</em> functions) was designed for smart-seq single cell sequencing data. This normalization can be applied to UMI sequencing data but it requires at least 10K UMIs/cell.</p>
 <p>Cell cycle estimation (<em>recatPrediction</em> function) and removal (*ccRemove** function) were designed for smart-seq single cell sequencing data. In our hands they are also working on UMI seqencing data althought, if the cell number exceed few thousands, cell cycle estimation became very slow. We suggest to perform cell cycle estimation on a random subset of few hundreds cells (<em>subSetCell</em> function) of the data set under analysis.</p>
 </div>
-<div id="section-10-2-clustering" class="section level3">
+<div id="section-11-2-clustering" class="section level3">
 <h3 class="hasAnchor">
-<a href="#section-10-2-clustering" class="anchor"></a><strong>Section 10.2</strong> Clustering</h3>
+<a href="#section-11-2-clustering" class="anchor"></a><strong>Section 11.2</strong> Clustering</h3>
 <p>As part of the output of the clustering procedure there is a plot of the number of detected genes as function of the number of cell UMIs. In this plot, each cell is colored on the basis of the cluster it belongs. This plot helps in understanding if cell clusters simply correlate with number of genes called in each cell. Ideally, there should not be any correlation between clusters and number of genes detected in a cell, since clustering should be driven by cells’ biological content and not by the number of detected genes.</p>
 <p>On the basis of our tests SIMLR and Seurat generated results comparable in terms of CSS and clusters homogeneity. Since griph and scanpy results correlate less with SIMLR and Seurat, we suggest to use them only if a very large set of cells has to be analysed, e.g. &gt;20K cells.</p>
 </div>
@@ -2599,7 +2721,8 @@ IPA C2 connected genes.
       <li><a href="#section-7-detecting-the-genes-playing-the-major-role-in-clusters-formation"><strong>Section 7</strong> Detecting the genes playing the major role in clusters formation</a></li>
       <li><a href="#section-8-supporting-tools"><strong>Section 8</strong> Supporting tools</a></li>
       <li><a href="#section-9-an-example-of-rcasc-analysis-geogse106264-"><strong>Section 9</strong> An example of rCASC analysis: <span><em>GEO:GSE106264</em></span>.</a></li>
-      <li><a href="#section-10-tips-and-tricks"><strong>Section 10</strong> Tips and tricks</a></li>
+      <li><a href="#section-10-mining-clusters-with-sparsely-connected-autoencoders-scas"><strong>Section 10</strong> Mining clusters with Sparsely-Connected Autoencoders (SCAs)</a></li>
+      <li><a href="#section-11-tips-and-tricks"><strong>Section 11</strong> Tips and tricks</a></li>
       </ul>
 </div>
       </div>
