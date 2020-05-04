@@ -1,5 +1,5 @@
 Package: rCASC
-Version: 4.0.8
+Version: 4.0.9
 Date: 2020-05-02
 Title: rCASC reproducible Classification Analysis of Single Cell Sequencing Data
 Authors@R: c(person("Raffaele", "Calogero", role = c("aut", "cre"),
