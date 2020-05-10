@@ -68,7 +68,7 @@ cometsc <- function(group=c("sudo","docker"), file, scratch.folder, threads=1,  
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
   #system(paste("cp -r ",data.folder,"/Results/", matrixName,"/",nCluster, "/* ",scrat_tmp.folder,sep=""))
-  system(paste("cp -r ",data.folder,"/Results/", matrixName,"/ ",scrat_tmp.folder,sep=""))
+  system(paste("cp -r ",data.folder,"/Results/", matrixName," ",scrat_tmp.folder,sep=""))
   system(paste("cp -r ", file," ",scrat_tmp.folder,sep=""))
   
   #executing the docker job
