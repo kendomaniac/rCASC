@@ -81,7 +81,7 @@ system(paste("cp -r ",data.folder," ",scrat_tmp.folder,"/",sep=""))
 
   if(clusterMethod=="SIMLR"){
     if(largeScale==FALSE){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationclustering Rscript /home/mainSIMLR.R ",projectName," ",matrixName," ",separator," ",nCluster," ",seed," ",permAtTime,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationclustering Rscript /home/mainSIMLR.R ",projectName," ",matrixName," ",separator," ",nCluster," ",seed,sep="")
     }else{
         params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationclustering Rscript /home/mainSIMLR2.R ",projectName," ",matrixName," ",separator," ",nCluster," ",seed," ",permAtTime,sep="")
     }
