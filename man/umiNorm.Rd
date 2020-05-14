@@ -8,7 +8,8 @@ umiNorm(
   group = c("sudo", "docker"),
   file,
   outputName,
-  normMethod = c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN", "SUM_FN", "TMM_FN", "UQ_FN")
+  normMethod = c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN", "SUM_FN", "TMM_FN",
+    "UQ_FN")
 )
 }
 \arguments{
