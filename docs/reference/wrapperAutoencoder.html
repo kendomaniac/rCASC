@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Autoencoder clustering — autoencoderClustering • rCASC</title>
+<title>wrapperAutoencoder — wrapperAutoencoder • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Autoencoder clustering — autoencoderClustering" />
-<meta property="og:description" content="This function Compress data using autoencoder partially connected" />
+<meta property="og:title" content="wrapperAutoencoder — wrapperAutoencoder" />
+<meta property="og:description" content="This function will execute all the autoencoder pipeline" />
 
 
 
@@ -115,27 +115,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Autoencoder clustering</h1>
+    <h1>wrapperAutoencoder</h1>
     
-    <div class="hidden name"><code>autoencoderClustering.Rd</code></div>
+    <div class="hidden name"><code>wrapperAutoencoder.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function Compress data using autoencoder partially connected</p>
+    <p>This function will execute all the autoencoder pipeline</p>
     </div>
 
-    <pre class="usage"><span class='fu'>autoencoderClustering</span>(
+    <pre class="usage"><span class='fu'>wrapperAutoencoder</span>(
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
   <span class='no'>scratch.folder</span>,
   <span class='no'>file</span>,
   <span class='no'>separator</span>,
   <span class='no'>nCluster</span>,
-  <span class='kw'>clusterMethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GRIPH"</span>, <span class='st'>"SIMLR"</span>, <span class='st'>"SEURAT"</span>, <span class='st'>"SHARP"</span>),
+  <span class='kw'>bias</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mirna"</span>, <span class='st'>"TF"</span>, <span class='st'>"CUSTOM"</span>, <span class='st'>"kinasi"</span>, <span class='st'>"immunoSignature"</span>),
+  <span class='no'>permutation</span>,
+  <span class='no'>nEpochs</span>,
+  <span class='kw'>patiencePercentage</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='no'>cl</span>,
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1111</span>,
   <span class='no'>projectName</span>,
-  <span class='no'>pcaDimensions</span>,
-  <span class='kw'>permAtTime</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-  <span class='kw'>largeScale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>bN</span> <span class='kw'>=</span> <span class='st'>"NULL"</span>,
+  <span class='kw'>lr</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+  <span class='kw'>beta_1</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
+  <span class='kw'>beta_2</span> <span class='kw'>=</span> <span class='fl'>0.999</span>,
+  <span class='kw'>epsilon</span> <span class='kw'>=</span> <span class='fl'>1e-08</span>,
+  <span class='kw'>decay</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"mean_squared_error"</span>,
+  <span class='kw'>clusterMethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GRIPH"</span>, <span class='st'>"SIMLR"</span>, <span class='st'>"SEURAT"</span>, <span class='st'>"SHARP"</span>),
+  <span class='kw'>pcaDimensions</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>permAtTime</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>largeScale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>Sp</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
+  <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>X</span> <span class='kw'>=</span> <span class='fl'>0.15</span>,
+  <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"False"</span>),
+  <span class='kw'>skipvis</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"True"</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -151,7 +169,7 @@
     </tr>
     <tr>
       <th>file, </th>
-      <td><p>a character string indicating the path of the file, with file name and extension included.Has to be the one in the projectName folder.Different so from the previous one.</p></td>
+      <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
     </tr>
     <tr>
       <th>separator, </th>
@@ -162,8 +180,24 @@
       <td><p>number of cluster in which the dataset is divided</p></td>
     </tr>
     <tr>
-      <th>clusterMethod, </th>
-      <td><p>clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"</p></td>
+      <th>bias, </th>
+      <td><p>bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature</p></td>
+    </tr>
+    <tr>
+      <th>permutation, </th>
+      <td><p>number of permutations to perform the pValue to evaluate clustering</p></td>
+    </tr>
+    <tr>
+      <th>nEpochs, </th>
+      <td><p>number of Epochs for neural network training</p></td>
+    </tr>
+    <tr>
+      <th>patiencePercentage, </th>
+      <td><p>number of Epochs percentage of not training before to stop.</p></td>
+    </tr>
+    <tr>
+      <th>cl, </th>
+      <td><p>Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong.All path needs to be provided.</p></td>
     </tr>
     <tr>
       <th>seed, </th>
@@ -172,6 +206,38 @@
     <tr>
       <th>projectName, </th>
       <td><p>might be different from the matrixname in order to perform different analysis on the same dataset</p></td>
+    </tr>
+    <tr>
+      <th>bN, </th>
+      <td><p>name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided,</p></td>
+    </tr>
+    <tr>
+      <th>lr, </th>
+      <td><p>learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise</p></td>
+    </tr>
+    <tr>
+      <th>beta_1, </th>
+      <td><p>look at keras optimizer parameters</p></td>
+    </tr>
+    <tr>
+      <th>beta_2, </th>
+      <td><p>look at keras optimizer parameters</p></td>
+    </tr>
+    <tr>
+      <th>epsilon, </th>
+      <td><p>look at keras optimizer parameters</p></td>
+    </tr>
+    <tr>
+      <th>decay, </th>
+      <td><p>look at keras optimizer parameters</p></td>
+    </tr>
+    <tr>
+      <th>loss, </th>
+      <td><p>loss of function to use, for other loss of function check the keras loss of functions.</p></td>
+    </tr>
+    <tr>
+      <th>clusterMethod, </th>
+      <td><p>clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"</p></td>
     </tr>
     <tr>
       <th>pcaDimensions, </th>
@@ -185,17 +251,41 @@
       <th>largeScale, </th>
       <td><p>boolean for SIMLR analysis, TRUE if rows are less then columns or if the computational time are huge</p></td>
     </tr>
+    <tr>
+      <th>Sp, </th>
+      <td><p>minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.</p></td>
+    </tr>
+    <tr>
+      <th>threads, </th>
+      <td><p>integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster</p></td>
+    </tr>
+    <tr>
+      <th>X, </th>
+      <td><p>from 0 to 1 argument for XL-mHG default 0.15, for more info see cometsc help.</p></td>
+    </tr>
+    <tr>
+      <th>K, </th>
+      <td><p>the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big</p></td>
+    </tr>
+    <tr>
+      <th>counts, </th>
+      <td><p>if set to True it will graph the log(expression+1). To be used if unlogged data are provided</p></td>
+    </tr>
+    <tr>
+      <th>skipvis, </th>
+      <td><p>set to True to skip visualizations</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p>folders the complete autoencoder analysis.</p>
 
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='fu'>autoencoderClustering</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker_2/scratch"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv"</span>,<span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>, <span class='kw'>nCluster</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>clusterMethod</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SEURAT"</span>),<span class='kw'>seed</span><span class='kw'>=</span><span class='fl'>1111</span>,<span class='st'>"testDocker"</span>,<span class='fl'>13</span>, <span class='kw'>largeScale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+ <span class='fu'>wrapperAutoencoder</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"sudo"</span>,<span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='no'>scratch.folder</span>,<span class='kw'>file</span><span class='kw'>=</span><span class='st'>"/home/lucastormreig/test/setA.csv"</span>,<span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>,<span class='kw'>nCluster</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>bias</span><span class='kw'>=</span><span class='st'>"mirna"</span>,<span class='kw'>permutation</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>nEpochs</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>cl</span><span class='kw'>=</span><span class='st'>"/home/lucastormreig/test/setA_clustering.output.csv"</span>,<span class='kw'>projectName</span><span class='kw'>=</span><span class='st'>"mirna"</span>,<span class='kw'>clusterMethod</span><span class='kw'>=</span><span class='st'>"GRIPH"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
