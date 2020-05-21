@@ -6,7 +6,7 @@
 #' @param nCluster, Last number of cluster that has to be analyzed
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param tissuePosition, file with tissue position name with extension
-#' @param Sp, Threshold to assign the plus score. 1 mean that all 6 cells, sorrounding the cell of interest, belong to the same cluster of the cell of interest. 0.83 out mean 5 out of 6 are of the same cluster of the reference cell, 0.66 mean 4 out of 6. We do not suggest to go below these three options.  
+#' @param Sp, Threshold to assign the plus score. 1 mean that all 6 cells, sorrounding the central cell, belong to the same cluster of the central cell. 0.8 out mean 5 out of 6 are of the same cluster of the central cell, 0.6 mean 4 out of 6 are of the same cluster of the central cell. We do not suggest to go below these three value.  
 #' @param percentageIncrease, percentage of the CSS score that has to be increased if the Threshold condition is satisfied. 
 
 #' @author Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino

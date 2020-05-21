@@ -307,6 +307,39 @@ stpipeline(group="docker", scratch.folder="/run/media/user/Maxtor4/scratch",
 
 Results are organized as indicated by 10XGenomics, with the addition of a comma separated file of the cells counts table.
 
+There is a specific fuction for the downstream analysis of ST data: **spatialAnalysis2**. This function offers the possibility to refine the CSS score (for more information, see section 5.3). Each spot, in the spatial transcriptomics design, is sorrounded by 6 other spots. Using **spatialAnalysis2** is possible to assign a "bonus" to CSS score, if at least a certain number of sorrounding spots belong to the same cluster of the central spot. Specifically the parameter *Sp* refers to the supporting number of sorrounding cells:
+
+- 1 mean that all 6 cells, sorrounding the cell of interest, belong to the same cluster of the cell of interest. 
+
+- 0.8 mean that 5 out of 6 cell are of the same cluster of the central cell, 
+
+- 0.6 mean 4 out of 6 cells are of the same cluster of the central cell. 
+
+- We do not suggest to go below these three values.
+
+The parameter *percentageIncrease* indicate the % of increasement of the CSS score of Sp is greater of equal to the indicated theshold.
+
+```{r, echo=TRUE, eval=FALSE}
+spatialAnalysis2( group = "docker", scratch.folder="/scratch", 
+                  file= paste(getwd(),"HBC_BAS1_expr-var-ann_matrix.csv", sep="/"),
+                  nCluster=9, separator=",", 
+                  tissuePosition= paste(getwd(),"spatial/tissue_positions_list.csv", sep="/"),
+                  Sp = 0.8, percentageIncrease = 10
+)
+```
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help):
+    + *nCluster*,	number of clusters that are under analysis
+    
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    
+    + *tissuePosition*,	file with tissue position name with extension
+    + *Sp*,	Threshold to assign the plus score. 
+
+percentageIncrease,	percentage of the CSS score that has to be increased if the Threshold condition is satisfied.
+
+ 
+
 
 ### **Section 2.4** Smart-seq full transcript sequencing.
 
@@ -2452,9 +2485,6 @@ This analysis can provide some preliminary answers to the questions raised above
 
     a.  Yes, cluster 4 represents a unique Suv39h1 subset of activated CD8+ T cells.
     
-
-
-
 
 ### **Section 9.2** Improving clustering results
 
