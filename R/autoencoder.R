@@ -19,6 +19,8 @@
 #' @param epsilon, look at keras optimizer parameters
 #' @param decay, look at keras optimizer parameters
 #' @param loss, loss of function to use, for other loss of function check the keras loss of functions. 
+#' @param regularization,this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.
+#' @param variational, TRUE or FALSE if use the variational autoencoder or just the standard autoencoder. 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return 
@@ -27,7 +29,7 @@
 #'  autoencoder(group="docker",scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker/scratch",file="/home/user/Riccardo/Riccardo/1_inDocker/data/setA.csv",separator=",",nCluster=5,bias="TF",permutation=10,nEpochs=10,cl="/home/user/Riccardo/Riccardo/1_inDocker/data/setA_clustering.output.csv",projectName="testDocker")
 #'}
 #' @export
-autoencoder <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster, bias, permutation, nEpochs,patiencePercentage=5, cl,seed=1111,projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error"){
+autoencoder <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster, bias, permutation, nEpochs,patiencePercentage=5, cl,seed=1111,projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",regularization=10,variational=FALSE){
 
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -88,7 +90,9 @@ cl=basename(cl)
 print(cl)
   #executing the docker job
     params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d repbioinfo/autoencodercpu python3 /home/autoencoder.py ",matrixNameC,".",format," ",separator," ",nCluster," ",bias," ",permutation," ",nEpochs," ",patiencePercentage," ",projectName," ",cl," ",seed," ",bN," ",lr," ",beta_1," ",beta_2," ",epsilon," ",decay," ",loss,sep="")
-
+if(variational){
+params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d repbioinfo/vautoencodercpu python3 /home/vautoencoder.py ",matrixNameC,".",format," ",separator," ",nCluster," ",bias," ",permutation," ",nEpochs," ",patiencePercentage," ",projectName," ",cl," ",seed," ",bN," ",lr," ",beta_1," ",beta_2," ",epsilon," ",decay," ",loss," ",regularization,sep="")
+}
 resultRun <- runDocker(group=group, params=params)
 
   #waiting for the end of the container work
