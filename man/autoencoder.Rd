@@ -23,7 +23,9 @@ autoencoder(
   beta_2 = 0.999,
   epsilon = 1e-08,
   decay = 0,
-  loss = "mean_squared_error"
+  loss = "mean_squared_error",
+  regularization = 10,
+  variational = FALSE
 )
 }
 \arguments{
@@ -45,13 +47,13 @@ autoencoder(
 
 \item{patiencePercentage, }{number of Epochs percentage of not training before to stop.}
 
-\item{cl, }{Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong.All path needs to be provided.}
+\item{cl, }{Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong. All path needs to be provided.}
 
 \item{seed, }{important value to reproduce the same results with same input}
 
 \item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
 
-\item{bN, }{name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided,}
+\item{bN, }{name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol. All path needs to be provided.}
 
 \item{lr, }{learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise}
 
@@ -64,12 +66,16 @@ autoencoder(
 \item{decay, }{look at keras optimizer parameters}
 
 \item{loss, }{loss of function to use, for other loss of function check the keras loss of functions.}
+
+\item{regularization, }{this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.}
+
+\item{variational, }{TRUE or FALSE if use the variational autoencoder or just the standard autoencoder.}
 }
 \value{
 
 }
 \description{
-This function Compress data using autoencoder partially connected
+The present function compress data using autoencoder partially connected
 }
 \examples{
 \dontrun{

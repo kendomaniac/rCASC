@@ -1,5 +1,5 @@
 #' @title Autoencoder
-#' @description This function Compress data using autoencoder partially connected
+#' @description The present function compress data using autoencoder partially connected
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
@@ -10,8 +10,8 @@
 #' @param patiencePercentage, number of Epochs percentage of not training before to stop.
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param bias, bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature 
-#' @param cl, Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong.All path needs to be provided.  
-#' @param bN, name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided, 
+#' @param cl, Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong. All path needs to be provided.  
+#' @param bN, name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol. All path needs to be provided. 
 #' @param seed, important value to reproduce the same results with same input
 #' @param lr, learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise
 #' @param beta_1, look at keras optimizer parameters
@@ -19,7 +19,7 @@
 #' @param epsilon, look at keras optimizer parameters
 #' @param decay, look at keras optimizer parameters
 #' @param loss, loss of function to use, for other loss of function check the keras loss of functions. 
-#' @param regularization,this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.
+#' @param regularization, this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.
 #' @param variational, TRUE or FALSE if use the variational autoencoder or just the standard autoencoder. 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'

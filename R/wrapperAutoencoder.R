@@ -1,5 +1,5 @@
 #' @title wrapperAutoencoder
-#' @description This function will execute all the autoencoder pipeline
+#' @description This function executes the whole autoencoder pipeline
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
@@ -30,7 +30,7 @@
 #' @param counts, if set to True it will graph the log(expression+1). To be used if unlogged data are provided
 #' @param skipvis, set to True to skip visualizations
 #' @param variational, TRUE or FALSE if you want to use a variational autoencoder or the standard autoencoder
-#' @param regularization,this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space
+#' @param regularization, this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space
 #' @return folders the complete autoencoder analysis.
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'

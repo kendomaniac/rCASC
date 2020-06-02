@@ -33,7 +33,9 @@ wrapperAutoencoder(
   X = 0.15,
   K = 2,
   counts = c("False"),
-  skipvis = c("True")
+  skipvis = c("True"),
+  regularization = 10,
+  variational = FALSE
 )
 }
 \arguments{
@@ -94,6 +96,10 @@ wrapperAutoencoder(
 \item{counts, }{if set to True it will graph the log(expression+1). To be used if unlogged data are provided}
 
 \item{skipvis, }{set to True to skip visualizations}
+
+\item{regularization, }{this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space}
+
+\item{variational, }{TRUE or FALSE if you want to use a variational autoencoder or the standard autoencoder}
 }
 \value{
 folders the complete autoencoder analysis.
@@ -101,7 +107,7 @@ folders the complete autoencoder analysis.
 
 }
 \description{
-This function will execute all the autoencoder pipeline
+This function executes the whole autoencoder pipeline
 }
 \examples{
 \dontrun{
