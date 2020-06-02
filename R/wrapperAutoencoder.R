@@ -29,6 +29,8 @@
 #' @param K, the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big
 #' @param counts, if set to True it will graph the log(expression+1). To be used if unlogged data are provided
 #' @param skipvis, set to True to skip visualizations
+#' @param variational, TRUE or FALSE if you want to use a variational autoencoder or the standard autoencoder
+#' @param regularization,this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space
 #' @return folders the complete autoencoder analysis.
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
@@ -40,7 +42,7 @@
 #' @export
 
 
-wrapperAutoencoder=function(group=c("sudo","docker"),scratch.folder,file,separator,nCluster,bias=c("mirna","TF", "CUSTOM","kinasi","immunoSignature"),permutation,nEpochs,patiencePercentage=5,cl,seed=1111,projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",clusterMethod=c( "GRIPH","SIMLR","SEURAT","SHARP"),pcaDimensions=5,permAtTime=3,largeScale=FALSE,Sp=0.8,threads=1,  X=0.15, K=2, counts=c("False"), skipvis=c("True")){
+wrapperAutoencoder=function(group=c("sudo","docker"),scratch.folder,file,separator,nCluster,bias=c("mirna","TF", "CUSTOM","kinasi","immunoSignature"),permutation,nEpochs,patiencePercentage=5,cl,seed=1111,projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",clusterMethod=c( "GRIPH","SIMLR","SEURAT","SHARP"),pcaDimensions=5,permAtTime=3,largeScale=FALSE,Sp=0.8,threads=1,  X=0.15, K=2, counts=c("False"), skipvis=c("True"),regularization=10,variational=FALSE){
 fileTemp=file
 
 data.folder=dirname(file)
@@ -51,7 +53,7 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 
 
 
-autoencoder(group=group, scratch.folder=scratch.folder, file=file,separator=separator, nCluster=nCluster, bias=bias, permutation=permutation, nEpochs=nEpochs,patiencePercentage=patiencePercentage, cl=cl,seed=seed,projectName=projectName,bN=bN,lr=lr,beta_1=beta_1,beta_2=beta_2,epsilon=epsilon,decay=decay,loss=loss)
+autoencoder(group=group, scratch.folder=scratch.folder, file=file,separator=separator, nCluster=nCluster, bias=bias, permutation=permutation, nEpochs=nEpochs,patiencePercentage=patiencePercentage, cl=cl,seed=seed,projectName=projectName,bN=bN,lr=lr,beta_1=beta_1,beta_2=beta_2,epsilon=epsilon,decay=decay,loss=loss,regularization=regularization,variational=variational)
 
 file=paste(dirname(file),"/Results/",projectName,"/",basename(file),sep="")
 autoencoderClustering(group=group, scratch.folder=scratch.folder, file=file,separator=separator, nCluster=nCluster,clusterMethod=clusterMethod,seed=seed,projectName=projectName,pcaDimensions=pcaDimensions,permAtTime=permAtTime,largeScale=largeScale)
