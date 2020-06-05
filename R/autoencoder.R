@@ -9,7 +9,7 @@
 #' @param projectName, might be different from the matrixname in order to perform different analysis on the same dataset
 #' @param patiencePercentage, number of Epochs percentage of not training before to stop.
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param bias, bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature 
+#' @param bias, bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL 
 #' @param cl, Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong. All path needs to be provided.  
 #' @param bN, name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol. All path needs to be provided. 
 #' @param seed, important value to reproduce the same results with same input
