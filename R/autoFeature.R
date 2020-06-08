@@ -15,8 +15,8 @@
 
 #'}
 #' @export
-autoFeature <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster,projectName){
-
+autoFeature <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster){
+projectName=strsplit(file,"/")[[1]][length(strsplit(file,"/")[[1]])-1]
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
