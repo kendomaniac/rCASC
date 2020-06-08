@@ -56,11 +56,11 @@ format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 autoencoder(group=group, scratch.folder=scratch.folder, file=file,separator=separator, nCluster=nCluster, bias=bias, permutation=permutation, nEpochs=nEpochs,patiencePercentage=patiencePercentage, cl=cl,seed=seed,projectName=projectName,bN=bN,lr=lr,beta_1=beta_1,beta_2=beta_2,epsilon=epsilon,decay=decay,loss=loss,regularization=regularization,variational=variational)
 
 file=paste(dirname(file),"/Results/",projectName,"/",basename(file),sep="")
-autoencoderClustering(group=group, scratch.folder=scratch.folder, file=file,separator=separator, nCluster=nCluster,clusterMethod=clusterMethod,seed=seed,projectName=projectName,pcaDimensions=pcaDimensions,permAtTime=permAtTime,largeScale=largeScale)
+autoencoderClustering(group=group, scratch.folder=scratch.folder, file=file,separator=separator, nCluster=nCluster,clusterMethod=clusterMethod,seed=seed,pcaDimensions=pcaDimensions,permAtTime=permAtTime,largeScale=largeScale)
 projectName=paste(projectName,"_",clusterMethod,sep="")
 file=paste(dirname(fileTemp),"/Results/",projectName,"/",basename(fileTemp),sep="")
-autoencoderAnalysis(group=group, scratch.folder, file,separator, nCluster,seed=seed,projectName,Sp)
-autoFeature(group=group, scratch.folder, file,separator, nCluster,projectName)
+autoencoderAnalysis(group=group, scratch.folder, file,separator, nCluster,seed=seed,Sp)
+autoFeature(group=group, scratch.folder, file,separator, nCluster)
 file=paste(dirname(file),"/",nCluster,"/freqMatrix.",format,sep="")
 cometsc2(group=group, file=file, scratch.folder=scratch.folder, threads=threads,  X=X, K=K, counts=counts, skipvis=skipvis, nCluster=nCluster, separator=separator,clustering.output=cl)
 
