@@ -83,8 +83,9 @@ separator="tab"
 
 system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/",sep=""))
 system(paste("cp ",cl," ",scrat_tmp.folder,"/",sep=""))
+  if(bias=="CUSTOM"){
 system(paste("cp ",bN," ",scrat_tmp.folder,"/",sep=""))
-
+}
 cl=basename(cl)
   bN=basename(bN)
 print(cl)
