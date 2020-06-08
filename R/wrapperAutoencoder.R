@@ -42,7 +42,7 @@
 #' @export
 
 
-wrapperAutoencoder=function(group=c("sudo","docker"),scratch.folder,file,separator,nCluster,bias=c("mirna","TF", "CUSTOM","kinasi","immunoSignature"),permutation,nEpochs,patiencePercentage=5,cl,seed=1111,projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",clusterMethod=c( "GRIPH","SIMLR","SEURAT","SHARP"),pcaDimensions=5,permAtTime=3,largeScale=FALSE,Sp=0.8,threads=1,  X=0.15, K=2, counts=c("False"), skipvis=c("True"),regularization=10,variational=FALSE){
+wrapperAutoencoder=function(group=c("sudo","docker"),scratch.folder,file,separator,nCluster,bias=c("mirna","TF", "CUSTOM","kinasi","immunoSignature"),permutation,nEpochs,patiencePercentage=5,cl,seed=1111,projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",clusterMethod=c( "GRIPH","SIMLR","SEURAT","SHARP"),pcaDimensions=5,permAtTime=3,largeScale=FALSE,Sp=0.8,threads=1,  X=0.15, K=2, counts=c("False"), skipvis=c("False"),regularization=10,variational=FALSE){
 fileTemp=file
 
 data.folder=dirname(file)
