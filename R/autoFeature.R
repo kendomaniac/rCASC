@@ -11,11 +11,11 @@
 #' @return 
 #' @examples
 #' \dontrun{
-#'  autoFeature(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,"testDocker")
+#'  autoFeature(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5, projectName="testDocker")
 
 #'}
 #' @export
-autoFeature <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster){
+autoFeature <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster, projectName){
 projectName=strsplit(file,"/")[[1]][length(strsplit(file,"/")[[1]])-1]
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])

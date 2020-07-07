@@ -34,7 +34,7 @@ This function extract feature selection for each clusters.
 }
 \examples{
 \dontrun{
- autoFeature(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,"testDocker")
+ autoFeature(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5, projectName="testDocker")
 }
 }
 \author{

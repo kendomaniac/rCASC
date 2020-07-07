@@ -10,9 +10,9 @@ autoencoderClustering(
   file,
   separator,
   nCluster,
+  projectName,
   clusterMethod = c("GRIPH", "SIMLR", "SEURAT", "SHARP"),
   seed = 1111,
-  projectName,
   pcaDimensions,
   permAtTime = 4,
   largeScale = FALSE
@@ -29,11 +29,11 @@ autoencoderClustering(
 
 \item{nCluster, }{number of cluster in which the dataset is divided}
 
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
 \item{clusterMethod, }{clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"}
 
 \item{seed, }{important value to reproduce the same results with same input}
-
-\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
 
 \item{pcaDimensions, }{number of dimensions to use for Seurat Pca reduction.}
 
@@ -49,7 +49,7 @@ This function Compress data using autoencoder partially connected
 }
 \examples{
 \dontrun{
- autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,"testDocker",13, largeScale = FALSE)
+ autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,projectName="testDocker",13, largeScale = FALSE)
 }
 }
 \author{

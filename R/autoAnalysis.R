@@ -14,11 +14,11 @@
 #' @return 
 #' @examples
 #' \dontrun{
-#'  autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,"testDocker",13)
+#'  autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,projectName="testDocker",13)
 
 #'}
 #' @export
-autoencoderAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster,seed=1111,Sp,bestPerm=1){
+autoencoderAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster, projectName,seed=1111,Sp,bestPerm=1){
 projectName=strsplit(file,"/")[[1]][length(strsplit(file,"/")[[1]])-1]
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])

@@ -16,11 +16,11 @@
 #' @return 
 #' @examples
 #' \dontrun{
-#'  autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,"testDocker",13, largeScale = FALSE)
+#'  autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,projectName="testDocker",13, largeScale = FALSE)
 
 #'}
 #' @export
-autoencoderClustering <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster,clusterMethod=c("GRIPH","SIMLR","SEURAT","SHARP"),seed=1111,pcaDimensions,permAtTime=4,largeScale=FALSE){
+autoencoderClustering <- function(group=c("sudo","docker"), scratch.folder, file, separator, nCluster, projectName, clusterMethod=c("GRIPH","SIMLR","SEURAT","SHARP"),seed=1111,pcaDimensions,permAtTime=4,largeScale=FALSE){
 projectName=strsplit(file,"/")[[1]][length(strsplit(file,"/")[[1]])-1]
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])

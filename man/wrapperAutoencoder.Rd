@@ -33,7 +33,7 @@ wrapperAutoencoder(
   X = 0.15,
   K = 2,
   counts = c("False"),
-  skipvis = c("True"),
+  skipvis = c("False"),
   regularization = 10,
   variational = FALSE
 )

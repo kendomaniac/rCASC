@@ -10,8 +10,8 @@ autoencoderAnalysis(
   file,
   separator,
   nCluster,
-  seed = 1111,
   projectName,
+  seed = 1111,
   Sp,
   bestPerm = 1
 )
@@ -27,9 +27,9 @@ autoencoderAnalysis(
 
 \item{nCluster, }{number of cluster in which the dataset is divided}
 
-\item{seed, }{important value to reproduce the same results with same input}
-
 \item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{seed, }{important value to reproduce the same results with same input}
 
 \item{Sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
 
@@ -43,7 +43,7 @@ This function Compress data using autoencoder partially connected
 }
 \examples{
 \dontrun{
- autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,"testDocker",13)
+ autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,projectName="testDocker",13)
 }
 }
 \author{
