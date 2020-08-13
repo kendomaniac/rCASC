@@ -49,7 +49,7 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   id="results_cellranger"
   #docker image
   if(version == "2"){
-    dockerImage="docker.io/grromano/cellranger"
+    dockerImage="docker.io/repbioinfo/cellranger"
   } else if(version == "3"){
     dockerImage="docker.io/repbioinfo/cellranger.2018.03"
   }
