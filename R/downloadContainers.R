@@ -11,7 +11,7 @@
 #'
 #' }
 #' @export
-downloadContainers <- function(group="docker", containers.file=c("full", "mini", "nano", "sca"){
+downloadContainers <- function(group="docker", containers.file=c("full", "mini", "nano", "sca")){
    if(containers.file=="full"){
      containers.file=paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")
    }else if(containers.file=="mini"){
