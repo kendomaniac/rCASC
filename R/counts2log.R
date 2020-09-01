@@ -28,10 +28,10 @@ counts2log <- function(file, log.base=c(2,10)){
     tmp <- read.table(counts.matrix, sep="\t", stringsAsFactors = FALSE, header=T, check.names = FALSE, row.names=1)
     if(log.base==2){
       tmpl <- log2(tmp +1)
-      write.table(tmpl, paste("log2_",sub(".txt","", counts.matrix), ".csv", sep=""), sep=",", col.names=NA)
+      write.table(tmpl, paste("log2_",sub(".txt","", counts.matrix), ".txt", sep=""), sep="\t", col.names=NA)
     }else if(log.base==10){
       tmpl <- log10(tmp +1)
-      write.table(tmpl, paste("log10_",sub(".txt","", counts.matrix), ".csv", sep=""), sep=",", col.names=NA)
+      write.table(tmpl, paste("log10_",sub(".txt","", counts.matrix), ".txt", sep=""), sep="\t", col.names=NA)
     }
   }else if(format=="csv"){
     tmp <- read.table(counts.matrix, sep=",", stringsAsFactors = TRUE, header=T, check.names = FALSE, row.names=1)
