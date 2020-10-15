@@ -9,7 +9,7 @@
 #' @param projectName, might be different from the matrixname in order to perform different analysis on the same dataset
 #' @param patiencePercentage, number of Epochs percentage of not training before to stop.
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param bias, bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature 
+#' @param bias, bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL 
 #' @param cl, Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong.All path needs to be provided.  
 #' @param bN, name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided, 
 #' @param seed, important value to reproduce the same results with same input
@@ -42,7 +42,7 @@
 #' @export
 
 
-wrapperAutoencoder=function(group=c("sudo","docker"),scratch.folder,file,separator,nCluster,bias=c("mirna","TF", "CUSTOM","kinasi","immunoSignature"),permutation,nEpochs,patiencePercentage=5,cl,seed=1111,projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",clusterMethod=c( "GRIPH","SIMLR","SEURAT","SHARP"),pcaDimensions=5,permAtTime=3,largeScale=FALSE,Sp=0.8,threads=1,  X=0.15, K=2, counts=c("False"), skipvis=c("False"),regularization=10,variational=FALSE){
+wrapperAutoencoder=function(group=c("sudo","docker"),scratch.folder,file,separator,nCluster,bias=c("mirna","TF", "CUSTOM","kinasi","immunoSignature","ALL"),permutation,nEpochs,patiencePercentage=5,cl,seed=1111,projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",clusterMethod=c( "GRIPH","SIMLR","SEURAT","SHARP"),pcaDimensions=5,permAtTime=3,largeScale=FALSE,Sp=0.8,threads=1,  X=0.15, K=2, counts=c("False"), skipvis=c("False"),regularization=10,variational=FALSE){
 fileTemp=file
 
 data.folder=dirname(file)
