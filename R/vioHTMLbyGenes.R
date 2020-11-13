@@ -14,7 +14,7 @@
 #' @return 
 #' @examples
 #' \dontrun{
-#'  vioHTMLByGenes(group=c("sudo"), scratch.folder="/home/lucastormreig/genesPlot/test/scratch", file="/home/lucastormreig/genesPlot/test/data/setA.csv",separator=",", cl="/home/lucastormreig/genesPlot/test/data/setA_clustering.output.csv",gene="ARF5",logtwo=1,TRUE)
+#'  vioHTMLByGenes(group=c("sudo"), scratch.folder="/home/lucastormreig/genesPlot/test/scratch", file="/home/lucastormreig/genesPlot/test/data/setA.csv",separator=",", cl="/home/lucastormreig/genesPlot/test/data/setA_clustering.output.csv",gene="ARF5",logtwo=1)
 #'}
 #' @export
 vioHTMLByGenes <- function(group=c("sudo","docker"), scratch.folder, file,separator, cl,gene,logtwo){
