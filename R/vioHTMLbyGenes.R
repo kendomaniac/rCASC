@@ -26,6 +26,12 @@ vioHTMLByGenes <- function(group=c("sudo","docker"), scratch.folder, file,separa
   matrixName=paste(matrixNameC[seq(1,positions-1)],collapse="")
   format=strsplit(basename(basename(file)),"\\.")[[1]][positions]
 
+ 
+ data.folders=dirname(cl)
+  positionss=length(strsplit(basename(cl),"\\.")[[1]])
+  matrixNamess=strsplit(basename(cl),"\\.")[[1]]
+  matrixNames=paste(matrixNamess[seq(1,positionss-1)],collapse=".")
+  formats=strsplit(basename(basename(cl)),"\\.")[[1]][positionss]
 
   #running time 1
   ptm <- proc.time()
@@ -74,7 +80,7 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/
 system(paste("cp ",cl," ",scrat_tmp.folder,"/",sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d repbioinfo/viohtmlxgenes script.sh ",matrixNameC," ",format," ",separator," ",logtwo," ",gene," ",idPlusName,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d repbioinfo/viohtmlxgenes script.sh ",matrixNameC," ",format," ",separator," ",logtwo," ",gene," ",idPlusName," ",matrixNames,sep="")
 print(params)
 resultRun <- runDocker(group=group, params=params)
 
