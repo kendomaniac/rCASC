@@ -8,7 +8,6 @@
 #' @param cl, Clustering.output file, which contains the output of every clustering algorithm embedded in rCASC or it can be a file having in the first column cells names and in the second column cluster to which the cell belongs. Full path is required.  
 #' @param gene, gene name that wants to be inspected. Gene format depends from the rows names format of the count file.
 #' @param logtwo, 1 if the matrix is already in log2, 0 otherwise
-#' @param idPlusName, boolean if matrix is id:geneName formatted
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
@@ -18,7 +17,7 @@
 #'  vioHTMLByGenes(group=c("sudo"), scratch.folder="/home/lucastormreig/genesPlot/test/scratch", file="/home/lucastormreig/genesPlot/test/data/setA.csv",separator=",", cl="/home/lucastormreig/genesPlot/test/data/setA_clustering.output.csv",gene="ARF5",logtwo=1,TRUE)
 #'}
 #' @export
-vioHTMLByGenes <- function(group=c("sudo","docker"), scratch.folder, file,separator, cl,gene,logtwo,idPlusName){
+vioHTMLByGenes <- function(group=c("sudo","docker"), scratch.folder, file,separator, cl,gene,logtwo){
 
   data.folder=dirname(file)
   positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -80,7 +79,7 @@ system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/
 system(paste("cp ",cl," ",scrat_tmp.folder,"/",sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d repbioinfo/viohtmlxgenes script.sh ",matrixNameC," ",format," ",separator," ",logtwo," ",gene," ",idPlusName," ",matrixNames,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d repbioinfo/viohtmlxgenes script.sh ",matrixNameC," ",format," ",separator," ",logtwo," ",gene," ",matrixNames,sep="")
 print(params)
 resultRun <- runDocker(group=group, params=params)
 
