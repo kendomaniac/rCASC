@@ -14,7 +14,7 @@
 #' @param lanes,  optional, lanes associated with this sample
 #' @param localcores,  restricts cellranger to use specified number of cores to execute pipeline stages. By default, cellranger will use all of the cores available on your system.
 #' @param localmem,  restricts cellranger to use specified amount of memory, in GB, to execute pipeline stages. By default, cellranger will use 90\% of the memory available on your system. Please note that cellranger requires at least 16 GB of memory to run all pipeline stages.
-#' @param version,  cellranger version: 2 or 3. version 3 handle better the counts table generation.
+#' @param version,  cellranger version: 2, 3 or 5. 
 #' @author Greta Romano, romano [dot] greta [at] gmail [dot] com, University of Torino
 #'
 #'
@@ -44,7 +44,7 @@
 #'
 #' @export
 
-cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=TRUE, chemistry="auto", r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder, version="3"){
+cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fastq.folder,  sample=NULL, expect.cells=NULL, force.cells=NULL, nosecondary=TRUE, chemistry="auto", r1.length=NULL,  r2.length=NULL, lanes=NULL, localcores=NULL, localmem=NULL,  scratch.folder, version="5"){
 
   id="results_cellranger"
   #docker image
@@ -52,6 +52,8 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
     dockerImage="docker.io/repbioinfo/cellranger"
   } else if(version == "3"){
     dockerImage="docker.io/repbioinfo/cellranger.2018.03"
+  } else if(version == "5"){
+    dockerImage="docker.io/repbioinfo/cellranger.2020.05"
   }
   
 

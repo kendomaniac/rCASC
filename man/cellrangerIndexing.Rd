@@ -20,7 +20,8 @@ cellrangerIndexing(
     "TR_J_pseudogene", "IG_D_gene", "ribozyme", "IG_C_pseudogene", "TR_D_gene", "TEC",
     "IG_J_pseudogene", "scRNA", "scaRNA", "vaultRNA", "sRNA", "macro_lncRNA",
     "non_coding", "IG_pseudogene"),
-  nThreads
+  nThreads,
+  version = "5"
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ cellrangerIndexing(
 \item{bio.type, }{ENSEMBL biotype to filter the GTF}
 
 \item{nThreads, }{number of cores for parallelization}
+
+\item{version, }{cellranger version: 2, 3 or 5.}
 }
 \value{
 an indexed genome compliant with 10XGenomics cellranger

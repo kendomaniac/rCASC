@@ -4,7 +4,12 @@
 \alias{h5tocsv}
 \title{sparse to dense}
 \usage{
-h5tocsv(group = c("sudo", "docker"), file, type = c("h5", "10xgenomics"))
+h5tocsv(
+  group = c("sudo", "docker"),
+  file,
+  type = c("h5", "10xgenomics"),
+  version = "5"
+)
 }
 \arguments{
 \item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
@@ -12,6 +17,8 @@ h5tocsv(group = c("sudo", "docker"), file, type = c("h5", "10xgenomics"))
 \item{file, }{path of the sparse matrix file. For h5 file the full path MUST be included. For mtx matrix the folder MUST contain tsv and mtx files and the FULL path to mtx matrix MUST be provided}
 
 \item{type, }{h5 refers to h5 files and 10xgenomics to the folder containing barcodes.tsv, genes.tsv and matrix.mtx}
+
+\item{version, }{cellranger version: 2, 3 or 5.}
 }
 \value{
 a dense matrix, with 0s, in csv and txt format

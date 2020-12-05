@@ -19,7 +19,7 @@ cellrangerCount(
   localcores = NULL,
   localmem = NULL,
   scratch.folder,
-  version = "3"
+  version = "5"
 )
 }
 \arguments{
@@ -51,7 +51,7 @@ cellrangerCount(
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
-\item{version, }{cellranger version: 2 or 3. version 3 handle better the counts table generation.}
+\item{version, }{cellranger version: 2, 3 or 5.}
 }
 \value{
 a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for further use.

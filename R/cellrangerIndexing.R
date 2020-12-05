@@ -6,7 +6,8 @@
 #' @param fasta.url, a character string indicating the URL from ENSEMBL ftp for the unmasked genome sequence of interest
 #' @param genomeFolder,  path for the genome folder
 #' @param bio.type, ENSEMBL biotype to filter the GTF
-#' @param nThreads, number of cores for parallelization 
+#' @param nThreads, number of cores for parallelization
+#' @param version,  cellranger version: 2, 3 or 5. 
 #' @author Luca Alessandrì
 #'
 #'
@@ -45,14 +46,20 @@ cellrangerIndexing <- function(group=c("sudo","docker"),scratch.folder,genomeFol
                                                            "TEC","IG_J_pseudogene",
                                                            "scRNA","scaRNA",
                                                            "vaultRNA","sRNA",
-                                                           "macro_lncRNA","non_coding","IG_pseudogene"),nThreads){
+                                                           "macro_lncRNA","non_coding","IG_pseudogene"),nThreads, version="5"){
 
   id="results_cellranger"
   #docker image
 
  
-    dockerImage="docker.io/repbioinfo/cellranger.2018.03"
-  
+    if(version == "2"){
+      dockerImage="docker.io/repbioinfo/cellranger"
+    } else if(version == "3"){
+      dockerImage="docker.io/repbioinfo/cellranger.2018.03"
+    } else if(version == "5"){
+      dockerImage="docker.io/repbioinfo/cellranger.2020.05"
+    }
+    
   
 
 #storing the position of the home folder
