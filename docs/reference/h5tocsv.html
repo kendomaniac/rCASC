@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.5</span>
       </span>
     </div>
 
@@ -124,7 +124,12 @@
     <p>This function takes h5 or mtx file from cellranger output and convert it in a csv table.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>h5tocsv</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>), <span class='no'>file</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"h5"</span>, <span class='st'>"10xgenomics"</span>))</pre>
+    <pre class="usage"><span class='fu'>h5tocsv</span>(
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
+  <span class='no'>file</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"h5"</span>, <span class='st'>"10xgenomics"</span>),
+  <span class='kw'>version</span> <span class='kw'>=</span> <span class='st'>"5"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,6 +145,10 @@
     <tr>
       <th>type, </th>
       <td><p>h5 refers to h5 files and 10xgenomics to the folder containing barcodes.tsv, genes.tsv and matrix.mtx</p></td>
+    </tr>
+    <tr>
+      <th>version, </th>
+      <td><p>cellranger version: 2, 3 or 5.</p></td>
     </tr>
     </table>
 

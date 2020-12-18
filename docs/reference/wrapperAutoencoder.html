@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="wrapperAutoencoder — wrapperAutoencoder" />
-<meta property="og:description" content="This function will execute all the autoencoder pipeline" />
+<meta property="og:description" content="This function executes the whole autoencoder pipeline" />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.5</span>
       </span>
     </div>
 
@@ -121,7 +121,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function will execute all the autoencoder pipeline</p>
+    <p>This function executes the whole autoencoder pipeline</p>
     </div>
 
     <pre class="usage"><span class='fu'>wrapperAutoencoder</span>(
@@ -130,7 +130,7 @@
   <span class='no'>file</span>,
   <span class='no'>separator</span>,
   <span class='no'>nCluster</span>,
-  <span class='kw'>bias</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mirna"</span>, <span class='st'>"TF"</span>, <span class='st'>"CUSTOM"</span>, <span class='st'>"kinasi"</span>, <span class='st'>"immunoSignature"</span>),
+  <span class='kw'>bias</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mirna"</span>, <span class='st'>"TF"</span>, <span class='st'>"CUSTOM"</span>, <span class='st'>"kinasi"</span>, <span class='st'>"immunoSignature"</span>, <span class='st'>"ALL"</span>),
   <span class='no'>permutation</span>,
   <span class='no'>nEpochs</span>,
   <span class='kw'>patiencePercentage</span> <span class='kw'>=</span> <span class='fl'>5</span>,
@@ -153,7 +153,9 @@
   <span class='kw'>X</span> <span class='kw'>=</span> <span class='fl'>0.15</span>,
   <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"False"</span>),
-  <span class='kw'>skipvis</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"True"</span>)
+  <span class='kw'>skipvis</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"False"</span>),
+  <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>variational</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -181,7 +183,7 @@
     </tr>
     <tr>
       <th>bias, </th>
-      <td><p>bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature</p></td>
+      <td><p>bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL</p></td>
     </tr>
     <tr>
       <th>permutation, </th>
@@ -274,6 +276,14 @@
     <tr>
       <th>skipvis, </th>
       <td><p>set to True to skip visualizations</p></td>
+    </tr>
+    <tr>
+      <th>regularization, </th>
+      <td><p>this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space</p></td>
+    </tr>
+    <tr>
+      <th>variational, </th>
+      <td><p>TRUE or FALSE if you want to use a variational autoencoder or the standard autoencoder</p></td>
     </tr>
     </table>
 

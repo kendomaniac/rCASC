@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Autoencoder — autoencoder" />
-<meta property="og:description" content="This function Compress data using autoencoder partially connected" />
+<meta property="og:description" content="The present function compress data using autoencoder partially connected" />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.5</span>
       </span>
     </div>
 
@@ -121,7 +121,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function Compress data using autoencoder partially connected</p>
+    <p>The present function compress data using autoencoder partially connected</p>
     </div>
 
     <pre class="usage"><span class='fu'>autoencoder</span>(
@@ -143,7 +143,9 @@
   <span class='kw'>beta_2</span> <span class='kw'>=</span> <span class='fl'>0.999</span>,
   <span class='kw'>epsilon</span> <span class='kw'>=</span> <span class='fl'>1e-08</span>,
   <span class='kw'>decay</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"mean_squared_error"</span>
+  <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"mean_squared_error"</span>,
+  <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>variational</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -171,7 +173,7 @@
     </tr>
     <tr>
       <th>bias, </th>
-      <td><p>bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature</p></td>
+      <td><p>bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL</p></td>
     </tr>
     <tr>
       <th>permutation, </th>
@@ -187,7 +189,7 @@
     </tr>
     <tr>
       <th>cl, </th>
-      <td><p>Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong.All path needs to be provided.</p></td>
+      <td><p>Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong. All path needs to be provided.</p></td>
     </tr>
     <tr>
       <th>seed, </th>
@@ -199,7 +201,7 @@
     </tr>
     <tr>
       <th>bN, </th>
-      <td><p>name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided,</p></td>
+      <td><p>name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol. All path needs to be provided.</p></td>
     </tr>
     <tr>
       <th>lr, </th>
@@ -224,6 +226,14 @@
     <tr>
       <th>loss, </th>
       <td><p>loss of function to use, for other loss of function check the keras loss of functions.</p></td>
+    </tr>
+    <tr>
+      <th>regularization, </th>
+      <td><p>this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.</p></td>
+    </tr>
+    <tr>
+      <th>variational, </th>
+      <td><p>TRUE or FALSE if use the variational autoencoder or just the standard autoencoder.</p></td>
     </tr>
     </table>
 

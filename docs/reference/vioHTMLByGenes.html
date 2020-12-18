@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>unstableFiltering — unstableFiltering • rCASC</title>
+<title>vioHTMLByGenes — vioHTMLByGenes • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="unstableFiltering — unstableFiltering" />
-<meta property="og:description" content="This function executes a ubuntu docker that remove cells on the basis of their cell stability score." />
+<meta property="og:title" content="vioHTMLByGenes — vioHTMLByGenes" />
+<meta property="og:description" content="The present function plot count matrix data into a vioplot for a gene in each cluster. I requires two file the count matrics and the _clustering.output file." />
 
 
 
@@ -115,22 +115,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>unstableFiltering</h1>
+    <h1>vioHTMLByGenes</h1>
     
-    <div class="hidden name"><code>unstableFiltering.Rd</code></div>
+    <div class="hidden name"><code>vioHTMLByGenes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that remove cells on the basis of their cell stability score.</p>
+    <p>The present function plot count matrix data into a vioplot for a gene in each cluster. I requires two file the count matrics and the _clustering.output file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>unstableFiltering</span>(
+    <pre class="usage"><span class='fu'>vioHTMLByGenes</span>(
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
   <span class='no'>scratch.folder</span>,
   <span class='no'>file</span>,
-  <span class='no'>nCluster</span>,
   <span class='no'>separator</span>,
-  <span class='no'>sThreshold</span>
+  <span class='no'>cl</span>,
+  <span class='no'>gene</span>,
+  <span class='no'>logtwo</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -149,26 +150,32 @@
       <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
     </tr>
     <tr>
-      <th>nCluster, </th>
-      <td><p>number of clusters</p></td>
-    </tr>
-    <tr>
       <th>separator, </th>
       <td><p>separator used in count file, e.g. '\t', ','</p></td>
     </tr>
     <tr>
-      <th>sThreshold, </th>
-      <td><p>cell stability score threshold, a value between 0 and 1.</p></td>
+      <th>cl, </th>
+      <td><p>Clustering.output file, which contains the output of every clustering algorithm embedded in rCASC or it can be a file having in the first column cells names and in the second column cluster to which the cell belongs. Full path is required.</p></td>
+    </tr>
+    <tr>
+      <th>gene, </th>
+      <td><p>gene name that wants to be inspected. Gene format depends from the rows names format of the count file.</p></td>
+    </tr>
+    <tr>
+      <th>logtwo, </th>
+      <td><p>1 if the matrix is already in log2, 0 otherwise</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A filtered counts file</p>
+    
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>unstableFiltering</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/media/lucastormreig/8799-82B32/PHD/CASC8.1Stable/CASC8.0STABLE/new/unstableFiltering/scratch/"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='st'>"/media/lucastormreig/8799-82B32/PHD/CASC8.1Stable/CASC8.0STABLE/new/unstableFiltering/data/testset.txt"</span>,<span class='kw'>nCluster</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>"\t"</span>,<span class='kw'>sThreshold</span><span class='kw'>=</span><span class='fl'>0.75</span>)
+ <span class='fu'>vioHTMLByGenes</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>), <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/home/lucastormreig/genesPlot/test/scratch"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='st'>"/home/lucastormreig/genesPlot/test/data/setA.csv"</span>,<span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>, <span class='kw'>cl</span><span class='kw'>=</span><span class='st'>"/home/lucastormreig/genesPlot/test/data/setA_clustering.output.csv"</span>,<span class='kw'>gene</span><span class='kw'>=</span><span class='st'>"ARF5"</span>,<span class='kw'>logtwo</span><span class='kw'>=</span><span class='fl'>1</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
