@@ -1,6 +1,6 @@
  
 #' @title bulkClusters
-#' @description The present function create bulk matrix from clustering.output file
+#' @description The present function create pseudo-bulk matrix from clustering.output file
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included

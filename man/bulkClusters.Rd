@@ -21,7 +21,7 @@ bulkClusters(group = c("sudo", "docker"), scratch.folder, file, separator, cl)
 
 }
 \description{
-The present function create bulk matrix from clustering.output file
+The present function create pseudo-bulk matrix from clustering.output file
 }
 \examples{
 \dontrun{

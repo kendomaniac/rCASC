@@ -37,3 +37,4 @@ docker.io/repbioinfo/permutationanalysisv2
 docker.io/repbioinfo/autoencodercpu
 docker.io/repbioinfo/spatialanalysis2
 docker.io/repbioinfo/viohtmlxgenes
+docker.io/repbioinfo/saver
