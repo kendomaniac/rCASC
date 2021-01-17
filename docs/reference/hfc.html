@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -124,18 +124,18 @@
     <p>This function generate heatmap and other plot based on clustering and on a specific gene list</p>
     </div>
 
-    <pre class="usage"><span class='fu'>hfc</span>(
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
-  <span class='no'>scratch.folder</span>,
-  <span class='no'>file</span>,
-  <span class='no'>nCluster</span>,
-  <span class='no'>separator</span>,
-  <span class='no'>lfn</span>,
-  <span class='kw'>geneNameControl</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='no'>status</span>,
-  <span class='kw'>b1</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>b2</span> <span class='kw'>=</span> <span class='fl'>0</span>
-)</pre>
+    <pre class="usage"><span class='fu'>hfc</span><span class='op'>(</span>
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
+  <span class='va'>scratch.folder</span>,
+  <span class='va'>file</span>,
+  <span class='va'>nCluster</span>,
+  <span class='va'>separator</span>,
+  <span class='va'>lfn</span>,
+  geneNameControl <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>status</span>,
+  b1 <span class='op'>=</span> <span class='fl'>0</span>,
+  b2 <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,11 +185,15 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>stability plot for each nCluster,two files with score information for each cell for each permutation.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>hfc</span>(<span class='st'>"docker"</span>,<span class='st'>"/home/lucastormreig/scratch/"</span>,<span class='st'>"/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0"</span>,<span class='fl'>6</span>,<span class='st'>","</span>,<span class='st'>"naive"</span>)<span class='co'>#</span>
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>hfc</span><span class='op'>(</span><span class='st'>"docker"</span>,<span class='st'>"/home/lucastormreig/scratch/"</span>,<span class='st'>"/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0"</span>,<span class='fl'>6</span>,<span class='st'>","</span>,<span class='st'>"naive"</span><span class='op'>)</span><span class='co'>#</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -205,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

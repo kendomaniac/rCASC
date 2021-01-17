@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -124,15 +124,15 @@
     <p>This function executes a ubuntu docker showing ribosomal mitochondrial protein genes fraction in each cell</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mitoRiboUmi</span>(
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
-  <span class='no'>scratch.folder</span>,
-  <span class='no'>file</span>,
-  <span class='no'>separator</span>,
-  <span class='no'>gtf.name</span>,
-  <span class='no'>bio.type</span>,
-  <span class='no'>umiXgene</span>
-)</pre>
+    <pre class="usage"><span class='fu'>mitoRiboUmi</span><span class='op'>(</span>
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
+  <span class='va'>scratch.folder</span>,
+  <span class='va'>file</span>,
+  <span class='va'>separator</span>,
+  <span class='va'>gtf.name</span>,
+  <span class='va'>bio.type</span>,
+  <span class='va'>umiXgene</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,17 +170,21 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a pdf file called Ribo_mito.pdf</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-   <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span>(<span class='st'>"wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span>)
-   <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span>(<span class='st'>"gzip -d Mus_musculus.GRCm38.94.gtf.gz"</span>)
-   <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span>(<span class='st'>"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span>)
-   <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span>(<span class='st'>"testSCumi_mm10.csv.zip"</span>)
-   <span class='fu'>mitoRiboUmi</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(), <span class='st'>"testSCumi_mm10.csv"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"/"</span>),
-                <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/data/scratch"</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>, <span class='kw'>umiXgene</span><span class='kw'>=</span><span class='fl'>3</span>,
-                <span class='kw'>gtf.name</span><span class='kw'>=</span><span class='st'>"Mus_musculus.GRCm38.94.gtf"</span>, <span class='kw'>bio.type</span><span class='kw'>=</span><span class='st'>"protein_coding"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+   <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span><span class='op'>)</span>
+   <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"gzip -d Mus_musculus.GRCm38.94.gtf.gz"</span><span class='op'>)</span>
+   <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span><span class='op'>)</span>
+   <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span><span class='op'>(</span><span class='st'>"testSCumi_mm10.csv.zip"</span><span class='op'>)</span>
+   <span class='fu'>mitoRiboUmi</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"testSCumi_mm10.csv"</span>, sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span>, 
+                scratch.folder<span class='op'>=</span><span class='st'>"/data/scratch"</span>, separator<span class='op'>=</span><span class='st'>","</span>, umiXgene<span class='op'>=</span><span class='fl'>3</span>, 
+                gtf.name<span class='op'>=</span><span class='st'>"Mus_musculus.GRCm38.94.gtf"</span>, bio.type<span class='op'>=</span><span class='st'>"protein_coding"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -196,7 +200,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

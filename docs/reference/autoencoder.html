@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -124,29 +124,29 @@
     <p>The present function compress data using autoencoder partially connected</p>
     </div>
 
-    <pre class="usage"><span class='fu'>autoencoder</span>(
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
-  <span class='no'>scratch.folder</span>,
-  <span class='no'>file</span>,
-  <span class='no'>separator</span>,
-  <span class='no'>nCluster</span>,
-  <span class='no'>bias</span>,
-  <span class='no'>permutation</span>,
-  <span class='no'>nEpochs</span>,
-  <span class='kw'>patiencePercentage</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='no'>cl</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1111</span>,
-  <span class='no'>projectName</span>,
-  <span class='kw'>bN</span> <span class='kw'>=</span> <span class='st'>"NULL"</span>,
-  <span class='kw'>lr</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
-  <span class='kw'>beta_1</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='kw'>beta_2</span> <span class='kw'>=</span> <span class='fl'>0.999</span>,
-  <span class='kw'>epsilon</span> <span class='kw'>=</span> <span class='fl'>1e-08</span>,
-  <span class='kw'>decay</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"mean_squared_error"</span>,
-  <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>variational</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>autoencoder</span><span class='op'>(</span>
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
+  <span class='va'>scratch.folder</span>,
+  <span class='va'>file</span>,
+  <span class='va'>separator</span>,
+  <span class='va'>nCluster</span>,
+  <span class='va'>bias</span>,
+  <span class='va'>permutation</span>,
+  <span class='va'>nEpochs</span>,
+  patiencePercentage <span class='op'>=</span> <span class='fl'>5</span>,
+  <span class='va'>cl</span>,
+  seed <span class='op'>=</span> <span class='fl'>1111</span>,
+  <span class='va'>projectName</span>,
+  bN <span class='op'>=</span> <span class='st'>"NULL"</span>,
+  lr <span class='op'>=</span> <span class='fl'>0.01</span>,
+  beta_1 <span class='op'>=</span> <span class='fl'>0.9</span>,
+  beta_2 <span class='op'>=</span> <span class='fl'>0.999</span>,
+  epsilon <span class='op'>=</span> <span class='fl'>1e-08</span>,
+  decay <span class='op'>=</span> <span class='fl'>0</span>,
+  loss <span class='op'>=</span> <span class='st'>"mean_squared_error"</span>,
+  regularization <span class='op'>=</span> <span class='fl'>10</span>,
+  variational <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -242,11 +242,15 @@
     
 
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='fu'>autoencoder</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>,<span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker/scratch"</span>,<span class='kw'>file</span><span class='kw'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker/data/setA.csv"</span>,<span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>,<span class='kw'>nCluster</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>bias</span><span class='kw'>=</span><span class='st'>"TF"</span>,<span class='kw'>permutation</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>nEpochs</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>cl</span><span class='kw'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker/data/setA_clustering.output.csv"</span>,<span class='kw'>projectName</span><span class='kw'>=</span><span class='st'>"testDocker"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+ <span class='fu'>autoencoder</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>,scratch.folder<span class='op'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker/scratch"</span>,file<span class='op'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker/data/setA.csv"</span>,separator<span class='op'>=</span><span class='st'>","</span>,nCluster<span class='op'>=</span><span class='fl'>5</span>,bias<span class='op'>=</span><span class='st'>"TF"</span>,permutation<span class='op'>=</span><span class='fl'>10</span>,nEpochs<span class='op'>=</span><span class='fl'>10</span>,cl<span class='op'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker/data/setA_clustering.output.csv"</span>,projectName<span class='op'>=</span><span class='st'>"testDocker"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -262,7 +266,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -124,17 +124,17 @@
     <p>Create count matrix from spatial transcriptomics fasta</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stpipeline</span>(
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
-  <span class='no'>scratch.folder</span>,
-  <span class='no'>data.folder</span>,
-  <span class='no'>genome.folder</span>,
-  <span class='no'>fastqPathFolder</span>,
-  <span class='no'>ID</span>,
-  <span class='no'>imgNameAndPath</span>,
-  <span class='kw'>slide</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>area</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>stpipeline</span><span class='op'>(</span>
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
+  <span class='va'>scratch.folder</span>,
+  <span class='va'>data.folder</span>,
+  <span class='va'>genome.folder</span>,
+  <span class='va'>fastqPathFolder</span>,
+  <span class='va'>ID</span>,
+  <span class='va'>imgNameAndPath</span>,
+  slide <span class='op'>=</span> <span class='cn'>NULL</span>,
+  area <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,15 +180,19 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>count matrix from spatial transcriptomics</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>Dataset</span><span class='kw'>=</span><span class='st'>"curl -O http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"</span>
-<span class='no'>DatasetImage</span><span class='kw'>=</span><span class='st'>"curl -O http://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_image.tif"</span>
-<span class='no'>referenceGenomeHG38</span><span class='kw'>=</span><span class='st'>"curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz"</span>
-<span class='no'>referenceGenomeMM10</span><span class='kw'>=</span><span class='st'>"curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-mm10-3.0.0.tar.gz"</span>
-<span class='fu'>stpipeline</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>scratch.folder</span><span class='kw'>=</span><span class='st'>"/run/media/user/Maxtor4/scratch"</span>, <span class='kw'>data.folder</span><span class='kw'>=</span><span class='st'>"/run/media/user/Maxtor4/prova2"</span>, <span class='kw'>genome.folder</span><span class='kw'>=</span><span class='st'>"/home/user/spatial/refdata-cellranger-mm10-3.0.0"</span>, <span class='kw'>fastqPathFolder</span><span class='kw'>=</span><span class='st'>"/home/user/spatial/V1_Mouse_Kidney_fastqs"</span>, <span class='kw'>ID</span><span class='kw'>=</span><span class='st'>"hey"</span>,<span class='kw'>imgNameAndPath</span><span class='kw'>=</span><span class='st'>"/home/user/spatial/V1_Mouse_Kidney_image.tif"</span>,<span class='kw'>slide</span><span class='kw'>=</span><span class='st'>"V19L29-096"</span>,<span class='kw'>area</span><span class='kw'>=</span><span class='st'>"B1"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>Dataset</span><span class='op'>=</span><span class='st'>"curl -O http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"</span>
+<span class='va'>DatasetImage</span><span class='op'>=</span><span class='st'>"curl -O http://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_image.tif"</span>
+<span class='va'>referenceGenomeHG38</span><span class='op'>=</span><span class='st'>"curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz"</span>
+<span class='va'>referenceGenomeMM10</span><span class='op'>=</span><span class='st'>"curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-mm10-3.0.0.tar.gz"</span>
+<span class='fu'>stpipeline</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, scratch.folder<span class='op'>=</span><span class='st'>"/run/media/user/Maxtor4/scratch"</span>, data.folder<span class='op'>=</span><span class='st'>"/run/media/user/Maxtor4/prova2"</span>, genome.folder<span class='op'>=</span><span class='st'>"/home/user/spatial/refdata-cellranger-mm10-3.0.0"</span>, fastqPathFolder<span class='op'>=</span><span class='st'>"/home/user/spatial/V1_Mouse_Kidney_fastqs"</span>, ID<span class='op'>=</span><span class='st'>"hey"</span>,imgNameAndPath<span class='op'>=</span><span class='st'>"/home/user/spatial/V1_Mouse_Kidney_image.tif"</span>,slide<span class='op'>=</span><span class='st'>"V19L29-096"</span>,area<span class='op'>=</span><span class='st'>"B1"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -204,7 +208,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

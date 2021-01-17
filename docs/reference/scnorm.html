@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -124,18 +124,18 @@
     <p>This function is a wrapper for SCnorm: robust normalization of single-cell RNA-seq data (Bacher et al. Nature Methods 2017, 14:584–586)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scnorm</span>(
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sudo"</span>, <span class='st'>"docker"</span>),
-  <span class='no'>file</span>,
-  <span class='kw'>conditions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>outputName</span>,
-  <span class='kw'>nCores</span> <span class='kw'>=</span> <span class='fl'>8</span>,
-  <span class='kw'>filtercellNum</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>ditherCount</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>PropToUse</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>PrintProgressPlots</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>FilterExpression</span> <span class='kw'>=</span> <span class='fl'>0</span>
-)</pre>
+    <pre class="usage"><span class='fu'>scnorm</span><span class='op'>(</span>
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
+  <span class='va'>file</span>,
+  conditions <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>outputName</span>,
+  nCores <span class='op'>=</span> <span class='fl'>8</span>,
+  filtercellNum <span class='op'>=</span> <span class='fl'>10</span>,
+  ditherCount <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  PropToUse <span class='op'>=</span> <span class='fl'>0.1</span>,
+  PrintProgressPlots <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  FilterExpression <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,15 +187,16 @@
     <p>a tab delimited file containing the normalized data and a list of the discarded genes.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
     <span class='co'>#downloading fastq files</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span>(<span class='st'>"wget http://130.192.119.59/public/example_UMI.txt.zip"</span>)
-    <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span>(<span class='st'>"example_UMI.txt.zip"</span>)
-    <span class='no'>conditions</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>12</span>)
-    <span class='fu'>scnorm</span>(<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"docker"</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(), <span class='st'>"example_UMI.txt"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"/"</span>),
-    <span class='kw'>conditions</span><span class='kw'>=</span><span class='no'>conditions</span>,<span class='kw'>outputName</span><span class='kw'>=</span><span class='st'>"example_UMI"</span>, <span class='kw'>nCores</span><span class='kw'>=</span><span class='fl'>8</span>, <span class='kw'>filtercellNum</span><span class='kw'>=</span><span class='fl'>10</span>,
-    <span class='kw'>ditherCount</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>PropToUse</span><span class='kw'>=</span><span class='fl'>0.1</span>, <span class='kw'>PrintProgressPlots</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>FilterExpression</span><span class='kw'>=</span><span class='fl'>1</span>)
-}</div></pre>
+    <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"wget http://130.192.119.59/public/example_UMI.txt.zip"</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span><span class='op'>(</span><span class='st'>"example_UMI.txt.zip"</span><span class='op'>)</span>
+    <span class='va'>conditions</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>12</span><span class='op'>)</span>
+    <span class='fu'>scnorm</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"example_UMI.txt"</span>, sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span>,
+    conditions<span class='op'>=</span><span class='va'>conditions</span>,outputName<span class='op'>=</span><span class='st'>"example_UMI"</span>, nCores<span class='op'>=</span><span class='fl'>8</span>, filtercellNum<span class='op'>=</span><span class='fl'>10</span>,
+    ditherCount<span class='op'>=</span><span class='cn'>TRUE</span>, PropToUse<span class='op'>=</span><span class='fl'>0.1</span>, PrintProgressPlots<span class='op'>=</span><span class='cn'>FALSE</span>, FilterExpression<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -211,7 +212,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
