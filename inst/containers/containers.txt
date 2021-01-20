@@ -38,3 +38,8 @@ docker.io/repbioinfo/autoencodercpu
 docker.io/repbioinfo/spatialanalysis2
 docker.io/repbioinfo/viohtmlxgenes
 docker.io/repbioinfo/saver
+docker.io/repbioinfo/autoencoderforclustering
+docker.io/repbioinfo/analysisforautoclustering
+docker.io/repbioinfo/simlrgriphauto
+docker.io/repbioinfo/sharpforauto
+docker.io/repbioinfo/seuratautoclusters
