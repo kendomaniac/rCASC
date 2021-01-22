@@ -1,6 +1,6 @@
  
 #' @title bulkClusters
-#' @description The present function create pseudo-bulk matrix from clustering.output file
+#' @description The present function create pseudo-bulk matrix from clustering.output file. The output are three files: _bulklog2, which is not normalized, _bulkColumn, which is z-scoere calculated over each column, _bulkRow, which is z-score calculated over each row
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
@@ -14,6 +14,7 @@
 #'  bulkClusters(group="docker", scratch.folder="/home/user/scratch", 
 #'  file="/home/user/temp/setA.csv",separator=",",
 #'  cl="/home/user/temp/Results/setA/3/setA_clustering.output.csv")
+#'  
 #'}
 #' @export
 bulkClusters <- function(group=c("sudo","docker"), scratch.folder, file,separator,cl){
