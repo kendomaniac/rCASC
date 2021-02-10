@@ -46,3 +46,4 @@ docker.io/repbioinfo/sharpforauto
 docker.io/repbioinfo/seuratautoclusters
 docker.io/repbioinfo/schcl.2021.01
 docker.io/repbioinfo/bcsctemp
+docker.io/repbioinfo/autoencoderdb
