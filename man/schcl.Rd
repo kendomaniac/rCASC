@@ -21,8 +21,8 @@ This function execute scHCL to assign cell types from Han et al  Nature 2020, 58
 }
 \examples{
 \dontrun{
-system("wget http://130.192.119.59/public/annotated_lorenz_testSCumi_mm10.csv.zip")
-unzip("annotated_lorenz_testSCumi_mm10.csv.zip")
+example to be prepared
+
 schcl(group="docker", file=paste(getwd(),"annotated_lorenz_testSCumi_mm10.csv", sep="/"), separator=",")
 }
 }

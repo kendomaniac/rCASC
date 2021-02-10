@@ -8,8 +8,8 @@
 #' @return return a table summarizing the the cell type association for each cluster
 #' @examples
 #'\dontrun{
-#' system("wget http://130.192.119.59/public/annotated_lorenz_testSCumi_mm10.csv.zip")
-#' unzip("annotated_lorenz_testSCumi_mm10.csv.zip")
+#' example to be prepared
+#' 
 #' schcl(group="docker", file=paste(getwd(),"annotated_lorenz_testSCumi_mm10.csv", sep="/"), separator=",")
 #' }
 #' @export
@@ -47,7 +47,7 @@ schcl <- function(group=c("sudo","docker"), file, separator){
   }
   
   #executing the docker job
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/scHCL,2021.01 Rscript /home/schcl.R ", matrixName," ",format," ",separator, sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ", data.folder, ":/data -d docker.io/repbioinfo/schcl.2021.01 Rscript /home/schcl.R ", matrixName," ",format," ",separator, sep="")
   resultRun <- runDocker(group=group, params=params)
  
   ptm <- proc.time() - ptm
