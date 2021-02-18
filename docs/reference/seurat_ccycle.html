@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Seurat Integration — seuratIntegration • rCASC</title>
+<title>Seurat cell cycle — seurat_ccycle • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Seurat Integration — seuratIntegration" />
-<meta property="og:description" content="This function executes a ubuntu docker that performs seurat integration" />
+<meta property="og:title" content="Seurat cell cycle — seurat_ccycle" />
+<meta property="og:description" content="This function executes a ubuntu docker that performs seurat cell cycle" />
 
 
 
@@ -115,22 +115,20 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Seurat Integration</h1>
+    <h1>Seurat cell cycle</h1>
     
-    <div class="hidden name"><code>seuratIntegration.Rd</code></div>
+    <div class="hidden name"><code>seurat_ccycle.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that performs seurat integration</p>
+    <p>This function executes a ubuntu docker that performs seurat cell cycle</p>
     </div>
 
-    <pre class="usage"><span class='fu'>seuratIntegration</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>seurat_ccycle</span><span class='op'>(</span>
   group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
   <span class='va'>scratch.folder</span>,
-  <span class='va'>file1</span>,
-  <span class='va'>file2</span>,
-  <span class='va'>separator1</span>,
-  <span class='va'>separator2</span>,
+  <span class='va'>file</span>,
+  <span class='va'>separator</span>,
   <span class='va'>seed</span>
 <span class='op'>)</span></pre>
 
@@ -146,19 +144,11 @@
       <td><p>a character string indicating the path of the scratch folder</p></td>
     </tr>
     <tr>
-      <th>file1, </th>
+      <th>file, </th>
       <td><p>a character string indicating the path of the first matrix</p></td>
     </tr>
     <tr>
-      <th>file2, </th>
-      <td><p>a character string indicating the path of the second matrix</p></td>
-    </tr>
-    <tr>
-      <th>separator1, </th>
-      <td><p>separator used in count file, e.g. '\t', ','</p></td>
-    </tr>
-    <tr>
-      <th>separator2, </th>
+      <th>separator, </th>
       <td><p>separator used in count file, e.g. '\t', ','</p></td>
     </tr>
     <tr>
@@ -176,7 +166,13 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>seuratIntegration</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, scratch.folder<span class='op'>=</span><span class='st'>"/home/user/scratch"</span>, file1<span class='op'>=</span><span class='st'>"/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv"</span>,file2<span class='op'>=</span><span class='st'>"/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv"</span>, separator1<span class='op'>=</span><span class='st'>","</span>,separator2<span class='op'>=</span><span class='st'>","</span>,seed<span class='op'>=</span><span class='fl'>1111</span><span class='op'>)</span> 
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>rCASC</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='st'>"seurat_cCycle.R"</span><span class='op'>)</span>
+<span class='va'>path</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>scratch</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>path</span>,<span class='st'>"/scratch"</span>,sep<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='va'>scratch</span><span class='op'>)</span>
+<span class='va'>file1</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>path</span>,<span class='st'>"/setA.csv"</span>,sep<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span>
+<span class='fu'>seurat_ccycle</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, scratch.folder<span class='op'>=</span><span class='va'>scratch</span>, file<span class='op'>=</span> <span class='va'>file1</span>, separator<span class='op'>=</span><span class='st'>","</span>,seed<span class='op'>=</span><span class='fl'>1111</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

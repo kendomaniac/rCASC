@@ -35,7 +35,11 @@ file containing the cluster association in the datasets merged by seurat
 \description{
 This function executes a ubuntu docker that performs seurat integration
 }
+\examples{
+\dontrun{
+seuratIntegration(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",seed=1111) 
+}
+}
 \author{
 Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
-seuratIntegration(group=c("sudo"), scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",seed=1111)
 }

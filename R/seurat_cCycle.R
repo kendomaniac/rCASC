@@ -1,34 +1,35 @@
-#' @title Seurat Integration
-#' @description This function executes a ubuntu docker that performs seurat integration
+#' @title Seurat cell cycle
+#' @description This function executes a ubuntu docker that performs seurat cell cycle
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param file1, a character string indicating the path of the first matrix 
-#' @param file2, a character string indicating the path of the second matrix 
-#' @param separator1, separator used in count file, e.g. '\\t', ','
-#' @param separator2, separator used in count file, e.g. '\\t', ','
+#' @param file, a character string indicating the path of the first matrix 
+#' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param seed, integer file necessary for reproducibility
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #' @return file containing the cluster association in the datasets merged by seurat
 #' @examples
 #' \dontrun{
-#' seuratIntegration(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",seed=1111) 
+#' library(rCASC)
+#' source("seurat_cCycle.R")
+#' path=getwd()
+#' scratch=paste(path,"/scratch",sep="")
+#' dir.create(scratch)
+#' file1=paste(path,"/setA.csv",sep="")
+#'seurat_ccycle(group="docker", scratch.folder=scratch, file= file1, separator=",",seed=1111)
 #'}
 #' @export
-seuratIntegration <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,seed){
+#' 
+seurat_ccycle <- function(group=c("sudo","docker"), scratch.folder, file ,separator ,seed){
 
+  file1 = file
+  separator1 = separator
   data.folder1=dirname(file1)
 positions1=length(strsplit(basename(file1),"\\.")[[1]])
 matrixNameC1=strsplit(basename(file1),"\\.")[[1]]
 matrixName1=paste(matrixNameC1[seq(1,positions1-1)],collapse="")
 format1=strsplit(basename(basename(file1)),"\\.")[[1]][positions1]
 
-
-  data.folder2=dirname(file2)
-positions2=length(strsplit(basename(file2),"\\.")[[1]])
-matrixNameC2=strsplit(basename(file2),"\\.")[[1]]
-matrixName2=paste(matrixNameC2[seq(1,positions2-1)],collapse="")
-format2=strsplit(basename(basename(file2)),"\\.")[[1]][positions2]
 data.folder=data.folder1
   #running time 1
   ptm <- proc.time()
@@ -72,14 +73,11 @@ data.folder=data.folder1
 if(separator1=="\t"){
 separator1="tab"
 }
-if(separator2=="\t"){
-separator2="tab"
-}
+
 system(paste("cp ",data.folder1,"/",matrixName1,".",format1," ",scrat_tmp.folder,"/",sep=""))
-system(paste("cp ",data.folder2,"/",matrixName2,".",format2," ",scrat_tmp.folder,"/",sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/seuratintegration Rscript /home/pre_processing.R ",matrixName1," ",format1," ",separator1," ",matrixName2," ",format2," ",separator2," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/seuratccycle  Rscript /home/main.R ",matrixName1," ",format1," ",separator1," ",seed,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
