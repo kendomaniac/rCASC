@@ -15,7 +15,8 @@ BCscTool(
   markerB,
   separator,
   contamination = 5,
-  permutation = 50
+  permutation = 50,
+  trashold = 3
 )
 }
 \arguments{
@@ -35,11 +36,13 @@ BCscTool(
 
 \item{markerB, }{path to the file containing cluster specific genes for the second dataset. The file requires the following column: gene, cluster}
 
-\item{separator, }{separator used in count file, e.g. '\\t', ','}
+\item{separator, }{separator used in both count file, e.g. '\\t', ','}
 
-\item{contamination, }{percentage of genes to be contaminated at every permutation.}
+\item{contamination, }{percentuale di geni da contaminare ad ogni permutazione DEFAULT VALUE: 5}
 
-\item{permutation, }{number of permutations}
+\item{permutation, }{numero di permutazioni. DEFAULT VALUE: 50}
+
+\item{trashold, }{minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3}
 }
 \value{
 
@@ -61,7 +64,8 @@ BCscTool(group = "docker",
          markerB =paste(getwd(),"set1.markersPROVA.csv",sep = "/"),
          separator =",",
          contamination = 10 ,
-         permutation = 10 )
+         permutation = 10,
+         trashold = 3 )
 }
 }
 \author{

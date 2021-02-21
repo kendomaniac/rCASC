@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.1.4</span>
       </span>
     </div>
 
@@ -137,7 +137,8 @@
   <span class='va'>markerB</span>,
   <span class='va'>separator</span>,
   contamination <span class='op'>=</span> <span class='fl'>5</span>,
-  permutation <span class='op'>=</span> <span class='fl'>50</span>
+  permutation <span class='op'>=</span> <span class='fl'>50</span>,
+  trashold <span class='op'>=</span> <span class='fl'>3</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -177,15 +178,19 @@
     </tr>
     <tr>
       <th>separator, </th>
-      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+      <td><p>separator used in both count file, e.g. '\t', ','</p></td>
     </tr>
     <tr>
       <th>contamination, </th>
-      <td><p>percentage of genes to be contaminated at every permutation.</p></td>
+      <td><p>percentuale di geni da contaminare ad ogni permutazione DEFAULT VALUE: 5</p></td>
     </tr>
     <tr>
       <th>permutation, </th>
-      <td><p>number of permutations</p></td>
+      <td><p>numero di permutazioni. DEFAULT VALUE: 50</p></td>
+    </tr>
+    <tr>
+      <th>trashold, </th>
+      <td><p>minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3</p></td>
     </tr>
     </table>
 
@@ -211,7 +216,8 @@
          markerB <span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,<span class='st'>"set1.markersPROVA.csv"</span>,sep <span class='op'>=</span> <span class='st'>"/"</span><span class='op'>)</span>,
          separator <span class='op'>=</span><span class='st'>","</span>,
          contamination <span class='op'>=</span> <span class='fl'>10</span> ,
-         permutation <span class='op'>=</span> <span class='fl'>10</span> <span class='op'>)</span>
+         permutation <span class='op'>=</span> <span class='fl'>10</span>,
+         trashold <span class='op'>=</span> <span class='fl'>3</span> <span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
