@@ -42,7 +42,7 @@ BCscTool(
 
 \item{permutation, }{numero di permutazioni. DEFAULT VALUE: 50}
 
-\item{trashold, }{minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3}
+\item{threshold, }{minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3}
 }
 \value{
 

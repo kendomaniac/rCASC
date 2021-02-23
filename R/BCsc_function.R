@@ -14,7 +14,7 @@
 #' @param separator, separator used in both count file, e.g. '\\t', ','
 #' @param contamination, percentuale di geni da contaminare ad ogni permutazione DEFAULT VALUE: 5
 #' @param permutation, numero di permutazioni. DEFAULT VALUE: 50
-#' @param trashold, minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3
+#' @param threshold, minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3
 
 	
 
