@@ -77,6 +77,10 @@ system(paste("cp -r ",data.folder," ",scrat_tmp.folder,"/",sep=""))
     params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d repbioinfo/simlrgriphauto Rscript /home/mainGRIPH.R ",projectName," ",matrixName," ",separator," ",seed,sep="")
 }
 
+    if(clusterMethod=="KMEANS"){
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d repbioinfo/simlrgriphauto Rscript /home/mainKMEANS.R ",projectName," ",matrixName," ",separator," ",nCluster," ",seed,sep="")
+}
+  
   if(clusterMethod=="SIMLR"){
 
     params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d repbioinfo/simlrgriphauto Rscript /home/mainSIMLR.R ",projectName," ",matrixName," ",separator," ",nCluster," ",seed,sep="")
