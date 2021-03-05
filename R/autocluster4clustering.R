@@ -8,7 +8,8 @@
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param pcaDimensions, number of dimensions to use for Seurat Pca reduction. 
 #' @param seed, important value to reproduce the same results with same input
-#' @param clusterMethod, clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"
+#' @param clusterMethod, clustering methods: "GRIPH","SIMLR","SEURAT","SHARP","KMEANS"
+#' @param perplexity, value for cluster aggregation, required for KMEANS
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return 
@@ -18,7 +19,7 @@
 
 #'}
 #' @export
-autocluster4clustering <- function(group=c("sudo","docker"), scratch.folder, file, separator, nCluster, projectName, clusterMethod=c("GRIPH","SIMLR","SEURAT","SHARP"),seed=1111,pcaDimensions=20){
+autocluster4clustering <- function(group=c("sudo","docker"), scratch.folder, file, separator, nCluster, projectName, clusterMethod=c("GRIPH","SIMLR","SEURAT","SHARP","KMEANS"),seed=1111,pcaDimensions=20,perplexity=20){
 projectName=strsplit(file,"/")[[1]][length(strsplit(file,"/")[[1]])-1]
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
@@ -78,7 +79,7 @@ system(paste("cp -r ",data.folder," ",scrat_tmp.folder,"/",sep=""))
 }
 
     if(clusterMethod=="KMEANS"){
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d repbioinfo/simlrgriphauto Rscript /home/mainKMEANS.R ",projectName," ",matrixName," ",separator," ",nCluster," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d repbioinfo/simlrgriphauto Rscript /home/mainKMEANS.R ",projectName," ",matrixName," ",separator," ",nCluster," ",perplexity," ",seed,sep="")
 }
   
   if(clusterMethod=="SIMLR"){
