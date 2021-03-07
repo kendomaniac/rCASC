@@ -34,7 +34,7 @@
 #'          separator =",",
 #'          contamination = 10 ,
 #'          permutation = 10,
-#'          trashold = 3 )
+#'          threshold = 3 )
 #' }
 #' @export
 BCscTool <- function(group=c("sudo","docker"),
@@ -48,7 +48,7 @@ BCscTool <- function(group=c("sudo","docker"),
                      separator, 
                      contamination = 5, 
                      permutation = 50,
-                     trashold = 3){
+                     threshold = 3){
 
 data.folder=dirname(setA)
 positions=length(strsplit(basename(setA),"\\.")[[1]])
@@ -127,7 +127,7 @@ params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,
                 separator," ", 
                 contamination," ",
                 permutation," ",
-                trashold, sep = "")
+                threshold, sep = "")
 
     
 ############################ DA QUI NON TOCCO FINO A SEGNO ***
