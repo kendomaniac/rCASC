@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.1.6</span>
       </span>
     </div>
 
@@ -131,9 +131,10 @@
   <span class='va'>separator</span>,
   <span class='va'>nCluster</span>,
   <span class='va'>projectName</span>,
-  clusterMethod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GRIPH"</span>, <span class='st'>"SIMLR"</span>, <span class='st'>"SEURAT"</span>, <span class='st'>"SHARP"</span><span class='op'>)</span>,
+  clusterMethod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GRIPH"</span>, <span class='st'>"SIMLR"</span>, <span class='st'>"SEURAT"</span>, <span class='st'>"SHARP"</span>, <span class='st'>"KMEANS"</span>, <span class='st'>"HCLUST"</span>, <span class='st'>"FLOW"</span><span class='op'>)</span>,
   seed <span class='op'>=</span> <span class='fl'>1111</span>,
-  pcaDimensions <span class='op'>=</span> <span class='fl'>20</span>
+  pcaDimensions <span class='op'>=</span> <span class='fl'>20</span>,
+  perplexity <span class='op'>=</span> <span class='fl'>20</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -165,7 +166,7 @@
     </tr>
     <tr>
       <th>clusterMethod, </th>
-      <td><p>clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"</p></td>
+      <td><p>clustering methods: "GRIPH","SIMLR","SEURAT","SHARP","KMEANS","HCLUST","FLOW"</p></td>
     </tr>
     <tr>
       <th>seed, </th>
@@ -174,6 +175,10 @@
     <tr>
       <th>pcaDimensions, </th>
       <td><p>number of dimensions to use for Seurat Pca reduction.</p></td>
+    </tr>
+    <tr>
+      <th>perplexity, </th>
+      <td><p>value for cluster aggregation, required for KMEANS</p></td>
     </tr>
     </table>
 
