@@ -16,7 +16,7 @@
 #' @return 
 #' @examples
 #' \dontrun{
-#'  autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,projectName="testDocker",13, largeScale = FALSE)
+#'  
 
 #'}
 #' @export
@@ -72,15 +72,26 @@ separatorY="tab"
 }
 
 system(paste("cp ",fileX," ",scrat_tmp.folder,"/",sep=""))
+fileX.file1 <- sapply(strsplit(basename(fileX), "\\."), function(x)x[1])
+fileX.file2 <- sapply(strsplit(basename(fileX), "\\."), function(x)x[2])
+fileX.file <- paste("X", fileX.file2, sep=".")
+system(paste("mv ",basename(fileX)," ",scrat_tmp.folder,"/",fileX.file, sep=""))
+
 system(paste("cp ",fileY," ",scrat_tmp.folder,"/",sep=""))
+fileY.file1 <- sapply(strsplit(basename(fileY), "\\."), function(x)x[1])
+fileY.file2 <- sapply(strsplit(basename(fileY), "\\."), function(x)x[2])
+fileY.file <- paste("Y", fileY.file2, sep=".")
+system(paste("mv ",basename(fileY)," ",scrat_tmp.folder,"/",fileY.file, sep=""))
 
 system(paste("cp -r ",xCometFolder," ",scrat_tmp.folder,"/",sep=""))
+system("mv outputdata Xoutputdata")
 system(paste("cp -r ",yCometFolder," ",scrat_tmp.folder,"/",sep=""))
+system("mv outputdata Youtputdata")
 
-fileX=paste("/scratch/",basename(fileX),sep="")
-fileY=paste("/scratch/",basename(fileY),sep="")
-xCometFolder=paste("/scratch",basename(xCometFolder),sep="")
-yCometFolder=paste("/scratch",basename(yCometFolder),sep="")
+fileX=paste("/scratch/",fileX.file,sep="")
+fileY=paste("/scratch/",fileY.file,sep="")
+xCometFolder="/scratch/Xoutputdata"
+yCometFolder="/scratch/Youtputdata"
 
   #executing the docker job
 
