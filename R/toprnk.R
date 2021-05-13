@@ -1,5 +1,5 @@
 #' @title toprnk
-#' @description This function execute toprnk analysis
+#' @description This function execute toprnk analysis which search for corrispondence betwee clusters of two different experiments using pseudobulk zscored on rows and the cluster specific genes from comet analysis. Thsu the function clustersBulk and cometsc have to be run in the two dataset to be integrated.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param fileX, a character string indicating the path of the pseudobulkRow file, with file name and extension included. 
