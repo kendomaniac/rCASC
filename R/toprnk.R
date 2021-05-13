@@ -101,7 +101,7 @@ resultRun <- runDocker(group=group, params=params)
 
   #waiting for the end of the container work
   if(resultRun==0){
-    #system(paste("cp ", scrat_tmp.folder, "/* ", data.folder, sep=""))
+    #system(paste("cp ", scrat_tmp.folder, "/*top* ", data.folder, sep=""))
   }
   #running time 2
   ptm <- proc.time() - ptm
@@ -132,7 +132,7 @@ resultRun <- runDocker(group=group, params=params)
 
   #Copy result folder
   cat("Copying Result Folder")
-  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/../",sep=""))
+  system(paste("cp -r ",scrat_tmp.folder,"/*top* ",data.folder,"/../",sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))
