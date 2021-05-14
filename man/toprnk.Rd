@@ -16,7 +16,9 @@ toprnk(
   threshold = 0.8,
   top.ranked = 80,
   CSS.threshold = 0.5,
-  outputFolder
+  outputFolder,
+  validation = c(TRUE, FALSE),
+  to.be.validate = NULL
 )
 }
 \arguments{
@@ -78,11 +80,6 @@ This function execute toprnk analysis which search for corrispondence between cl
         fileY="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv", 
         separatorX=",",
         separatorY=",",
-        xCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata",
-        yCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata",
-        threshold=0.5,
-        top.ranked=160,
-        CSS.threshold=0.5,
         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX",
         validation=TRUE,
         to.be.validated="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/XYpb/XYpb_cor_0.5_toprnk_80.csv"

@@ -41,11 +41,6 @@
 #'         fileY="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv", 
 #'         separatorX=",",
 #'         separatorY=",",
-#'         xCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata",
-#'         yCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata",
-#'         threshold=0.5,
-#'         top.ranked=160,
-#'         CSS.threshold=0.5,
 #'         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX",
 #'         validation=TRUE,
 #'         to.be.validated="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/XYpb/XYpb_cor_0.5_toprnk_80.csv"
@@ -54,7 +49,7 @@
 
 #'}
 #' @export
-toprnk <- function(group=c("sudo","docker"), scratch.folder, fileX, fileY, separatorX,separatorY,xCometFolder,yCometFolder,threshold=0.8,top.ranked=80, CSS.threshold=0.5, outputFolder){
+toprnk <- function(group=c("sudo","docker"), scratch.folder, fileX, fileY, separatorX,separatorY,xCometFolder,yCometFolder,threshold=0.8,top.ranked=80, CSS.threshold=0.5, outputFolder, validation=c(TRUE, FALSE), to.be.validate=NULL){
 
 
 data.folder=outputFolder
@@ -135,8 +130,13 @@ yCometFolder="/scratch/Youtputdata"
 
   #executing the docker job
 
+if(validation==FALSE){
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/combineNT1NT2_toprnk.R ",top.ranked," ",fileX," ",xCometFolder," ",fileY," ",yCometFolder," ",threshold," ",separatorX," ",separatorY, " ", CSS.threshold, " ", sep="")
+}else{
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/validate_toprnk.R ",fileX," ", fileY," ",separatorX," ",separatorY, " ", to.be.validated, sep="")
+  
+}
 
-params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/combineNT1NT2_toprnk.R ",top.ranked," ",fileX," ",xCometFolder," ",fileY," ",yCometFolder," ",threshold," ",separatorX," ",separatorY, " ", CSS.threshold, sep="")
 resultRun <- runDocker(group=group, params=params)
 
   #waiting for the end of the container work
@@ -172,7 +172,11 @@ resultRun <- runDocker(group=group, params=params)
 
   #Copy result folder
   cat("Copying Result Folder")
-  system(paste("cp -r ",scrat_tmp.folder,"/XYpb ",data.folder,"/",sep=""))
+  if(validation==FALSE){
+    system(paste("cp -r ",scrat_tmp.folder,"/XYpb ",data.folder,"/",sep=""))
+  }else{
+    system(paste("cp -r ",scrat_tmp.folder,"/validation* ",data.folder,"/",sep=""))
+  }
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))
