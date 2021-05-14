@@ -10,6 +10,7 @@
 #' @param yCometFolder, path of Comet results from Y experiment
 #' @param threshold, Pearson threshold
 #' @param top.ranked, number of top comet genes to be used
+#' @param CSS.threshold, min mean CSS that a cluster should have to be considered for integration
 #' @param outputFolder, where results are placed
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
@@ -20,7 +21,7 @@
 
 #'}
 #' @export
-toprnk <- function(group=c("sudo","docker"), scratch.folder, fileX,fileY, separatorX,separatorY,xCometFolder,yCometFolder,threshold=0.8,top.ranked=80,outputFolder){
+toprnk <- function(group=c("sudo","docker"), scratch.folder, fileX,fileY, separatorX,separatorY,xCometFolder,yCometFolder,threshold=0.8,top.ranked=80, CSS.threshold=0.7, outputFolder){
 
 
 data.folder=outputFolder
@@ -85,8 +86,14 @@ system(paste("mv ",scrat_tmp.folder,"/", basename(fileY)," ",scrat_tmp.folder,"/
 
 system(paste("cp -r ",xCometFolder," ",scrat_tmp.folder,"/",sep=""))
 system(paste("mv ", scrat_tmp.folder,"/outputdata ", scrat_tmp.folder,"/Xoutputdata", sep=""))
+system(paste("cp -r ",sub("outputdata","",xCometFolder),"/*_clustering.output*"," ",scrat_tmp.folder,"/X_clustering.output.",fileX.file2,sep=""))
+system(paste("cp -r ",sub("outputdata","",xCometFolder),"/*_scoreSum*"," ",scrat_tmp.folder,"/X_scoreSum.",fileX.file2,sep=""))
+
 system(paste("cp -r ",yCometFolder," ",scrat_tmp.folder,"/",sep=""))
 system(paste("mv ", scrat_tmp.folder,"/outputdata ", scrat_tmp.folder,"/Youtputdata", sep=""))
+system(paste("cp -r ",sub("outputdata","",yCometFolder),"/*_clustering.output*"," ",scrat_tmp.folder,"/Y_clustering.output.",fileX.file2,sep=""))
+system(paste("cp -r ",sub("outputdata","",yCometFolder),"/*_scoreSum*"," ",scrat_tmp.folder,"/Y_scoreSum.",fileX.file2,sep=""))
+
 
 fileX=paste("/scratch/",fileX.file,sep="")
 fileY=paste("/scratch/",fileY.file,sep="")
@@ -96,7 +103,7 @@ yCometFolder="/scratch/Youtputdata"
   #executing the docker job
 
 
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/combineNT1NT2_toprnk.R ",top.ranked," ",fileX," ",xCometFolder," ",fileY," ",yCometFolder," ",threshold," ",separatorX," ",separatorY,sep="")
+params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/combineNT1NT2_toprnk.R ",top.ranked," ",fileX," ",xCometFolder," ",fileY," ",yCometFolder," ",threshold," ",separatorX," ",separatorY, CSS.threshold, sep="")
 resultRun <- runDocker(group=group, params=params)
 
   #waiting for the end of the container work

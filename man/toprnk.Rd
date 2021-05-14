@@ -15,6 +15,7 @@ toprnk(
   yCometFolder,
   threshold = 0.8,
   top.ranked = 80,
+  CSS.threshold = 0.7,
   outputFolder
 )
 }
@@ -39,6 +40,8 @@ toprnk(
 
 \item{top.ranked, }{number of top comet genes to be used}
 
+\item{CSS.threshold, }{min mean CSS that a cluster should have to be considered for integration}
+
 \item{outputFolder, }{where results are placed}
 }
 \value{
@@ -49,7 +52,7 @@ This function execute toprnk analysis which search for corrispondence betwee clu
 }
 \examples{
 \dontrun{
- autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,projectName="testDocker",13, largeScale = FALSE)
+ 
 }
 }
 \author{
