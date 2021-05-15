@@ -8,7 +8,7 @@
 #' @param separatorY, separator used in count file, e.g. '\\t', ','
 #' @param xCometFolder, path of Comet results from X experiment
 #' @param yCometFolder, path of Comet results from Y experiment
-#' @param threshold, Pearson threshold
+#' @param threshold, Pearson threshold, must be not smaller than 0.5
 #' @param top.ranked, number of top comet genes to be used
 #' @param CSS.threshold, min mean CSS that a cluster should have to be considered for integration
 #' @param outputFolder, where results are placed

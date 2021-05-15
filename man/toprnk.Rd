@@ -38,7 +38,7 @@ toprnk(
 
 \item{yCometFolder, }{path of Comet results from Y experiment}
 
-\item{threshold, }{Pearson threshold}
+\item{threshold, }{Pearson threshold, must be not smaller than 0.5}
 
 \item{top.ranked, }{number of top comet genes to be used}
 
