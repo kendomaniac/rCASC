@@ -1,5 +1,5 @@
 #' @title toprnk
-#' @description This function execute toprnk analysis which search for corrispondence between clusters of two different experiments using pseudobulk zscored on rows and the cluster specific genes from comet analysis. Thus the function clustersBulk and cometsc have to be run in the two dataset to be integrated.
+#' @description This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param fileX, a character string indicating the path of the pseudobulkRow file, with file name and extension included. 
@@ -49,7 +49,7 @@
 
 #'}
 #' @export
-toprnk <- function(group=c("sudo","docker"), scratch.folder, fileX, fileY, separatorX,separatorY,xCometFolder,yCometFolder,threshold=0.8,top.ranked=80, CSS.threshold=0.5, outputFolder, validation=c(TRUE, FALSE), to.be.validate=NULL){
+toprnk <- function(group=c("sudo","docker"), scratch.folder, fileX, fileY, separatorX,separatorY,xCometFolder,yCometFolder,threshold=0.8,top.ranked=80, CSS.threshold=0.5, outputFolder, validation=c(TRUE, FALSE), to.be.validated=NULL){
 
 
 data.folder=outputFolder
@@ -112,29 +112,33 @@ fileY.file2 <- sapply(strsplit(basename(fileY), "\\."), function(x)x[2])
 fileY.file <- paste("Y", fileY.file2, sep=".")
 system(paste("mv ",scrat_tmp.folder,"/", basename(fileY)," ",scrat_tmp.folder,"/",fileY.file, sep=""))
 
-system(paste("cp -r ",xCometFolder," ",scrat_tmp.folder,"/",sep=""))
-system(paste("mv ", scrat_tmp.folder,"/outputdata ", scrat_tmp.folder,"/Xoutputdata", sep=""))
-system(paste("cp -r ",sub("outputdata","",xCometFolder),"/*_clustering.output*"," ",scrat_tmp.folder,"/X_clustering.output.",fileX.file2,sep=""))
-system(paste("cp -r ",sub("outputdata","",xCometFolder),"/*_scoreSum*"," ",scrat_tmp.folder,"/X_scoreSum.",fileX.file2,sep=""))
+if(!validation){
+  system(paste("cp -r ",xCometFolder," ",scrat_tmp.folder,"/",sep=""))
+  system(paste("mv ", scrat_tmp.folder,"/outputdata ", scrat_tmp.folder,"/Xoutputdata", sep=""))
+  system(paste("cp -r ",sub("outputdata","",xCometFolder),"/*_clustering.output*"," ",scrat_tmp.folder,"/X_clustering.output.",fileX.file2,sep=""))
+  system(paste("cp -r ",sub("outputdata","",xCometFolder),"/*_scoreSum*"," ",scrat_tmp.folder,"/X_scoreSum.",fileX.file2,sep=""))
+  
+  system(paste("cp -r ",yCometFolder," ",scrat_tmp.folder,"/",sep=""))
+  system(paste("mv ", scrat_tmp.folder,"/outputdata ", scrat_tmp.folder,"/Youtputdata", sep=""))
+  system(paste("cp -r ",sub("outputdata","",yCometFolder),"/*_clustering.output*"," ",scrat_tmp.folder,"/Y_clustering.output.",fileX.file2,sep=""))
+  system(paste("cp -r ",sub("outputdata","",yCometFolder),"/*_scoreSum*"," ",scrat_tmp.folder,"/Y_scoreSum.",fileX.file2,sep=""))
 
-system(paste("cp -r ",yCometFolder," ",scrat_tmp.folder,"/",sep=""))
-system(paste("mv ", scrat_tmp.folder,"/outputdata ", scrat_tmp.folder,"/Youtputdata", sep=""))
-system(paste("cp -r ",sub("outputdata","",yCometFolder),"/*_clustering.output*"," ",scrat_tmp.folder,"/Y_clustering.output.",fileX.file2,sep=""))
-system(paste("cp -r ",sub("outputdata","",yCometFolder),"/*_scoreSum*"," ",scrat_tmp.folder,"/Y_scoreSum.",fileX.file2,sep=""))
-
+  xCometFolder="/scratch/Xoutputdata"
+  yCometFolder="/scratch/Youtputdata"
+}else{
+  system(paste("cp ",to.be.validated," ",scrat_tmp.folder,"/",sep=""))
+  to.be.validated=paste("/scratch/",basename(to.be.validated),sep="")
+}
 
 fileX=paste("/scratch/",fileX.file,sep="")
 fileY=paste("/scratch/",fileY.file,sep="")
-xCometFolder="/scratch/Xoutputdata"
-yCometFolder="/scratch/Youtputdata"
 
   #executing the docker job
 
 if(validation==FALSE){
   params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/combineNT1NT2_toprnk.R ",top.ranked," ",fileX," ",xCometFolder," ",fileY," ",yCometFolder," ",threshold," ",separatorX," ",separatorY, " ", CSS.threshold, " ", sep="")
 }else{
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/validate_toprnk.R ",fileX," ", fileY," ",separatorX," ",separatorY, " ", to.be.validated, sep="")
-  
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/validate_toprnk.R ",fileX," ", fileY," ",separatorX," ",separatorY, " ", basename(to.be.validated), sep="")
 }
 
 resultRun <- runDocker(group=group, params=params)

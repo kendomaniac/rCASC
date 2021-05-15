@@ -18,7 +18,7 @@ toprnk(
   CSS.threshold = 0.5,
   outputFolder,
   validation = c(TRUE, FALSE),
-  to.be.validate = NULL
+  to.be.validated = NULL
 )
 }
 \arguments{
@@ -54,7 +54,7 @@ toprnk(
 A folder called XYpb with all the results generated. The function produces the output for 10, 20, 40, 80, 160 and 320 top ranked genes from comet and all genes in pseudo-bulk files. XYpb_topZZ.csv can be used to generate HCL. XYpb_cor_0.K_toprnk_ZZ.csv contain the associated clusters given a Pearson correlation threshold of 0.K. The files XYpb_cor_0.K_toprnk_ZZ_CSS_0.H.csv, are the subset of clusters that have a specific cell stability score, we suggest to associate only clusters with at least 0.5 CSS. If validation is TRUE it will be estimated for the chosen XYpb_cor_0.K_toprnk_ZZ.csv a p-value, which is calculated performing correlation between clusters, using randomly selected ZZ genes * cls, and repeating this procedure 1000 times.
 }
 \description{
-This function execute toprnk analysis which search for corrispondence between clusters of two different experiments using pseudobulk zscored on rows and the cluster specific genes from comet analysis. Thus the function clustersBulk and cometsc have to be run in the two dataset to be integrated.
+This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.
 }
 \examples{
 \dontrun{
