@@ -179,7 +179,7 @@ resultRun <- runDocker(group=group, params=params)
   if(validation==FALSE){
     system(paste("cp -r ",scrat_tmp.folder,"/XYpb ",data.folder,"/",sep=""))
   }else{
-    system(paste("cp -r ",scrat_tmp.folder,"/probability_of_random_association.csv ",data.folder,"/",sep=""))
+    system(paste("cp -r ",scrat_tmp.folder,"/freq* ",data.folder,"/",sep=""))
   }
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
