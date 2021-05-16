@@ -9,7 +9,7 @@
 #' @param xCometFolder, path of Comet results from X experiment
 #' @param yCometFolder, path of Comet results from Y experiment
 #' @param threshold, Pearson threshold, must be not smaller than 0.5
-#' @param top.ranked, number of top comet genes to be used
+#' @param top.ranked, MAX number of top comet genes to be used for each cluster, default 320
 #' @param CSS.threshold, min mean CSS that a cluster should have to be considered for integration
 #' @param outputFolder, where results are placed
 #' @param validation, TRUE or FALSE, if TRUE also the to.be.validated file must be present. The to.be.validated is a selected XYpb_cor_0.K_toprnk_ZZ.csv
@@ -29,7 +29,7 @@
 #'         xCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata",
 #'         yCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata",
 #'         threshold=0.5,
-#'         top.ranked=160,
+#'         top.ranked=320,
 #'         CSS.threshold=0.5,
 #'         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX",
 #'         validation=FALSE
@@ -49,7 +49,7 @@
 
 #'}
 #' @export
-toprnk <- function(group=c("sudo","docker"), scratch.folder, fileX, fileY, separatorX,separatorY,xCometFolder,yCometFolder,threshold=0.8,top.ranked=80, CSS.threshold=0.5, outputFolder, validation=c(TRUE, FALSE), to.be.validated=NULL){
+toprnk <- function(group=c("sudo","docker"), scratch.folder, fileX, fileY, separatorX,separatorY,xCometFolder,yCometFolder,threshold=0.8,top.ranked=320, CSS.threshold=0.5, outputFolder, validation=c(TRUE, FALSE), to.be.validated=NULL){
 
 
 data.folder=outputFolder

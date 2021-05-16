@@ -14,7 +14,7 @@ toprnk(
   xCometFolder,
   yCometFolder,
   threshold = 0.8,
-  top.ranked = 80,
+  top.ranked = 320,
   CSS.threshold = 0.5,
   outputFolder,
   validation = c(TRUE, FALSE),
@@ -40,7 +40,7 @@ toprnk(
 
 \item{threshold, }{Pearson threshold, must be not smaller than 0.5}
 
-\item{top.ranked, }{number of top comet genes to be used}
+\item{top.ranked, }{MAX number of top comet genes to be used for each cluster, default 320}
 
 \item{CSS.threshold, }{min mean CSS that a cluster should have to be considered for integration}
 
@@ -68,7 +68,7 @@ This function execute toprnk analysis which search for correspondence between cl
         xCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata",
         yCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata",
         threshold=0.5,
-        top.ranked=160,
+        top.ranked=320,
         CSS.threshold=0.5,
         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX",
         validation=FALSE
