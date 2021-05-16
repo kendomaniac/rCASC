@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Autoencoder clustering — autoencoderClustering • rCASC</title>
+<title>toprnk — toprnk • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Autoencoder clustering — autoencoderClustering" />
-<meta property="og:description" content="This function Compress data using autoencoder partially connected" />
+<meta property="og:title" content="toprnk — toprnk" />
+<meta property="og:description" content="This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison." />
 
 
 
@@ -115,27 +115,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Autoencoder clustering</h1>
+    <h1>toprnk</h1>
     
-    <div class="hidden name"><code>autoencoderClustering.Rd</code></div>
+    <div class="hidden name"><code>toprnk.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function Compress data using autoencoder partially connected</p>
+    <p>This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>autoencoderClustering</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>toprnk</span><span class='op'>(</span>
   group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
   <span class='va'>scratch.folder</span>,
-  <span class='va'>file</span>,
-  <span class='va'>separator</span>,
-  <span class='va'>nCluster</span>,
-  <span class='va'>projectName</span>,
-  clusterMethod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GRIPH"</span>, <span class='st'>"SIMLR"</span>, <span class='st'>"SEURAT"</span>, <span class='st'>"SHARP"</span><span class='op'>)</span>,
-  seed <span class='op'>=</span> <span class='fl'>1111</span>,
-  <span class='va'>pcaDimensions</span>,
-  permAtTime <span class='op'>=</span> <span class='fl'>4</span>,
-  largeScale <span class='op'>=</span> <span class='cn'>FALSE</span>
+  <span class='va'>fileX</span>,
+  <span class='va'>fileY</span>,
+  <span class='va'>separatorX</span>,
+  <span class='va'>separatorY</span>,
+  <span class='va'>xCometFolder</span>,
+  <span class='va'>yCometFolder</span>,
+  threshold <span class='op'>=</span> <span class='fl'>0.8</span>,
+  top.ranked <span class='op'>=</span> <span class='fl'>320</span>,
+  CSS.threshold <span class='op'>=</span> <span class='fl'>0.5</span>,
+  <span class='va'>outputFolder</span>,
+  validation <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  to.be.validated <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -150,57 +153,64 @@
       <td><p>a character string indicating the path of the scratch folder</p></td>
     </tr>
     <tr>
-      <th>file, </th>
-      <td><p>a character string indicating the path of the file, with file name and extension included.Has to be the one in the projectName folder.Different so from the previous one.</p></td>
+      <th>fileX, </th>
+      <td><p>a character string indicating the path of the pseudobulkRow file, with file name and extension included.</p></td>
     </tr>
     <tr>
-      <th>separator, </th>
+      <th>fileY, </th>
+      <td><p>a character string indicating the path of the pseudobulkRow file, with file name and extension included.</p></td>
+    </tr>
+    <tr>
+      <th>separatorX, </th>
       <td><p>separator used in count file, e.g. '\t', ','</p></td>
     </tr>
     <tr>
-      <th>nCluster, </th>
-      <td><p>number of cluster in which the dataset is divided</p></td>
+      <th>separatorY, </th>
+      <td><p>separator used in count file, e.g. '\t', ','</p></td>
     </tr>
     <tr>
-      <th>projectName, </th>
-      <td><p>might be different from the matrixname in order to perform different analysis on the same dataset</p></td>
+      <th>xCometFolder, </th>
+      <td><p>path of Comet results from X experiment</p></td>
     </tr>
     <tr>
-      <th>clusterMethod, </th>
-      <td><p>clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"</p></td>
+      <th>yCometFolder, </th>
+      <td><p>path of Comet results from Y experiment</p></td>
     </tr>
     <tr>
-      <th>seed, </th>
-      <td><p>important value to reproduce the same results with same input</p></td>
+      <th>threshold, </th>
+      <td><p>Pearson threshold, must be not smaller than 0.5</p></td>
     </tr>
     <tr>
-      <th>pcaDimensions, </th>
-      <td><p>number of dimensions to use for Seurat Pca reduction.</p></td>
+      <th>top.ranked, </th>
+      <td><p>MAX number of top comet genes to be used for each cluster, default 320</p></td>
     </tr>
     <tr>
-      <th>permAtTime, </th>
-      <td><p>number of permutation in parallel</p></td>
+      <th>CSS.threshold, </th>
+      <td><p>min mean CSS that a cluster should have to be considered for integration</p></td>
     </tr>
     <tr>
-      <th>largeScale, </th>
-      <td><p>boolean for SIMLR analysis, TRUE if rows are less then columns or if the computational time are huge</p></td>
+      <th>outputFolder, </th>
+      <td><p>where results are placed</p></td>
+    </tr>
+    <tr>
+      <th>validation, </th>
+      <td><p>TRUE or FALSE, if TRUE also the to.be.validated file must be present. The to.be.validated is a selected XYpb_cor_0.K_toprnk_ZZ.csv</p></td>
+    </tr>
+    <tr>
+      <th>to.be.validated, </th>
+      <td><p>a character string indicating the path of the selected XYpb_cor_0.K_toprnk_ZZ.csv, with file name and extension included.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-
-
+    <p>A folder called XYpb with all the results generated. The function produces the output for 10, 20, 40, 80, 160 and 320 top ranked genes from comet and all genes in pseudo-bulk files. XYpb_topZZ.csv can be used to generate HCL. XYpb_cor_0.K_toprnk_ZZ.csv contain the associated clusters given a Pearson correlation threshold of 0.K. The files XYpb_cor_0.K_toprnk_ZZ_CSS_0.H.csv, are the subset of clusters that have a specific cell stability score, we suggest to associate only clusters with at least 0.5 CSS. If validation is TRUE it will be estimated for the chosen XYpb_cor_0.K_toprnk_ZZ.csv a p-value, which is calculated performing correlation between clusters, using randomly selected ZZ genes * cls, and repeating this procedure 1000 times.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='fu'>autoencoderClustering</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, scratch.folder<span class='op'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker_2/scratch"</span>, file<span class='op'>=</span><span class='st'>"/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv"</span>,separator<span class='op'>=</span><span class='st'>","</span>, nCluster<span class='op'>=</span><span class='fl'>5</span>,clusterMethod<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"SEURAT"</span><span class='op'>)</span>,seed<span class='op'>=</span><span class='fl'>1111</span>,projectName<span class='op'>=</span><span class='st'>"testDocker"</span>,<span class='fl'>13</span>, largeScale <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
