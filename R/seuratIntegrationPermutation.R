@@ -1,5 +1,5 @@
 #' @title Seurat Integration Permutation
-#' @description This function executes a ubuntu docker that performs seurat integration
+#' @description This function executes a ubuntu docker that performs seurat integration to identify associated clusters in two independent experiment
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file1, a character string indicating the path of the first matrix 

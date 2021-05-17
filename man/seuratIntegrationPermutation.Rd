@@ -42,7 +42,7 @@ seuratIntegrationPermutation(
 file containing the cluster association in the datasets merged by seurat
 }
 \description{
-This function executes a ubuntu docker that performs seurat integration
+This function executes a ubuntu docker that performs seurat integration to identify associated clusters in two independent experiment
 }
 \examples{
 \dontrun{
