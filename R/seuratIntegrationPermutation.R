@@ -15,7 +15,7 @@
 #' @return file containing the cluster association in the datasets merged by seurat
 #' @examples
 #' \dontrun{
-#' seuratIntegration(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",seed=1111) 
+#' seuratIntegrationPermutation(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",cl1=, cl29,permutation=100, seed=111) 
 #'}
 #' @export
 seuratIntegrationPermutation <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,cl1,cl2,permutation,seed){
