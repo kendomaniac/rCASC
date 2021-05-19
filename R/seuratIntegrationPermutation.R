@@ -78,14 +78,14 @@ separator1="tab"
 if(separator2=="\t"){
 separator2="tab"
 }
-system(paste("cp ",data.folder1,"/",matrixName1,".",format1," ",scrat_tmp.folder,"/",sep=""))
-system(paste("cp ",data.folder2,"/",matrixName2,".",format2," ",scrat_tmp.folder,"/",sep=""))
-system(paste("cp ",cl1," ",scrat_tmp.folder,"/",sep=""))
-system(paste("cp ",cl2," ",scrat_tmp.folder,"/",sep=""))
+system(paste("cp ",data.folder1,"/",matrixName1,".",format1," ",scrat_tmp.folder,"/X_",matrixName1,".",format1,sep=""))
+system(paste("cp ",data.folder2,"/",matrixName2,".",format2," ",scrat_tmp.folder,"/Y_",matrixName2,".",format2,sep=""))
+system(paste("cp ",cl1," ",scrat_tmp.folder,"/X_",basename(cl1),sep=""))
+system(paste("cp ",cl2," ",scrat_tmp.folder,"/Y_",basename(cl2),sep=""))
 cl1=paste(strsplit(basename(cl1),"[.]")[[1]][seq(1,length(strsplit(basename(cl1),"[.]")[[1]])-1)],collapse=".")
 cl2=paste(strsplit(basename(cl2),"[.]")[[1]][seq(1,length(strsplit(basename(cl2),"[.]")[[1]])-1)],collapse=".")
   #executing the docker job
-    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/seuratintegrationpermutation Rscript /home/pre_processing.R ",matrixName1," ",format1," ",separator1," ",matrixName2," ",format2," ",separator2," ",cl1," ",cl2," ",permutation," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/seuratintegrationpermutation Rscript /home/pre_processing.R X_",matrixName1," ",format1," ",separator1," Y_",matrixName2," ",format2," ",separator2," X_",cl1," Y_",cl2," ",permutation," ",seed,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
