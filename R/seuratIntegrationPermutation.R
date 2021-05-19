@@ -10,6 +10,7 @@
 #' @param cl2, path of clustering.output for file2
 #' @param permutation, number of permutation for statistic
 #' @param seed, integer file necessary for reproducibility
+#' @param outputFolder, path to the output folder
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #' @return file containing the cluster association in the datasets merged by seurat
@@ -18,7 +19,7 @@
 #' seuratIntegration(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",seed=1111) 
 #'}
 #' @export
-seuratIntegrationPermutation <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,cl1,cl2,permutation,seed){
+seuratIntegrationPermutation <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,cl1,cl2,permutation,seed,outputFolder){
 
   data.folder1=dirname(file1)
 positions1=length(strsplit(basename(file1),"\\.")[[1]])
@@ -122,7 +123,7 @@ resultRun <- runDocker(group=group, params=params)
 
   #Copy result folder
   cat("Copying Result Folder")
-  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,sep=""))
+  system(paste("cp -r ",scrat_tmp.folder,"/* ",outputFolder,sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))
