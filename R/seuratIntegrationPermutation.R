@@ -10,6 +10,7 @@
 #' @param cl2, path of clustering.output for file2
 #' @param permutation, number of permutation for statistic
 #' @param seed, integer file necessary for reproducibility
+#' @param outputFolder, path to the output folder
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #' @return file containing the cluster association in the datasets merged by seurat
@@ -18,7 +19,7 @@
 #' seuratIntegrationPermutation(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",cl1=, cl29,permutation=100, seed=111) 
 #'}
 #' @export
-seuratIntegrationPermutation <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,cl1,cl2,permutation,seed){
+seuratIntegrationPermutation <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,cl1,cl2,permutation,seed,outputFolder){
 
   data.folder1=dirname(file1)
 positions1=length(strsplit(basename(file1),"\\.")[[1]])
@@ -78,14 +79,14 @@ separator1="tab"
 if(separator2=="\t"){
 separator2="tab"
 }
-system(paste("cp ",data.folder1,"/",matrixName1,".",format1," ",scrat_tmp.folder,"/",sep=""))
-system(paste("cp ",data.folder2,"/",matrixName2,".",format2," ",scrat_tmp.folder,"/",sep=""))
-system(paste("cp ",cl1," ",scrat_tmp.folder,"/",sep=""))
-system(paste("cp ",cl2," ",scrat_tmp.folder,"/",sep=""))
+system(paste("cp ",data.folder1,"/",matrixName1,".",format1," ",scrat_tmp.folder,"/X_",matrixName1,".",format1,sep=""))
+system(paste("cp ",data.folder2,"/",matrixName2,".",format2," ",scrat_tmp.folder,"/Y_",matrixName2,".",format2,sep=""))
+system(paste("cp ",cl1," ",scrat_tmp.folder,"/X_",basename(cl1),sep=""))
+system(paste("cp ",cl2," ",scrat_tmp.folder,"/Y_",basename(cl2),sep=""))
 cl1=paste(strsplit(basename(cl1),"[.]")[[1]][seq(1,length(strsplit(basename(cl1),"[.]")[[1]])-1)],collapse=".")
 cl2=paste(strsplit(basename(cl2),"[.]")[[1]][seq(1,length(strsplit(basename(cl2),"[.]")[[1]])-1)],collapse=".")
   #executing the docker job
-    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/seuratintegrationpermutation Rscript /home/pre_processing.R ",matrixName1," ",format1," ",separator1," ",matrixName2," ",format2," ",separator2," ",cl1," ",cl2," ",permutation," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/seuratintegrationpermutation Rscript /home/pre_processing.R X_",matrixName1," ",format1," ",separator1," Y_",matrixName2," ",format2," ",separator2," X_",cl1," Y_",cl2," ",permutation," ",seed,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
@@ -122,7 +123,7 @@ resultRun <- runDocker(group=group, params=params)
 
   #Copy result folder
   cat("Copying Result Folder")
-  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,sep=""))
+  system(paste("cp -r ",scrat_tmp.folder,"/* ",outputFolder,sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))
