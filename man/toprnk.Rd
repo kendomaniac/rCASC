@@ -13,12 +13,8 @@ toprnk(
   separatorY,
   xCometFolder,
   yCometFolder,
-  threshold = 0.8,
   top.ranked = 320,
-  CSS.threshold = 0.5,
-  outputFolder,
-  validation = c(TRUE, FALSE),
-  to.be.validated = NULL
+  outputFolder
 )
 }
 \arguments{
@@ -38,20 +34,12 @@ toprnk(
 
 \item{yCometFolder, }{path of Comet results from Y experiment}
 
-\item{threshold, }{Pearson threshold, must be not smaller than 0.5}
-
 \item{top.ranked, }{MAX number of top comet genes to be used for each cluster, default 320}
 
-\item{CSS.threshold, }{min mean CSS that a cluster should have to be considered for integration}
-
 \item{outputFolder, }{where results are placed}
-
-\item{validation, }{TRUE or FALSE, if TRUE also the to.be.validated file must be present. The to.be.validated is a selected XYpb_cor_0.K_toprnk_ZZ.csv}
-
-\item{to.be.validated, }{a character string indicating the path of the selected XYpb_cor_0.K_toprnk_ZZ.csv, with file name and extension included.}
 }
 \value{
-A folder called XYpb with all the results generated. The function produces the output for 10, 20, 40, 80, 160 and 320 top ranked genes from comet and all genes in pseudo-bulk files. XYpb_topZZ.csv can be used to generate HCL. XYpb_cor_0.K_toprnk_ZZ.csv contain the associated clusters given a Pearson correlation threshold of 0.K. The files XYpb_cor_0.K_toprnk_ZZ_CSS_0.H.csv, are the subset of clusters that have a specific cell stability score, we suggest to associate only clusters with at least 0.5 CSS. If validation is TRUE it will be estimated for the chosen XYpb_cor_0.K_toprnk_ZZ.csv a p-value, which is calculated performing correlation between clusters, using randomly selected ZZ genes * cls, and repeating this procedure 1000 times.
+A folder called XYpb with all the results generated. The function produces an integrated output combining 7 thresholds from top.ranked (top.ranked, top.ranked/2, top.ranked/4, top.ranked/8, top.ranked/16/ top.ranked/32, top.ranked/64) over Pearsons in steps of 01 from 1 to 0.5. XYpb_topZZ.csv can be used to generate HCL. XYpb_cor_0.K_toprnk_ZZ.csv contain the associated clusters given a Pearson correlation threshold of 0.K. The files XYpb_cor_0.K_toprnk_ZZ_CSS_0.H.csv, are the subset of clusters that have a specific cell stability score, we suggest to associate only clusters with at least 0.5 CSS. If validation is TRUE it will be estimated for the chosen XYpb_cor_0.K_toprnk_ZZ.csv a p-value, which is calculated performing correlation between clusters, using randomly selected ZZ genes * cls, and repeating this procedure 1000 times.
 }
 \description{
 This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.
@@ -67,22 +55,8 @@ This function execute toprnk analysis which search for correspondence between cl
         separatorY=",",
         xCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata",
         yCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata",
-        threshold=0.5,
         top.ranked=320,
-        CSS.threshold=0.5,
-        outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX",
-        validation=FALSE
- )
- 
- #'  toprnk(group="docker", 
-        scratch.folder="/scratch", 
-        fileX="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/VandE_bulkRow.csv",
-        fileY="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv", 
-        separatorX=",",
-        separatorY=",",
-        outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX",
-        validation=TRUE,
-        to.be.validated="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/XYpb/XYpb_cor_0.5_toprnk_80.csv"
+        outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"
  )
 }
 }

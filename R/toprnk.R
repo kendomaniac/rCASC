@@ -8,15 +8,11 @@
 #' @param separatorY, separator used in count file, e.g. '\\t', ','
 #' @param xCometFolder, path of Comet results from X experiment
 #' @param yCometFolder, path of Comet results from Y experiment
-#' @param threshold, Pearson threshold, must be not smaller than 0.5
 #' @param top.ranked, MAX number of top comet genes to be used for each cluster, default 320
-#' @param CSS.threshold, min mean CSS that a cluster should have to be considered for integration
 #' @param outputFolder, where results are placed
-#' @param validation, TRUE or FALSE, if TRUE also the to.be.validated file must be present. The to.be.validated is a selected XYpb_cor_0.K_toprnk_ZZ.csv
-#' @param to.be.validated, a character string indicating the path of the selected XYpb_cor_0.K_toprnk_ZZ.csv, with file name and extension included.
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return A folder called XYpb with all the results generated. The function produces the output for 10, 20, 40, 80, 160 and 320 top ranked genes from comet and all genes in pseudo-bulk files. XYpb_topZZ.csv can be used to generate HCL. XYpb_cor_0.K_toprnk_ZZ.csv contain the associated clusters given a Pearson correlation threshold of 0.K. The files XYpb_cor_0.K_toprnk_ZZ_CSS_0.H.csv, are the subset of clusters that have a specific cell stability score, we suggest to associate only clusters with at least 0.5 CSS. If validation is TRUE it will be estimated for the chosen XYpb_cor_0.K_toprnk_ZZ.csv a p-value, which is calculated performing correlation between clusters, using randomly selected ZZ genes * cls, and repeating this procedure 1000 times. 
+#' @return A folder called XYpb with all the results generated. The function produces an integrated output combining 7 thresholds from top.ranked (top.ranked, top.ranked/2, top.ranked/4, top.ranked/8, top.ranked/16/ top.ranked/32, top.ranked/64) over Pearsons in steps of 01 from 1 to 0.5. XYpb_topZZ.csv can be used to generate HCL. XYpb_cor_0.K_toprnk_ZZ.csv contain the associated clusters given a Pearson correlation threshold of 0.K. The files XYpb_cor_0.K_toprnk_ZZ_CSS_0.H.csv, are the subset of clusters that have a specific cell stability score, we suggest to associate only clusters with at least 0.5 CSS. If validation is TRUE it will be estimated for the chosen XYpb_cor_0.K_toprnk_ZZ.csv a p-value, which is calculated performing correlation between clusters, using randomly selected ZZ genes * cls, and repeating this procedure 1000 times. 
 #' @examples
 #' \dontrun{
 #'  library(rCASC)
@@ -28,31 +24,17 @@
 #'         separatorY=",",
 #'         xCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata",
 #'         yCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata",
-#'         threshold=0.5,
 #'         top.ranked=320,
-#'         CSS.threshold=0.5,
-#'         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX",
-#'         validation=FALSE
+#'         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"
 #'  )
-#'  
-#'  #'  toprnk(group="docker", 
-#'         scratch.folder="/scratch", 
-#'         fileX="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/VandE_bulkRow.csv",
-#'         fileY="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv", 
-#'         separatorX=",",
-#'         separatorY=",",
-#'         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX",
-#'         validation=TRUE,
-#'         to.be.validated="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/XYpb/XYpb_cor_0.5_toprnk_80.csv"
-#'  )
-
-
 #'}
 #' @export
-toprnk <- function(group=c("sudo","docker"), scratch.folder, fileX, fileY, separatorX,separatorY,xCometFolder,yCometFolder,threshold=0.8,top.ranked=320, CSS.threshold=0.5, outputFolder, validation=c(TRUE, FALSE), to.be.validated=NULL){
-
-
-data.folder=outputFolder
+toprnk <- function(group=c("sudo","docker"), scratch.folder, fileX, fileY, separatorX, separatorY, xCometFolder, yCometFolder, top.ranked=320, outputFolder){
+  CSS.threshold = 0.5
+  threshold = 1
+  to.be.validated=NULL
+  validation=FALSE
+  data.folder=outputFolder
   #running time 1
   ptm <- proc.time()
   #setting the data.folder as working folder
