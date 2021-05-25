@@ -20,7 +20,7 @@
 #'}
 #' @export
 seuratIntegrationPermutation <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,cl1,cl2,permutation,seed,outputFolder){
-
+dir.create(outputFolder)
   data.folder1=dirname(file1)
 positions1=length(strsplit(basename(file1),"\\.")[[1]])
 matrixNameC1=strsplit(basename(file1),"\\.")[[1]]
