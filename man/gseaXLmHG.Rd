@@ -53,7 +53,7 @@ This function execute XLmHG estimation of the presence of enriched GSEA class in
 \examples{
 \dontrun{
  library(rCASC)
- gseaXLmHG(group="docker", 
+ gseaXLmHG(group="docker",
         scratch.folder="/scratch", 
         xCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata",
         yCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata",

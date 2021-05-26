@@ -17,7 +17,7 @@
 #' @examples
 #' \dontrun{
 #'  library(rCASC)
-#'  gseaXLmHG(group="docker", 
+#'  gseaXLmHG(group="docker",
 #'         scratch.folder="/scratch", 
 #'         xCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata",
 #'         yCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata",
@@ -90,12 +90,12 @@ separatorY="tab"
   system(paste("cp -r ",yCometFolder," ",scrat_tmp.folder,"/",sep=""))
   system(paste("mv ", scrat_tmp.folder,"/outputdata ", scrat_tmp.folder,"/Youtputdata", sep=""))
 
-  xCometFolder="/scratch/Xoutputdata"
-  yCometFolder="/scratch/Youtputdata"
+  xCometFolder="/data/Xoutputdata"
+  yCometFolder="/data/Youtputdata"
 
   #executing the docker job
 
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /home/loop_toprnk.R ",gsea," ", X, " ", L, " ", pvalue, " ",xCometFolder," ",yCometFolder," ",separatorX," ",separatorY, sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/data -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /home/loop_toprnk.R ",gsea," ", X, " ", L, " ", pvalue, " ",xCometFolder," ",yCometFolder," ",separatorX," ",separatorY, sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
