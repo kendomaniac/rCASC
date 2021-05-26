@@ -112,7 +112,7 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   }
 
   if (!is.null(expect.cells)){
-   params<-paste(params," --expect-cell=",expect.cells, sep="")
+   params<-paste(params," --expect-cells=",expect.cells, sep="")
   }
 
   if (!is.null(force.cells)){
