@@ -37,9 +37,9 @@ This function execute toprnk analysis which search for correspondence between cl
  library(rCASC)
  integrationCircos(group="docker", 
         scratch.folder="/scratch", 
-        gsea.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/VandE_bulkRow.csv",
-        isc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv",
-        XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv", 
+        gsea.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/GSEA/final_score.csv",
+        isc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/ISC/final_score.csv",
+        XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/XYpb/XYpb_final_score.csv", 
         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"
  )
 }
