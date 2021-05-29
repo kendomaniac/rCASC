@@ -118,9 +118,9 @@ fileY=paste("/scratch/",fileY.file,sep="")
   #executing the docker job
 
 if(validation==FALSE){
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/combineNT1NT2_toprnk.R ",top.ranked," ",fileX," ",xCometFolder," ",fileY," ",yCometFolder," ",threshold," ",separatorX," ",separatorY, " ", CSS.threshold, " ", sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/combineNT1NT2_toprnk.R ",top.ranked," ",fileX," ",xCometFolder," ",fileY," ",yCometFolder," ",threshold," ",separatorX," ",separatorY, " ", CSS.threshold, " ", sep="")
 }else{
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/validate_toprnk.R ",fileX," ", fileY," ",separatorX," ",separatorY, " ", basename(to.be.validated), sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/validate_toprnk.R ",fileX," ", fileY," ",separatorX," ",separatorY, " ", basename(to.be.validated), sep="")
 }
 
 resultRun <- runDocker(group=group, params=params)
