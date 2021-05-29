@@ -4,7 +4,8 @@
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param gsea.file, a character string indicating the path of the final_score.csv  generated with gseaXLmHG, file, with file name and extension included. 
 #' @param isc.file, a character string indicating the path of the final_score.csv  generated with seuratIntegrationPermutation, file, with file name and extension included. included. 
-#' @param XYpb.file, a character string indicating the path of the final_score.csv  generated with toprnk, file, with file name and extension included. included. 
+#' @param XYpb.file, a character string indicating the path of the final_score.csv  generated with toprnk, file, with file name and extension included. 
+#' @param pblkae.file, a character string indicating the path of the final_score.csv  generated with integrationPblkae, file, with file name and extension included. 
 #' @param outputFolder, where results are placed
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
@@ -16,12 +17,13 @@
 #'         scratch.folder="/scratch", 
 #'         gsea.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/GSEA/final_score.csv",
 #'         isc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/ISC/final_score.csv",
-#'         XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/XYpb/XYpb_final_score.csv", 
+#'         XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/XYpb/XYpb_final_score.csv",
+#'         pblkae.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/pblkAE/final_score.csv", 
 #'         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"
 #'  )
 #'}
 #' @export
-integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.file, isc.file, XYpb.file, outputFolder){
+integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.file, isc.file, XYpb.file, pblkae.file, outputFolder){
  
   data.folder=outputFolder
   #running time 1
@@ -66,6 +68,7 @@ integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.fil
 system(paste("cp ",gsea.file," ",scrat_tmp.folder,"/gsea_final_score.csv",sep=""))
 system(paste("cp ",isc.file," ",scrat_tmp.folder,"/isc_final_score.csv",sep=""))
 system(paste("cp ",XYpb.file," ",scrat_tmp.folder,"/XYpb_final_score.csv",sep=""))
+system(paste("cp ",pblkae.file," ",scrat_tmp.folder,"/pblkae_final_score.csv",sep=""))
 
 params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /home/fs_circors.R", sep="")
 

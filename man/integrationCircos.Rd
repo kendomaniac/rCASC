@@ -10,6 +10,7 @@ integrationCircos(
   gsea.file,
   isc.file,
   XYpb.file,
+  pblkae.file,
   outputFolder
 )
 }
@@ -22,7 +23,9 @@ integrationCircos(
 
 \item{isc.file, }{a character string indicating the path of the final_score.csv  generated with seuratIntegrationPermutation, file, with file name and extension included. included.}
 
-\item{XYpb.file, }{a character string indicating the path of the final_score.csv  generated with toprnk, file, with file name and extension included. included.}
+\item{XYpb.file, }{a character string indicating the path of the final_score.csv  generated with toprnk, file, with file name and extension included.}
+
+\item{pblkae.file, }{a character string indicating the path of the final_score.csv  generated with integrationPblkae, file, with file name and extension included.}
 
 \item{outputFolder, }{where results are placed}
 }
@@ -39,7 +42,8 @@ This function execute toprnk analysis which search for correspondence between cl
         scratch.folder="/scratch", 
         gsea.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/GSEA/final_score.csv",
         isc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/ISC/final_score.csv",
-        XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/XYpb/XYpb_final_score.csv", 
+        XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/XYpb/XYpb_final_score.csv",
+        pblkae.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/pblkAE/final_score.csv", 
         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"
  )
 }
