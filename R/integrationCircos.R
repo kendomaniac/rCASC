@@ -67,7 +67,7 @@ system(paste("cp ",gsea.file," ",scrat_tmp.folder,"/gsea_final_score.csv",sep=""
 system(paste("cp ",isc.file," ",scrat_tmp.folder,"/isc_final_score.csv",sep=""))
 system(paste("cp ",XYpb.file," ",scrat_tmp.folder,"/XYpb_final_score.csv",sep=""))
 
-params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /fs_circors.R", sep="")
+params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /home/fs_circors.R", sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
