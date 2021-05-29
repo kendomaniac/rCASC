@@ -73,7 +73,7 @@ resultRun <- runDocker(group=group, params=params)
 
   #waiting for the end of the container work
   if(resultRun==0){
-    #system(paste("cp ", scrat_tmp.folder, "/*top* ", data.folder, sep=""))
+    #system(paste("cp  ", scrat_tmp.folder, "/*top* ", data.folder, sep=""))
   }
   #running time 2
   ptm <- proc.time() - ptm
