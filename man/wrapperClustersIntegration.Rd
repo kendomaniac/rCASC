@@ -9,12 +9,8 @@ wrapperClustersIntegration(
   scratch.folder,
   file.matrix1,
   file.matrix2,
-  file.pblk1,
-  file.pblk2,
   file.total1,
   file.total2,
-  comet.folder1,
-  comet.folder2,
   cl1,
   cl2,
   separator1,
@@ -38,17 +34,9 @@ wrapperClustersIntegration(
 
 \item{file.matrix2, }{a character string indicating the path of the second matrix}
 
-\item{file.pblk1, }{a character string indicating the path of the pseudobulkRow file, with file name and extension included.}
-
-\item{file.pblk2, }{a character string indicating the path of the pseudobulkRow file, with file name and extension included.}
-
 \item{file.total1, }{a character string indicating the path to the total.csv.for the 1st dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.}
 
 \item{file.total2, }{a character string indicating the path to the total.csv.for the 2nd dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.}
-
-\item{comet.folder1, }{path of Comet outputdata folder from experiment 1}
-
-\item{comet.folder2, }{path of Comet outputdata folder from experiment 2}
 
 \item{cl1, }{path of clustering.output for file.matrix1}
 
@@ -78,7 +66,7 @@ wrapperClustersIntegration(
 A picture called integrated_score.png and a file called integrated_score.csv and all the final_scores.csv used to produce the integrated results.
 }
 \description{
-This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.
+This function execute toprnk analysis which search for correspondence between clusters of two different experiments requires that the data are clustered with any of the software implemented in rCASC, cometsc, bulkClusters and autoencoder4pseudoBulk were already executed.
 }
 \examples{
 \dontrun{
@@ -86,15 +74,12 @@ This function execute toprnk analysis which search for correspondence between cl
  wrapperClustersIntegration(group="docker", 
         scratch.folder="/scratch", 
         file.matrix1="/data/clusters_association_paper/setA1_set1/setA1/VandE/VandE.csv",
-        file.matrix2="/data/clusters_association_paper/setA1_set1/set1/VandE/VandE.csv", separator1=",",separator2=",",
+        file.matrix2="/data/clusters_association_paper/setA1_set1/set1/VandE/VandE.csv",
         cl1="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/VandE/5/VandE_clustering.output.csv",
         cl2="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/VandE/4/VandE_clustering.output.csv",
-        file.pblk1="/data/clusters_association_paper/setA1_set1/setA1/VandE/VandE_bulkRow.csv",
-        file.pblk2="/data/clusters_association_paper/setA1_set1/set1/VandE/VandE_bulkRow.csv", 
-        comet.folder1="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/VandE/5/outputdata",
-        comet.folder2="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/VandE/4/outputdata", 
         file.total1="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
         file.total2="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv",
+        separator1=",", separator2=",", 
         permutation=100, seed=111, top.ranked=320, gsea="msigdb.all", X=5, L=0.15, pvalue=0.05,
         outputFolder="/data/clusters_association_paper/setA1_set1"
         )

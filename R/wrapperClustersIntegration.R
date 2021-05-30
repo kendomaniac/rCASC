@@ -1,5 +1,5 @@
 #' @title integrationCircos
-#' @description This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.
+#' @description This function execute toprnk analysis which search for correspondence between clusters of two different experiments requires that the data are clustered with any of the software implemented in rCASC, cometsc, bulkClusters and autoencoder4pseudoBulk were already executed.   
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file.matrix1, a character string indicating the path of the first matrix 
@@ -10,10 +10,6 @@
 #' @param cl2, path of clustering.output for file.matrix2
 #' @param permutation, number of permutation to be run
 #' @param seed, integer file necessary for reproducibility
-#' @param file.pblk1, a character string indicating the path of the pseudobulkRow file, with file name and extension included. 
-#' @param file.pblk2, a character string indicating the path of the pseudobulkRow file, with file name and extension included. 
-#' @param comet.folder1, path of Comet outputdata folder from experiment 1
-#' @param comet.folder2, path of Comet outputdata folder from experiment 2
 #' @param top.ranked, MAX number of top comet genes to be used for each cluster, default 320
 #' @param file.total1, a character string indicating the path to the total.csv.for the 1st dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included. 
 #' @param file.total2, a character string indicating the path to the total.csv.for the 2nd dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included. 
@@ -31,15 +27,12 @@
 #'  wrapperClustersIntegration(group="docker", 
 #'         scratch.folder="/scratch", 
 #'         file.matrix1="/data/clusters_association_paper/setA1_set1/setA1/VandE/VandE.csv",
-#'         file.matrix2="/data/clusters_association_paper/setA1_set1/set1/VandE/VandE.csv", separator1=",",separator2=",",
+#'         file.matrix2="/data/clusters_association_paper/setA1_set1/set1/VandE/VandE.csv",
 #'         cl1="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/VandE/5/VandE_clustering.output.csv",
 #'         cl2="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/VandE/4/VandE_clustering.output.csv",
-#'         file.pblk1="/data/clusters_association_paper/setA1_set1/setA1/VandE/VandE_bulkRow.csv",
-#'         file.pblk2="/data/clusters_association_paper/setA1_set1/set1/VandE/VandE_bulkRow.csv", 
-#'         comet.folder1="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/VandE/5/outputdata",
-#'         comet.folder2="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/VandE/4/outputdata", 
 #'         file.total1="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
 #'         file.total2="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv",
+#'         separator1=",", separator2=",", 
 #'         permutation=100, seed=111, top.ranked=320, gsea="msigdb.all", X=5, L=0.15, pvalue=0.05,
 #'         outputFolder="/data/clusters_association_paper/setA1_set1"
 #'         )
@@ -47,17 +40,19 @@
 #' @export
 wrapperClustersIntegration <- function(group=c("sudo","docker"), scratch.folder, 
                                        file.matrix1, file.matrix2, 
-                                       file.pblk1, file.pblk2, 
                                        file.total1, file.total2, 
-                                       comet.folder1, comet.folder2,
                                        cl1, cl2, 
                                        separator1, separator2, 
                                        permutation=100, seed=111,
                                        top.ranked=320, 
                                        gsea="msigdb.all", X=5, L=0.15, pvalue=0.05,
                                        outputFolder){
-  
+  #NOTE some controls needs to be added to check that everything is in place
   cat("\nRunning gseaXLmHG\n")
+  comet.folder1 <- sub(basename(cl1), "", cl1)
+  comet.folder1 <- paste(comet.folder1, "outputdata", sep="")
+  comet.folder2 <- sub(basename(cl2), "", cl2)
+  comet.folder2 <- paste(comet.folder2, "outputdata", sep="")
   gseaXLmHG <- function(group=group, scratch.folder=scratch.folder, xCometFolder=comet.folder1, yCometFolder=comet.folder1, 
                         gsea=gsea, X=X, L=L, pvalue=pvalue, separatorX=separator1, separatorY=separator1, outputFolder=outputFolder)
   
@@ -68,6 +63,16 @@ wrapperClustersIntegration <- function(group=c("sudo","docker"), scratch.folder,
                                seed=seed, outputFolder=paste(outputFolder, "ISC", sep="/"))
   
   cat("\nRunning toprnk\n")
+  file.pblk1.tmp <- paste(sapply(strsplit(basename(file.matrix1), "\\."), function(x)x[1]), "_bulkRow", sep="")
+  file.pblk1.tmp1 <- sapply(strsplit(basename(file.matrix1), "\\."), function(x)x[2])
+  file.pblk1 <- sub(basename(file.matrix1), "", file.matrix1)
+  file.pblk1 <- paste(file.pblk1,file.pblk1.tmp,".",file.pblk1.tmp1, sep="")
+  
+  file.pblk2.tmp <- paste(sapply(strsplit(basename(file.matrix2), "\\."), function(x)x[1]), "_bulkRow", sep="")
+  file.pblk2.tmp1 <- sapply(strsplit(basename(file.matrix2), "\\."), function(x)x[2])
+  file.pblk2 <- sub(basename(file.matrix2), "", file.matrix2)
+  file.pblk2 <- paste(file.pblk2,file.pblk2.tmp,".",file.pblk2.tmp1, sep="")
+  
   toprnk(group=group, scratch.folder=scratch.folder, fileX=file.pblk1, fileY=file.pblk2, 
          separatorX=separator1, separatorY=separator2, xCometFolder=comet.folder1, yCometFolder=comet.folder2, 
          top.ranked=top.ranked, outputFolder=outputFolder)
