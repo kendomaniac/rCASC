@@ -50,9 +50,9 @@ wrapperClustersIntegration <- function(group=c("sudo","docker"), scratch.folder,
   #NOTE some controls needs to be added to check that everything is in place
   cat("\nRunning gseaXLmHG\n")
   comet.folder1 <- sub(basename(cl1), "", cl1)
-  comet.folder1 <- paste(comet.folder1, "outputdata", sep="")
+  comet.folder1 <- paste(comet.folder1, "outputdata", sep="/")
   comet.folder2 <- sub(basename(cl2), "", cl2)
-  comet.folder2 <- paste(comet.folder2, "outputdata", sep="")
+  comet.folder2 <- paste(comet.folder2, "outputdata", sep="/")
   gseaXLmHG <- function(group=group, scratch.folder=scratch.folder, xCometFolder=comet.folder1, yCometFolder=comet.folder1, 
                         gsea=gsea, X=X, L=L, pvalue=pvalue, separatorX=separator1, separatorY=separator1, outputFolder=outputFolder)
   
