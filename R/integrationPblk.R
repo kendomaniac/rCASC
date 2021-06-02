@@ -7,6 +7,7 @@
 #' @param separatorX, separator used in count file, e.g. '\\t', ','
 #' @param separatorY, separator used in count file, e.g. '\\t', ','
 #' @param max.genes, MAX number of random genes to be used for each cluster, default 500
+#' @param split.by, value indication the splitting range default 100. I.e. if max.genes= 500 with split.by set to 100 there will be 5 sets of genes selected 100, 200, 300, 400, 500
 #' @param outputFolder, where results are placed
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
@@ -20,12 +21,13 @@
 #'         fileY="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv", 
 #'         separatorX=",",
 #'         separatorY=",",
-#'         max.genes=320,
+#'         max.genes=500,
+#'         split.by=100
 #'         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"
 #'  )
 #'}
 #' @export
-integrationPsblk <- function(group=c("sudo","docker"), scratch.folder, fileX, fileY, separatorX, separatorY, max.genes=500, outputFolder){
+integrationPsblk <- function(group=c("sudo","docker"), scratch.folder, fileX, fileY, separatorX, separatorY, max.genes=500, split.by=100, outputFolder){
   data.folder=outputFolder
   #running time 1
   ptm <- proc.time()
@@ -92,7 +94,7 @@ fileY=paste("/scratch/",fileY.file,sep="")
 
   #executing the docker job
 
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/combineExperiments_toprnk.R ", max.genes, " ", fileX, " ", fileY," ", separatorX," ", separatorY, sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/combinetoprnk Rscript /home/combineExperiments_toprnk.R ", max.genes, " ", fileX, " ", fileY," ", separatorX," ", separatorY, " ", split.by, sep="")
 
 resultRun <- runDocker(group=group, params=params)
 

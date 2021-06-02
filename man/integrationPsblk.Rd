@@ -12,6 +12,7 @@ integrationPsblk(
   separatorX,
   separatorY,
   max.genes = 500,
+  split.by = 100,
   outputFolder
 )
 }
@@ -30,6 +31,8 @@ integrationPsblk(
 
 \item{max.genes, }{MAX number of random genes to be used for each cluster, default 500}
 
+\item{split.by, }{value indication the splitting range default 100. I.e. if max.genes= 500 with split.by set to 100 there will be 5 sets of genes selected 100, 200, 300, 400, 500}
+
 \item{outputFolder, }{where results are placed}
 }
 \value{
@@ -47,7 +50,8 @@ This function execute integrationPsblk analysis which search for correspondence 
         fileY="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv", 
         separatorX=",",
         separatorY=",",
-        max.genes=320,
+        max.genes=500,
+        split.by=100
         outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"
  )
 }
