@@ -7,9 +7,10 @@
 integrationPblkae(
   group = c("sudo", "docker"),
   scratch.folder,
-  fileX,
-  fileY,
-  outputFolder
+  fileX = NULL,
+  fileY = NULL,
+  outputFolder,
+  type = c("inter", "intra")
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ integrationPblkae(
 \item{fileY, }{a character string indicating the path to the total.csv.for the 2nd dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.}
 
 \item{outputFolder, }{where results are placed}
+
+\item{type, }{two values inter, intra. Inter refers to comparison among clusters of two independent experiments. Intra comparisons among clusters of the same experiment}
 }
 \value{
 a folader called psblkAE, which contains file called final_score.csv and all the intermediate files used to produce the integrated results.
@@ -31,12 +34,23 @@ This function execute toprnk analysis which search for correspondence between cl
 }
 \examples{
 \dontrun{
+ #inter
  library(rCASC)
  integrationPblkae(group="docker", 
         scratch.folder="/scratch", 
         fileX="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
         fileY="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv",
-        outputFolder="/data/clusters_association_paper/setA1_set1"
+        outputFolder="/data/clusters_association_paper/setA1_set1",
+        type="inter"
+ )
+ 
+ #intra
+ library(rCASC)
+ integrationPblkae(group="docker", 
+        scratch.folder="/scratch", 
+        fileX="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
+        outputFolder="/data/clusters_association_paper/setA1_set1/setA1",
+        type="intra"
  )
 }
 }

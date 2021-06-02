@@ -5,7 +5,7 @@
 #' @param file, a character string indicating the folder where input data are located. The input file is the output of scannobyGtf.
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @author Raffaele Calogero, raffaele [dot] calogero [at] unito [dot] it, University of Torino
-#' @return return a table summarizing the the cell type association for each cluster
+#' @return return a table summarizing the the cell type association for each cluster. The table is saved in the clusters folder in a file with the name including _celltypes_freq.
 #' @examples
 #'\dontrun{
 #' example to be prepared
