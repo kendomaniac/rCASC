@@ -158,9 +158,10 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
     params1[4] <- paste("/bin/cellranger mat2csv /data/", id,"/outs/filtered_gene_bc_matrices ",id,".csv", sep="")
   }else if(version=="3"){
     params1[4] <- paste("/bin/cellranger mat2csv /data/", id,"/outs/filtered_feature_bc_matrix ",id,".csv", sep="")
-  }else if(version=="5"){
-    params1[4] <- paste("/bin/cellranger mat2csv /data/outs/filtered_feature_bc_matrix.csv", sep="")
   }
+    #else if(version=="5"){
+    #params1[4] <- paste("/bin/cellranger mat2csv /data/outs/filtered_feature_bc_matrix.csv", sep="")
+  #}
   
 
 
