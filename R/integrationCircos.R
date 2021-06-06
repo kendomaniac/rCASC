@@ -74,7 +74,7 @@ integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.fil
   if(file.exists(XYpb.file)){
     system(paste("cp ",XYpb.file," ",scrat_tmp.folder,"/XYpb_final_score.csv",sep=""))
   }
-  if(file.exists(blkae.file)){
+  if(file.exists(pblkae.file)){
     system(paste("cp ",pblkae.file," ",scrat_tmp.folder,"/pblkae_final_score.csv",sep=""))
   }
   
