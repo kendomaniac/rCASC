@@ -41,10 +41,10 @@
 #' @export
 integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.file, isc.file, XYpb.file, pblkae.file, Xcls.groups=NULL, Ycls.groups=NULL, outputFolder){
  
-  if(!is.null(Xcls.order)){
+  if(!is.null(Xcls.groups)){
     Xcls.groups <- paste(Xcls.groups, collapse="_")
   }
-  if(!is.null(Xcls.order)){
+  if(!is.null(Ycls.groups)){
     Ycls.groups <- paste(Ycls.groups, collapse="_")
   }
   data.folder=outputFolder
@@ -100,7 +100,7 @@ integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.fil
     system(paste("cp ",pblkae.file," ",scrat_tmp.folder,"/pblkae_final_score.csv",sep=""))
   }
   
-if(is.null(Xcls.order) && is.null(Ycls.order)){
+if(is.null(Xcls.groups) && is.null(Ycls.groups)){
   params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /home/fs_circors.R", sep="")
 }else{
   params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /home/fs_circors1.R ", Xcls.groups, " ", Ycls.groups, sep="")
