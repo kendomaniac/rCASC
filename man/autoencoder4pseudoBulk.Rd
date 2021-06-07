@@ -33,7 +33,7 @@ autoencoder4pseudoBulk(
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
-\item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
+\item{permutation, }{number of permutations to perform the pValue to evaluate clustering. Suggested minimal number of permutations 10}
 
 \item{nEpochs, }{number of Epochs for neural network training}
 

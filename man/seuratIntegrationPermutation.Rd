@@ -42,10 +42,10 @@ seuratIntegrationPermutation(
 \item{outputFolder, }{path to the output folder}
 }
 \value{
-file containing the cluster association in the datasets merged by seurat
+A folder called ISC, the input data, the intermediate results and a comma separated file final_score.csv summarising the frequency by which the seuratIntegration function return a an integration cluster including at least 50% of the input clusters form X and Y datasets.
 }
 \description{
-This function executes a ubuntu docker that performs seurat integration to identify associated clusters in two independent experiment
+This function executes a ubuntu docker that performs seurat integration to identify associated clusters in two independent experiment. The analysis is repeated mutiple times removing 10% of the initial cells, to investigate how stable is the partitioning done with seuratIntegration function. This function requires that cells were clustered with any of the clustering tools included in rCASC.
 }
 \examples{
 \dontrun{

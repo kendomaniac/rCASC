@@ -3,7 +3,7 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file, a character string indicating the path of the file, with file name and extension included
-#' @param permutation, number of permutations to perform the pValue to evaluate clustering
+#' @param permutation, number of permutations to perform the pValue to evaluate clustering. Suggested minimal number of permutations 10
 #' @param nEpochs, number of Epochs for neural network training
 #' @param projectName, might be different from the matrixname in order to perform different analysis on the same dataset
 #' @param patiencePercentage, number of Epochs percentage of not training before to stop.
@@ -28,7 +28,7 @@
 #file2=paste(getwd(),"VandE_clustering.output.csv",sep="/")
 #print(file)
 #print(file2)
-#autoencoder4pseudoBulk(group=c("docker"), scratch.folder="/scratch/scratch", file=file,separator=",", permutation=80, nEpochs=1000,projectName="flavor",bN=file2)
+#autoencoder4pseudoBulk(group=c("docker"), scratch.folder="/scratch/scratch", file=file,separator=",", permutation=10, nEpochs=1000,projectName="flavor",bN=file2)
 #'}
 #' @export
 autoencoder4pseudoBulk <- function(group=c("sudo","docker"), scratch.folder, file,separator, permutation, nEpochs,patiencePercentage=5,seed=1111,projectName,bN,lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",regularization=10){

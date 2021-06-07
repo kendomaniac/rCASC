@@ -1,15 +1,17 @@
 #' @title integrationCircos
-#' @description This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.
+#' @description This function executes integrationCircos, which plots the integrated results of the analysis performed with gseaXLmHG, seuratIntegrationPermutation, integrationPsblk, integrationPblkae and BC
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param gsea.file, a character string indicating the path of the final_score.csv  generated with gseaXLmHG, file, with file name and extension included. 
 #' @param isc.file, a character string indicating the path of the final_score.csv  generated with seuratIntegrationPermutation, file, with file name and extension included. included. 
-#' @param XYpb.file, a character string indicating the path of the final_score.csv  generated with toprnk, file, with file name and extension included. 
+#' @param XYpb.file, a character string indicating the path of the final_score.csv  generated with integrationPsblk, file, with file name and extension included. 
 #' @param pblkae.file, a character string indicating the path of the final_score.csv  generated with integrationPblkae, file, with file name and extension included. 
+#' @param Xcls.groups, a vector of strings describing the groups of more similar clusters.  The optimal order of the clusters can be deduced by the output of integrationPblkae function with the option type="intra". Format: c("1cl6", "1cl2-1cl3", "1cl1-1cl4-1cl5").
+#' @param Ycls.groups, a vector of strings describing the order of the clusters.  The optimal order of the clusters can be deduced by the output of integrationPblkae function with the option type="intra".  Format: c("2cl1-2cl3", "2cl2-2cl4", "2cl5-2cl6")
 #' @param outputFolder, where results are placed
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return A picture called integrated_score.png and a file called integrated_score.csv and all the final_scores.csv used to produce the integrated results. 
+#' @return A picture called integrated_score.png and a file called integrated_score.csv and all the final_scores.csv used to produce the integrated results. The colour ramp for Xgroups is yellow-magenta as instead for the Ygroups is green-blue. Clusters sharing the same colors are those characterized by belonging to the same subgroup detected using integrationPblkae with type="intra". Picture and data used for the integration are lccated in integrated_score folder 
 #' @examples
 #' \dontrun{
 #' library(rCASC)
@@ -18,13 +20,33 @@
 #'                   gsea.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/GSEA/final_score.csv",
 #'                   isc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/ISC/final_score.csv",
 #'                   XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/XYpb/XYpb_final_score.csv",
-#'                   pblkae.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/pblkAE/final_score.csv", 
+#'                   pblkae.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/pblkAE/final_score.csv",
+#'                   Xcls.order=NULL,
+#'                   Ycls.order=NULL, 
 #'                   outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2"
 #' )
+#' 
+#' integrationCircos(group="docker", 
+#'                   scratch.folder="/scratch", 
+#'                   gsea.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/GSEA/final_score.csv",
+#'                   isc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/ISC/final_score.csv",
+#'                   XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/XYpb/XYpb_final_score.csv",
+#'                   pblkae.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/pblkAE/final_score.csv",
+#'                   Xcls.groups=c("1cl6", "1cl2-1cl3", "1cl1-1cl4-1cl5"),
+#'                   Ycls.groups=c("2cl1-2cl3", "2cl2-2cl4", "2cl5-2cl6"), 
+#'                   outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2"
+#' )
+#' 
 #'}
 #' @export
-integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.file, isc.file, XYpb.file, pblkae.file, outputFolder){
+integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.file, isc.file, XYpb.file, pblkae.file, Xcls.groups=NULL, Ycls.groups=NULL, outputFolder){
  
+  if(!is.null(Xcls.order)){
+    Xcls.groups <- paste(Xcls.groups, collapse="_")
+  }
+  if(!is.null(Xcls.order)){
+    Ycls.groups <- paste(Ycls.groups, collapse="_")
+  }
   data.folder=outputFolder
   #running time 1
   ptm <- proc.time()
@@ -78,8 +100,12 @@ integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.fil
     system(paste("cp ",pblkae.file," ",scrat_tmp.folder,"/pblkae_final_score.csv",sep=""))
   }
   
-  
-params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /home/fs_circors.R", sep="")
+if(is.null(Xcls.order) && is.null(Ycls.order)){
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /home/fs_circors.R", sep="")
+}else{
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /home/fs_circors1.R ", Xcls.groups, " ", Ycls.groups, sep="")
+}
+
 
 resultRun <- runDocker(group=group, params=params)
 

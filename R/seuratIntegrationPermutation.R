@@ -1,5 +1,5 @@
 #' @title Seurat Integration Permutation
-#' @description This function executes a ubuntu docker that performs seurat integration to identify associated clusters in two independent experiment
+#' @description This function executes a ubuntu docker that performs seurat integration to identify associated clusters in two independent experiment. The analysis is repeated mutiple times removing 10% of the initial cells, to investigate how stable is the partitioning done with seuratIntegration function. This function requires that cells were clustered with any of the clustering tools included in rCASC.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param file1, a character string indicating the path of the first matrix 
@@ -13,7 +13,7 @@
 #' @param outputFolder, path to the output folder
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
-#' @return file containing the cluster association in the datasets merged by seurat
+#' @return A folder called ISC, the input data, the intermediate results and a comma separated file final_score.csv summarising the frequency by which the seuratIntegration function return a an integration cluster including at least 50% of the input clusters form X and Y datasets.
 #' @examples
 #' \dontrun{
 #' seuratIntegrationPermutation(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",cl1=, cl29,permutation=100, seed=111) 

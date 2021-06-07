@@ -1,5 +1,5 @@
 #' @title integrationPblkae
-#' @description This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.
+#' @description This function execute integrationPblkae analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks generated using sparsely connected autoencoders. Thus, the function autoencoder4pseudoBulk has to be run in the two datasets before their comparison.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param fileX, a character string indicating the path to the total.csv.for the 1st dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included. 
@@ -8,7 +8,7 @@
 #' @param outputFolder, where results are placed
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return a folader called psblkAE, which contains file called final_score.csv and all the intermediate files used to produce the integrated results. 
+#' @return a folder called psblkAE, which contains file called final_score.csv and all the intermediate files used to produce the integrated results. 
 #' @examples
 #' \dontrun{
 #'  #inter

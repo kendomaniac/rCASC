@@ -30,7 +30,7 @@ gseaXLmHG(
 
 \item{yCometFolder, }{path of Comet results from Y experiment}
 
-\item{gsea, }{list of the available GSEA classes: c1.all, c2.cgp, c2.cp.biocarta, c2.cp.kegg, c2.cp.pid, c2.cp.reactome, c2.cp.wikipathways, c3.all, c3.mir, c3.tft.gtrd, c3.tft, c4.cgn, c4.cm, c5.go.bp, c5.go.cc, c5.go.mf, c5.hpo, c6.all, c7.all, c8.all, h.all, msigdb.all. Please note that msigdb.all includes all gsea classes.}
+\item{gsea, }{list of the available GSEA classes: c1.all, c2.cgp, c2.cp.biocarta, c2.cp.kegg, c2.cp.pid, c2.cp.reactome, c2.cp.wikipathways, c3.all, c3.mir, c3.tft.gtrd, c3.tft, c4.cgn, c4.cm, c5.go.bp, c5.go.cc, c5.go.mf, c5.hpo, c6.all, c7.all, c8.all, h.all, msigdb.all. Please note that msigdb.all includes all gsea classes, we suggest to use this dataset for a complete analysis.}
 
 \item{X, }{X parameter for the XLmHG, default 5, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.}
 
@@ -48,7 +48,7 @@ gseaXLmHG(
 A folder called GSEA with all the results generated. The function produces an integrated output, final_score.csv, of the results obtained for progressively increasing length of the cluster-specific-genes detected by COMET.
 }
 \description{
-This function execute XLmHG estimation of the presence of enriched GSEA class in cluster-specific genes detected by COMET for the clusters of two independent dataset and uses this information to search for correspondence between clusters in the two independent datasets. This function requires that the two datasets have been clustered in rCASC and COME analysos was run.
+This function execute XLmHG estimation of the presence of enriched GSEA class in cluster-specific genes detected by COMET for the clusters of two independent datasets and uses this information to search for correspondence between clusters in the two independent datasets. This function requires that the two datasets have been clustered in rCASC and COMET analysis was run.
 }
 \examples{
 \dontrun{

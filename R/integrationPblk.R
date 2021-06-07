@@ -1,5 +1,5 @@
 #' @title integrationPsblk
-#' @description This function execute integrationPsblk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and a subset of randomly selexte genes. Thus, the function clustersBulk has to be run in the two datasets before their comparison.
+#' @description This function execute integrationPsblk analysis which search for correspondence between clusters of two different experiments using clusters-pseudo-bulks, z-scored on rows, and a subset of randomly selected genes. Thus, the function clustersBulk has to be run on the two datasets before their comparison.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param fileX, a character string indicating the path of the pseudobulkRow file, with file name and extension included. 
@@ -11,7 +11,7 @@
 #' @param outputFolder, where results are placed
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return A folder called XYpb with all the results generated. the final frequence table is saved in final_score.csv. The function produces an integrated output combining 7 thresholds from max.genes (top.ranked, top.ranked/2, top.ranked/4, top.ranked/8, top.ranked/16/ top.ranked/32, top.ranked/64). Pearson correlation is calculated on 1000 random selections of genes for each threshold. it is returned the frequence of having pearson >= 0.5.  
+#' @return A folder called XYpb with all the results generated. The final frequency table is saved in final_score.csv, which is made by the frequency of having Pearson >= 0.5 between X and Y datasets for each possible comparisons between the clusters of the X and Y experiment. Pearson correlation is calculated on 10000 random selections of genes for each threshold.   
 #' @examples
 #' \dontrun{
 #'  library(rCASC)

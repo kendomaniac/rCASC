@@ -1,10 +1,10 @@
 #' @title gseaXLmHG
-#' @description This function execute XLmHG estimation of the presence of enriched GSEA class in cluster-specific genes detected by COMET for the clusters of two independent dataset and uses this information to search for correspondence between clusters in the two independent datasets. This function requires that the two datasets have been clustered in rCASC and COME analysos was run.
+#' @description This function execute XLmHG estimation of the presence of enriched GSEA class in cluster-specific genes detected by COMET for the clusters of two independent datasets and uses this information to search for correspondence between clusters in the two independent datasets. This function requires that the two datasets have been clustered in rCASC and COMET analysis was run.
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param xCometFolder, path of Comet results from X experiment
 #' @param yCometFolder, path of Comet results from Y experiment
-#' @param gsea, list of the available GSEA classes: c1.all, c2.cgp, c2.cp.biocarta, c2.cp.kegg, c2.cp.pid, c2.cp.reactome, c2.cp.wikipathways, c3.all, c3.mir, c3.tft.gtrd, c3.tft, c4.cgn, c4.cm, c5.go.bp, c5.go.cc, c5.go.mf, c5.hpo, c6.all, c7.all, c8.all, h.all, msigdb.all. Please note that msigdb.all includes all gsea classes.
+#' @param gsea, list of the available GSEA classes: c1.all, c2.cgp, c2.cp.biocarta, c2.cp.kegg, c2.cp.pid, c2.cp.reactome, c2.cp.wikipathways, c3.all, c3.mir, c3.tft.gtrd, c3.tft, c4.cgn, c4.cm, c5.go.bp, c5.go.cc, c5.go.mf, c5.hpo, c6.all, c7.all, c8.all, h.all, msigdb.all. Please note that msigdb.all includes all gsea classes, we suggest to use this dataset for a complete analysis.
 #' @param X, X parameter for the XLmHG, default 5, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.
 #' @param L, L parameter for the XLmHG, default 0.15, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.
 #' @param pvalue, XLmHG pvalue threshold

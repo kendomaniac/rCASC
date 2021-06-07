@@ -27,10 +27,10 @@ integrationPblkae(
 \item{type, }{two values inter, intra. Inter refers to comparison among clusters of two independent experiments. Intra comparisons among clusters of the same experiment}
 }
 \value{
-a folader called psblkAE, which contains file called final_score.csv and all the intermediate files used to produce the integrated results.
+a folder called psblkAE, which contains file called final_score.csv and all the intermediate files used to produce the integrated results.
 }
 \description{
-This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.
+This function execute integrationPblkae analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks generated using sparsely connected autoencoders. Thus, the function autoencoder4pseudoBulk has to be run in the two datasets before their comparison.
 }
 \examples{
 \dontrun{
