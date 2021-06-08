@@ -11,6 +11,7 @@ integrationCircos(
   isc.file,
   XYpb.file,
   pblkae.file,
+  bcsc.file,
   Xcls.groups = NULL,
   Ycls.groups = NULL,
   outputFolder
@@ -28,6 +29,8 @@ integrationCircos(
 \item{XYpb.file, }{a character string indicating the path of the final_score.csv  generated with integrationPsblk, file, with file name and extension included.}
 
 \item{pblkae.file, }{a character string indicating the path of the final_score.csv  generated with integrationPblkae, file, with file name and extension included.}
+
+\item{bcsc.file, }{a character string indicating the path of the FINAL_score.csv  generated with BCscWrapper, file, with file name and extension included.}
 
 \item{Xcls.groups, }{a vector of strings describing the groups of more similar clusters.  The optimal order of the clusters can be deduced by the output of integrationPblkae function with the option type="intra". Format: c("1cl6", "1cl2-1cl3", "1cl1-1cl4-1cl5").}
 
@@ -50,6 +53,7 @@ integrationCircos(group="docker",
                   isc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/ISC/final_score.csv",
                   XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/XYpb/XYpb_final_score.csv",
                   pblkae.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/pblkAE/final_score.csv",
+                  bcsc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/BCsc/FINAL_score.csv",
                   Xcls.order=NULL,
                   Ycls.order=NULL, 
                   outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2"
@@ -61,6 +65,7 @@ integrationCircos(group="docker",
                   isc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/ISC/final_score.csv",
                   XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/XYpb/XYpb_final_score.csv",
                   pblkae.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/pblkAE/final_score.csv",
+                  bcsc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/BCsc/FINAL_score.csv",
                   Xcls.groups=c("1cl6", "1cl2-1cl3", "1cl1-1cl4-1cl5"),
                   Ycls.groups=c("2cl1-2cl3", "2cl2-2cl4", "2cl5-2cl6"), 
                   outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2"
