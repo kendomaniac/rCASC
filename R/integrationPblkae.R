@@ -116,7 +116,7 @@ if(type=="inter"){
   system("rm -fR dockerID")
 }
 
-params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/post_debulkAE.R NULL ", type, sep="")
+params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/post_debulkAE.R ", type, sep="")
 resultRun <- runDocker(group=group, params=params)
 
 cat("\nintegration done\n")
