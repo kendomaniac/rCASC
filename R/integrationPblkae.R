@@ -104,7 +104,7 @@ system(paste("docker rm ", container.id, sep=""))
 system("rm -fR dockerID")
 
 if(type=="inter"){
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/debulkAE.R /scratch/Y_counts_reformat.txt Y", sep="")
+  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/debulkAE.R /scratch/Y_counts_reformat.txt Y ", type, sep="")
   resultRun <- runDocker(group=group, params=params)
   
   cat("\nanovaLike for fileY done\n")
@@ -116,7 +116,7 @@ if(type=="inter"){
   system("rm -fR dockerID")
 }
 
-params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/post_debulkAE.R ", type, sep="")
+params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/post_debulkAE.R NULL ", type, sep="")
 resultRun <- runDocker(group=group, params=params)
 
 cat("\nintegration done\n")
