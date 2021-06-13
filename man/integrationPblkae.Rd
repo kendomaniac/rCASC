@@ -10,7 +10,8 @@ integrationPblkae(
   fileX = NULL,
   fileY = NULL,
   outputFolder,
-  type = c("inter", "intra")
+  type = c("inter", "intra"),
+  stats = c("anovalike", "pairwise")
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ integrationPblkae(
 \item{outputFolder, }{where results are placed}
 
 \item{type, }{two values inter, intra. Inter refers to comparison among clusters of two independent experiments. Intra comparisons among clusters of the same experiment}
+
+\item{stats, }{two values anovalike, pairwise. Anovalike refers to comparison among clusters with respect to a pseudo reference sample. pairwise comparisons among all clusters by pairwise comparison}
 }
 \value{
 a folder called psblkAE, which contains file called final_score.csv and all the intermediate files used to produce the integrated results.
@@ -42,6 +45,7 @@ This function execute integrationPblkae analysis which search for correspondence
         fileY="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv",
         outputFolder="/data/clusters_association_paper/setA1_set1",
         type="inter"
+        stats="anovalike"
  )
  
  #intra
@@ -51,6 +55,7 @@ This function execute integrationPblkae analysis which search for correspondence
         fileX="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
         outputFolder="/data/clusters_association_paper/setA1_set1/setA1",
         type="intra"
+        stats="pairwise"
  )
 }
 }

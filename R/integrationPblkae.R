@@ -5,6 +5,7 @@
 #' @param fileX, a character string indicating the path to the total.csv.for the 1st dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included. 
 #' @param fileY, a character string indicating the path to the total.csv.for the 2nd dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included. 
 #' @param type, two values inter, intra. Inter refers to comparison among clusters of two independent experiments. Intra comparisons among clusters of the same experiment
+#' @param stats, two values anovalike, pairwise. Anovalike refers to comparison among clusters with respect to a pseudo reference sample. pairwise comparisons among all clusters by pairwise comparison
 #' @param outputFolder, where results are placed
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
@@ -19,6 +20,7 @@
 #'         fileY="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv",
 #'         outputFolder="/data/clusters_association_paper/setA1_set1",
 #'         type="inter"
+#'         stats="anovalike"
 #'  )
 #'  
 #'  #intra
@@ -28,10 +30,11 @@
 #'         fileX="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
 #'         outputFolder="/data/clusters_association_paper/setA1_set1/setA1",
 #'         type="intra"
+#'         stats="pairwise"
 #'  )
 #'}
 #' @export
-integrationPblkae <- function(group=c("sudo","docker"), scratch.folder, fileX=NULL, fileY=NULL, outputFolder, type=c("inter", "intra")){
+integrationPblkae <- function(group=c("sudo","docker"), scratch.folder, fileX=NULL, fileY=NULL, outputFolder, type=c("inter", "intra"), stats=c("anovalike", "pairwise")){
  
   if(type=="intra"){
     fileY=fileX
@@ -79,8 +82,13 @@ integrationPblkae <- function(group=c("sudo","docker"), scratch.folder, fileX=NU
 system(paste("cp ", fileX," ",scrat_tmp.folder,"/X_total.csv",sep=""))
 system(paste("cp ", fileY," ",scrat_tmp.folder,"/Y_total.csv",sep=""))
 
-params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/build.anova.like.dataset.R", sep="")
-resultRun <- runDocker(group=group, params=params)
+if(stats=="anovalike"){
+	params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/build.anova.like.dataset.R", sep="")
+	resultRun <- runDocker(group=group, params=params)
+}else if(stats=="pairwise"){
+	params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/build.pairwise.dataset.R", sep="")
+	resultRun <- runDocker(group=group, params=params)
+}
 
 #ending the first part
 cat("\npreprcessing of clusters of fileX and fileY done\n")
@@ -91,41 +99,56 @@ system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", 
 system(paste("docker rm ", container.id, sep=""))
 system("rm -fR dockerID")
 
+if(stats=="anovalike"){
+	params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/debulkAE.R /scratch/X_counts_reformat.txt X ", type, sep="")
+	resultRun <- runDocker(group=group, params=params)
 
-params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/debulkAE.R /scratch/X_counts_reformat.txt X ", type, sep="")
-resultRun <- runDocker(group=group, params=params)
+	cat("\nanovaLike for fileX done\n")
 
-cat("\nanovaLike for fileX done\n")
+	#saving log and removing docker container
+	container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
+	system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
+	system(paste("docker rm ", container.id, sep=""))
+	system("rm -fR dockerID")
 
-#saving log and removing docker container
-container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
-system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
-system(paste("docker rm ", container.id, sep=""))
-system("rm -fR dockerID")
-
-if(type=="inter"){
-  params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/debulkAE.R /scratch/Y_counts_reformat.txt Y ", type, sep="")
-  resultRun <- runDocker(group=group, params=params)
+	if(type=="inter"){
+  	  	params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/debulkAE.R /scratch/Y_counts_reformat.txt Y ", type, sep="")
+  		resultRun <- runDocker(group=group, params=params)
   
-  cat("\nanovaLike for fileY done\n")
+  		cat("\nanovaLike for fileY done\n")
   
-  #saving log and removing docker container
-  container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
-  system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
-  system(paste("docker rm ", container.id, sep=""))
-  system("rm -fR dockerID")
+ 	 	#saving log and removing docker container
+  		container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
+  		system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
+  		system(paste("docker rm ", container.id, sep=""))
+  		system("rm -fR dockerID")
+	}
+
+
+	params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/post_debulkAE.R ", type, sep="")
+	resultRun <- runDocker(group=group, params=params)
+
+	cat("\nintegration done\n")
+
+	container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
+	system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
+	system(paste("docker rm ", container.id, sep=""))
+	system("rm -fR dockerID")
+	system("rm  -fR tempFolderID")
+}else if(stats=="pairwise"){
+	params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript debulkAE_pairwise ", type, sep="")
+	resultRun <- runDocker(group=group, params=params)
+
+	cat("\nanovaLike for fileX done\n")
+
+	#saving log and removing docker container
+	container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
+	system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
+	system(paste("docker rm ", container.id, sep=""))
+	system("rm -fR dockerID")
+	
+	
 }
-
-params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/post_debulkAE.R ", type, sep="")
-resultRun <- runDocker(group=group, params=params)
-
-cat("\nintegration done\n")
-
-container.id <- readLines(paste(data.folder,"/dockerID", sep=""), warn = FALSE)
-system(paste("docker logs ", substr(container.id,1,12), " &> ",data.folder,"/", substr(container.id,1,12),".log", sep=""))
-system(paste("docker rm ", container.id, sep=""))
-system("rm -fR dockerID")
-system("rm  -fR tempFolderID")
 
   #running time 2
   ptm <- proc.time() - ptm
