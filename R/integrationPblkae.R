@@ -19,7 +19,7 @@
 #'         fileX="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
 #'         fileY="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv",
 #'         outputFolder="/data/clusters_association_paper/setA1_set1",
-#'         type="inter"
+#'         type="inter",
 #'         stats="anovalike"
 #'  )
 #'  
@@ -29,7 +29,7 @@
 #'         scratch.folder="/scratch", 
 #'         fileX="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
 #'         outputFolder="/data/clusters_association_paper/setA1_set1/setA1",
-#'         type="intra"
+#'         type="intra",
 #'         stats="pairwise"
 #'  )
 #'}
@@ -136,7 +136,7 @@ if(stats=="anovalike"){
 	system("rm -fR dockerID")
 	system("rm  -fR tempFolderID")
 }else if(stats=="pairwise"){
-	params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript debulkAE_pairwise ", type, sep="")
+	params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/desc.2021.01 Rscript /home/debulkAE_pairwise.R ", type, sep="")
 	resultRun <- runDocker(group=group, params=params)
 
 	cat("\nanovaLike for fileX done\n")
