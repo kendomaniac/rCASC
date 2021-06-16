@@ -39,7 +39,7 @@ integrationCircos(
 \item{outputFolder, }{where results are placed}
 }
 \value{
-A picture called integrated_score.png and a file called integrated_score.csv and all the final_scores.csv used to produce the integrated results. The colour ramp for Xgroups is yellow-magenta as instead for the Ygroups is green-blue. Clusters sharing the same colors are those characterized by belonging to the same subgroup detected using integrationPblkae with type="intra". Picture and data used for the integration are lccated in integrated_score folder
+A picture called integrated_score.png and a file called integrated_score.csv and all the final_scores.csv used to produce the integrated results. The colour ramp for Xgroups is yellow-magenta as instead for the Ygroups is green-blue. Clusters sharing the same colors are those characterized by belonging to the same subgroup detected using integrationPblkae with type="intra". Picture and data used for the integration are lccated in integrated_score folder. Inter cluster edges color code: 1 red; 1-0.7 green; 0.7-0.5 blue; 0.5-0.3 violet; 0.3-0.2 grey; 0.2-0 gold.
 }
 \description{
 This function executes integrationCircos, which plots the integrated results of the analysis performed with gseaXLmHG, seuratIntegrationPermutation, integrationPsblk, integrationPblkae and BC
