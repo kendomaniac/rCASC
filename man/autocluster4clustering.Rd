@@ -11,9 +11,10 @@ autocluster4clustering(
   separator,
   nCluster,
   projectName,
-  clusterMethod = c("GRIPH", "SIMLR", "SEURAT", "SHARP"),
+  clusterMethod = c("GRIPH", "SIMLR", "SEURAT", "SHARP", "KMEANS", "HCLUST", "FLOW"),
   seed = 1111,
-  pcaDimensions = 20
+  pcaDimensions = 20,
+  perplexity = 20
 )
 }
 \arguments{
@@ -29,11 +30,13 @@ autocluster4clustering(
 
 \item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
 
-\item{clusterMethod, }{clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"}
+\item{clusterMethod, }{clustering methods: "GRIPH","SIMLR","SEURAT","SHARP","KMEANS","HCLUST","FLOW"}
 
 \item{seed, }{important value to reproduce the same results with same input}
 
 \item{pcaDimensions, }{number of dimensions to use for Seurat Pca reduction.}
+
+\item{perplexity, }{value for cluster aggregation, required for KMEANS}
 }
 \value{
 

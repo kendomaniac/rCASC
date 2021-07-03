@@ -14,7 +14,7 @@ schcl(group = c("sudo", "docker"), file, separator)
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 }
 \value{
-return a table summarizing the the cell type association for each cluster
+return a table summarizing the the cell type association for each cluster. The table is saved in the clusters folder in a file with the name including _celltypes_freq.
 }
 \description{
 This function execute scHCL to assign cell types from Han et al  Nature 2020, 581:303-309

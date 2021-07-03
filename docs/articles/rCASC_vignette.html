@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.1.8</span>
       </span>
     </div>
 
@@ -90,7 +90,6 @@
 <p>Since the end of the 90’s omics high-throughput technologies have generated an enormous amount of data, reaching today an exponential growth phase. Analysis of omics big data is a revolutionary means of understanding the molecular basis of disease regulation and susceptibility, and this resource is accessible to the biological/medical community via bioinformatics frameworks. However, because of the fast evolution of computation tools and omics methods, the <a href="https://en.wikipedia.org/wiki/Replication_crisis"><em>reproducibility crisis</em></a> is becoming a very important issue [<a href="https://www.nature.com/collections/prbfkwmwvz"><em>Nature, 2018</em></a>] and there is a mandatory need to guarantee robust and reliable results to the research community [<a href="http://www.global-engage.com/life-science/reproducibility-computational-biology/"><em>Global Engage Blog</em></a>].</p>
 <p>Our group is deeply involved in developing workflows that guarantee both <strong>functional</strong> (i.e. the information about data and the utilized tools are saved in terms of meta-data) and <strong>computation</strong> reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason, we are managing a bioinformatics community called <a href="http://www.reproducible-bioinformatics.org/"><em>reproducible-bioinformatics.org</em></a> [<a href="https://rdcu.be/9gMq"><em>Kulkarni et al.</em></a>] designed to provide to the biological community a reproducible bioinformatics ecosystem [<a href="https://academic.oup.com/bioinformatics/article/34/5/871/4562334"><em>Beccuti et al.</em></a>].</p>
 <p>rCASC, reproducible Cluster Analysis of Single Cells, is part of the <a href="http://www.reproducible-bioinformatics.org/"><em>reproducible-bioinformatics.org</em></a> project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [<a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285"><em>PLoS Comp Biol. 2013</em></a>]. rCASC is designed to provide a workflow (Figure below) for cell-subpopulation discovery.</p>
-<pre><code>## Warning: package 'knitr' was built under R version 3.6.2</code></pre>
 <div class="figure" style="text-align: center">
 <img src="../inst/img/fig1.png" alt="rCASC workflow" width="70%"><p class="caption">
 rCASC workflow
@@ -124,12 +123,12 @@ rCASC workflow
 </li>
 <li><p>A scratch folder, e.g. /data/scratch, possibly on a fast I/O SSD disk, writable by everybody:</p></li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>chmod <span class="dv">777</span> <span class="op">/</span>data<span class="op">/</span>scratch</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>chmod <span class="dv">777</span> <span class="op">/</span>data<span class="op">/</span>scratch</span></code></pre></div>
 
 <p>The functions in rCASC package require that user belongs to a <em>group</em> with the rights to execute docker. See the following document for more info: <a href="https://docs.docker.com/install/linux/linux-postinstall/"><em>https://docs.docker.com/install/linux/linux-postinstall/</em></a></p>
 <p>The following commands allow the rCASC installation in <a href="https://cran.r-project.org/"><em>R</em></a> environment:</p>
 
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
 <span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"kendomaniac/rCASC"</span><span class="op">)</span>
@@ -187,7 +186,7 @@ GUI: inDrop related panels: A) inDrop Index generation, B) inDrop counts table g
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="co">#running indropCounts index build</span>
 <span class="fu"><a href="../reference/indropIndex.html">indropIndex</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, index.folder<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,
@@ -224,7 +223,7 @@ GUI: inDrop related panels: A) inDrop Index generation, B) inDrop counts table g
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Example is part of an unpublished mouse blood cells </span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz"</span><span class="op">)</span>
@@ -260,7 +259,7 @@ GUI: 10XGenomics counts table generation
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">home</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="fu"><a href="../reference/downloadContainers.html">downloadContainers</a></span><span class="op">(</span><span class="op">)</span>
@@ -280,7 +279,7 @@ GUI: 10XGenomics counts table generation
 <p>The output of the above analysis are two counts matrices <strong>results_cellranger.cvs</strong> and <strong>results_cellranger.txt</strong> and a folder called <strong>results_cellranger</strong>, which contains the full cellranger output, more information on cellranger output can be found at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview"><em>10XGenomics web site</em></a>.</p>
 <p>Genome indexes can be retrieved from <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest">10Xgenomics repository</a></p>
 
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"/data/genomes/cellranger_hg38"</span><span class="op">)</span>
 <span class="co">#getting the hg38 human genome cellranger index </span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget  http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz"</span><span class="op">)</span>
@@ -319,7 +318,7 @@ GUI: 10XGenomics genome indexing
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"/data/genomes/hg38refcellranger"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/cellrangerIndexing.html">cellrangerIndexing</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, scratch.folder<span class="op">=</span><span class="st">"/data/scratch"</span>, 
@@ -357,7 +356,7 @@ GUI: 10XGenomics genome indexing
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="va">Dataset</span><span class="op">=</span><span class="st">"wget http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"</span>
 <span class="co"># DatasetImage</span>
@@ -382,7 +381,7 @@ GUI: 10XGenomics genome indexing
 <li><p>We do not suggest to go below these three values.</p></li>
 </ul>
 <p>The parameter <em>percentageIncrease</em> indicate the % of increasement of the CSS score of Sp is greater of equal to the indicated theshold.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/spatialAnalysis2.html">spatialAnalysis2</a></span><span class="op">(</span> group <span class="op">=</span> <span class="st">"docker"</span>, scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, 
                   file<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"HBC_BAS1_expr-var-ann_matrix.csv"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,
                   nCluster<span class="op">=</span><span class="fl">9</span>, separator<span class="op">=</span><span class="st">","</span>, 
@@ -470,7 +469,7 @@ GUI: Filter Zeros panel
 </ul>
 <p>The output is a PDF providing zeros distributions before and after removal of genes with 0s counts. A tab delimited file with the prefix <strong>filtered_</strong> in which the filtered data are saved.</p>
 <p><strong>IMPORTANT</strong>: In case user would like to apply cell quality filter, e.g. <strong>lorenzFilter</strong>, it is convenient to remove only genes with 0 counts in all cells, i.e. threshold=0 (Figure below).  </p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Subset of a mouse single cell experiment made to quickly test Lorenz filter.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"testSCumi_mm10.csv.zip"</span><span class="op">)</span>
@@ -530,7 +529,7 @@ GUI: Genes versus counts panel
 </ul>
 <p>The output are two pdfs named respectively <strong>genes.umi.pdf</strong> (Figure below panel A), where each dot represents a cell. X axis is the total number of UMIs/reads mapped on each cell in log10 format and Y axis is the number of detected genes and <strong>Ribo_mito.pdf</strong> (Figure below panel B), Percentage of mitochondrial protein genes plotted with respect to percentage of ribosomal protein genes. Cells are colored on the basis of total number detected genes. The latter plot is useful to identify stressed cells, i.e. those with high percentage of mitochondrial genes (Figure below panel B, black cells), and low informative cells, i.e. those in which genes are few and mainly ribosomal/mitochondrial (Figure below panel B, black and green cells).</p>
 
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#N.B. geneUmi and mitoRiboUmi expect as input a raw counts table having as rownames ENSEMBL IDs</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
@@ -567,7 +566,7 @@ Modified from Figure 6 in Ziegenhain et al. (Mol. Cell 2017). Power of scRNA-Se
 </ul>
 <p>In particular, the number of genes called present in the experiment is the key element for the discrimination between sub-populations. In Figure below, it is shown the effect of sequencing depth on the number of detectable genes in a set of 10XGenomics sequencing experiments (25K sequenced reads/cell extracted from CD19 B-cells [<a href="https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231"><em>Zheng et al 2016</em></a>], 83K sequenced reads/cell extracted from naive CD8+ T-cells [<a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2833284"><em>GSM2833284</em></a>], and 250K sequenced reads/cell from an unpublished brain mouse experiment) and in an unpublished whole transcript human MAIT-cells single-cell sequencing done on Fluidigm C1 (25K, 100K, and 250K sequenced reads/cell were subsampled from the original fastqs). 3 UMIs are used as minimal threshold to call present a gene in 10XGenomics experiments and 5 reads [<a href="https://genome.cshlp.org/content/21/12/2213.long"><em>Tarazona et al. 2011</em></a>] as minimal threshold to call a gene present in single cell whole transcriptome experiments.</p>
 
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Raw counts for 288 cells randomly extracted from the Zheng data set downloaded from 10XGenomics.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/Zheng_cd19_288cells.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"Zheng_cd19_288cells.txt.zip"</span><span class="op">)</span>
@@ -629,7 +628,7 @@ Number of detected genes with respect to mapped reads. A) 25K reads/cell 10XGeno
 </ul>
 <p>The separation between T-cytotoxic and T-regulatory achievable with PCA is shown in Figure below panels C-E.</p>
 
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/counts_effect.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"counts_effect.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"counts_effect"</span><span class="op">)</span>
@@ -696,7 +695,7 @@ GUI: Lorenz Filter panel
 </ul>
 <p>The output is a counts table without low quality cells and with the prefix <strong>lorenz_filtered_</strong>. Output will be in the same format and with the same separator of input.</p>
 
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#example data set provided as part of rCASC package</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"testSCumi_mm10.csv.zip"</span><span class="op">)</span>
@@ -764,7 +763,7 @@ GUI: Annotation panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#running annotation and removal of mito and ribo proteins genes</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"gunzip Mus_musculus.GRCm38.94.gtf.gz"</span><span class="op">)</span>
@@ -775,7 +774,7 @@ GUI: Annotation panel
 
 <p>The output are a file with prefix <strong>annotated_</strong>, containing all annotated genes and a file with prefix <strong>filtered_annotated_</strong> which contain the filtered subset of cells. Furthermore, the <strong>filteredStatistics.txt</strong> indicates how many cells and genes were removed.</p>
 <p>Ribosomal RNA and ribosomal proteins represent a significant part of cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis [<a href="https://www.ncbi.nlm.nih.gov/pubmed/18583314"><em>Montanaro et al. 2008</em></a>]. Thus, ribosomal proteins expression might represent one of the major confounding factor in cluster formation between active and quiescent cells. Furthermore, the main function of mitochondria is to produce energy through aerobic respiration. The number of cell mitochondria depends on its metabolic demands [<a href="https://www.ncbi.nlm.nih.gov/pubmed/25200564"><em>Nasrallah and Horvath 2014</em></a>]. This might also affect clustering, favoring the separation between metabolic active and resting cells, with respect to functional differences between sub-populations. <em>scannobyGtf</em> allows also the removal of mitochondrial and ribosomal protein genes.  </p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="fu"><a href="../reference/scannobyGtf.html">scannobyGtf</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"testSCumi_mm10.txt"</span>,sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,
                     gtf.name<span class="op">=</span><span class="st">"Mus_musculus.GRCm38.94.gtf"</span>, biotype<span class="op">=</span><span class="st">"protein_coding"</span>, 
@@ -826,7 +825,7 @@ GUI: Top X expressed genes panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="fu"><a href="../reference/genesUmi.html">genesUmi</a></span><span class="op">(</span>file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, counts.matrix<span class="op">=</span><span class="st">"testSCumi_mm10.csv"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, umiXgene<span class="op">=</span><span class="fl">3</span>, sep<span class="op">=</span><span class="st">","</span><span class="op">)</span>
 <span class="fu"><a href="../reference/topx.html">topx</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,file.name<span class="op">=</span><span class="st">"testSCumi_mm10.csv"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,threshold<span class="op">=</span><span class="fl">10000</span>, logged<span class="op">=</span><span class="cn">FALSE</span>, type<span class="op">=</span><span class="st">"expression"</span>, separator<span class="op">=</span><span class="st">","</span><span class="op">)</span>
@@ -878,7 +877,7 @@ GUI: SCnorm: check counts-depth relationship panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#N.B. checkCountDepth function requires as input raw counts table</span>
 
 <span class="co">#this specific example is an UMI counts table made of 12 cells having at least 10K UMIs/cell.</span>
@@ -930,7 +929,7 @@ GUI: SCnorm: counts-depth normalization panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#N.B. scnorm function requires as input raw counts table</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/example_UMI.txt.zip"</span><span class="op">)</span>
@@ -993,7 +992,7 @@ GUI: Normalization panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Weighted trimmed mean of M-values (TMM) scaling normalization</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/example_UMI.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"example_UMI.txt.zip"</span><span class="op">)</span>
@@ -1023,7 +1022,7 @@ GUI: Log transformation for counts table panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/counts2log.html">counts2log</a></span><span class="op">(</span>file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"example_UMI.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, log.base<span class="op">=</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
 
 </div>
@@ -1073,7 +1072,7 @@ Cell cycle assignment to the cells. A) Buettner et al. (Nat. Biotechnol. 2015) 
 </p>
 </div>
 
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Raw from the Buettner publication</span>
  <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip"</span><span class="op">)</span>
  <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"buettner_G1G2MS_counts.txt.zip"</span><span class="op">)</span>
@@ -1140,7 +1139,7 @@ GUI: cell cycle bias removal panel
 </ul>
 <p><strong>IMPORTANT</strong>: The output of ccRemover does not require log transformation before clustering analysis.</p>
 
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#N.B. ccRemove function requires as input raw counts table previously anntoated with scannobyGtf function </span>
 
 <span class="co">#removing cell cycle effect</span>
@@ -1150,7 +1149,7 @@ GUI: cell cycle bias removal panel
 
 <p>The analyses above were done using a <a href="www.seqbox.com">SeqBox</a>, equipped with an Intel i7-6770HQ (8 threads), 32 GB RAM and 500 GB SSD. They took in total 54 and 40 mins for recatPrediction respectively on Buettner and the naive T-cells datasets. 28 mins were needed by ccRemove on Buettner data set. ccRemover analysis produces a ready-for-clustering data normalized matrix. The matrix can be identified by the prefix <strong>LS_cc_</strong>. <strong>ccRemove</strong> output is compliant with <a href="https://www.ncbi.nlm.nih.gov/pubmed/28263960"><em>SIMLR</em></a>, the rCASC core clustering tool. <strong>ccRemove</strong> output does NOT require log transformation when applied to SIMLR.</p>
 
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#visualizing the dataset before and after cell cycle bias removal</span>
 <span class="co">#reformat the matrix header to be suitable with docker4seq PCA plotting function</span>
 <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">"annotated_buettner_G1G2MS_counts.txt"</span>, sep<span class="op">=</span><span class="st">"\t"</span>, header<span class="op">=</span><span class="cn">T</span>, row.names<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
@@ -1232,7 +1231,7 @@ GUI: Range of numbers of clusters estimation panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#N.B. If the input is a raw count table, before griph analysis data are log10 transformed</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
@@ -1286,7 +1285,7 @@ Output of clusterNgriph
 <p>Moving from SetA to setD we added progressively cells coming from T-cell populations, making the cell-type partitioning more challenging because of the similarities between T-cell sub-populations.</p>
 <p>We used PCA (Figure below panels A-D) to visualize the dissimilarity between cells populations. PCA measures the variance between the elements of the dataset and the most important differences in variance are estimated by the PC1.</p>
 
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"cd section4.1_examples"</span><span class="op">)</span>
@@ -1336,7 +1335,7 @@ PCA is getting progressively unable to discriminate between the different cell s
 <p>PC1 shows that, as the differences between cell populations become smaller, moving from setA to setD, the aggregation in homogeneous groups of cells is compromised (Figure below panels A-D).</p>
 <p>To observe the effect of the reduced dissimilarity between populations on the stability of the number of clusters, we use the rCASC <strong>clusterNgriph</strong> function on the above mentioned 4 datasets using 160 permutations/each, and randomly removing in each permutation 10% of the cells. Each analysis took approximately 60 mins on a SeqBox hardware.</p>
 
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#downloading datasets</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span>
@@ -1370,7 +1369,7 @@ Clusters number is dependent by the cell type similarity: A) number of clusters 
 </div>
 <p>As highlighted in <strong>Section 3.2.1</strong>, the difficulties in detecting a stable number of clusters, upon dataset perturbations, is due to the limited number of detected genes. To further support this hypothesis, we run a comparison between the most expressed genes in the cell types used in the above example.</p>
 
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#downloading datasets</span>
 <span class="co">#section4.1_examples.zip contains raw counts from Zheng experiment available at 10XGenomics web site</span>
 <span class="co">#100 cells  were randomly extracted from from each sorted cell type dataset.</span>
@@ -1418,7 +1417,7 @@ Clusters number is dependent by the cell type similarity: A) number of clusters 
 <span class="va">cyto.naiveT</span> <span class="op">&lt;-</span> <span class="fu">overlap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">naiveT.s</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">cyto.s</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co">#plotting the above data</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">500</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">500</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"l"</span>, col<span class="op">=</span><span class="st">"black"</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">500</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">500</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"l"</span>, col<span class="op">=</span><span class="st">"black"</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">500</span><span class="op">)</span>, <span class="va">naiveCyto.naiveT</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">500</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"l"</span>, col<span class="op">=</span><span class="st">"black"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">500</span><span class="op">)</span>, <span class="va">cyto.naiveT</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">500</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"l"</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">500</span><span class="op">)</span>, <span class="va">helper.naiveT</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">500</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"l"</span>, col<span class="op">=</span><span class="st">"green"</span><span class="op">)</span>
@@ -1491,7 +1490,7 @@ GUI: SIMLR clustering panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"section4.1_examples"</span><span class="op">)</span>
@@ -1537,7 +1536,7 @@ Clustering output including cell stability score. Different in stability observa
 </p>
 </div>
 <p>The effect of the perturbations induced in the clustering upon the removal of 10%, 20%, 30% and 50% of the data set was also investigated in SetA (<em>annotated_bmsnkn_5x100cells.txt</em>), Figure below.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2</span>
 <span class="fu"><a href="../reference/simlrBootstrap.html">simlrBootstrap</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,
                file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"annotated_bmHnkn_5x100cells.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, 
@@ -1597,7 +1596,7 @@ GUI: Permutation effect video panel. Clusters are identified by different colors
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/test_permutationvideo.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"test_permutationvideo.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"test_permutationvideo"</span><span class="op">)</span>
@@ -1656,7 +1655,7 @@ Estimating cluster stability.
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#SetA</span>
 <span class="fu"><a href="../reference/clusterStability.html">clusterStability</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>, 
                  file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"bmsnkn_5x100cells.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, 
@@ -1709,7 +1708,7 @@ GUI: Estimating PCA range for Seurat panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#N.B. seuratPCAEval requires in input raw counts or log10 transformed raw counts</span>
 <span class="co">#Before clustering data are normalized as suggested from the Seurat workflow </span>
 <span class="co">#using Seurat  NormalizeData function, with LogNormalize as normalization.method </span>
@@ -1761,7 +1760,7 @@ GUI: Seurat clustering panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#N.B. seuratBootstrap requires in input raw counts or log10 transformed raw counts</span>
 
 <span class="fu"><a href="../reference/seuratBootstrap.html">seuratBootstrap</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,
@@ -1808,7 +1807,7 @@ GUI: Griph clustering panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#N.B. griphBootstrap requires in input raw counts or log10 transformed raw counts</span>
 
 <span class="fu"><a href="../reference/griphBootstrap.html">griphBootstrap</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,
@@ -1856,7 +1855,7 @@ GUI: Griph clustering panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#N.B. scanpy requires in input raw counts in sparse format</span>
 
 <span class="fu"><a href="../reference/scanpyBootstrap.html">scanpyBootstrap</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,
@@ -1907,7 +1906,7 @@ GUI: tSne clustering panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"section4.1_examples"</span><span class="op">)</span>
@@ -2027,7 +2026,7 @@ GUI: ANOVA-like feature selection panel
 </ul>
 <p>The input file is a counts table, which is modified by <strong>anovaLike</strong> adding the cluster number to cell name with an underscore. It is mandatory that no other underscores are located in the table. Then, counts table is reorganized to locate at the beginning of the table the set of cells belonging to the cluster used as reference group. The differentially expressed genes statistics for all genes are saved in the file with prefix <strong>DE_</strong>, followed by the counts table name. The filtered differentially expressed genes statistics, including only genes detected as differentially expressed in at least one of the clusters is saved with prefix <strong>filtered_DE_</strong> followed by the counts table name. <strong>logFC_filtered_DE_</strong> refers to the file containing only logFC extracted from <strong>filtered_DE_</strong> file. The count table is also saved reordered on the basis of cluster positions and has the extension <strong>_reordered.txt</strong></p>
 
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#dataset derived from the analysis shown in section 8</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
@@ -2067,7 +2066,7 @@ GUI: ANOVA like prioritization features panel
 <li><p>the file <strong>onlyUP_clusters_specific_genes.txt</strong>, which contains the list of specific genes associated with the corresponding cluster.</p></li>
 <li><p>the file <strong>onlyUP_clusters_specific_genesSYMBOLs.txt</strong>, which contains the list of specific genes SYMBOLS from onlyUP_clusters_specific_genes.txt. This file is used by function <strong>hfc</strong> to generate features specific heatmap.</p></li>
 </ul>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#dataset derived from the exemplary analysis shown in section 8</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/clusters.features.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"clusters.features.zip"</span><span class="op">)</span>
@@ -2113,7 +2112,7 @@ GUI: Heatmap for prioritized genes panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/hfc.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"clusters.features.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"clusters.features"</span><span class="op">)</span>
@@ -2176,7 +2175,7 @@ GUI: SIMLR genes prioritization panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#dataset derived from the exemplary analysis shown in section 8</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
@@ -2231,7 +2230,7 @@ GUI: SIMLR genes selection panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#dataset derived from the exemplary analysis shown in section 8</span>
 <span class="fu"><a href="../reference/genesSelection.html">genesSelection</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,
                file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"annotated_setPace_10000_noC5.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, 
@@ -2285,7 +2284,7 @@ GUI: Seurat genes prioritization panel
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"section4.1_examples"</span><span class="op">)</span>
@@ -2345,7 +2344,7 @@ Seurat gene prioritization
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/AXLN1.tar.gz"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"gzip -d AXLN1.tar.gz"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"tar xvf AXLN1.tar"</span><span class="op">)</span>
@@ -2385,7 +2384,7 @@ GUI: dense to sparse and sparse to dense matrix conversion panels
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/csvToSparse.html">csvToSparse</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, scratch<span class="op">=</span><span class="st">"/data/scratch"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, 
@@ -2404,7 +2403,7 @@ GUI: dense to sparse and sparse to dense matrix conversion panels
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/csvToSparse.html">csvToSparse</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, scratch<span class="op">=</span><span class="st">"/data/scratch"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, 
@@ -2438,7 +2437,7 @@ GUI: Random selection a subset of cells from a matrix file panel and merge matri
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
 
@@ -2465,7 +2464,7 @@ GUI: Calculating the number of rows and columns panel
 <p>+<em>separator</em>, separator used in count file, e.g. ‘,’,’</p>
 </li>
 </ul>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
 
@@ -2503,7 +2502,7 @@ GUI: Calculating the number of rows and columns panel
 <li><p>identifying 6 as the optimal number of clusters and evaluated the cell stability in each cluster with <strong>simlrBootstrap</strong></p></li>
 <li><p>generating the video of the bootstrap analysis with <strong>bootstrapsVideo</strong></p></li>
 </ul>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Dataset constructed for demonstration purposes using raw counts from GSE106264. </span>
 <span class="co">#Raw counts were generated with cellranger 2.0 from h5 files.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/setPace.txt.zip"</span><span class="op">)</span>
@@ -2575,7 +2574,7 @@ Analysis of a subset of cells from GSE106264 dataset. A) Clusters detected by cl
 <a href="#section-9-2-improving-clustering-results" class="anchor"></a><strong>Section 9.2</strong> Improving clustering results</h3>
 <p>On the basis of Figure above panel D and the output of <a href="https://youtu.be/w5Jj8QxKXRU"><em>bootstrapsVideo</em></a> clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus, we investigated if, removing cluster 5 cells (Figure above panel C), cell stability score for cluster 6 and 2 could be improved.</p>
 
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_clustering.output.txt"</span><span class="op">)</span>
@@ -2615,7 +2614,7 @@ Analysis of Pace dataset. A) Clusters detected by clusterNgriph. B) Cell stabili
 <a href="#section-9-3-detecting-the-genes-playing-the-major-role-in-clusters-generation-edger-anova-like-analysis" class="anchor"></a><strong>Section 9.3</strong> Detecting the genes playing the major role in clusters generation: EdgeR ANOVA-like analysis</h3>
 <p>We detected a total of 2742 differentially expressed genes using the naive cluster 3 as reference in an ANOVA-like analysis, see <strong>Section 6.1</strong>.</p>
 
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span>
@@ -2628,7 +2627,7 @@ Analysis of Pace dataset. A) Clusters detected by clusterNgriph. B) Cell stabili
 
 <p>The following analysis focus only on up-regulated genes, i.e. those gene specifically more expressed in a cluster with respect to the naive cluster used as reference in the ANOVA-like.</p>
 
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/clusters.features.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="st">"clusters.features.zip"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"clusters.features"</span><span class="op">)</span>
@@ -2659,7 +2658,7 @@ Sparsely-Connected Autoencoder structure
 </div>
 <p>In SCA, each encoded node represents a known biological relationships (transcription factors (TFs) targets, miRNA targets (miRNAs), cancer-related immune-signatures (ISs), kinase specific protein targets (Ks), etc.) and only receives inputs from gene nodes associated to the biological relationships. With respect to the Gold paper [<a href="https://www.researchgate.net/publication/331792510_Shallow_Sparsely-Connected_Autoencoders_for_Gene_Set_Projection"><em>Gold et al. 2019</em></a>], which is using gene sets [<a href="https://www.pnas.org/content/102/43/15545"><em>Subramanian et al. 2005</em></a>], in our implementation the latent space is based only experimentally validated data, TRRUST [<a href="https://academic.oup.com/nar/article/46/D1/D380/4566018"><em>Han et al. 2017</em></a>], miRTarBase [<a href="https://academic.oup.com/nar/article/46/D1/D296/4595852"><em>Chou et al. 2018</em></a>], RegPhos [<a href="https://academic.oup.com/database/article/doi/10.1093/database/bau034/2634150"><em>Huang et al. 2014</em></a>], KEGG [<a href="https://academic.oup.com/nar/article/45/D1/D353/2605697"><em>Kanehisa et al. 2016</em></a>], manually curated cancer-based immune-signature (<em>Alessandri et al. In preparation</em>)</p>
 <p>The function <strong>autoencoder</strong> calculates the neural network.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">##add example</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autoencoder.html">autoencoder</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"docker"</span><span class="op">)</span>, scratch<span class="op">=</span><span class="va">path</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">path</span>, <span class="st">"Data/setA.csv"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, 
@@ -2688,7 +2687,7 @@ Learning rate saved in learning.jpg. In this example the maximum level of learni
 + *ProjectName* parameter refers to the name of the folder where **autoencoder** outputs will be saved. </code></pre>
 <p>The <strong>autoencoder</strong> function produces as output, in the folder <strong>ProjectName</strong>, a frequency table, with the same name of the counts table used in input with the parameter <em>file</em>. This frequency table indicates the % of permutations in which each hidden node for each cell was characterized by a weight different from 0 (if a hidden node is characterized by a weight equal to 0 means that it was not used in that specific permutation). The <strong>autoencoder</strong> function produces as output many files with the extension <strong>Xdensespace.format</strong>, in the folder <strong>ProjectName/Permutation</strong>. The number of such files corresponds to the number of selected permutations.</p>
 <p>The function <strong>autoencoderClustering</strong> generates the numerical data required to understand if there is coherence between counts table derived clusters and those derived using autoencoders latent space.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">##add example</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autoencoderClustering.html">autoencoderClustering</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"docker"</span><span class="op">)</span>, scratch.folder<span class="op">=</span><span class="va">path</span>,
@@ -2715,7 +2714,7 @@ QCM and QCF. A) five clusters were detected analysing setA with griph. Each clus
 </p>
 </div>
 <p>Function <strong>autoencoderAnalysis</strong> transforms ** <strong>autoencoderClustering</strong> function outputs in readable results.</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autoencoderAnalysis.html">autoencoderAnalysis</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"docker"</span><span class="op">)</span>, scratch.folder<span class="op">=</span><span class="va">path</span>, file<span class="op">=</span><span class="st">"/home/user/newModification/Data/Results/setAKinasi_SIMLR/setA.csv"</span>, 
                     separator<span class="op">=</span><span class="st">","</span>, nCluster<span class="op">=</span><span class="fl">5</span>, seed<span class="op">=</span><span class="fl">1111</span>, 
@@ -2736,7 +2735,7 @@ QCM and QCF. A) five clusters were detected analysing setA with griph. Each clus
 <li><p><strong>setA_StabilitySignificativityJittered.pdf</strong> (QCM versus QCF, Figure above D)</p></li>
 </ul>
 <p>The <strong>autoFeature</strong> creates the frequency table for COMET analysis.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autoFeature.html">autoFeature</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"docker"</span><span class="op">)</span>, scratch.folder<span class="op">=</span><span class="va">path</span>,file<span class="op">=</span><span class="st">"/home/user/newModification/Data/Results/setAKinasi_SIMLR/setA.csv"</span>,separator<span class="op">=</span><span class="st">","</span>, nCluster<span class="op">=</span><span class="fl">5</span>,projectName<span class="op">=</span><span class="st">"setAKinasi_SIMLR"</span><span class="op">)</span></code></pre></div>
 <p><strong>IMPORTANT</strong>: this function produces an output for all clusters, but only results related to clusters supported by QCM and QCF means greater than 0.5 have to be taken in account.</p>
@@ -2750,7 +2749,7 @@ QCM and QCF. A) five clusters were detected analysing setA with griph. Each clus
 </li>
 </ul>
 <p><strong>cometsc2</strong> is a modification of <strong>cometsc</strong> function suitable to handle <strong>autoencoder</strong> frequency table, i.e. <strong>autoencoder</strong> frequency table contains the % of permutations in which each hidden node for each cell was characterized by a weight different from 0 (if a hidden node is characterized by a weight equal to 0 it means that it was not used in that specific permutation). <strong>autoFeature</strong> function is used to extract functional features from autoencoders latent space frequency table output.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="fu"><a href="../reference/cometsc2.html">cometsc2</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"docker"</span><span class="op">)</span>, file<span class="op">=</span><span class="st">"/home/user/newModification/Data/Results/setAKinasi_SIMLR/5/freqMatrix.csv"</span>,
          scratch.folder<span class="op">=</span><span class="va">path</span>, threads<span class="op">=</span><span class="fl">1</span>, X<span class="op">=</span><span class="fl">0.15</span>, K<span class="op">=</span><span class="fl">2</span>, 
@@ -2768,7 +2767,7 @@ QCM and QCF. A) five clusters were detected analysing setA with griph. Each clus
 </li>
 </ul>
 <p>The function <strong>wrapperAutoencoder</strong> executes all the steps required for the autoencoder analysis. It should be used when it is clear the overall set of steps to be performed and a set of analyses with the same parameters are done.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span>
 <span class="fu"><a href="../reference/wrapperAutoencoder.html">wrapperAutoencoder</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, scratch.folder<span class="op">=</span><span class="va">scratch.folder</span>,  
                    file<span class="op">=</span><span class="st">"/home/lucastormreig/test/setA.csv"</span>, separator<span class="op">=</span><span class="st">","</span>,

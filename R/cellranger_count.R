@@ -112,7 +112,7 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   }
 
   if (!is.null(expect.cells)){
-   params<-paste(params," --expect-cell=",expect.cells, sep="")
+   params<-paste(params," --expect-cells=",expect.cells, sep="")
   }
 
   if (!is.null(force.cells)){
@@ -159,6 +159,9 @@ cellrangerCount <- function(group=c("sudo","docker"),  transcriptome.folder,  fa
   }else if(version=="3"){
     params1[4] <- paste("/bin/cellranger mat2csv /data/", id,"/outs/filtered_feature_bc_matrix ",id,".csv", sep="")
   }
+    #else if(version=="5"){
+    #params1[4] <- paste("/bin/cellranger mat2csv /data/outs/filtered_feature_bc_matrix.csv", sep="")
+  #}
   
 
 

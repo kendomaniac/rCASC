@@ -16,7 +16,7 @@ BCscTool(
   separator,
   contamination = 5,
   permutation = 50,
-  trashold = 3
+  threshold = 3
 )
 }
 \arguments{
@@ -65,7 +65,7 @@ BCscTool(group = "docker",
          separator =",",
          contamination = 10 ,
          permutation = 10,
-         trashold = 3 )
+         threshold = 3 )
 }
 }
 \author{
