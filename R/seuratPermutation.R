@@ -13,6 +13,8 @@
 #' @param seed, important value to reproduce the same results with same input
 #' @param sparse, boolean for sparse matrix
 #' @param format, output file format csv or txt
+#' @param resolution, resolution for Seurat Analysis
+
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
@@ -37,7 +39,7 @@
 #'}
 
 #' @export
-seuratPermutation <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0,pcaDimensions,seed=1111,sparse=FALSE,format="NULL"){
+seuratPermutation <- function(group=c("sudo","docker"), scratch.folder, file, nPerm, permAtTime, percent, separator, logTen=0,pcaDimensions,seed=1111,sparse=FALSE,format="NULL",resolution=0.6){
 
 if(!sparse){
   data.folder=dirname(file)
@@ -107,7 +109,7 @@ system(paste("cp -r ",data.folder,"/",matrixName,"/ ",scrat_tmp.folder,"/",sep="
 }
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/seuratpermutation Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",format," ",separator," ",logTen," ",pcaDimensions," ",seed," ",sparse,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/seuratpermutation Rscript /home/main.R ",matrixName," ",nPerm," ",permAtTime," ",percent," ",format," ",separator," ",logTen," ",pcaDimensions," ",seed," ",sparse," ",resolution,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
