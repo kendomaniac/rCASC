@@ -11,6 +11,7 @@
 #' @param permutation, number of permutation for statistic
 #' @param seed, integer file necessary for reproducibility
 #' @param outputFolder, path to the output folder
+#' @param K, resolution for seurat analysis
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #' @return A folder called ISC, the input data, the intermediate results and a comma separated file final_score.csv summarising the frequency by which the seuratIntegration function return a an integration cluster including at least 50% of the input clusters form X and Y datasets.
@@ -19,7 +20,7 @@
 #' seuratIntegrationPermutation(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",cl1=, cl29,permutation=100, seed=111) 
 #'}
 #' @export
-seuratIntegrationPermutation <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,cl1,cl2,permutation,seed,outputFolder){
+seuratIntegrationPermutation <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,cl1,cl2,permutation,seed,outputFolder,K=0.8){
 dir.create(outputFolder)
   data.folder1=dirname(file1)
 positions1=length(strsplit(basename(file1),"\\.")[[1]])
@@ -86,7 +87,7 @@ system(paste("cp ",cl2," ",scrat_tmp.folder,"/Y_",basename(cl2),sep=""))
 cl1=paste(strsplit(basename(cl1),"[.]")[[1]][seq(1,length(strsplit(basename(cl1),"[.]")[[1]])-1)],collapse=".")
 cl2=paste(strsplit(basename(cl2),"[.]")[[1]][seq(1,length(strsplit(basename(cl2),"[.]")[[1]])-1)],collapse=".")
   #executing the docker job
-    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/seuratintegrationpermutation Rscript /home/pre_processing.R X_",matrixName1," ",format1," ",separator1," Y_",matrixName2," ",format2," ",separator2," X_",cl1," Y_",cl2," ",permutation," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/seuratintegrationpermutation Rscript /home/pre_processing.R X_",matrixName1," ",format1," ",separator1," Y_",matrixName2," ",format2," ",separator2," X_",cl1," Y_",cl2," ",permutation," ",seed," ",K,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 

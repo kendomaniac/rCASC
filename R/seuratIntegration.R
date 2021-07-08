@@ -7,6 +7,7 @@
 #' @param separator1, separator used in count file, e.g. '\\t', ','
 #' @param separator2, separator used in count file, e.g. '\\t', ','
 #' @param seed, integer file necessary for reproducibility
+#' @param k, resolution for Seurat Analysis
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #' @return file containing the cluster association in the datasets merged by seurat
@@ -15,7 +16,7 @@
 #' seuratIntegration(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",seed=1111) 
 #'}
 #' @export
-seuratIntegration <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,seed){
+seuratIntegration <- function(group=c("sudo","docker"), scratch.folder, file1, file2, separator1, separator2,seed,k=0.5){
 
   data.folder1=dirname(file1)
 positions1=length(strsplit(basename(file1),"\\.")[[1]])
@@ -79,7 +80,7 @@ system(paste("cp ",data.folder1,"/",matrixName1,".",format1," ",scrat_tmp.folder
 system(paste("cp ",data.folder2,"/",matrixName2,".",format2," ",scrat_tmp.folder,"/",sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/seuratintegration Rscript /home/pre_processing.R ",matrixName1," ",format1," ",separator1," ",matrixName2," ",format2," ",separator2," ",seed,sep="")
+    params <- paste("--cidfile ",data.folder1,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder1, ":/data -d docker.io/repbioinfo/seuratintegration Rscript /home/pre_processing.R ",matrixName1," ",format1," ",separator1," ",matrixName2," ",format2," ",separator2," ",seed," ",k,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
