@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A function to handle a docker containier executing fastqc — fastqc • rCASC</title>
+<title>Seurat Integration Permutation — seuratIntegrationPermutation • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="A function to handle a docker containier executing fastqc — fastqc" />
-<meta property="og:description" content="This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files" />
+<meta property="og:title" content="Seurat Integration Permutation — seuratIntegrationPermutation" />
+<meta property="og:description" content="This function executes a ubuntu docker that performs seurat integration to identify associated clusters in two independent experiment. The analysis is repeated mutiple times removing 10" />
 
 
 
@@ -115,16 +115,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A function to handle a docker containier executing fastqc</h1>
+    <h1>Seurat Integration Permutation</h1>
     
-    <div class="hidden name"><code>fastqc.Rd</code></div>
+    <div class="hidden name"><code>seuratIntegrationPermutation.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files</p>
+    <p>This function executes a ubuntu docker that performs seurat integration to identify associated clusters in two independent experiment. The analysis is repeated mutiple times removing 10<!-- % of the initial cells, to investigate how stable is the partitioning done with seuratIntegration function. This function requires that cells were clustered with any of the clustering tools included in rCASC. --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>fastqc</span><span class='op'>(</span>group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>, <span class='va'>data.folder</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>seuratIntegrationPermutation</span><span class='op'>(</span>
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
+  <span class='va'>scratch.folder</span>,
+  <span class='va'>file1</span>,
+  <span class='va'>file2</span>,
+  <span class='va'>separator1</span>,
+  <span class='va'>separator2</span>,
+  <span class='va'>cl1</span>,
+  <span class='va'>cl2</span>,
+  <span class='va'>permutation</span>,
+  <span class='va'>seed</span>,
+  <span class='va'>outputFolder</span>,
+  K <span class='op'>=</span> <span class='fl'>0.8</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,22 +147,62 @@
       <td><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></td>
     </tr>
     <tr>
-      <th>data.folder, </th>
-      <td><p>a character string indicating the folder where input data are located and where output will be written</p></td>
+      <th>scratch.folder, </th>
+      <td><p>a character string indicating the path of the scratch folder</p></td>
+    </tr>
+    <tr>
+      <th>file1, </th>
+      <td><p>a character string indicating the path of the first matrix</p></td>
+    </tr>
+    <tr>
+      <th>file2, </th>
+      <td><p>a character string indicating the path of the second matrix</p></td>
+    </tr>
+    <tr>
+      <th>separator1, </th>
+      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+    </tr>
+    <tr>
+      <th>separator2, </th>
+      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+    </tr>
+    <tr>
+      <th>cl1, </th>
+      <td><p>path of clustering.output for file1</p></td>
+    </tr>
+    <tr>
+      <th>cl2, </th>
+      <td><p>path of clustering.output for file2</p></td>
+    </tr>
+    <tr>
+      <th>permutation, </th>
+      <td><p>number of permutation for statistic</p></td>
+    </tr>
+    <tr>
+      <th>seed, </th>
+      <td><p>integer file necessary for reproducibility</p></td>
+    </tr>
+    <tr>
+      <th>outputFolder, </th>
+      <td><p>path to the output folder</p></td>
+    </tr>
+    <tr>
+      <th>K, </th>
+      <td><p>resolution for seurat analysis</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A folder called ISC, the input data, the intermediate results and a comma separated file final_score.csv summarising the frequency by which the seuratIntegration function return a an integration cluster including at least 50<!-- % of the input clusters form X and Y datasets. --></p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino</p>
+    <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"wget http://130.192.119.59/public/test_R1.fastq.gz"</span><span class='op'>)</span>
-    <span class='co'>#running fastqc</span>
-    <span class='fu'>fastqc</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, data.folder<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>seuratIntegrationPermutation</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, scratch.folder<span class='op'>=</span><span class='st'>"/home/user/scratch"</span>, file1<span class='op'>=</span><span class='st'>"/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv"</span>,file2<span class='op'>=</span><span class='st'>"/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv"</span>, separator1<span class='op'>=</span><span class='st'>","</span>,separator2<span class='op'>=</span><span class='st'>","</span>,cl1<span class='op'>=</span>, <span class='va'>cl29</span>,permutation<span class='op'>=</span><span class='fl'>100</span>, seed<span class='op'>=</span><span class='fl'>111</span><span class='op'>)</span> 
 <span class='op'>}</span>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

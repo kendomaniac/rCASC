@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A function to handle a docker containier executing fastqc — fastqc • rCASC</title>
+<title>integrationPsblk — integrationPsblk • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="A function to handle a docker containier executing fastqc — fastqc" />
-<meta property="og:description" content="This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files" />
+<meta property="og:title" content="integrationPsblk — integrationPsblk" />
+<meta property="og:description" content="This function execute integrationPsblk analysis which search for correspondence between clusters of two different experiments using clusters-pseudo-bulks, z-scored on rows, and a subset of randomly selected genes. Thus, the function clustersBulk has to be run on the two datasets before their comparison." />
 
 
 
@@ -115,16 +115,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A function to handle a docker containier executing fastqc</h1>
+    <h1>integrationPsblk</h1>
     
-    <div class="hidden name"><code>fastqc.Rd</code></div>
+    <div class="hidden name"><code>integrationPsblk.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files</p>
+    <p>This function execute integrationPsblk analysis which search for correspondence between clusters of two different experiments using clusters-pseudo-bulks, z-scored on rows, and a subset of randomly selected genes. Thus, the function clustersBulk has to be run on the two datasets before their comparison.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fastqc</span><span class='op'>(</span>group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>, <span class='va'>data.folder</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>integrationPsblk</span><span class='op'>(</span>
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
+  <span class='va'>scratch.folder</span>,
+  <span class='va'>fileX</span>,
+  <span class='va'>fileY</span>,
+  <span class='va'>separatorX</span>,
+  <span class='va'>separatorY</span>,
+  max.genes <span class='op'>=</span> <span class='fl'>500</span>,
+  split.by <span class='op'>=</span> <span class='fl'>100</span>,
+  <span class='va'>outputFolder</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,23 +144,48 @@
       <td><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></td>
     </tr>
     <tr>
-      <th>data.folder, </th>
-      <td><p>a character string indicating the folder where input data are located and where output will be written</p></td>
+      <th>scratch.folder, </th>
+      <td><p>a character string indicating the path of the scratch folder</p></td>
+    </tr>
+    <tr>
+      <th>fileX, </th>
+      <td><p>a character string indicating the path of the pseudobulkRow file, with file name and extension included.</p></td>
+    </tr>
+    <tr>
+      <th>fileY, </th>
+      <td><p>a character string indicating the path of the pseudobulkRow file, with file name and extension included.</p></td>
+    </tr>
+    <tr>
+      <th>separatorX, </th>
+      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+    </tr>
+    <tr>
+      <th>separatorY, </th>
+      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+    </tr>
+    <tr>
+      <th>max.genes, </th>
+      <td><p>MAX number of random genes to be used for each cluster, default 500</p></td>
+    </tr>
+    <tr>
+      <th>split.by, </th>
+      <td><p>value indication the splitting range default 100. I.e. if max.genes= 500 with split.by set to 100 there will be 5 sets of genes selected 100, 200, 300, 400, 500</p></td>
+    </tr>
+    <tr>
+      <th>outputFolder, </th>
+      <td><p>where results are placed</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A folder called XYpb with all the results generated. The final frequency table is saved in final_score.csv, which is made by the frequency of having Pearson &gt;= 0.5 between X and Y datasets for each possible comparisons between the clusters of the X and Y experiment. Pearson correlation is calculated on 10000 random selections of genes for each threshold.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino</p>
+    <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"wget http://130.192.119.59/public/test_R1.fastq.gz"</span><span class='op'>)</span>
-    <span class='co'>#running fastqc</span>
-    <span class='fu'>fastqc</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, data.folder<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

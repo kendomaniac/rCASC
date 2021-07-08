@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cluster identification — clusterIdentification • rCASC</title>
+<title>gseaXLmHG — gseaXLmHG • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Cluster identification — clusterIdentification" />
-<meta property="og:description" content="This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0" />
+<meta property="og:title" content="gseaXLmHG — gseaXLmHG" />
+<meta property="og:description" content="This function execute XLmHG estimation of the presence of enriched GSEA class in cluster-specific genes detected by COMET for the clusters of two independent datasets and uses this information to search for correspondence between clusters in the two independent datasets. This function requires that the two datasets have been clustered in rCASC and COMET analysis was run." />
 
 
 
@@ -115,21 +115,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cluster identification</h1>
+    <h1>gseaXLmHG</h1>
     
-    <div class="hidden name"><code>clusterIdentification.Rd</code></div>
+    <div class="hidden name"><code>gseaXLmHG.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0</p>
+    <p>This function execute XLmHG estimation of the presence of enriched GSEA class in cluster-specific genes detected by COMET for the clusters of two independent datasets and uses this information to search for correspondence between clusters in the two independent datasets. This function requires that the two datasets have been clustered in rCASC and COMET analysis was run.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>clusterIdentification</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>gseaXLmHG</span><span class='op'>(</span>
   group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
   <span class='va'>scratch.folder</span>,
-  <span class='va'>file</span>,
-  <span class='va'>nCluster</span>,
-  <span class='va'>separator</span>
+  <span class='va'>xCometFolder</span>,
+  <span class='va'>yCometFolder</span>,
+  gsea <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"c1.all"</span>, <span class='st'>"c2.cgp"</span>, <span class='st'>"c2.cp.biocarta"</span>, <span class='st'>"c2.cp.kegg"</span>, <span class='st'>"c2.cp.pid"</span>,
+    <span class='st'>"c2.cp.reactome"</span>, <span class='st'>"c2.cp.wikipathways"</span>, <span class='st'>"c3.all"</span>, <span class='st'>"c3.mir"</span>, <span class='st'>"c3.tft.gtrd"</span>, <span class='st'>"c3.tft"</span>,
+    <span class='st'>"c4.cgn"</span>, <span class='st'>"c4.cm"</span>, <span class='st'>"c5.go.bp"</span>, <span class='st'>"c5.go.cc"</span>, <span class='st'>"c5.go.mf"</span>, <span class='st'>"c5.hpo"</span>, <span class='st'>"c6.all"</span>, <span class='st'>"c7.all"</span>,
+    <span class='st'>"c8.all"</span>, <span class='st'>"h.all"</span>, <span class='st'>"msigdb.all"</span><span class='op'>)</span>,
+  <span class='va'>X</span>,
+  <span class='va'>L</span>,
+  <span class='va'>pvalue</span>,
+  <span class='va'>separatorX</span>,
+  <span class='va'>separatorY</span>,
+  <span class='va'>outputFolder</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -144,29 +153,65 @@
       <td><p>a character string indicating the path of the scratch folder</p></td>
     </tr>
     <tr>
-      <th>file, </th>
-      <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
+      <th>xCometFolder, </th>
+      <td><p>path of Comet results from X experiment</p></td>
     </tr>
     <tr>
-      <th>nCluster, </th>
-      <td><p>which nCluster ins interesting to use for this analysis</p></td>
+      <th>yCometFolder, </th>
+      <td><p>path of Comet results from Y experiment</p></td>
     </tr>
     <tr>
-      <th>separator, </th>
+      <th>gsea, </th>
+      <td><p>list of the available GSEA classes: c1.all, c2.cgp, c2.cp.biocarta, c2.cp.kegg, c2.cp.pid, c2.cp.reactome, c2.cp.wikipathways, c3.all, c3.mir, c3.tft.gtrd, c3.tft, c4.cgn, c4.cm, c5.go.bp, c5.go.cc, c5.go.mf, c5.hpo, c6.all, c7.all, c8.all, h.all, msigdb.all. Please note that msigdb.all includes all gsea classes, we suggest to use this dataset for a complete analysis.</p></td>
+    </tr>
+    <tr>
+      <th>X, </th>
+      <td><p>X parameter for the XLmHG, default 5, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.</p></td>
+    </tr>
+    <tr>
+      <th>L, </th>
+      <td><p>L parameter for the XLmHG, default 0.15, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.</p></td>
+    </tr>
+    <tr>
+      <th>pvalue, </th>
+      <td><p>XLmHG pvalue threshold</p></td>
+    </tr>
+    <tr>
+      <th>separatorX, </th>
       <td><p>separator used in count file, e.g. '\t', ','</p></td>
+    </tr>
+    <tr>
+      <th>separatorY, </th>
+      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+    </tr>
+    <tr>
+      <th>outputFolder, </th>
+      <td><p>the folder where GSEA folder will be created</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Csv file with correct cluster name</p>
+    <p>A folder called GSEA with all the results generated. The function produces an integrated output, final_score.csv, of the results obtained for progressively increasing length of the cluster-specific-genes detected by COMET.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='fu'>clusterIdentification</span><span class='op'>(</span><span class='va'>group</span>,<span class='va'>scratch.folder</span>,<span class='va'>file</span>,<span class='va'>nCluster</span>,<span class='va'>separator</span><span class='op'>)</span><span class='co'>#</span>
+ <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>rCASC</span><span class='op'>)</span>
+ <span class='fu'>gseaXLmHG</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>,
+        scratch.folder<span class='op'>=</span><span class='st'>"/scratch"</span>, 
+        xCometFolder<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata"</span>,
+        yCometFolder<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata"</span>,
+        gsea<span class='op'>=</span><span class='st'>"c2.cp.kegg"</span>,
+        X<span class='op'>=</span><span class='fl'>5</span>,
+        L<span class='op'>=</span><span class='fl'>0.15</span>,
+        pvalue<span class='op'>=</span><span class='fl'>0.05</span>,
+        separatorX<span class='op'>=</span><span class='st'>","</span>,
+        separatorY<span class='op'>=</span><span class='st'>","</span>,
+        outputFolder<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"</span>
+ <span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

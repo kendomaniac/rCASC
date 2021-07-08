@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A function to handle a docker containier executing fastqc — fastqc • rCASC</title>
+<title>integrationPblkae — integrationPblkae • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="A function to handle a docker containier executing fastqc — fastqc" />
-<meta property="og:description" content="This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files" />
+<meta property="og:title" content="integrationPblkae — integrationPblkae" />
+<meta property="og:description" content="This function execute integrationPblkae analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks generated using sparsely connected autoencoders. Thus, the function autoencoder4pseudoBulk has to be run in the two datasets before their comparison." />
 
 
 
@@ -115,16 +115,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A function to handle a docker containier executing fastqc</h1>
+    <h1>integrationPblkae</h1>
     
-    <div class="hidden name"><code>fastqc.Rd</code></div>
+    <div class="hidden name"><code>integrationPblkae.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files</p>
+    <p>This function execute integrationPblkae analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks generated using sparsely connected autoencoders. Thus, the function autoencoder4pseudoBulk has to be run in the two datasets before their comparison.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fastqc</span><span class='op'>(</span>group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>, <span class='va'>data.folder</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>integrationPblkae</span><span class='op'>(</span>
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
+  <span class='va'>scratch.folder</span>,
+  fileX <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fileY <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>outputFolder</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"inter"</span>, <span class='st'>"intra"</span><span class='op'>)</span>,
+  stats <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"anovalike"</span>, <span class='st'>"pairwise"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,22 +142,61 @@
       <td><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></td>
     </tr>
     <tr>
-      <th>data.folder, </th>
-      <td><p>a character string indicating the folder where input data are located and where output will be written</p></td>
+      <th>scratch.folder, </th>
+      <td><p>a character string indicating the path of the scratch folder</p></td>
+    </tr>
+    <tr>
+      <th>fileX, </th>
+      <td><p>a character string indicating the path to the total.csv.for the 1st dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.</p></td>
+    </tr>
+    <tr>
+      <th>fileY, </th>
+      <td><p>a character string indicating the path to the total.csv.for the 2nd dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.</p></td>
+    </tr>
+    <tr>
+      <th>outputFolder, </th>
+      <td><p>where results are placed</p></td>
+    </tr>
+    <tr>
+      <th>type, </th>
+      <td><p>two values inter, intra. Inter refers to comparison among clusters of two independent experiments. Intra comparisons among clusters of the same experiment</p></td>
+    </tr>
+    <tr>
+      <th>stats, </th>
+      <td><p>two values anovalike, pairwise. Anovalike refers to comparison among clusters with respect to a pseudo reference sample. pairwise comparisons among all clusters by pairwise comparison</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a folder called psblkAE, which contains file called final_score.csv and all the intermediate files used to produce the integrated results.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino</p>
+    <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"wget http://130.192.119.59/public/test_R1.fastq.gz"</span><span class='op'>)</span>
-    <span class='co'>#running fastqc</span>
-    <span class='fu'>fastqc</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, data.folder<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='co'>#inter</span>
+ <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>rCASC</span><span class='op'>)</span>
+ <span class='fu'>integrationPblkae</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, 
+        scratch.folder<span class='op'>=</span><span class='st'>"/scratch"</span>, 
+        fileX<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv"</span>,
+        fileY<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv"</span>,
+        outputFolder<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1"</span>,
+        type<span class='op'>=</span><span class='st'>"inter"</span>,
+        stats<span class='op'>=</span><span class='st'>"anovalike"</span>
+ <span class='op'>)</span>
+ 
+ <span class='co'>#intra</span>
+ <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>rCASC</span><span class='op'>)</span>
+ <span class='fu'>integrationPblkae</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, 
+        scratch.folder<span class='op'>=</span><span class='st'>"/scratch"</span>, 
+        fileX<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv"</span>,
+        outputFolder<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1/setA1"</span>,
+        type<span class='op'>=</span><span class='st'>"intra"</span>,
+        stats<span class='op'>=</span><span class='st'>"pairwise"</span>
+ <span class='op'>)</span>
 <span class='op'>}</span>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

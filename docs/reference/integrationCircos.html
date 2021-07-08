@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>toprnk — toprnk • rCASC</title>
+<title>integrationCircos — integrationCircos • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="toprnk — toprnk" />
-<meta property="og:description" content="This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison." />
+<meta property="og:title" content="integrationCircos — integrationCircos" />
+<meta property="og:description" content="This function executes integrationCircos, which plots the integrated results of the analysis performed with gseaXLmHG, seuratIntegrationPermutation, integrationPsblk, integrationPblkae and BC" />
 
 
 
@@ -115,25 +115,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>toprnk</h1>
+    <h1>integrationCircos</h1>
     
-    <div class="hidden name"><code>toprnk.Rd</code></div>
+    <div class="hidden name"><code>integrationCircos.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.</p>
+    <p>This function executes integrationCircos, which plots the integrated results of the analysis performed with gseaXLmHG, seuratIntegrationPermutation, integrationPsblk, integrationPblkae and BC</p>
     </div>
 
-    <pre class="usage"><span class='fu'>toprnk</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>integrationCircos</span><span class='op'>(</span>
   group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
   <span class='va'>scratch.folder</span>,
-  <span class='va'>fileX</span>,
-  <span class='va'>fileY</span>,
-  <span class='va'>separatorX</span>,
-  <span class='va'>separatorY</span>,
-  <span class='va'>xCometFolder</span>,
-  <span class='va'>yCometFolder</span>,
-  top.ranked <span class='op'>=</span> <span class='fl'>320</span>,
+  gsea.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  isc.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  XYpb.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pblkae.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  bcsc.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Xcls.groups <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Ycls.groups <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>outputFolder</span>
 <span class='op'>)</span></pre>
 
@@ -149,32 +149,32 @@
       <td><p>a character string indicating the path of the scratch folder</p></td>
     </tr>
     <tr>
-      <th>fileX, </th>
-      <td><p>a character string indicating the path of the pseudobulkRow file, with file name and extension included.</p></td>
+      <th>gsea.file, </th>
+      <td><p>a character string indicating the path of the final_score.csv  generated with gseaXLmHG, file, with file name and extension included.</p></td>
     </tr>
     <tr>
-      <th>fileY, </th>
-      <td><p>a character string indicating the path of the pseudobulkRow file, with file name and extension included.</p></td>
+      <th>isc.file, </th>
+      <td><p>a character string indicating the path of the final_score.csv  generated with seuratIntegrationPermutation, file, with file name and extension included. included.</p></td>
     </tr>
     <tr>
-      <th>separatorX, </th>
-      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+      <th>XYpb.file, </th>
+      <td><p>a character string indicating the path of the final_score.csv  generated with integrationPsblk, file, with file name and extension included.</p></td>
     </tr>
     <tr>
-      <th>separatorY, </th>
-      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+      <th>pblkae.file, </th>
+      <td><p>a character string indicating the path of the final_score.csv  generated with integrationPblkae, file, with file name and extension included.</p></td>
     </tr>
     <tr>
-      <th>xCometFolder, </th>
-      <td><p>path of Comet results from X experiment</p></td>
+      <th>bcsc.file, </th>
+      <td><p>a character string indicating the path of the FINAL_score.csv  generated with BCscWrapper, file, with file name and extension included.</p></td>
     </tr>
     <tr>
-      <th>yCometFolder, </th>
-      <td><p>path of Comet results from Y experiment</p></td>
+      <th>Xcls.groups, </th>
+      <td><p>a vector of strings describing the groups of more similar clusters.  The optimal order of the clusters can be deduced by the output of integrationPblkae function with the option type="intra". Format: c("1cl6", "1cl2-1cl3", "1cl1-1cl4-1cl5").</p></td>
     </tr>
     <tr>
-      <th>top.ranked, </th>
-      <td><p>MAX number of top comet genes to be used for each cluster, default 320</p></td>
+      <th>Ycls.groups, </th>
+      <td><p>a vector of strings describing the order of the clusters.  The optimal order of the clusters can be deduced by the output of integrationPblkae function with the option type="intra".  Format: c("2cl1-2cl3", "2cl2-2cl4", "2cl5-2cl6")</p></td>
     </tr>
     <tr>
       <th>outputFolder, </th>
@@ -184,25 +184,38 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A folder called XYpb with all the results generated. The function produces an integrated output combining 7 thresholds from top.ranked (top.ranked, top.ranked/2, top.ranked/4, top.ranked/8, top.ranked/16/ top.ranked/32, top.ranked/64) over Pearsons in steps of 01 from 1 to 0.5. XYpb_topZZ.csv can be used to generate HCL. XYpb_cor_0.K_toprnk_ZZ.csv contain the associated clusters given a Pearson correlation threshold of 0.K. The files XYpb_cor_0.K_toprnk_ZZ_CSS_0.H.csv, are the subset of clusters that have a specific cell stability score, we suggest to associate only clusters with at least 0.5 CSS. If validation is TRUE it will be estimated for the chosen XYpb_cor_0.K_toprnk_ZZ.csv a p-value, which is calculated performing correlation between clusters, using randomly selected ZZ genes * cls, and repeating this procedure 1000 times.</p>
+    <p>A picture called integrated_score.png and a file called integrated_score.csv and all the final_scores.csv used to produce the integrated results. The colour ramp for Xgroups is yellow-magenta as instead for the Ygroups is green-blue. Clusters sharing the same colors are those characterized by belonging to the same subgroup detected using integrationPblkae with type="intra". Picture and data used for the integration are lccated in integrated_score folder. Inter cluster edges color code: 1 red; 1-0.7 green; 0.7-0.5 blue; 0.5-0.3 violet; 0.3-0.2 grey; 0.2-0 gold.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>rCASC</span><span class='op'>)</span>
- <span class='fu'>toprnk</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, 
-        scratch.folder<span class='op'>=</span><span class='st'>"/scratch"</span>, 
-        fileX<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/VandE_bulkRow.csv"</span>,
-        fileY<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv"</span>, 
-        separatorX<span class='op'>=</span><span class='st'>","</span>,
-        separatorY<span class='op'>=</span><span class='st'>","</span>,
-        xCometFolder<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata"</span>,
-        yCometFolder<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata"</span>,
-        top.ranked<span class='op'>=</span><span class='fl'>320</span>,
-        outputFolder<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"</span>
- <span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>rCASC</span><span class='op'>)</span>
+<span class='fu'>integrationCircos</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, 
+                  scratch.folder<span class='op'>=</span><span class='st'>"/scratch"</span>, 
+                  gsea.file<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/GSEA/final_score.csv"</span>,
+                  isc.file<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/ISC/final_score.csv"</span>,
+                  XYpb.file<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/XYpb/XYpb_final_score.csv"</span>,
+                  pblkae.file<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/pblkAE/final_score.csv"</span>,
+                  bcsc.file<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/BCsc/FINAL_score.csv"</span>,
+                  Xcls.order<span class='op'>=</span><span class='cn'>NULL</span>,
+                  Ycls.order<span class='op'>=</span><span class='cn'>NULL</span>, 
+                  outputFolder<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2"</span>
+<span class='op'>)</span>
+
+<span class='fu'>integrationCircos</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, 
+                  scratch.folder<span class='op'>=</span><span class='st'>"/scratch"</span>, 
+                  gsea.file<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/GSEA/final_score.csv"</span>,
+                  isc.file<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/ISC/final_score.csv"</span>,
+                  XYpb.file<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/XYpb/XYpb_final_score.csv"</span>,
+                  pblkae.file<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/pblkAE/final_score.csv"</span>,
+                  bcsc.file<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/BCsc/FINAL_score.csv"</span>,
+                  Xcls.groups<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1cl6"</span>, <span class='st'>"1cl2-1cl3"</span>, <span class='st'>"1cl1-1cl4-1cl5"</span><span class='op'>)</span>,
+                  Ycls.groups<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2cl1-2cl3"</span>, <span class='st'>"2cl2-2cl4"</span>, <span class='st'>"2cl5-2cl6"</span><span class='op'>)</span>, 
+                  outputFolder<span class='op'>=</span><span class='st'>"/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2"</span>
+<span class='op'>)</span>
+
 <span class='op'>}</span>
 </div></pre>
   </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cluster identification — clusterIdentification • rCASC</title>
+<title>gibbsR — gibbsR • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Cluster identification — clusterIdentification" />
-<meta property="og:description" content="This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0" />
+<meta property="og:title" content="gibbsR — gibbsR" />
+<meta property="og:description" content="This function creates performs motif search in peptides. It was developed to use gibbscluster on TCR CDR3 peptide sequences" />
 
 
 
@@ -115,21 +115,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cluster identification</h1>
+    <h1>gibbsR</h1>
     
-    <div class="hidden name"><code>clusterIdentification.Rd</code></div>
+    <div class="hidden name"><code>gibbsR.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0</p>
+    <p>This function creates performs motif search in peptides. It was developed to use gibbscluster on TCR CDR3 peptide sequences</p>
     </div>
 
-    <pre class="usage"><span class='fu'>clusterIdentification</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>gibbsR</span><span class='op'>(</span>
   group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
   <span class='va'>scratch.folder</span>,
   <span class='va'>file</span>,
+  resFolderCustom <span class='op'>=</span> <span class='st'>"NULL"</span>,
+  <span class='va'>jobName</span>,
   <span class='va'>nCluster</span>,
-  <span class='va'>separator</span>
+  <span class='va'>motifLength</span>,
+  <span class='va'>maxDelLength</span>,
+  <span class='va'>maxInsLength</span>,
+  <span class='va'>numbOfSeed</span>,
+  penalityFactorIntCluster <span class='op'>=</span> <span class='fl'>0.8</span>,
+  backGroundAminoFreq <span class='op'>=</span> <span class='fl'>2</span>,
+  seqWeightType <span class='op'>=</span> <span class='fl'>1</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -145,29 +153,72 @@
     </tr>
     <tr>
       <th>file, </th>
-      <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
+      <td><p>path to peptide file,</p></td>
+    </tr>
+    <tr>
+      <th>resFolderCustom, </th>
+      <td><p>optional parameter. Default will store the results in fastqPath otherwise will store the results in resFolderCustom path.</p></td>
+    </tr>
+    <tr>
+      <th>jobName, </th>
+      <td><p>identify of the sample</p></td>
     </tr>
     <tr>
       <th>nCluster, </th>
-      <td><p>which nCluster ins interesting to use for this analysis</p></td>
+      <td><p>number of clusters to be generated</p></td>
     </tr>
     <tr>
-      <th>separator, </th>
-      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+      <th>motifLength, </th>
+      <td><p>length of the motif to be searched</p></td>
+    </tr>
+    <tr>
+      <th>maxDelLength, </th>
+      <td><p>max length of deletions in the peptide search, expressed in number of aa</p></td>
+    </tr>
+    <tr>
+      <th>maxInsLength, </th>
+      <td><p>max length of insertion in the peptide search, expressed in number of aa</p></td>
+    </tr>
+    <tr>
+      <th>numbOfSeed, </th>
+      <td><p>number of initial configurations to be used to detect the highest KLD sum</p></td>
+    </tr>
+    <tr>
+      <th>penalityFactorIntCluster, </th>
+      <td><p>default 0.8,</p></td>
+    </tr>
+    <tr>
+      <th>backGroundAminoFreq, </th>
+      <td><p>two value 1 defined by uniprot and 2 defined by the dataset under analysis</p></td>
+    </tr>
+    <tr>
+      <th>seqWeightType, </th>
+      <td><p>sequence weighting type: default 1, faster but less precise, 2 slower but more precise, 3 none</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Csv file with correct cluster name</p>
+    <p>an indexed genome compliant with 10XGenomics cellranger</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
+    <p>Luca Alessandrì</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='fu'>clusterIdentification</span><span class='op'>(</span><span class='va'>group</span>,<span class='va'>scratch.folder</span>,<span class='va'>file</span>,<span class='va'>nCluster</span>,<span class='va'>separator</span><span class='op'>)</span><span class='co'>#</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>rCASC</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='st'>"scratch"</span><span class='op'>)</span>
+<span class='va'>scratch.folder</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,<span class='st'>"scratch"</span>,sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span>
+<span class='va'>fastqPath</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,<span class='st'>"fastq"</span>,sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span>
+<span class='va'>resFolder</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,<span class='st'>"resFolder"</span>,sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='va'>resFolder</span><span class='op'>)</span>
+
+<span class='fu'>gibbsR</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>,scratch.folder<span class='op'>=</span><span class='va'>scratch.folder</span>,file<span class='op'>=</span><span class='va'>file</span>,resFolderCustom<span class='op'>=</span><span class='va'>results</span>,jobName<span class='op'>=</span><span class='st'>"test"</span>,nCluster<span class='op'>=</span><span class='fl'>8</span>,motifLength<span class='op'>=</span><span class='fl'>4</span>,maxDelLength<span class='op'>=</span><span class='fl'>4</span>,maxInsLength<span class='op'>=</span><span class='fl'>4</span>,numbOfSeed<span class='op'>=</span><span class='fl'>4</span>,penalityFactorIntCluster<span class='op'>=</span><span class='fl'>0.8</span>,backGroundAminoFreq<span class='op'>=</span><span class='fl'>2</span>,seqWeightType<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span> 
+
+<span class='va'>newFolder</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>results</span>,<span class='st'>"res"</span>,<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>results</span>,<span class='st'>"res"</span>,sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span><span class='op'>)</span>,<span class='st'>"cores"</span>,sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span>
 <span class='op'>}</span>
+
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

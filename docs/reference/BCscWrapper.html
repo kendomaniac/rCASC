@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cluster identification — clusterIdentification • rCASC</title>
+<title>BCscTool_wrapper — BCscWrapper • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Cluster identification — clusterIdentification" />
-<meta property="og:description" content="This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0" />
+<meta property="og:title" content="BCscTool_wrapper — BCscWrapper" />
+<meta property="og:description" content="The present function associates the clusters of two different and indipendent experiments using the Bray Curtis dissimilarity. 
+             Starting from the two original sets it takes only the genes common to both and calculates the Bray Curtis Dissimilarity between the clusters of one set and those of the other.
+             all the results will be saved in the folder called &quot;BCsc&quot; inside the folder where the files of the first set are located" />
 
 
 
@@ -115,21 +117,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cluster identification</h1>
+    <h1>BCscTool_wrapper</h1>
     
-    <div class="hidden name"><code>clusterIdentification.Rd</code></div>
+    <div class="hidden name"><code>BCscWrapper.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0</p>
+    <p>The present function associates the clusters of two different and indipendent experiments using the Bray Curtis dissimilarity. 
+             Starting from the two original sets it takes only the genes common to both and calculates the Bray Curtis Dissimilarity between the clusters of one set and those of the other.
+             all the results will be saved in the folder called "BCsc" inside the folder where the files of the first set are located</p>
     </div>
 
-    <pre class="usage"><span class='fu'>clusterIdentification</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>BCscWrapper</span><span class='op'>(</span>
   group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
+  <span class='va'>setX</span>,
+  <span class='va'>nclustX</span>,
+  <span class='va'>markerX</span>,
+  <span class='va'>setY</span>,
+  <span class='va'>nclustY</span>,
+  <span class='va'>markerY</span>,
+  separator <span class='op'>=</span> <span class='st'>","</span>,
   <span class='va'>scratch.folder</span>,
-  <span class='va'>file</span>,
-  <span class='va'>nCluster</span>,
-  <span class='va'>separator</span>
+  <span class='va'>output.folder</span>,
+  pvalueComet <span class='op'>=</span> <span class='fl'>1</span>,
+  subdivision <span class='op'>=</span> <span class='fl'>10</span>,
+  starting_genes <span class='op'>=</span> <span class='fl'>500</span>,
+  contamination <span class='op'>=</span> <span class='fl'>5</span>,
+  permutation <span class='op'>=</span> <span class='fl'>50</span>,
+  threshold <span class='op'>=</span> <span class='fl'>3</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -140,33 +155,94 @@
       <td><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></td>
     </tr>
     <tr>
+      <th>setX, </th>
+      <td><p>path to the first dataset</p></td>
+    </tr>
+    <tr>
+      <th>nclustX, </th>
+      <td><p>number of cluster of the first dataset.</p></td>
+    </tr>
+    <tr>
+      <th>markerX, </th>
+      <td><p>path to the FOLDER containing cluster-specific genes for the FIRST dataset. (after using Comet directory '.../nclustX/outputdata')</p></td>
+    </tr>
+    <tr>
+      <th>setY, </th>
+      <td><p>path to the second dataset</p></td>
+    </tr>
+    <tr>
+      <th>nclustY, </th>
+      <td><p>number of cluster of the second dataset</p></td>
+    </tr>
+    <tr>
+      <th>markerY, </th>
+      <td><p>path to the FOLDER containing cluster-specific genes for the SECOND dataset. (after using Comet directory '.../nclustY/outputdata')</p></td>
+    </tr>
+    <tr>
+      <th>separator, </th>
+      <td><p>separator used in both count file, e.g. '\t', ','</p></td>
+    </tr>
+    <tr>
       <th>scratch.folder, </th>
       <td><p>a character string indicating the path of the scratch folder</p></td>
     </tr>
     <tr>
-      <th>file, </th>
-      <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
+      <th>output.folder, </th>
+      <td><p>a character string indicating the path of the output folder to save analysis</p></td>
     </tr>
     <tr>
-      <th>nCluster, </th>
-      <td><p>which nCluster ins interesting to use for this analysis</p></td>
+      <th>pvalueComet, </th>
+      <td><p>parameter to select only marker genes  with a pvalue under a threshold value. DEFAULT = 1</p></td>
     </tr>
     <tr>
-      <th>separator, </th>
-      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+      <th>subdivision, </th>
+      <td><p>number of progressive reductions of the starting genes list. DEFAULT = 10</p></td>
+    </tr>
+    <tr>
+      <th>starting_genes, </th>
+      <td><p>number of starting genes for each cluster selected from the main marker gene lists. DEFAULT = 500</p></td>
+    </tr>
+    <tr>
+      <th>contamination, </th>
+      <td><p>percentage of genes to be contaminated at each permutation during the Bray-Curtis calculation. DEFAULT = 5</p></td>
+    </tr>
+    <tr>
+      <th>permutation, </th>
+      <td><p>number of Bray-Curtis permutations. DEFAULT = 50</p></td>
+    </tr>
+    <tr>
+      <th>threshold, </th>
+      <td><p>minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Csv file with correct cluster name</p>
+    
+
+
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
+    <p>Gabriele Piacenti, g [dot] pia91 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='fu'>clusterIdentification</span><span class='op'>(</span><span class='va'>group</span>,<span class='va'>scratch.folder</span>,<span class='va'>file</span>,<span class='va'>nCluster</span>,<span class='va'>separator</span><span class='op'>)</span><span class='co'>#</span>
+    <pre class="examples"><div class='input'>    
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>BCscWrapper</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>,
+      setX <span class='op'>=</span> <span class='st'>'/2tb/torino/piacenti/NT1_NT2/CRC0327_NT_1_clx/VandE/VandE.csv'</span>,
+      nclustX <span class='op'>=</span> <span class='fl'>7</span>,
+      markerX <span class='op'>=</span> <span class='st'>'/2tb/torino/piacenti/NT1_NT2/CRC0327_NT_1_clx/VandE/Results/VandE/7/outputdata'</span>,
+      setY <span class='op'>=</span> <span class='st'>'/2tb/torino/piacenti/NT1_NT2/CRC0327_NT_2_clx/VandE/VandE.csv'</span>,
+      nclustY <span class='op'>=</span> <span class='fl'>8</span>,
+     markerY <span class='op'>=</span> <span class='st'>'/2tb/torino/piacenti/NT1_NT2/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata'</span>,
+     scratch.folder <span class='op'>=</span> <span class='st'>'/2tb/torino/piacenti/user09/piacenti/Prova_Prove/Script/scratch'</span>,
+     output.folder <span class='op'>=</span> <span class='st'>'/2tb/torino/piacenti/user09/piacenti/Prova_Prove/Script'</span>,
+     pvalueComet <span class='op'>=</span> <span class='fl'>1</span>,
+     subdivision <span class='op'>=</span> <span class='fl'>10</span>,
+     starting_genes <span class='op'>=</span> <span class='fl'>500</span>,
+     contamination <span class='op'>=</span> <span class='fl'>5</span>,
+     permutation <span class='op'>=</span> <span class='fl'>50</span>,
+     threshold <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

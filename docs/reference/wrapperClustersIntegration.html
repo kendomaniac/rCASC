@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cluster identification — clusterIdentification • rCASC</title>
+<title>integrationCircos — wrapperClustersIntegration • rCASC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Cluster identification — clusterIdentification" />
-<meta property="og:description" content="This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0" />
+<meta property="og:title" content="integrationCircos — wrapperClustersIntegration" />
+<meta property="og:description" content="This function execute toprnk analysis which search for correspondence between clusters of two different experiments requires that the data are clustered with any of the software implemented in rCASC, cometsc, bulkClusters and autoencoder4pseudoBulk were already executed." />
 
 
 
@@ -115,21 +115,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cluster identification</h1>
+    <h1>integrationCircos</h1>
     
-    <div class="hidden name"><code>clusterIdentification.Rd</code></div>
+    <div class="hidden name"><code>wrapperClustersIntegration.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0</p>
+    <p>This function execute toprnk analysis which search for correspondence between clusters of two different experiments requires that the data are clustered with any of the software implemented in rCASC, cometsc, bulkClusters and autoencoder4pseudoBulk were already executed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>clusterIdentification</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>wrapperClustersIntegration</span><span class='op'>(</span>
   group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sudo"</span>, <span class='st'>"docker"</span><span class='op'>)</span>,
   <span class='va'>scratch.folder</span>,
-  <span class='va'>file</span>,
-  <span class='va'>nCluster</span>,
-  <span class='va'>separator</span>
+  <span class='va'>file.matrix1</span>,
+  <span class='va'>file.matrix2</span>,
+  <span class='va'>file.total1</span>,
+  <span class='va'>file.total2</span>,
+  <span class='va'>cl1</span>,
+  <span class='va'>cl2</span>,
+  <span class='va'>separator1</span>,
+  <span class='va'>separator2</span>,
+  permutation <span class='op'>=</span> <span class='fl'>100</span>,
+  seed <span class='op'>=</span> <span class='fl'>111</span>,
+  top.ranked <span class='op'>=</span> <span class='fl'>320</span>,
+  gsea <span class='op'>=</span> <span class='st'>"msigdb.all"</span>,
+  X <span class='op'>=</span> <span class='fl'>5</span>,
+  L <span class='op'>=</span> <span class='fl'>0.15</span>,
+  pvalue <span class='op'>=</span> <span class='fl'>0.05</span>,
+  <span class='va'>outputFolder</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -144,29 +157,93 @@
       <td><p>a character string indicating the path of the scratch folder</p></td>
     </tr>
     <tr>
-      <th>file, </th>
-      <td><p>a character string indicating the path of the file, with file name and extension included</p></td>
+      <th>file.matrix1, </th>
+      <td><p>a character string indicating the path of the first matrix</p></td>
     </tr>
     <tr>
-      <th>nCluster, </th>
-      <td><p>which nCluster ins interesting to use for this analysis</p></td>
+      <th>file.matrix2, </th>
+      <td><p>a character string indicating the path of the second matrix</p></td>
     </tr>
     <tr>
-      <th>separator, </th>
+      <th>file.total1, </th>
+      <td><p>a character string indicating the path to the total.csv.for the 1st dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.</p></td>
+    </tr>
+    <tr>
+      <th>file.total2, </th>
+      <td><p>a character string indicating the path to the total.csv.for the 2nd dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.</p></td>
+    </tr>
+    <tr>
+      <th>cl1, </th>
+      <td><p>path of clustering.output for file.matrix1</p></td>
+    </tr>
+    <tr>
+      <th>cl2, </th>
+      <td><p>path of clustering.output for file.matrix2</p></td>
+    </tr>
+    <tr>
+      <th>separator1, </th>
       <td><p>separator used in count file, e.g. '\t', ','</p></td>
+    </tr>
+    <tr>
+      <th>separator2, </th>
+      <td><p>separator used in count file, e.g. '\t', ','</p></td>
+    </tr>
+    <tr>
+      <th>permutation, </th>
+      <td><p>number of permutation to be run</p></td>
+    </tr>
+    <tr>
+      <th>seed, </th>
+      <td><p>integer file necessary for reproducibility</p></td>
+    </tr>
+    <tr>
+      <th>top.ranked, </th>
+      <td><p>MAX number of top comet genes to be used for each cluster, default 320</p></td>
+    </tr>
+    <tr>
+      <th>gsea, </th>
+      <td><p>default msigdb.all, which includes all classes. List of the available GSEA classes: c1.all, c2.cgp, c2.cp.biocarta, c2.cp.kegg, c2.cp.pid, c2.cp.reactome, c2.cp.wikipathways, c3.all, c3.mir, c3.tft.gtrd, c3.tft, c4.cgn, c4.cm, c5.go.bp, c5.go.cc, c5.go.mf, c5.hpo, c6.all, c7.all, c8.all, h.all, msigdb.all. Please note that msigdb.all includes all gsea classes.</p></td>
+    </tr>
+    <tr>
+      <th>X, </th>
+      <td><p>X parameter for the XLmHG, default 5, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.</p></td>
+    </tr>
+    <tr>
+      <th>L, </th>
+      <td><p>L parameter for the XLmHG, default 0.15, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.</p></td>
+    </tr>
+    <tr>
+      <th>pvalue, </th>
+      <td><p>XLmHG pvalue threshold,default 0.05</p></td>
+    </tr>
+    <tr>
+      <th>outputFolder, </th>
+      <td><p>where results are placed</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Csv file with correct cluster name</p>
+    <p>A picture called integrated_score.png and a file called integrated_score.csv and all the final_scores.csv used to produce the integrated results.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='fu'>clusterIdentification</span><span class='op'>(</span><span class='va'>group</span>,<span class='va'>scratch.folder</span>,<span class='va'>file</span>,<span class='va'>nCluster</span>,<span class='va'>separator</span><span class='op'>)</span><span class='co'>#</span>
+ <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>rCASC</span><span class='op'>)</span>
+ <span class='fu'>wrapperClustersIntegration</span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, 
+        scratch.folder<span class='op'>=</span><span class='st'>"/scratch"</span>, 
+        file.matrix1<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1/setA1/VandE/VandE.csv"</span>,
+        file.matrix2<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1/set1/VandE/VandE.csv"</span>,
+        cl1<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/VandE/5/VandE_clustering.output.csv"</span>,
+        cl2<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1/set1/VandE/Results/VandE/4/VandE_clustering.output.csv"</span>,
+        file.total1<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv"</span>,
+        file.total2<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv"</span>,
+        separator1<span class='op'>=</span><span class='st'>","</span>, separator2<span class='op'>=</span><span class='st'>","</span>, 
+        permutation<span class='op'>=</span><span class='fl'>100</span>, seed<span class='op'>=</span><span class='fl'>111</span>, top.ranked<span class='op'>=</span><span class='fl'>320</span>, gsea<span class='op'>=</span><span class='st'>"msigdb.all"</span>, X<span class='op'>=</span><span class='fl'>5</span>, L<span class='op'>=</span><span class='fl'>0.15</span>, pvalue<span class='op'>=</span><span class='fl'>0.05</span>,
+        outputFolder<span class='op'>=</span><span class='st'>"/data/clusters_association_paper/setA1_set1"</span>
+        <span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
