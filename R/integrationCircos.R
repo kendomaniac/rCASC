@@ -42,12 +42,9 @@
 #' 
 #'}
 #' @export
-<<<<<<< HEAD
+
 integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.file=NULL, isc.file=NULL, XYpb.file=NULL, pblkae.file=NULL, bcsc.file=NULL, Xcls.groups=NULL, Ycls.groups=NULL, outputFolder){
-=======
-integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.file, isc.file, XYpb.file, pblkae.file, bcsc.file, Xcls.groups=NULL, Ycls.groups=NULL, outputFolder){
->>>>>>> 89f2c872c558e9623bfe4b08a2c72198065eea53
- 
+
   if(!is.null(Xcls.groups)){
     Xcls.groups <- paste(Xcls.groups, collapse="_")
   }
@@ -93,7 +90,7 @@ integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.fil
   cat("\ncreating a folder in scratch folder\n")
   dir.create(file.path(scrat_tmp.folder))
   #preprocess matrix and copying files
-<<<<<<< HEAD
+
   if(!is.null(gsea.file)){
     if(file.exists(gsea.file)){
       system(paste("cp ",gsea.file," ",scrat_tmp.folder,"/gsea_final_score.csv",sep=""))
@@ -120,26 +117,7 @@ integrationCircos <- function(group=c("sudo","docker"), scratch.folder, gsea.fil
     }
   }
   
-=======
 
-  if(file.exists(gsea.file)){
-    system(paste("cp ",gsea.file," ",scrat_tmp.folder,"/gsea_final_score.csv",sep=""))
-  }
-  if(file.exists(isc.file)){
-    system(paste("cp ",isc.file," ",scrat_tmp.folder,"/isc_final_score.csv",sep=""))
-  }
-  if(file.exists(XYpb.file)){
-    system(paste("cp ",XYpb.file," ",scrat_tmp.folder,"/XYpb_final_score.csv",sep=""))
-  }
-  if(file.exists(pblkae.file)){
-    system(paste("cp ",pblkae.file," ",scrat_tmp.folder,"/pblkae_final_score.csv",sep=""))
-  }
-  if(file.exists(bcsc.file)){
-    system(paste("cp ",bcsc.file," ",scrat_tmp.folder,"/bcsc_final_score.csv",sep=""))
-  }
-  
-  
->>>>>>> 89f2c872c558e9623bfe4b08a2c72198065eea53
 if(is.null(Xcls.groups) && is.null(Ycls.groups)){
   params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -d docker.io/repbioinfo/xlmhg.2021.01 Rscript /home/fs_circors.R", sep="")
 }else{

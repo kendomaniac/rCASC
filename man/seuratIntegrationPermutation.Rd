@@ -15,7 +15,8 @@ seuratIntegrationPermutation(
   cl2,
   permutation,
   seed,
-  outputFolder
+  outputFolder,
+  K = 0.8
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ seuratIntegrationPermutation(
 \item{seed, }{integer file necessary for reproducibility}
 
 \item{outputFolder, }{path to the output folder}
+
+\item{K, }{resolution for seurat analysis}
 }
 \value{
 A folder called ISC, the input data, the intermediate results and a comma separated file final_score.csv summarising the frequency by which the seuratIntegration function return a an integration cluster including at least 50% of the input clusters form X and Y datasets.

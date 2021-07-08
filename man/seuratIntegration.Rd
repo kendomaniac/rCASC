@@ -11,7 +11,8 @@ seuratIntegration(
   file2,
   separator1,
   separator2,
-  seed
+  seed,
+  k = 0.5
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ seuratIntegration(
 \item{separator2, }{separator used in count file, e.g. '\\t', ','}
 
 \item{seed, }{integer file necessary for reproducibility}
+
+\item{k, }{resolution for Seurat Analysis}
 }
 \value{
 file containing the cluster association in the datasets merged by seurat

@@ -16,7 +16,8 @@ seuratPermutation(
   pcaDimensions,
   seed = 1111,
   sparse = FALSE,
-  format = "NULL"
+  format = "NULL",
+  resolution = 0.6
 )
 }
 \arguments{
@@ -43,6 +44,8 @@ seuratPermutation(
 \item{sparse, }{boolean for sparse matrix}
 
 \item{format, }{output file format csv or txt}
+
+\item{resolution, }{resolution for Seurat Analysis}
 }
 \value{
 To write

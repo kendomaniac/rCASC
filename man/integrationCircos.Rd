@@ -7,19 +7,11 @@
 integrationCircos(
   group = c("sudo", "docker"),
   scratch.folder,
-<<<<<<< HEAD
   gsea.file = NULL,
   isc.file = NULL,
   XYpb.file = NULL,
   pblkae.file = NULL,
   bcsc.file = NULL,
-=======
-  gsea.file,
-  isc.file,
-  XYpb.file,
-  pblkae.file,
-  bcsc.file,
->>>>>>> 89f2c872c558e9623bfe4b08a2c72198065eea53
   Xcls.groups = NULL,
   Ycls.groups = NULL,
   outputFolder
