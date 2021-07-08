@@ -45,7 +45,7 @@ seuratBootstrap(
 
 \item{format, }{output file format csv or txt. Only required if sparse matrix is used}
 
-\item{resolution, resolution}{for seurat analysis}
+\item{resolution, }{resolution parameter for seurat analysis default 0.8}
 }
 \value{
 A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells

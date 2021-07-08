@@ -37,9 +37,9 @@ gibbsR(
 
 \item{maxDelLength, }{max length of deletions in the peptide search, expressed in number of aa}
 
-\item{maxInsLength, max}{length of insertion in the peptide search, expressed in number of aa}
+\item{maxInsLength, }{max length of insertion in the peptide search, expressed in number of aa}
 
-\item{numbOfSeed, number}{of initiall configurations to be used to detect the highest KLD sum}
+\item{numbOfSeed, }{number of initial configurations to be used to detect the highest KLD sum}
 
 \item{penalityFactorIntCluster, }{default 0.8,}
 

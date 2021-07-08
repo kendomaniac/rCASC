@@ -8,8 +8,8 @@
 #' @param nCluster, number of clusters to be generated
 #' @param motifLength, length of the motif to be searched
 #' @param maxDelLength, max length of deletions in the peptide search, expressed in number of aa
-#' @param maxInsLength,max length of insertion in the peptide search, expressed in number of aa
-#' @param numbOfSeed,number of initiall configurations to be used to detect the highest KLD sum
+#' @param maxInsLength, max length of insertion in the peptide search, expressed in number of aa
+#' @param numbOfSeed, number of initial configurations to be used to detect the highest KLD sum
 #' @param penalityFactorIntCluster, default 0.8,
 #' @param backGroundAminoFreq, two value 1 defined by uniprot and 2 defined by the dataset under analysis
 #' @param seqWeightType, sequence weighting type: default 1, faster but less precise, 2 slower but more precise, 3 none
