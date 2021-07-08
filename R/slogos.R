@@ -1,8 +1,8 @@
-#' @title logosR
+#' @title slogosR
 #' @description This function creates slogs plot on the basis of the output of gibbsR function
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param fastqPath, Path of fastq folder
+#' @param gibbsCoresPath, Path to the cores folder that is generated as part of the results of gibbsR function.
 #' @param resFolderCustom, optional parameter. Default will store the results in fastqPath otherwise will store the results in resFolderCustom path. 
 #' @author Luca Alessandrì
 #'
@@ -13,19 +13,19 @@
 #' library(rCASC)
 #' dir.create("scratch")
 #' scratch.folder=paste(getwd(),"scratch",sep="/")
-#' fastqPath=paste(getwd(),"fastq",sep="/")
+#' gibbsCoresPath=paste(getwd(),"fastq",sep="/")
 #' resFolder=paste(getwd(),"resFolder",sep="/")
 #' dir.create(resFolder)
 #' newFolder=paste(results,"res",list.files(paste(results,"res",sep="/")),"cores",sep="/")
-#' logosR(group="docker",scratch.folder,newFolder,resFolderCustom=newFolder)
+#' slogosR(group="docker",scratch.folder,newFolder,resFolderCustom=newFolder)
 #' }
 #'
 #'
 #' @export
 
-logosR <- function(group=c("sudo","docker"),scratch.folder,fastqPath,resFolderCustom="NULL"){
+slogosR <- function(group=c("sudo","docker"),scratch.folder,gibbsCoresPath,resFolderCustom="NULL"){
   
-  
+  fastqPath=gibbsCoresPath
   genomeFolder=fastqPath
   dockerImage="repbioinfo/mixcr:v1"
   
