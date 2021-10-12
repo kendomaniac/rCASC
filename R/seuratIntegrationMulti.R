@@ -2,7 +2,7 @@
 #' @description This function executes a ubuntu docker that performs seurat integration
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param folder, a character string indicating the path of the file folder
+#' @param folder, a character string indicating the path of the folder containing the counts matrices to be integrated
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param resName, name for result matrix
 #' @param format, format for all the matrix that has to be integrated. Format has to be all the same

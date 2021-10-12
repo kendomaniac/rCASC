@@ -18,7 +18,7 @@ seuratIntegrationMulti(
 
 \item{scratch.folder, }{a character string indicating the path of the scratch folder}
 
-\item{folder, }{a character string indicating the path of the file folder}
+\item{folder, }{a character string indicating the path of the folder containing the counts matrices to be integrated}
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
