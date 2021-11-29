@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.2.5</span>
       </span>
     </div>
 
@@ -200,23 +200,23 @@
     <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span><span class='op'>(</span><span class='st'>"section4.1_examples.zip"</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='st'>"section4.1_examples"</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz"</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"gzip -d Homo_sapiens.GRCh38.94.gtf.gz"</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"mv Homo_sapiens.GRCh38.94.gtf genome.gtf"</span><span class='op'>)</span>
- <span class='fu'><a href='scannobyGtf.html'>scannobyGtf</a></span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,<span class='st'>"bmsnkn_5x100cells.txt"</span>,sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span>,
-             gtf.name<span class='op'>=</span><span class='st'>"genome.gtf"</span>, biotype<span class='op'>=</span><span class='st'>"protein_coding"</span>, 
-             mt<span class='op'>=</span><span class='cn'>TRUE</span>, ribo.proteins<span class='op'>=</span><span class='cn'>TRUE</span>,umiXgene<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
- 
- <span class='fu'><a href='seuratBootstrap.html'>seuratBootstrap</a></span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>,scratch.folder<span class='op'>=</span><span class='st'>"/data/scratch/"</span>,
-      file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"annotated_bmsnkn_5x100cells.txt"</span>, sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span>, 
-      nPerm<span class='op'>=</span><span class='fl'>160</span>, permAtTime<span class='op'>=</span><span class='fl'>8</span>, percent<span class='op'>=</span><span class='fl'>10</span>, separator<span class='op'>=</span><span class='st'>"\t"</span>,
-      logTen<span class='op'>=</span><span class='fl'>0</span>, pca_number<span class='op'>=</span><span class='fl'>6</span>, seed<span class='op'>=</span><span class='fl'>111</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'> <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span><span class='op'>(</span><span class='st'>"section4.1_examples.zip"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='st'>"section4.1_examples"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"gzip -d Homo_sapiens.GRCh38.94.gtf.gz"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='fu'><a href='https://rdrr.io/r/base/system.html'>system</a></span><span class='op'>(</span><span class='st'>"mv Homo_sapiens.GRCh38.94.gtf genome.gtf"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='fu'><a href='scannobyGtf.html'>scannobyGtf</a></span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,<span class='st'>"bmsnkn_5x100cells.txt"</span>,sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span>,</span>
+<span class='r-in'>             gtf.name<span class='op'>=</span><span class='st'>"genome.gtf"</span>, biotype<span class='op'>=</span><span class='st'>"protein_coding"</span>, </span>
+<span class='r-in'>             mt<span class='op'>=</span><span class='cn'>TRUE</span>, ribo.proteins<span class='op'>=</span><span class='cn'>TRUE</span>,umiXgene<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='fu'><a href='seuratBootstrap.html'>seuratBootstrap</a></span><span class='op'>(</span>group<span class='op'>=</span><span class='st'>"docker"</span>,scratch.folder<span class='op'>=</span><span class='st'>"/data/scratch/"</span>,</span>
+<span class='r-in'>      file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"annotated_bmsnkn_5x100cells.txt"</span>, sep<span class='op'>=</span><span class='st'>"/"</span><span class='op'>)</span>, </span>
+<span class='r-in'>      nPerm<span class='op'>=</span><span class='fl'>160</span>, permAtTime<span class='op'>=</span><span class='fl'>8</span>, percent<span class='op'>=</span><span class='fl'>10</span>, separator<span class='op'>=</span><span class='st'>"\t"</span>,</span>
+<span class='r-in'>      logTen<span class='op'>=</span><span class='fl'>0</span>, pca_number<span class='op'>=</span><span class='fl'>6</span>, seed<span class='op'>=</span><span class='fl'>111</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

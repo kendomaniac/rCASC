@@ -10,8 +10,9 @@
 #' seuratIntegrationMulti(group=c("sudo"), scratch.folder="/home/user/scratch", folder="/home/user/folderWithFiles",separator=",",resName="test",format="csv")
 #' @return file containing the normalized matrix with the anchors
 #' @examples
-#' \dontrun{
-#' 
+#'\dontrun{
+#'  #to be added
+#' } 
 #' @export
 seuratIntegrationMulti <- function(group=c("sudo","docker"), scratch.folder, folder,separator,resName,format){
 
