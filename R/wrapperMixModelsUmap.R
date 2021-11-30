@@ -9,21 +9,22 @@
 #' @param seed, number for reproducibility
 #' @param epochs, epochs number for umap algorithm
 #' @param finalName, name for output files
+#' @param maxit, number of max iteration for mixmodels
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @return plot
 #' @examples
 #'\dontrun{
 #'dir.create("scratch")
-#'geneVisualization(group=c("sudo"), scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),geneList=paste(getwd(),"/geneList.csv",sep=""),separator=",",k=2)
+#'wrapperMixModelsUmap(group=c("docker"), scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),separator=",",seed=111,epochs=1000,k=3,finalName="prova",geneList=paste(getwd(),"/geneList.csv",sep=""))
 #' }
 #' @export
-wrapperMixModelsUmap <- function(group=c("sudo","docker"), scratch.folder, file,geneList,separator,k,seed,epochs,finalName){
+wrapperMixModelsUmap <- function(group=c("sudo","docker"), scratch.folder, file,geneList,separator,k,seed,epochs,finalName,maxit=10000){
   dir.create("scratch")
   
   
   umap(group=group, scratch.folder=scratch.folder, file=file,separator=separator,seed=seed,epochs=epochs)
   name=tools::file_path_sans_ext(basename(file))
   geneVisualization(group=group, scratch.folder=scratch.folder, file=file,clustering.output=paste(getwd(),"/",name,"_fake_clustering.output.csv",sep=""),geneList=geneList,separator=separator,finalName=finalName)
-  mixmodels(group=group, scratch.folder=scratch.folder, file=file,geneList=geneList,separator=separator,k=k)
+  mixmodels(group=group, scratch.folder=scratch.folder, file=file,geneList=geneList,separator=separator,k=k,maxit=maxit)
 }
