@@ -2,7 +2,7 @@
 % Please edit documentation in R/mixmodels.R
 \name{mixmodels}
 \alias{mixmodels}
-\title{GeneVisualization}
+\title{mixModels}
 \usage{
 mixmodels(
   group = c("sudo", "docker"),
@@ -10,7 +10,8 @@ mixmodels(
   file,
   geneList,
   separator,
-  k
+  k,
+  maxit = 10000
 )
 }
 \arguments{
@@ -25,18 +26,14 @@ mixmodels(
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
 \item{k, }{number of soft labels to divide the density}
+
+\item{maxit, }{number of max iteration}
 }
 \value{
 plot
 }
 \description{
-This function executes a ubuntu docker that performs geneVisualization
-}
-\examples{
-\dontrun{
-dir.create("scratch")
-geneVisualization(group=c("sudo"), scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),geneList=paste(getwd(),"/geneList.csv",sep=""),separator=",",k=2)
-}
+This function executes a ubuntu docker that performs mixModels algorithm
 }
 \author{
 Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
