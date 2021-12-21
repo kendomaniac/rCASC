@@ -1,8 +1,6 @@
  
 #' @title BCscTool_wrapper															
-#' @description The present function associates the clusters of two different and indipendent experiments using the Bray Curtis dissimilarity. 
-#'              Starting from the two original sets it takes only the genes common to both and calculates the Bray Curtis Dissimilarity between the clusters of one set and those of the other.
-#'              all the results will be saved in the folder called "BCsc" inside the folder where the files of the first set are located 	
+#' @description The present function associates the clusters of two different and indipendent experiments using the Bray Curtis dissimilarity. Starting from the two original sets it takes only the genes common to both and calculates the Bray Curtis Dissimilarity between the clusters of one set and those of the other. all the results will be saved in the folder called "BCsc" inside the folder where the files of the first set are located 	
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs					
 #' @param setX, path to the first dataset
 #' @param nclustX, number of cluster of the first dataset.
@@ -19,9 +17,6 @@
 #' @param contamination, percentage of genes to be contaminated at each permutation during the Bray-Curtis calculation. DEFAULT = 5
 #' @param permutation, number of Bray-Curtis permutations. DEFAULT = 50
 #' @param threshold, minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3
-
-	
-
 #' @author Gabriele Piacenti, g [dot] pia91 [at] gmail [dot] com, University of Torino
 #'
 #' @return 

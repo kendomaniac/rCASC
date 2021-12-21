@@ -9,7 +9,7 @@ rCASC was published by Alessandri et al. in [GigaScience in 2019](https://academ
 # Recent updates
 We have added sparsely-connected-autoencoders as data mining tools, please see: [npj systems biology and applications 2021](https://www.nature.com/articles/s41540-020-00162-6) and [Int. J. Mol. Sci. 2021](https://www.mdpi.com/1422-0067/22/23/12755). See functions: wrapperAutoencoder, autoencoder4Pseudobulk
 
-![Fig. 1:rCASC workflow](fig1.png)
+![Fig. 1:rCASC workflow](./vignettes/fig1.png)
 
 **rCASC** is registed with RRID SCR_017005 at [*SciCrunch*](scicrunch.org). **rCASC** is part of  [*Elixir bio.tools*](https://bio.tools/).
 

@@ -36,11 +36,11 @@ BCscTool(
 
 \item{markerB, }{path to the file containing cluster specific genes for the second dataset. The file requires the following column: gene, cluster}
 
-\item{separator, }{separator used in both count file, e.g. '\\t', ','}
+\item{separator, }{separator used in both count file, e.g. ','}
 
-\item{contamination, }{percentuale di geni da contaminare ad ogni permutazione DEFAULT VALUE: 5}
+\item{contamination, }{fraction of genes to be contaminated at each eprmutaitone DEFAULT VALUE: 5}
 
-\item{permutation, }{numero di permutazioni. DEFAULT VALUE: 50}
+\item{permutation, }{number of permutations DEFAULT VALUE: 50}
 
 \item{threshold, }{minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3}
 }
@@ -48,8 +48,7 @@ BCscTool(
 
 }
 \description{
-The present function associates the clusters of two different and indipendent experiments using the Bray Curtis dissimilarity. 
-             BOTH set must have same number and name of ROW (GENES)
+The present function associates the clusters of two different and indipendent experiments using the Bray Curtis dissimilarity. BOTH set must have same number and name of ROW (GENES)
 }
 \examples{
 		
