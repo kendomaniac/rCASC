@@ -35,6 +35,12 @@ plot
 \description{
 This function executes a ubuntu docker that performs mixModels algorithm
 }
+\examples{
+\dontrun{
+dir.create("scratch")
+mixmodels("docker", scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),geneList=paste(getwd(),"/geneList.csv",sep=""),separator=",",k=3,maxit=10)
+}
+}
 \author{
 Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 }

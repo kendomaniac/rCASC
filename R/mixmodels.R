@@ -12,8 +12,9 @@
 #' @return plot
 #' @examples
 #' \dontrun{
-#'dir.create("scratch")
-#'mixmodels(group=c("docker"), scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),geneList=paste(getwd(),"/geneList.csv",sep=""),separator=",",k=3,maxit=10)
+#' dir.create("scratch")
+#' mixmodels("docker", scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),geneList=paste(getwd(),"/geneList.csv",sep=""),separator=",",k=3,maxit=10)
+#' }
 #' @export
 mixmodels <- function(group=c("sudo","docker"), scratch.folder, file,geneList,separator,k,maxit=10000){
 
