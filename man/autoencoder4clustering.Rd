@@ -34,7 +34,7 @@ autoencoder4clustering(
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
-\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL}
+\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature, cytoBands,ALL}
 
 \item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
 

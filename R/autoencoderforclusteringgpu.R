@@ -8,7 +8,7 @@
 #' @param projectName, might be different from the matrixname in order to perform different analysis on the same dataset
 #' @param patiencePercentage, number of Epochs percentage of not training before to stop.
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param bias, bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL 
+#' @param bias, bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature, cytoBands,ALL 
 #' @param bN, name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol. All path needs to be provided. 
 #' @param seed, important value to reproduce the same results with same input
 #' @param lr, learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise
@@ -23,7 +23,7 @@
 #' @return 
 #' @examples
 #' \dontrun{
-#autoencoder4clustering(group=c("sudo"), scratch.folder=scratch, file=file,separator=",", bias="ALL", permutation=10, nEpochs=100,patiencePercentage=5,seed=1111,projectName=projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",regularization=10)
+#autoencoder4clusteringGPU(group=c("sudo"), scratch.folder=scratch, file=file,separator=",", bias="ALL", permutation=10, nEpochs=100,patiencePercentage=5,seed=1111,projectName=projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",regularization=10)
 #'}
 #' @export
 autoencoder4clusteringGPU <- function(group=c("sudo","docker"), scratch.folder, file,separator, bias, permutation, nEpochs,patiencePercentage=5,seed=1111,projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",regularization=10){
