@@ -8,12 +8,12 @@
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param finalName, name used for plot.
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
-#'
 #' @return plot
 #' @examples
 #' \dontrun{
 #'dir.create("scratch")
-#'geneVisualization(group=c("sudo"), scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),tissuePosition=paste(getwd(),"/setA_tissuePosition.csv",sep=""),geneList=paste(getwd(),"/geneList.csv",sep=""),separator=",",finalName="Lista1"){
+#'geneVisualization(group=c("sudo"), scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),tissuePosition=paste(getwd(),"/setA_tissuePosition.csv",sep=""),geneList=paste(getwd(),"/geneList.csv",sep=""),separator=",",finalName="Lista1")
+#'}
 #' @export
 geneVisualizationSpatial <- function(group=c("sudo","docker"), scratch.folder, file,tissuePosition,geneList,separator,finalName){
 

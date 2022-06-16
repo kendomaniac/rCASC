@@ -22,7 +22,8 @@ autoencoder4clustering(
   epsilon = 1e-08,
   decay = 0,
   loss = "mean_squared_error",
-  regularization = 10
+  regularization = 10,
+  version = 2
 )
 }
 \arguments{
@@ -34,7 +35,7 @@ autoencoder4clustering(
 
 \item{separator, }{separator used in count file, e.g. '\\t', ','}
 
-\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature, cytoBands,ALL}
+\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature, cytoBands, ALL}
 
 \item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
 
@@ -61,6 +62,8 @@ autoencoder4clustering(
 \item{loss, }{loss of function to use, for other loss of function check the keras loss of functions.}
 
 \item{regularization, }{this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.}
+
+\item{version, }{version 1 implements static batchsize, version 2 implements adaptive batchsize}
 }
 \value{
 

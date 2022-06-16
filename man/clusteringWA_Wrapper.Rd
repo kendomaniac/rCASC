@@ -10,7 +10,7 @@ clusteringWA_Wrapper(
   file,
   separator,
   nCluster,
-  bias = c("mirna", "TF", "CUSTOM", "kinasi", "immunoSignature", "ALL"),
+  bias = c("mirna", "TF", "CUSTOM", "kinasi", "immunoSignature", "cytoBands", "ALL"),
   permutation,
   nEpochs,
   patiencePercentage = 5,
@@ -25,7 +25,8 @@ clusteringWA_Wrapper(
   loss = "mean_squared_error",
   clusterMethod = c("GRIPH", "SIMLR", "SEURAT", "SHARP"),
   pcaDimensions = 5,
-  Sp = 0.8
+  Sp = 0.8,
+  version = 2
 )
 }
 \arguments{
@@ -39,7 +40,7 @@ clusteringWA_Wrapper(
 
 \item{nCluster, }{number of cluster in which the dataset is divided}
 
-\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL}
+\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature, cytoBands,ALL}
 
 \item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
 
@@ -70,6 +71,8 @@ clusteringWA_Wrapper(
 \item{pcaDimensions, }{number of dimensions to use for Seurat Pca reduction.}
 
 \item{Sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+
+\item{version, }{version 1 implements static batchsize, version 2 implements adaptive batchsize}
 }
 \value{
 folders the complete autoencoder analysis.
@@ -81,7 +84,7 @@ This function executes the whole autoencoder pipeline
 }
 \examples{
 \dontrun{
- clusteringWA_Wrapper(group=c("sudo"),scratch.folder="/home/user/autoencoderClustering/test/Scratch/",file="/home/user/autoencoderClustering/test/Data/setA.csv",separator=",",nCluster=3,bias=c("ALL"),permutation=10,nEpochs=10,patiencePercentage=5,seed=1111,projectName="TEST2",bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",clusterMethod=c( "GRIPH"),pcaDimensions=5,Sp=0.8)
+ clusteringWA_Wrapper(group=c("sudo"),scratch.folder="/home/user/autoencoderClustering/test/Scratch/",file="/home/user/autoencoderClustering/test/Data/setA.csv",separator=",",nCluster=3,bias=c("ALL"),permutation=10,nEpochs=10,patiencePercentage=5,seed=1111,projectName="TEST2",bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",clusterMethod=c( "GRIPH"),pcaDimensions=5,Sp=0.8, version=2)
 }
 }
 \author{
