@@ -35,9 +35,6 @@ autoencoderAnalysis(
 
 \item{bestPerm, }{bestPermutation number, just for visualization}
 }
-\value{
-
-}
 \description{
 This function Compress data using autoencoder partially connected
 }

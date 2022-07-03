@@ -9,7 +9,6 @@
 #' @param seed, important value to reproduce the same results with same input
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 #'  autoencoderAnalysis4Clustering(group=group, scratch.folder=scratch.folder, file=file2,separator=separator,projectName=projectName2,seed=seed,Sp=Sp)

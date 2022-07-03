@@ -29,9 +29,6 @@ vioHTMLByGenes(
 
 \item{logtwo, }{1 if the matrix is already in log2, 0 otherwise}
 }
-\value{
-
-}
 \description{
 The present function plot count matrix data into a vioplot for a gene in each cluster. I requires two file the count matrics and the _clustering.output file.
 }

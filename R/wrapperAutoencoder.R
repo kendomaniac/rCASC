@@ -34,7 +34,6 @@
 #' @return folders the complete autoencoder analysis.
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 #'  wrapperAutoencoder(group="sudo",scratch.folder=scratch.folder,file="/home/lucastormreig/test/setA.csv",separator=",",nCluster=5,bias="mirna",permutation=10,nEpochs=10,cl="/home/lucastormreig/test/setA_clustering.output.csv",projectName="mirna",clusterMethod="GRIPH")

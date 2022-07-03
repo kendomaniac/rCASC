@@ -38,9 +38,6 @@ autocluster4clustering(
 
 \item{perplexity, }{value for cluster aggregation, required for KMEANS}
 }
-\value{
-
-}
 \description{
 This function Compress data using autoencoder partially connected
 }

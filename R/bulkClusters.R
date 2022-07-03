@@ -8,7 +8,6 @@
 #' @param separator, matrix separator, ',', '\\t'
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 #'  bulkClusters(group="docker", scratch.folder="/home/user/scratch", 

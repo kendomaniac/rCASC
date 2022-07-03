@@ -13,7 +13,6 @@
 #' @param loss, loss of function to use, for other loss of function check the keras loss of functions. 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 # autoencoderDB(group=c("sudo"), scratch.folder="/home/user/scratch", file="/home/user/autoencoderClustering_v4/u/setA.csv",separator=",", permutation=5, nEpochs=1000,projectName="TESTA")

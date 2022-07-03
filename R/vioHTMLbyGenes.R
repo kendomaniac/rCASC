@@ -11,7 +11,6 @@
 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 #'  vioHTMLByGenes(group=c("sudo"), scratch.folder="/home/lucastormreig/genesPlot/test/scratch", file="/home/lucastormreig/genesPlot/test/data/setA.csv",separator=",", cl="/home/lucastormreig/genesPlot/test/data/setA_clustering.output.csv",gene="ARF5",logtwo=1)

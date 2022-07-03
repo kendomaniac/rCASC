@@ -1,24 +1,25 @@
-#' @title Autoencoder Analysis
-#' @description This function Compress data using autoencoder partially connected
+#' @title deepClustering
+#' @description The present function compress data using autoencoder partially connected
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param scratch.folder, a character string indicating the path of the scratch folder
-#' @param file, a character string indicating the path of the file, with file name and extension included.Has to be the one in the projectName folder.Different so from the previous one. 
+#' @param file, a character string indicating the path of the file, with file name and extension included
+#' @param finetune_iters, number of deep iteration
 #' @param nCluster, number of cluster in which the dataset is divided
-#' @param Sp, minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.
+#' @param nEpochs, number of Epochs for neural network training
 #' @param projectName, might be different from the matrixname in order to perform different analysis on the same dataset
 #' @param separator, separator used in count file, e.g. '\\t', ','
-#' @param bestPerm, bestPermutation number, just for visualization
+#' @param bias, bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature, cytoBands, ALL 
+#' @param bN, name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol. All path needs to be provided. 
 #' @param seed, important value to reproduce the same results with same input
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
 #' @examples
 #' \dontrun{
-#'  autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,projectName="testDocker",13)
-
+#' deepClustering(group=c("docker"), scratch.folder="/scratch/", file="/home/lucastormreig/clustering_autoencoder/DCA/Rfunction/setA2.csv",separator=",", nCluster=5, bias="TF", finetune_iters=3, nEpochs=2,seed=1111,projectName="TF",bN="NULL")
 #'}
 #' @export
-autoencoderAnalysis <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster, projectName,seed=1111,Sp,bestPerm=1){
-projectName=strsplit(file,"/")[[1]][length(strsplit(file,"/")[[1]])-1]
+deepClustering <- function(group=c("sudo","docker"), scratch.folder, file,separator, nCluster, bias, finetune_iters=100000, nEpochs=50000,seed=1111,projectName,bN="NULL"){
+
   data.folder=dirname(file)
 positions=length(strsplit(basename(file),"\\.")[[1]])
 matrixNameC=strsplit(basename(file),"\\.")[[1]]
@@ -69,12 +70,13 @@ if(separator=="\t"){
 separator="tab"
 }
 
-system(paste("cp -r ",data.folder," ",scrat_tmp.folder,"/",sep=""))
-
+system(paste("cp ",data.folder,"/",matrixName,".",format," ",scrat_tmp.folder,"/",sep=""))
+  if(bias=="CUSTOM"){
+system(paste("cp ",bN," ",scrat_tmp.folder,"/",sep=""))
+}
+  bN=basename(bN)
   #executing the docker job
- 
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch:Z -v ", data.folder, ":/data -d docker.io/repbioinfo/permutationanalysisv2 Rscript /home/mainAutoencoder.R ",matrixName," ",format," ",projectName," ",separator," ",Sp," ",nCluster," ",bestPerm," ",seed,sep="")
-
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d repbioinfo/deepclustering python3 /home/main.py ",matrixNameC,".",format," ",separator," ",nCluster," ",bias," ",finetune_iters," ",nEpochs," ",projectName," ",seed," ",bN,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
@@ -111,7 +113,7 @@ resultRun <- runDocker(group=group, params=params)
 
   #Copy result folder
   cat("Copying Result Folder")
-  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,"/../",sep=""))
+  system(paste("cp -r ",scrat_tmp.folder,"/* ",data.folder,sep=""))
   #removing temporary folder
   cat("\n\nRemoving the temporary file ....\n")
   system(paste("rm -R ",scrat_tmp.folder))
@@ -120,4 +122,4 @@ resultRun <- runDocker(group=group, params=params)
   system("rm  -fR tempFolderID")
   system(paste("cp ",paste(path.package(package="rCASC"),"containers/containers.txt",sep="/")," ",data.folder, sep=""))
   setwd(home)
-}
+} 

@@ -14,7 +14,6 @@
 #' @param threshold, minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3
 #' @author Gabriele Piacenti, g [dot] pia91 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples			
 #' \dontrun{
 #' BCscTool(group = "docker",

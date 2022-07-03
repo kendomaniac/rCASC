@@ -29,9 +29,6 @@ autoencoderAnalysis4Clustering(
 
 \item{Sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
 }
-\value{
-
-}
 \description{
 This function Compress data using autoencoder partially connected
 }

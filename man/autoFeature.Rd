@@ -26,9 +26,6 @@ autoFeature(
 
 \item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
 }
-\value{
-
-}
 \description{
 This function extract feature selection for each clusters.
 }

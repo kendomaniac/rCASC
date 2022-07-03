@@ -12,7 +12,6 @@
 #' @param perplexity, value for cluster aggregation, required for KMEANS
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 #'  autocluster4clustering(group=c("sudo"), scratch.folder=scratch, file=file, separator=",", nCluster=3, projectName=projectName, clusterMethod=i,seed=1111,pcaDimensions=20)

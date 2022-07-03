@@ -18,4 +18,4 @@ BiocStyle: :html_document
 Description: A collection of functions to analyse single cell data.
 License: GPL (>= 2)
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0

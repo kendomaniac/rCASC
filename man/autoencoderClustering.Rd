@@ -41,9 +41,6 @@ autoencoderClustering(
 
 \item{largeScale, }{boolean for SIMLR analysis, TRUE if rows are less then columns or if the computational time are huge}
 }
-\value{
-
-}
 \description{
 This function Compress data using autoencoder partially connected
 }

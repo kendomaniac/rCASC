@@ -23,7 +23,6 @@
 #' @param variational, TRUE or FALSE if use the variational autoencoder or just the standard autoencoder. 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 #'  autoencoder(group="docker",scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker/scratch",file="/home/user/Riccardo/Riccardo/1_inDocker/data/setA.csv",separator=",",nCluster=5,bias="TF",permutation=10,nEpochs=10,cl="/home/user/Riccardo/Riccardo/1_inDocker/data/setA_clustering.output.csv",projectName="testDocker")

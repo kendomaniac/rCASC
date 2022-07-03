@@ -18,7 +18,6 @@
 #' @return folders the complete autoencoder analysis.
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 #'  clusteringWADB_Wrapper(group=c("sudo"),scratch.folder="/home/user/scratch",file="/home/user/autoencoderClustering_v4/u/setA.csv",separator=",",nCluster=5,permutation=80,nEpochs=1000,patiencePercentage=5,seed=1111,projectName="yuppy",clusterMethod=c( "SIMLR"),lr=0.001)

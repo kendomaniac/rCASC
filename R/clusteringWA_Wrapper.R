@@ -25,7 +25,6 @@
 #' @return folders the complete autoencoder analysis.
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 #'  clusteringWA_Wrapper(group=c("sudo"),scratch.folder="/home/user/autoencoderClustering/test/Scratch/",file="/home/user/autoencoderClustering/test/Data/setA.csv",separator=",",nCluster=3,bias=c("ALL"),permutation=10,nEpochs=10,patiencePercentage=5,seed=1111,projectName="TEST2",bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",clusterMethod=c( "GRIPH"),pcaDimensions=5,Sp=0.8, version=2)

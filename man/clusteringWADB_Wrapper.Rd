@@ -55,8 +55,6 @@ clusteringWADB_Wrapper(
 }
 \value{
 folders the complete autoencoder analysis.
-
-
 }
 \description{
 This function executes the whole autoencoder pipeline

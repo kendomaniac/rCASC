@@ -20,7 +20,6 @@
 #' @param regularization, this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 #autoencoder4clusteringGPU(group=c("sudo"), scratch.folder=scratch, file=file,separator=",", bias="ALL", permutation=10, nEpochs=100,patiencePercentage=5,seed=1111,projectName=projectName,bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",regularization=10)

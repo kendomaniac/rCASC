@@ -62,9 +62,6 @@ autoencoder4clusteringGPU(
 
 \item{regularization, }{this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.}
 }
-\value{
-
-}
 \description{
 The present function compress data using autoencoder partially connected
 }

@@ -65,9 +65,6 @@ autoencoder4clustering(
 
 \item{version, }{version 1 implements static batchsize, version 2 implements adaptive batchsize}
 }
-\value{
-
-}
 \description{
 The present function compress data using autoencoder partially connected
 }

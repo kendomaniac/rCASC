@@ -20,7 +20,6 @@
 #' @param version, version 1 implements static batchsize, version 2 implements adaptive batchsize 
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #'
-#' @return 
 #' @examples
 #' \dontrun{
 #library(rCASC)

@@ -44,9 +44,6 @@ BCscTool(
 
 \item{threshold, }{minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3}
 }
-\value{
-
-}
 \description{
 The present function associates the clusters of two different and indipendent experiments using the Bray Curtis dissimilarity. BOTH set must have same number and name of ROW (GENES)
 }

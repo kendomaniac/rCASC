@@ -71,9 +71,6 @@ autoencoder(
 
 \item{variational, }{TRUE or FALSE if use the variational autoencoder or just the standard autoencoder.}
 }
-\value{
-
-}
 \description{
 The present function compress data using autoencoder partially connected
 }

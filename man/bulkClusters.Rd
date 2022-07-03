@@ -17,9 +17,6 @@ bulkClusters(group = c("sudo", "docker"), scratch.folder, file, separator, cl)
 
 \item{cl, }{name and path of the file clustering.output previously generated from clustering algorithm from rcasc}
 }
-\value{
-
-}
 \description{
 The present function create pseudo-bulk matrix from clustering.output file. The output are three files: _bulklog2, which is not normalized, _bulkColumn, which is z-scoere calculated over each column, _bulkRow, which is z-score calculated over each row
 }
