@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,40 +54,57 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">deltaFilter</span><span class="op">(</span>
-  <span class="va">threshold</span>,
-  <span class="va">minDelta</span>,
-  <span class="va">minNGene</span>,
-  <span class="va">original</span>,
-  <span class="va">menoRibo</span>,
-  <span class="va">separator</span>,
-  <span class="va">format</span>,
-  <span class="va">wf</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">deltaFilter</span><span class="op">(</span></span>
+<span>  <span class="va">threshold</span>,</span>
+<span>  <span class="va">minDelta</span>,</span>
+<span>  <span class="va">minNGene</span>,</span>
+<span>  <span class="va">original</span>,</span>
+<span>  <span class="va">menoRibo</span>,</span>
+<span>  <span class="va">separator</span>,</span>
+<span>  <span class="va">format</span>,</span>
+<span>  <span class="va">wf</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>threshold, </dt>
 <dd><p>value to estimate if a gene is significatively expressed</p></dd>
+
+
 <dt>minDelta, </dt>
 <dd><p>filtering value for the minimun difference value between genes WMT&amp;rib and genes without MT and without RB</p></dd>
+
+
 <dt>minNGene, </dt>
 <dd><p>filtering value for the minimun number of gene</p></dd>
+
+
 <dt>original, </dt>
 <dd><p>matrix name without annotation</p></dd>
+
+
 <dt>menoRibo, </dt>
 <dd><p>matrix name with annotation</p></dd>
+
+
 <dt>separator, </dt>
 <dd><p>matrix separator value</p></dd>
+
+
 <dt>format, </dt>
 <dd><p>matrix format</p></dd>
+
+
 <dt>wf, </dt>
 <dd><p>if this parameter is setted to 0 your filtering will be minDelta and minNGene based, otherwise it will take the top wf cells with the higher number of genes significatively expressed</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>filtered matrix table</p>
+    
+
+<p>filtered matrix table</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -110,7 +127,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

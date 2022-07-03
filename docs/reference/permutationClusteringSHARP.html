@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,46 +54,67 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">permutationClusteringSHARP</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  <span class="va">file</span>,
-  <span class="va">nPerm</span>,
-  <span class="va">permAtTime</span>,
-  <span class="va">percent</span>,
-  <span class="va">separator</span>,
-  logTen <span class="op">=</span> <span class="fl">0</span>,
-  seed <span class="op">=</span> <span class="fl">1111</span>,
-  perplexity <span class="op">=</span> <span class="fl">10</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">permutationClusteringSHARP</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  <span class="va">nPerm</span>,</span>
+<span>  <span class="va">permAtTime</span>,</span>
+<span>  <span class="va">percent</span>,</span>
+<span>  <span class="va">separator</span>,</span>
+<span>  logTen <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">1111</span>,</span>
+<span>  perplexity <span class="op">=</span> <span class="fl">10</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>file, </dt>
 <dd><p>a character string indicating the path of the file, with file name and extension included</p></dd>
+
+
 <dt>nPerm, </dt>
 <dd><p>number of permutations to perform the pValue to evaluate clustering</p></dd>
+
+
 <dt>permAtTime, </dt>
 <dd><p>number of permutations that can be computes in parallel</p></dd>
+
+
 <dt>percent, </dt>
 <dd><p>percentage of randomly selected cells removed in each permutation</p></dd>
+
+
 <dt>separator, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>logTen, </dt>
 <dd><p>1 if the count matrix is already in log10, 0 otherwise</p></dd>
+
+
 <dt>seed, </dt>
 <dd><p>important value to reproduce the same results with same input</p></dd>
+
+
 <dt>perplexity, </dt>
 <dd><p>number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.  the performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data.  A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.</p>
+    
+
+<p>VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -102,9 +123,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"> <span class="fu">permutationClusteringSHARP</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/home/lucastormreig/CASC2.0/permutationClustering/scratch/"</span>,file<span class="op">=</span><span class="st">"/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv"</span>,nPerm<span class="op">=</span><span class="fl">4</span>,permAtTime<span class="op">=</span><span class="fl">2</span>,percent<span class="op">=</span><span class="fl">10</span>,<span class="fl">3</span>,<span class="fl">4</span>,separator<span class="op">=</span><span class="st">","</span>,logTen<span class="op">=</span><span class="fl">0</span>, <span class="va">perplexity</span>, seed<span class="op">=</span><span class="fl">1111</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="fu">permutationClusteringSHARP</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/home/lucastormreig/CASC2.0/permutationClustering/scratch/"</span>,file<span class="op">=</span><span class="st">"/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv"</span>,nPerm<span class="op">=</span><span class="fl">4</span>,permAtTime<span class="op">=</span><span class="fl">2</span>,percent<span class="op">=</span><span class="fl">10</span>,<span class="fl">3</span>,<span class="fl">4</span>,separator<span class="op">=</span><span class="st">","</span>,logTen<span class="op">=</span><span class="fl">0</span>, <span class="va">perplexity</span>, seed<span class="op">=</span><span class="fl">1111</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -119,7 +140,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

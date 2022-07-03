@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,34 +54,47 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">topx</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">file</span>,
-  <span class="va">threshold</span>,
-  <span class="va">separator</span>,
-  logged <span class="op">=</span> <span class="cn">FALSE</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"expression"</span>, <span class="st">"variance"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">topx</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  <span class="va">threshold</span>,</span>
+<span>  <span class="va">separator</span>,</span>
+<span>  logged <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"expression"</span>, <span class="st">"variance"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>file, </dt>
 <dd><p>a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included</p></dd>
+
+
 <dt>threshold, </dt>
 <dd><p>integer used for filtering indicate the number of top expressed/vaying genes to be selected</p></dd>
+
+
 <dt>separator, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>logged, </dt>
 <dd><p>boolean TRUE or FALSE, if FALSE gene expression data are log10 transformed before being plotted.</p></dd>
+
+
 <dt>type, </dt>
 <dd><p>expression refers to the selection of the top expressed genes, variance to the the selection of the top variable genes</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a filtered tab delimited file and a histogram of the gene by gene total expression</p>
+    
+
+<p>a filtered tab delimited file and a histogram of the gene by gene total expression</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -90,17 +103,17 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/singlecells_counts.txt.gz"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gzip -d singlecells_counts.txt.gz"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu">topx</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"singlecells_counts.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span>
-<span class="r-in">       threshold<span class="op">=</span><span class="fl">10000</span>, logged<span class="op">=</span><span class="cn">FALSE</span>, type<span class="op">=</span><span class="st">"expression"</span>, separator<span class="op">=</span><span class="st">"\t"</span><span class="op">)</span></span>
-<span class="r-in">       </span>
-<span class="r-in"> <span class="fu">topx</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"singlecells_counts.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, </span>
-<span class="r-in">       threshold<span class="op">=</span><span class="fl">10000</span>, logged<span class="op">=</span><span class="cn">FALSE</span>, type<span class="op">=</span><span class="st">"variance"</span>, separator<span class="op">=</span><span class="st">"\t"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/singlecells_counts.txt.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gzip -d singlecells_counts.txt.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu">topx</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"singlecells_counts.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>       threshold<span class="op">=</span><span class="fl">10000</span>, logged<span class="op">=</span><span class="cn">FALSE</span>, type<span class="op">=</span><span class="st">"expression"</span>, separator<span class="op">=</span><span class="st">"\t"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>       </span></span>
+<span class="r-in"><span> <span class="fu">topx</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"singlecells_counts.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>       threshold<span class="op">=</span><span class="fl">10000</span>, logged<span class="op">=</span><span class="cn">FALSE</span>, type<span class="op">=</span><span class="st">"variance"</span>, separator<span class="op">=</span><span class="st">"\t"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -115,7 +128,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,61 +54,92 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">cellrangerCount</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">transcriptome.folder</span>,
-  <span class="va">fastq.folder</span>,
-  sample <span class="op">=</span> <span class="cn">NULL</span>,
-  expect.cells <span class="op">=</span> <span class="cn">NULL</span>,
-  force.cells <span class="op">=</span> <span class="cn">NULL</span>,
-  nosecondary <span class="op">=</span> <span class="cn">TRUE</span>,
-  chemistry <span class="op">=</span> <span class="st">"auto"</span>,
-  r1.length <span class="op">=</span> <span class="cn">NULL</span>,
-  r2.length <span class="op">=</span> <span class="cn">NULL</span>,
-  lanes <span class="op">=</span> <span class="cn">NULL</span>,
-  localcores <span class="op">=</span> <span class="cn">NULL</span>,
-  localmem <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">scratch.folder</span>,
-  version <span class="op">=</span> <span class="st">"5"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cellrangerCount</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">transcriptome.folder</span>,</span>
+<span>  <span class="va">fastq.folder</span>,</span>
+<span>  sample <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  expect.cells <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  force.cells <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nosecondary <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  chemistry <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>  r1.length <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  r2.length <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lanes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  localcores <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  localmem <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  version <span class="op">=</span> <span class="st">"5"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>transcriptome.folder, </dt>
 <dd><p>path to the Cell Ranger compatible transcriptome reference e.g. for a human and mouse mixture sample, use refdata-cellranger-hg19-and-mm10-1.2.0</p></dd>
+
+
 <dt>fastq.folder, </dt>
 <dd><p>path of the fastq path folder in fastq folder the  fastq must have the format SAMPLENAME_S1_L001_R1_001.fastq.gz</p></dd>
+
+
 <dt>sample, </dt>
 <dd><p>fastq name, if fastq name is subject1_S1_L001_R1_001.fastq.gz sample is subject1</p></dd>
+
+
 <dt>expect.cells, </dt>
 <dd><p>optional setting the number of recovered cells. Default: 3000 cells.</p></dd>
+
+
 <dt>force.cells, </dt>
 <dd><p>optional to force pipeline to use this number of cells, bypassing the cell detection algorithm. Use this if the number of cells estimated by Cell Ranger is not consistent with the barcode rank plot.</p></dd>
+
+
 <dt>nosecondary, </dt>
 <dd><p>optional flag, default TRUE, to skip secondary analysis of the gene-barcode matrix (dimensionality reduction, clustering and visualization). Set this if you plan to use cellranger reanalyze or your own custom analysis.</p></dd>
+
+
 <dt>chemistry, </dt>
 <dd><p>optional assay configuration. One of: auto for autodetection (default), threeprime for Single Cell 3end, fiveprime for Single Cell 5end, SC3Pv1 for Single Cell 3end v1, SC3Pv2 for Single Cell 3end v2, SC5P-PE for Single Cell 5end paired-end (both R1 and R2 are used for alignment), SC5P-R2 for Single Cell 5end R2-only (where only R2 is used for alignment).</p></dd>
+
+
 <dt>r1.length, </dt>
 <dd><p>optional hard-trim the input R1 sequence to this length. Note that the length includes the Barcode and UMI sequences so do not set this below 26 for Single Cell 3end v2 or Single Cell 5end. This and --r2-length are useful for determining the optimal read length for sequencing.</p></dd>
+
+
 <dt>r2.length, </dt>
 <dd><p>optional hard-trim the input R2 sequence to this length.</p></dd>
+
+
 <dt>lanes, </dt>
 <dd><p>optional, lanes associated with this sample</p></dd>
+
+
 <dt>localcores, </dt>
 <dd><p>restricts cellranger to use specified number of cores to execute pipeline stages. By default, cellranger will use all of the cores available on your system.</p></dd>
+
+
 <dt>localmem, </dt>
 <dd><p>restricts cellranger to use specified amount of memory, in GB, to execute pipeline stages. By default, cellranger will use 90% of the memory available on your system. Please note that cellranger requires at least 16 GB of memory to run all pipeline stages.</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>version, </dt>
 <dd><p>cellranger version: 2, 3 or 5.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for further use.</p>
+    
+
+<p>a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for further use.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -117,27 +148,27 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">home</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"/data/genomes/cellranger_hg19mm10"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">#getting the human and mouse cellranger index</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/untar.html" class="external-link">untar</a></span><span class="op">(</span><span class="st">"refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz"</span><span class="op">)</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">home</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/untar.html" class="external-link">untar</a></span><span class="op">(</span><span class="st">"hgmm_100_fastqs.tar"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">home</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">home</span>,<span class="st">"/fastqs"</span>,sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">cellrangerCount</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,  transcriptome.folder<span class="op">=</span><span class="st">"/data/genomes/cellranger_hg19mm10/refdata-cellranger-hg19_and_mm10-2.1.0"</span>,  fastq.folder<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,  expect.cells<span class="op">=</span><span class="fl">100</span>, nosecondary<span class="op">=</span><span class="cn">TRUE</span>, scratch.folder<span class="op">=</span><span class="st">"/data/scratch"</span>, version<span class="op">=</span><span class="st">"2"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="sraDownload.html">sraDownload</a></span><span class="op">(</span>group <span class="op">=</span> <span class="st">"docker"</span>, sra.name <span class="op">=</span> <span class="st">"SRR7762358"</span>, data.folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, scratch.folder <span class="op">=</span> <span class="st">"/data/scratch"</span>, threads <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"mv ./SRR7762358/SRR7762358.fastq.gz ./SRR7762358/SRR7762358_S1_L001_R1_001.fastq.gz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">cellrangerCount</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,  transcriptome.folder<span class="op">=</span><span class="st">"/data/genomes/refdata-cellranger-GRCh38-3.0.0"</span>,  fastq.folder<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, sample<span class="op">=</span><span class="st">"SRR7762358"</span>,  nosecondary<span class="op">=</span><span class="cn">TRUE</span>, scratch.folder<span class="op">=</span><span class="st">"/data/scratch"</span>, version<span class="op">=</span><span class="st">"3"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">home</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"/data/genomes/cellranger_hg19mm10"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#getting the human and mouse cellranger index</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/untar.html" class="external-link">untar</a></span><span class="op">(</span><span class="st">"refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz"</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">home</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/untar.html" class="external-link">untar</a></span><span class="op">(</span><span class="st">"hgmm_100_fastqs.tar"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">home</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">home</span>,<span class="st">"/fastqs"</span>,sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cellrangerCount</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,  transcriptome.folder<span class="op">=</span><span class="st">"/data/genomes/cellranger_hg19mm10/refdata-cellranger-hg19_and_mm10-2.1.0"</span>,  fastq.folder<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,  expect.cells<span class="op">=</span><span class="fl">100</span>, nosecondary<span class="op">=</span><span class="cn">TRUE</span>, scratch.folder<span class="op">=</span><span class="st">"/data/scratch"</span>, version<span class="op">=</span><span class="st">"2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sraDownload.html">sraDownload</a></span><span class="op">(</span>group <span class="op">=</span> <span class="st">"docker"</span>, sra.name <span class="op">=</span> <span class="st">"SRR7762358"</span>, data.folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, scratch.folder <span class="op">=</span> <span class="st">"/data/scratch"</span>, threads <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"mv ./SRR7762358/SRR7762358.fastq.gz ./SRR7762358/SRR7762358_S1_L001_R1_001.fastq.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cellrangerCount</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,  transcriptome.folder<span class="op">=</span><span class="st">"/data/genomes/refdata-cellranger-GRCh38-3.0.0"</span>,  fastq.folder<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, sample<span class="op">=</span><span class="st">"SRR7762358"</span>,  nosecondary<span class="op">=</span><span class="cn">TRUE</span>, scratch.folder<span class="op">=</span><span class="st">"/data/scratch"</span>, version<span class="op">=</span><span class="st">"3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -152,7 +183,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

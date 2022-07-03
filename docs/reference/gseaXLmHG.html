@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,52 +54,75 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gseaXLmHG</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  <span class="va">xCometFolder</span>,
-  <span class="va">yCometFolder</span>,
-  gsea <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1.all"</span>, <span class="st">"c2.cgp"</span>, <span class="st">"c2.cp.biocarta"</span>, <span class="st">"c2.cp.kegg"</span>, <span class="st">"c2.cp.pid"</span>,
-    <span class="st">"c2.cp.reactome"</span>, <span class="st">"c2.cp.wikipathways"</span>, <span class="st">"c3.all"</span>, <span class="st">"c3.mir"</span>, <span class="st">"c3.tft.gtrd"</span>, <span class="st">"c3.tft"</span>,
-    <span class="st">"c4.cgn"</span>, <span class="st">"c4.cm"</span>, <span class="st">"c5.go.bp"</span>, <span class="st">"c5.go.cc"</span>, <span class="st">"c5.go.mf"</span>, <span class="st">"c5.hpo"</span>, <span class="st">"c6.all"</span>, <span class="st">"c7.all"</span>,
-    <span class="st">"c8.all"</span>, <span class="st">"h.all"</span>, <span class="st">"msigdb.all"</span><span class="op">)</span>,
-  <span class="va">X</span>,
-  <span class="va">L</span>,
-  <span class="va">pvalue</span>,
-  <span class="va">separatorX</span>,
-  <span class="va">separatorY</span>,
-  <span class="va">outputFolder</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gseaXLmHG</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  <span class="va">xCometFolder</span>,</span>
+<span>  <span class="va">yCometFolder</span>,</span>
+<span>  gsea <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1.all"</span>, <span class="st">"c2.cgp"</span>, <span class="st">"c2.cp.biocarta"</span>, <span class="st">"c2.cp.kegg"</span>, <span class="st">"c2.cp.pid"</span>,</span>
+<span>    <span class="st">"c2.cp.reactome"</span>, <span class="st">"c2.cp.wikipathways"</span>, <span class="st">"c3.all"</span>, <span class="st">"c3.mir"</span>, <span class="st">"c3.tft.gtrd"</span>, <span class="st">"c3.tft"</span>,</span>
+<span>    <span class="st">"c4.cgn"</span>, <span class="st">"c4.cm"</span>, <span class="st">"c5.go.bp"</span>, <span class="st">"c5.go.cc"</span>, <span class="st">"c5.go.mf"</span>, <span class="st">"c5.hpo"</span>, <span class="st">"c6.all"</span>, <span class="st">"c7.all"</span>,</span>
+<span>    <span class="st">"c8.all"</span>, <span class="st">"h.all"</span>, <span class="st">"msigdb.all"</span><span class="op">)</span>,</span>
+<span>  <span class="va">X</span>,</span>
+<span>  <span class="va">L</span>,</span>
+<span>  <span class="va">pvalue</span>,</span>
+<span>  <span class="va">separatorX</span>,</span>
+<span>  <span class="va">separatorY</span>,</span>
+<span>  <span class="va">outputFolder</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>xCometFolder, </dt>
 <dd><p>path of Comet results from X experiment</p></dd>
+
+
 <dt>yCometFolder, </dt>
 <dd><p>path of Comet results from Y experiment</p></dd>
+
+
 <dt>gsea, </dt>
 <dd><p>list of the available GSEA classes: c1.all, c2.cgp, c2.cp.biocarta, c2.cp.kegg, c2.cp.pid, c2.cp.reactome, c2.cp.wikipathways, c3.all, c3.mir, c3.tft.gtrd, c3.tft, c4.cgn, c4.cm, c5.go.bp, c5.go.cc, c5.go.mf, c5.hpo, c6.all, c7.all, c8.all, h.all, msigdb.all. Please note that msigdb.all includes all gsea classes, we suggest to use this dataset for a complete analysis.</p></dd>
+
+
 <dt>X, </dt>
 <dd><p>X parameter for the XLmHG, default 5, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.</p></dd>
+
+
 <dt>L, </dt>
 <dd><p>L parameter for the XLmHG, default 0.15, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.</p></dd>
+
+
 <dt>pvalue, </dt>
 <dd><p>XLmHG pvalue threshold</p></dd>
+
+
 <dt>separatorX, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>separatorY, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>outputFolder, </dt>
 <dd><p>the folder where GSEA folder will be created</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A folder called GSEA with all the results generated. The function produces an integrated output, final_score.csv, of the results obtained for progressively increasing length of the cluster-specific-genes detected by COMET.</p>
+    
+
+<p>A folder called GSEA with all the results generated. The function produces an integrated output, final_score.csv, of the results obtained for progressively increasing length of the cluster-specific-genes detected by COMET.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -108,21 +131,21 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu">gseaXLmHG</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,</span>
-<span class="r-in">        scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, </span>
-<span class="r-in">        xCometFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata"</span>,</span>
-<span class="r-in">        yCometFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata"</span>,</span>
-<span class="r-in">        gsea<span class="op">=</span><span class="st">"c2.cp.kegg"</span>,</span>
-<span class="r-in">        X<span class="op">=</span><span class="fl">5</span>,</span>
-<span class="r-in">        L<span class="op">=</span><span class="fl">0.15</span>,</span>
-<span class="r-in">        pvalue<span class="op">=</span><span class="fl">0.05</span>,</span>
-<span class="r-in">        separatorX<span class="op">=</span><span class="st">","</span>,</span>
-<span class="r-in">        separatorY<span class="op">=</span><span class="st">","</span>,</span>
-<span class="r-in">        outputFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"</span></span>
-<span class="r-in"> <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu">gseaXLmHG</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,</span></span>
+<span class="r-in"><span>        scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, </span></span>
+<span class="r-in"><span>        xCometFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata"</span>,</span></span>
+<span class="r-in"><span>        yCometFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata"</span>,</span></span>
+<span class="r-in"><span>        gsea<span class="op">=</span><span class="st">"c2.cp.kegg"</span>,</span></span>
+<span class="r-in"><span>        X<span class="op">=</span><span class="fl">5</span>,</span></span>
+<span class="r-in"><span>        L<span class="op">=</span><span class="fl">0.15</span>,</span></span>
+<span class="r-in"><span>        pvalue<span class="op">=</span><span class="fl">0.05</span>,</span></span>
+<span class="r-in"><span>        separatorX<span class="op">=</span><span class="st">","</span>,</span></span>
+<span class="r-in"><span>        separatorY<span class="op">=</span><span class="st">","</span>,</span></span>
+<span class="r-in"><span>        outputFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"</span></span></span>
+<span class="r-in"><span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -137,7 +160,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

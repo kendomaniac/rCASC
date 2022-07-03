@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,54 +54,71 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">checkCountDepth</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">file</span>,
-  conditions <span class="op">=</span> <span class="cn">NULL</span>,
-  FilterCellProportion <span class="op">=</span> <span class="fl">0.1</span>,
-  FilterExpression <span class="op">=</span> <span class="fl">0</span>,
-  ditherCounts <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">outputName</span>,
-  nCores <span class="op">=</span> <span class="fl">8</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">checkCountDepth</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  conditions <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  FilterCellProportion <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  FilterExpression <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  ditherCounts <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">outputName</span>,</span>
+<span>  nCores <span class="op">=</span> <span class="fl">8</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs.</p></dd>
+
+
 <dt>file, </dt>
 <dd><p>a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported</p></dd>
+
+
 <dt>conditions, </dt>
 <dd><p>vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.</p></dd>
+
+
 <dt>FilterCellProportion, </dt>
 <dd><p>a value indicating the proportion of non-zero expression estimates required to include the genes into the evaluation. Default is .10, and will not go below a proportion which uses less than 10 total cells/samples</p></dd>
+
+
 <dt>FilterExpression, </dt>
 <dd><p>a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots</p></dd>
+
+
 <dt>ditherCounts, </dt>
 <dd><p>Setting to TRUE might improve results with UMI data, default is FALSE</p></dd>
+
+
 <dt>outputName, </dt>
 <dd><p>specify the path and/or name of output files.</p></dd>
+
+
 <dt>nCores, </dt>
 <dd><p>number of cores to use, default is detectCores() - 1.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>pdf with the cells counts distributions</p>
+    
+
+<p>pdf with the cells counts distributions</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="co">#UMI 3' end analysis</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/example_UMI.txt.zip"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"example_UMI.txt.zip"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="va">conditions</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">12</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu">checkCountDepth</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"example_UMI.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span>
-<span class="r-in">    conditions<span class="op">=</span><span class="va">conditions</span>, FilterCellProportion<span class="op">=</span><span class="fl">0.1</span>, FilterExpression<span class="op">=</span><span class="fl">0</span>,</span>
-<span class="r-in">    ditherCounts<span class="op">=</span><span class="cn">TRUE</span>, outputName<span class="op">=</span><span class="st">"example_UMI"</span>, nCores<span class="op">=</span><span class="fl">8</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">#UMI 3' end analysis</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/example_UMI.txt.zip"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"example_UMI.txt.zip"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">conditions</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">12</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">checkCountDepth</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"example_UMI.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    conditions<span class="op">=</span><span class="va">conditions</span>, FilterCellProportion<span class="op">=</span><span class="fl">0.1</span>, FilterExpression<span class="op">=</span><span class="fl">0</span>,</span></span>
+<span class="r-in"><span>    ditherCounts<span class="op">=</span><span class="cn">TRUE</span>, outputName<span class="op">=</span><span class="st">"example_UMI"</span>, nCores<span class="op">=</span><span class="fl">8</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -116,7 +133,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

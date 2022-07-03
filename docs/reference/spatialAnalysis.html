@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,34 +54,47 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spatialAnalysis</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  <span class="va">file</span>,
-  <span class="va">nCluster</span>,
-  <span class="va">separator</span>,
-  <span class="va">tissuePosition</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">spatialAnalysis</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  <span class="va">nCluster</span>,</span>
+<span>  <span class="va">separator</span>,</span>
+<span>  <span class="va">tissuePosition</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>file, </dt>
 <dd><p>a character string indicating the path of the file, with file name and extension included</p></dd>
+
+
 <dt>nCluster, </dt>
 <dd><p>Last number of cluster that has to be analyzed</p></dd>
+
+
 <dt>separator, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>tissuePosition, </dt>
 <dd><p>file with tissue position name with extension</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>stability plot for each nCluster,two files with score information for each cell for each permutation.</p>
+    
+
+<p>stability plot for each nCluster,two files with score information for each cell for each permutation.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -90,9 +103,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">spatialAnalysis</span><span class="op">(</span>group<span class="op">=</span><span class="st">"sudo"</span>, scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, file<span class="op">=</span><span class="st">"/home/lucastormreig/newDockers/data/matrix.csv"</span>,nCluster<span class="op">=</span><span class="fl">13</span>,separator<span class="op">=</span><span class="st">","</span>,tissuePosition<span class="op">=</span><span class="st">"/home/lucastormreig/newDockers/data/tissue_positions_list.csv"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">spatialAnalysis</span><span class="op">(</span>group<span class="op">=</span><span class="st">"sudo"</span>, scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, file<span class="op">=</span><span class="st">"/home/lucastormreig/newDockers/data/matrix.csv"</span>,nCluster<span class="op">=</span><span class="fl">13</span>,separator<span class="op">=</span><span class="st">","</span>,tissuePosition<span class="op">=</span><span class="st">"/home/lucastormreig/newDockers/data/tissue_positions_list.csv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -107,7 +120,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

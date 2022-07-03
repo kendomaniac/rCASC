@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,37 +54,52 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mitoRiboUmi</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  <span class="va">file</span>,
-  <span class="va">separator</span>,
-  <span class="va">gtf.name</span>,
-  <span class="va">bio.type</span>,
-  <span class="va">umiXgene</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mitoRiboUmi</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  <span class="va">separator</span>,</span>
+<span>  <span class="va">gtf.name</span>,</span>
+<span>  <span class="va">bio.type</span>,</span>
+<span>  <span class="va">umiXgene</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>file, </dt>
 <dd><p>a character string indicating the path of the file, with file name and extension included</p></dd>
+
+
 <dt>separator, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>gtf.name, </dt>
 <dd><p>name for the gtf file tu be used.</p></dd>
+
+
 <dt>bio.type, </dt>
 <dd><p>ENSEMBL biotype of interest, default for single-cell protein_coding</p></dd>
+
+
 <dt>umiXgene, </dt>
 <dd><p>a integer defining how many UMI are required to call a gene as present. default: 3</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a pdf file called Ribo_mito.pdf</p>
+    
+
+<p>a pdf file called Ribo_mito.pdf</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -93,15 +108,15 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gzip -d Mus_musculus.GRCm38.94.gtf.gz"</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"testSCumi_mm10.csv.zip"</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu">mitoRiboUmi</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"testSCumi_mm10.csv"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, </span>
-<span class="r-in">                scratch.folder<span class="op">=</span><span class="st">"/data/scratch"</span>, separator<span class="op">=</span><span class="st">","</span>, umiXgene<span class="op">=</span><span class="fl">3</span>, </span>
-<span class="r-in">                gtf.name<span class="op">=</span><span class="st">"Mus_musculus.GRCm38.94.gtf"</span>, bio.type<span class="op">=</span><span class="st">"protein_coding"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gzip -d Mus_musculus.GRCm38.94.gtf.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"testSCumi_mm10.csv.zip"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu">mitoRiboUmi</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"testSCumi_mm10.csv"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>                scratch.folder<span class="op">=</span><span class="st">"/data/scratch"</span>, separator<span class="op">=</span><span class="st">","</span>, umiXgene<span class="op">=</span><span class="fl">3</span>, </span></span>
+<span class="r-in"><span>                gtf.name<span class="op">=</span><span class="st">"Mus_musculus.GRCm38.94.gtf"</span>, bio.type<span class="op">=</span><span class="st">"protein_coding"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -116,7 +131,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

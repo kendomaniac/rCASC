@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,46 +54,67 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">toprnk</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  <span class="va">fileX</span>,
-  <span class="va">fileY</span>,
-  <span class="va">separatorX</span>,
-  <span class="va">separatorY</span>,
-  <span class="va">xCometFolder</span>,
-  <span class="va">yCometFolder</span>,
-  top.ranked <span class="op">=</span> <span class="fl">320</span>,
-  <span class="va">outputFolder</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">toprnk</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  <span class="va">fileX</span>,</span>
+<span>  <span class="va">fileY</span>,</span>
+<span>  <span class="va">separatorX</span>,</span>
+<span>  <span class="va">separatorY</span>,</span>
+<span>  <span class="va">xCometFolder</span>,</span>
+<span>  <span class="va">yCometFolder</span>,</span>
+<span>  top.ranked <span class="op">=</span> <span class="fl">320</span>,</span>
+<span>  <span class="va">outputFolder</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>fileX, </dt>
 <dd><p>a character string indicating the path of the pseudobulkRow file, with file name and extension included.</p></dd>
+
+
 <dt>fileY, </dt>
 <dd><p>a character string indicating the path of the pseudobulkRow file, with file name and extension included.</p></dd>
+
+
 <dt>separatorX, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>separatorY, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>xCometFolder, </dt>
 <dd><p>path of Comet results from X experiment</p></dd>
+
+
 <dt>yCometFolder, </dt>
 <dd><p>path of Comet results from Y experiment</p></dd>
+
+
 <dt>top.ranked, </dt>
 <dd><p>MAX number of top comet genes to be used for each cluster, default 320</p></dd>
+
+
 <dt>outputFolder, </dt>
 <dd><p>where results are placed</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A folder called XYpb with all the results generated. The function produces an integrated output combining 7 thresholds from top.ranked (top.ranked, top.ranked/2, top.ranked/4, top.ranked/8, top.ranked/16/ top.ranked/32, top.ranked/64) over Pearsons in steps of 01 from 1 to 0.5. XYpb_topZZ.csv can be used to generate HCL. XYpb_cor_0.K_toprnk_ZZ.csv contain the associated clusters given a Pearson correlation threshold of 0.K. The files XYpb_cor_0.K_toprnk_ZZ_CSS_0.H.csv, are the subset of clusters that have a specific cell stability score, we suggest to associate only clusters with at least 0.5 CSS. If validation is TRUE it will be estimated for the chosen XYpb_cor_0.K_toprnk_ZZ.csv a p-value, which is calculated performing correlation between clusters, using randomly selected ZZ genes * cls, and repeating this procedure 1000 times.</p>
+    
+
+<p>A folder called XYpb with all the results generated. The function produces an integrated output combining 7 thresholds from top.ranked (top.ranked, top.ranked/2, top.ranked/4, top.ranked/8, top.ranked/16/ top.ranked/32, top.ranked/64) over Pearsons in steps of 01 from 1 to 0.5. XYpb_topZZ.csv can be used to generate HCL. XYpb_cor_0.K_toprnk_ZZ.csv contain the associated clusters given a Pearson correlation threshold of 0.K. The files XYpb_cor_0.K_toprnk_ZZ_CSS_0.H.csv, are the subset of clusters that have a specific cell stability score, we suggest to associate only clusters with at least 0.5 CSS. If validation is TRUE it will be estimated for the chosen XYpb_cor_0.K_toprnk_ZZ.csv a p-value, which is calculated performing correlation between clusters, using randomly selected ZZ genes * cls, and repeating this procedure 1000 times.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -102,20 +123,20 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu">toprnk</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, </span>
-<span class="r-in">        scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, </span>
-<span class="r-in">        fileX<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/VandE_bulkRow.csv"</span>,</span>
-<span class="r-in">        fileY<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv"</span>, </span>
-<span class="r-in">        separatorX<span class="op">=</span><span class="st">","</span>,</span>
-<span class="r-in">        separatorY<span class="op">=</span><span class="st">","</span>,</span>
-<span class="r-in">        xCometFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata"</span>,</span>
-<span class="r-in">        yCometFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata"</span>,</span>
-<span class="r-in">        top.ranked<span class="op">=</span><span class="fl">320</span>,</span>
-<span class="r-in">        outputFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"</span></span>
-<span class="r-in"> <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu">toprnk</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, </span></span>
+<span class="r-in"><span>        scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, </span></span>
+<span class="r-in"><span>        fileX<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/VandE_bulkRow.csv"</span>,</span></span>
+<span class="r-in"><span>        fileY<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv"</span>, </span></span>
+<span class="r-in"><span>        separatorX<span class="op">=</span><span class="st">","</span>,</span></span>
+<span class="r-in"><span>        separatorY<span class="op">=</span><span class="st">","</span>,</span></span>
+<span class="r-in"><span>        xCometFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata"</span>,</span></span>
+<span class="r-in"><span>        yCometFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata"</span>,</span></span>
+<span class="r-in"><span>        top.ranked<span class="op">=</span><span class="fl">320</span>,</span></span>
+<span class="r-in"><span>        outputFolder<span class="op">=</span><span class="st">"/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"</span></span></span>
+<span class="r-in"><span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -130,7 +151,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

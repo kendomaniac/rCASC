@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,47 +54,60 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">impute</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">data.folder</span>,
-  <span class="va">counts.matrix</span>,
-  <span class="va">drop.thre</span>,
-  <span class="va">cores</span>,
-  refining <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">impute</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">data.folder</span>,</span>
+<span>  <span class="va">counts.matrix</span>,</span>
+<span>  <span class="va">drop.thre</span>,</span>
+<span>  <span class="va">cores</span>,</span>
+<span>  refining <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>data.folder, </dt>
 <dd><p>a character string indicating the folder where tab separated file of cells counts is located</p></dd>
+
+
 <dt>counts.matrix, </dt>
 <dd><p>a character string indicating the  tab separated file of cells  counts</p></dd>
+
+
 <dt>drop.thre, </dt>
 <dd><p>A number between 0 and 1, specifying the threshold to determine dropout values</p></dd>
+
+
 <dt>cores, </dt>
 <dd><p>a integer specifying the number of cores used for parallel computation.</p></dd>
+
+
 <dt>refining, </dt>
 <dd><p>boolean FALSE, TRUE, if TRUE it execute again scImpute but setting a different drop.thre. Rerunning to change drop.thre hase to be done in the same folder where the first run was done.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix file with imputed data.</p>
+    
+
+<p>A matrix file with imputed data.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="co">#downloading fastq files</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/singlecells_counts.txt.gz"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gzip -d singlecells_counts.txt.gz"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu">cascImpute</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, data.folder<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">         counts.matrix<span class="op">=</span><span class="st">"singlecells_counts.txt"</span>,</span>
-<span class="r-in">         drop.thre<span class="op">=</span><span class="fl">0.5</span>, cores<span class="op">=</span><span class="fl">8</span>, refining<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">#downloading fastq files</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/singlecells_counts.txt.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gzip -d singlecells_counts.txt.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">cascImpute</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, data.folder<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>         counts.matrix<span class="op">=</span><span class="st">"singlecells_counts.txt"</span>,</span></span>
+<span class="r-in"><span>         drop.thre<span class="op">=</span><span class="fl">0.5</span>, cores<span class="op">=</span><span class="fl">8</span>, refining<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -109,7 +122,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,49 +54,72 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">cometsc2</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">file</span>,
-  <span class="va">scratch.folder</span>,
-  threads <span class="op">=</span> <span class="fl">1</span>,
-  X <span class="op">=</span> <span class="fl">0.15</span>,
-  K <span class="op">=</span> <span class="fl">2</span>,
-  counts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"True"</span>, <span class="st">"False"</span><span class="op">)</span>,
-  skipvis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"True"</span>, <span class="st">"False"</span><span class="op">)</span>,
-  <span class="va">nCluster</span>,
-  <span class="va">separator</span>,
-  <span class="va">clustering.output</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cometsc2</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  threads <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  X <span class="op">=</span> <span class="fl">0.15</span>,</span>
+<span>  K <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  counts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"True"</span>, <span class="st">"False"</span><span class="op">)</span>,</span>
+<span>  skipvis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"True"</span>, <span class="st">"False"</span><span class="op">)</span>,</span>
+<span>  <span class="va">nCluster</span>,</span>
+<span>  <span class="va">separator</span>,</span>
+<span>  <span class="va">clustering.output</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>file, </dt>
 <dd><p>a character string indicating the path of the file, with file name and extension included</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>temporary folder where calculation is made</p></dd>
+
+
 <dt>threads, </dt>
 <dd><p>integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster</p></dd>
+
+
 <dt>X, </dt>
 <dd><p>from 0 to 1 argument for XL-mHG default 0.15, for more info see cometsc help.</p></dd>
+
+
 <dt>K, </dt>
 <dd><p>the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big</p></dd>
+
+
 <dt>counts, </dt>
 <dd><p>if set to True it will graph the log(expression+1). To be used if unlogged data are provided</p></dd>
+
+
 <dt>skipvis, </dt>
 <dd><p>set to True to skip visualizations</p></dd>
+
+
 <dt>nCluster, </dt>
 <dd><p>number of interested cluster used for analysis</p></dd>
+
+
 <dt>separator, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>clustering.output, </dt>
 <dd><p>path of the clustering.output file to use</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>folders with prefix output. More info in output at https://hgmd.readthedocs.io/en/latest/Output.html</p>
+    
+
+<p>folders with prefix output. More info in output at https://hgmd.readthedocs.io/en/latest/Output.html</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -105,13 +128,13 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="co">#running cometsc</span></span>
-<span class="r-in">    <span class="fu"><a href="cometsc.html">cometsc</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="st">"/Users/raffaelecalogero/Desktop/AXLN1/data/topx_veanno.csv"</span>, </span>
-<span class="r-in">           scratch.folder<span class="op">=</span><span class="st">"/Users/raffaelecalogero/Desktop"</span>,</span>
-<span class="r-in">           threads<span class="op">=</span><span class="fl">1</span>, counts<span class="op">=</span><span class="st">"True"</span>, skipvis<span class="op">=</span><span class="st">"False"</span>, nCluster<span class="op">=</span><span class="fl">8</span>, separator<span class="op">=</span><span class="st">","</span><span class="op">)</span> </span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">#running cometsc</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="cometsc.html">cometsc</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="st">"/Users/raffaelecalogero/Desktop/AXLN1/data/topx_veanno.csv"</span>, </span></span>
+<span class="r-in"><span>           scratch.folder<span class="op">=</span><span class="st">"/Users/raffaelecalogero/Desktop"</span>,</span></span>
+<span class="r-in"><span>           threads<span class="op">=</span><span class="fl">1</span>, counts<span class="op">=</span><span class="st">"True"</span>, skipvis<span class="op">=</span><span class="st">"False"</span>, nCluster<span class="op">=</span><span class="fl">8</span>, separator<span class="op">=</span><span class="st">","</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -126,7 +149,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,43 +54,62 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">integrationPsblk</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  <span class="va">fileX</span>,
-  <span class="va">fileY</span>,
-  <span class="va">separatorX</span>,
-  <span class="va">separatorY</span>,
-  max.genes <span class="op">=</span> <span class="fl">500</span>,
-  split.by <span class="op">=</span> <span class="fl">100</span>,
-  <span class="va">outputFolder</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">integrationPsblk</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  <span class="va">fileX</span>,</span>
+<span>  <span class="va">fileY</span>,</span>
+<span>  <span class="va">separatorX</span>,</span>
+<span>  <span class="va">separatorY</span>,</span>
+<span>  max.genes <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  split.by <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  <span class="va">outputFolder</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>fileX, </dt>
 <dd><p>a character string indicating the path of the pseudobulkRow file, with file name and extension included.</p></dd>
+
+
 <dt>fileY, </dt>
 <dd><p>a character string indicating the path of the pseudobulkRow file, with file name and extension included.</p></dd>
+
+
 <dt>separatorX, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>separatorY, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>max.genes, </dt>
 <dd><p>MAX number of random genes to be used for each cluster, default 500</p></dd>
+
+
 <dt>split.by, </dt>
 <dd><p>value indication the splitting range default 100. I.e. if max.genes= 500 with split.by set to 100 there will be 5 sets of genes selected 100, 200, 300, 400, 500</p></dd>
+
+
 <dt>outputFolder, </dt>
 <dd><p>where results are placed</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A folder called XYpb with all the results generated. The final frequency table is saved in final_score.csv, which is made by the frequency of having Pearson &gt;= 0.5 between X and Y datasets for each possible comparisons between the clusters of the X and Y experiment. Pearson correlation is calculated on 10000 random selections of genes for each threshold.</p>
+    
+
+<p>A folder called XYpb with all the results generated. The final frequency table is saved in final_score.csv, which is made by the frequency of having Pearson &gt;= 0.5 between X and Y datasets for each possible comparisons between the clusters of the X and Y experiment. Pearson correlation is calculated on 10000 random selections of genes for each threshold.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -113,7 +132,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

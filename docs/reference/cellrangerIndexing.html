@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,49 +54,67 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">cellrangerIndexing</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  <span class="va">genomeFolder</span>,
-  <span class="va">gtf.url</span>,
-  <span class="va">fasta.url</span>,
-  bio.type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"protein_coding"</span>, <span class="st">"unitary_pseudogene"</span>, <span class="st">"unprocessed_pseudogene"</span>,
-    <span class="st">"processed_pseudogene"</span>, <span class="st">"transcribed_unprocessed_pseudogene"</span>, <span class="st">"processed_transcript"</span>,
-    <span class="st">"antisense"</span>, <span class="st">"transcribed_unitary_pseudogene"</span>, <span class="st">"polymorphic_pseudogene"</span>, <span class="st">"lincRNA"</span>,
-    <span class="st">"sense_intronic"</span>, <span class="st">"transcribed_processed_pseudogene"</span>, <span class="st">"sense_overlapping"</span>,
-    <span class="st">"IG_V_pseudogene"</span>, <span class="st">"pseudogene"</span>, <span class="st">"TR_V_gene"</span>, <span class="st">"3prime_overlapping_ncRNA"</span>,
-    <span class="st">"IG_V_gene"</span>, <span class="st">"bidirectional_promoter_lncRNA"</span>, <span class="st">"snRNA"</span>, <span class="st">"miRNA"</span>, <span class="st">"misc_RNA"</span>, <span class="st">"snoRNA"</span>,
-    <span class="st">"rRNA"</span>, <span class="st">"IG_C_gene"</span>, <span class="st">"IG_J_gene"</span>,      <span class="st">"TR_J_gene"</span>, <span class="st">"TR_C_gene"</span>, <span class="st">"TR_V_pseudogene"</span>,
-    <span class="st">"TR_J_pseudogene"</span>, <span class="st">"IG_D_gene"</span>, <span class="st">"ribozyme"</span>, <span class="st">"IG_C_pseudogene"</span>, <span class="st">"TR_D_gene"</span>, <span class="st">"TEC"</span>,
-    <span class="st">"IG_J_pseudogene"</span>, <span class="st">"scRNA"</span>, <span class="st">"scaRNA"</span>, <span class="st">"vaultRNA"</span>, <span class="st">"sRNA"</span>, <span class="st">"macro_lncRNA"</span>,
-    <span class="st">"non_coding"</span>, <span class="st">"IG_pseudogene"</span><span class="op">)</span>,
-  <span class="va">nThreads</span>,
-  version <span class="op">=</span> <span class="st">"5"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cellrangerIndexing</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  <span class="va">genomeFolder</span>,</span>
+<span>  <span class="va">gtf.url</span>,</span>
+<span>  <span class="va">fasta.url</span>,</span>
+<span>  bio.type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"protein_coding"</span>, <span class="st">"unitary_pseudogene"</span>, <span class="st">"unprocessed_pseudogene"</span>,</span>
+<span>    <span class="st">"processed_pseudogene"</span>, <span class="st">"transcribed_unprocessed_pseudogene"</span>, <span class="st">"processed_transcript"</span>,</span>
+<span>    <span class="st">"antisense"</span>, <span class="st">"transcribed_unitary_pseudogene"</span>, <span class="st">"polymorphic_pseudogene"</span>, <span class="st">"lincRNA"</span>,</span>
+<span>    <span class="st">"sense_intronic"</span>, <span class="st">"transcribed_processed_pseudogene"</span>, <span class="st">"sense_overlapping"</span>,</span>
+<span>    <span class="st">"IG_V_pseudogene"</span>, <span class="st">"pseudogene"</span>, <span class="st">"TR_V_gene"</span>, <span class="st">"3prime_overlapping_ncRNA"</span>,</span>
+<span>    <span class="st">"IG_V_gene"</span>, <span class="st">"bidirectional_promoter_lncRNA"</span>, <span class="st">"snRNA"</span>, <span class="st">"miRNA"</span>, <span class="st">"misc_RNA"</span>, <span class="st">"snoRNA"</span>,</span>
+<span>    <span class="st">"rRNA"</span>, <span class="st">"IG_C_gene"</span>, <span class="st">"IG_J_gene"</span>, </span>
+<span>     <span class="st">"TR_J_gene"</span>, <span class="st">"TR_C_gene"</span>, <span class="st">"TR_V_pseudogene"</span>,</span>
+<span>    <span class="st">"TR_J_pseudogene"</span>, <span class="st">"IG_D_gene"</span>, <span class="st">"ribozyme"</span>, <span class="st">"IG_C_pseudogene"</span>, <span class="st">"TR_D_gene"</span>, <span class="st">"TEC"</span>,</span>
+<span>    <span class="st">"IG_J_pseudogene"</span>, <span class="st">"scRNA"</span>, <span class="st">"scaRNA"</span>, <span class="st">"vaultRNA"</span>, <span class="st">"sRNA"</span>, <span class="st">"macro_lncRNA"</span>,</span>
+<span>    <span class="st">"non_coding"</span>, <span class="st">"IG_pseudogene"</span><span class="op">)</span>,</span>
+<span>  <span class="va">nThreads</span>,</span>
+<span>  version <span class="op">=</span> <span class="st">"5"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>genomeFolder, </dt>
 <dd><p>path for the genome folder</p></dd>
+
+
 <dt>gtf.url, </dt>
 <dd><p>a character string indicating the URL from ENSEMBL ftp for the GTF for genome of interest</p></dd>
+
+
 <dt>fasta.url, </dt>
 <dd><p>a character string indicating the URL from ENSEMBL ftp for the unmasked genome sequence of interest</p></dd>
+
+
 <dt>bio.type, </dt>
 <dd><p>ENSEMBL biotype to filter the GTF</p></dd>
+
+
 <dt>nThreads, </dt>
 <dd><p>number of cores for parallelization</p></dd>
+
+
 <dt>version, </dt>
 <dd><p>cellranger version: 2, 3 or 5.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an indexed genome compliant with 10XGenomics cellranger</p>
+    
+
+<p>an indexed genome compliant with 10XGenomics cellranger</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -105,17 +123,17 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"/data/genomes/hg38refcellranger"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">cellrangerIndexing</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, scratch.folder<span class="op">=</span><span class="st">"/data/scratch"</span>, </span>
-<span class="r-in">            gtf.url<span class="op">=</span><span class="st">"ftp://ftp.ensembl.org/pub/release-87/gtf/homo_sapiens/Homo_sapiens.GRCh38.87.gtf.gz"</span>,</span>
-<span class="r-in">            fasta.url<span class="op">=</span><span class="st">"ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz"</span>,</span>
-<span class="r-in">            genomeFolder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, bio.type<span class="op">=</span><span class="st">"protein_coding"</span>, nThreads <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"/data/genomes/hg38refcellranger"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">cellrangerIndexing</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, scratch.folder<span class="op">=</span><span class="st">"/data/scratch"</span>, </span></span>
+<span class="r-in"><span>            gtf.url<span class="op">=</span><span class="st">"ftp://ftp.ensembl.org/pub/release-87/gtf/homo_sapiens/Homo_sapiens.GRCh38.87.gtf.gz"</span>,</span></span>
+<span class="r-in"><span>            fasta.url<span class="op">=</span><span class="st">"ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz"</span>,</span></span>
+<span class="r-in"><span>            genomeFolder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, bio.type<span class="op">=</span><span class="st">"protein_coding"</span>, nThreads <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -130,7 +148,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

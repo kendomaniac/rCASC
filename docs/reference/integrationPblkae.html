@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,37 +54,52 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">integrationPblkae</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  fileX <span class="op">=</span> <span class="cn">NULL</span>,
-  fileY <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">outputFolder</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"inter"</span>, <span class="st">"intra"</span><span class="op">)</span>,
-  stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"anovalike"</span>, <span class="st">"pairwise"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">integrationPblkae</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  fileX <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fileY <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">outputFolder</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"inter"</span>, <span class="st">"intra"</span><span class="op">)</span>,</span>
+<span>  stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"anovalike"</span>, <span class="st">"pairwise"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>fileX, </dt>
 <dd><p>a character string indicating the path to the total.csv.for the 1st dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.</p></dd>
+
+
 <dt>fileY, </dt>
 <dd><p>a character string indicating the path to the total.csv.for the 2nd dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.</p></dd>
+
+
 <dt>outputFolder, </dt>
 <dd><p>where results are placed</p></dd>
+
+
 <dt>type, </dt>
 <dd><p>two values inter, intra. Inter refers to comparison among clusters of two independent experiments. Intra comparisons among clusters of the same experiment</p></dd>
+
+
 <dt>stats, </dt>
 <dd><p>two values anovalike, pairwise. Anovalike refers to comparison among clusters with respect to a pseudo reference sample. pairwise comparisons among all clusters by pairwise comparison</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a folder called psblkAE, which contains file called final_score.csv and all the intermediate files used to produce the integrated results.</p>
+    
+
+<p>a folder called psblkAE, which contains file called final_score.csv and all the intermediate files used to produce the integrated results.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -93,28 +108,28 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"> <span class="co">#inter</span></span>
-<span class="r-in"> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu">integrationPblkae</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, </span>
-<span class="r-in">        scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, </span>
-<span class="r-in">        fileX<span class="op">=</span><span class="st">"/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv"</span>,</span>
-<span class="r-in">        fileY<span class="op">=</span><span class="st">"/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv"</span>,</span>
-<span class="r-in">        outputFolder<span class="op">=</span><span class="st">"/data/clusters_association_paper/setA1_set1"</span>,</span>
-<span class="r-in">        type<span class="op">=</span><span class="st">"inter"</span>,</span>
-<span class="r-in">        stats<span class="op">=</span><span class="st">"anovalike"</span></span>
-<span class="r-in"> <span class="op">)</span></span>
-<span class="r-in"> </span>
-<span class="r-in"> <span class="co">#intra</span></span>
-<span class="r-in"> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu">integrationPblkae</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, </span>
-<span class="r-in">        scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, </span>
-<span class="r-in">        fileX<span class="op">=</span><span class="st">"/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv"</span>,</span>
-<span class="r-in">        outputFolder<span class="op">=</span><span class="st">"/data/clusters_association_paper/setA1_set1/setA1"</span>,</span>
-<span class="r-in">        type<span class="op">=</span><span class="st">"intra"</span>,</span>
-<span class="r-in">        stats<span class="op">=</span><span class="st">"pairwise"</span></span>
-<span class="r-in"> <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="co">#inter</span></span></span>
+<span class="r-in"><span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu">integrationPblkae</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, </span></span>
+<span class="r-in"><span>        scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, </span></span>
+<span class="r-in"><span>        fileX<span class="op">=</span><span class="st">"/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv"</span>,</span></span>
+<span class="r-in"><span>        fileY<span class="op">=</span><span class="st">"/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv"</span>,</span></span>
+<span class="r-in"><span>        outputFolder<span class="op">=</span><span class="st">"/data/clusters_association_paper/setA1_set1"</span>,</span></span>
+<span class="r-in"><span>        type<span class="op">=</span><span class="st">"inter"</span>,</span></span>
+<span class="r-in"><span>        stats<span class="op">=</span><span class="st">"anovalike"</span></span></span>
+<span class="r-in"><span> <span class="op">)</span></span></span>
+<span class="r-in"><span> </span></span>
+<span class="r-in"><span> <span class="co">#intra</span></span></span>
+<span class="r-in"><span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu">integrationPblkae</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, </span></span>
+<span class="r-in"><span>        scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, </span></span>
+<span class="r-in"><span>        fileX<span class="op">=</span><span class="st">"/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv"</span>,</span></span>
+<span class="r-in"><span>        outputFolder<span class="op">=</span><span class="st">"/data/clusters_association_paper/setA1_set1/setA1"</span>,</span></span>
+<span class="r-in"><span>        type<span class="op">=</span><span class="st">"intra"</span>,</span></span>
+<span class="r-in"><span>        stats<span class="op">=</span><span class="st">"pairwise"</span></span></span>
+<span class="r-in"><span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -129,7 +144,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,47 +54,62 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">autocluster4clustering</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  <span class="va">file</span>,
-  <span class="va">separator</span>,
-  <span class="va">nCluster</span>,
-  <span class="va">projectName</span>,
-  clusterMethod <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GRIPH"</span>, <span class="st">"SIMLR"</span>, <span class="st">"SEURAT"</span>, <span class="st">"SHARP"</span>, <span class="st">"KMEANS"</span>, <span class="st">"HCLUST"</span>, <span class="st">"FLOW"</span><span class="op">)</span>,
-  seed <span class="op">=</span> <span class="fl">1111</span>,
-  pcaDimensions <span class="op">=</span> <span class="fl">20</span>,
-  perplexity <span class="op">=</span> <span class="fl">20</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">autocluster4clustering</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  <span class="va">separator</span>,</span>
+<span>  <span class="va">nCluster</span>,</span>
+<span>  <span class="va">projectName</span>,</span>
+<span>  clusterMethod <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GRIPH"</span>, <span class="st">"SIMLR"</span>, <span class="st">"SEURAT"</span>, <span class="st">"SHARP"</span>, <span class="st">"KMEANS"</span>, <span class="st">"HCLUST"</span>, <span class="st">"FLOW"</span><span class="op">)</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">1111</span>,</span>
+<span>  pcaDimensions <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  perplexity <span class="op">=</span> <span class="fl">20</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>file, </dt>
 <dd><p>a character string indicating the path of the file, with file name and extension included.Has to be the one in the projectName folder.Different so from the previous one.</p></dd>
+
+
 <dt>separator, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>nCluster, </dt>
 <dd><p>number of cluster in which the dataset is divided</p></dd>
+
+
 <dt>projectName, </dt>
 <dd><p>might be different from the matrixname in order to perform different analysis on the same dataset</p></dd>
+
+
 <dt>clusterMethod, </dt>
 <dd><p>clustering methods: "GRIPH","SIMLR","SEURAT","SHARP","KMEANS","HCLUST","FLOW"</p></dd>
+
+
 <dt>seed, </dt>
 <dd><p>important value to reproduce the same results with same input</p></dd>
+
+
 <dt>pcaDimensions, </dt>
 <dd><p>number of dimensions to use for Seurat Pca reduction.</p></dd>
+
+
 <dt>perplexity, </dt>
 <dd><p>value for cluster aggregation, required for KMEANS</p></dd>
+
 </dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    
-    </div>
     <div id="author">
     <h2>Author</h2>
     <p>Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino</p>
@@ -102,9 +117,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"> <span class="fu">autocluster4clustering</span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span><span class="op">)</span>, scratch.folder<span class="op">=</span><span class="va">scratch</span>, file<span class="op">=</span><span class="va">file</span>, separator<span class="op">=</span><span class="st">","</span>, nCluster<span class="op">=</span><span class="fl">3</span>, projectName<span class="op">=</span><span class="va">projectName</span>, clusterMethod<span class="op">=</span><span class="va">i</span>,seed<span class="op">=</span><span class="fl">1111</span>,pcaDimensions<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="fu">autocluster4clustering</span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span><span class="op">)</span>, scratch.folder<span class="op">=</span><span class="va">scratch</span>, file<span class="op">=</span><span class="va">file</span>, separator<span class="op">=</span><span class="st">","</span>, nCluster<span class="op">=</span><span class="fl">3</span>, projectName<span class="op">=</span><span class="va">projectName</span>, clusterMethod<span class="op">=</span><span class="va">i</span>,seed<span class="op">=</span><span class="fl">1111</span>,pcaDimensions<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -119,7 +134,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

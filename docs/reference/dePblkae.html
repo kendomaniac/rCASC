@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,21 +54,28 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dePblkae</span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>, <span class="va">data.folder</span>, <span class="va">scratch.folder</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dePblkae</span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>, <span class="va">data.folder</span>, <span class="va">scratch.folder</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>data.folder, </dt>
 <dd><p>folder where the total.csv file is located</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>where calculation is performed</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a file called DE.txt, which contains for each cluster the ID of the genes detected as DE,  a file called log2_reformatedCPM.psblkAE.csv, which contains the log2 CPM of the psblkAE file and a file log2_reformatedCPM.psblkAE_mean-centered.csv, where log2 CPM are mena centered.</p>
+    
+
+<p>a file called DE.txt, which contains for each cluster the ID of the genes detected as DE,  a file called log2_reformatedCPM.psblkAE.csv, which contains the log2 CPM of the psblkAE file and a file log2_reformatedCPM.psblkAE_mean-centered.csv, where log2 CPM are mena centered.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -77,13 +84,13 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu">dePblkae</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, </span>
-<span class="r-in">        data.folder<span class="op">=</span><span class="st">"/somewhere/in/your/PC"</span>, </span>
-<span class="r-in">        scratch.folder<span class="op">=</span><span class="st">"/scratch"</span></span>
-<span class="r-in"> <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu">dePblkae</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, </span></span>
+<span class="r-in"><span>        data.folder<span class="op">=</span><span class="st">"/somewhere/in/your/PC"</span>, </span></span>
+<span class="r-in"><span>        scratch.folder<span class="op">=</span><span class="st">"/scratch"</span></span></span>
+<span class="r-in"><span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -98,7 +105,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

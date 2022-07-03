@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,52 +54,77 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">scannobyGtf</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"docker"</span>, <span class="st">"sudo"</span><span class="op">)</span>,
-  <span class="va">file</span>,
-  <span class="va">gtf.name</span>,
-  biotype <span class="op">=</span> <span class="cn">NULL</span>,
-  mt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  ribo.proteins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  umiXgene <span class="op">=</span> <span class="fl">3</span>,
-  riboStart.percentage <span class="op">=</span> <span class="fl">20</span>,
-  riboEnd.percentage <span class="op">=</span> <span class="fl">70</span>,
-  mitoStart.percentage <span class="op">=</span> <span class="fl">1</span>,
-  mitoEnd.percentage <span class="op">=</span> <span class="fl">100</span>,
-  thresholdGenes <span class="op">=</span> <span class="fl">250</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scannobyGtf</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"docker"</span>, <span class="st">"sudo"</span><span class="op">)</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  <span class="va">gtf.name</span>,</span>
+<span>  biotype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  ribo.proteins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  umiXgene <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  riboStart.percentage <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  riboEnd.percentage <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>  mitoStart.percentage <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  mitoEnd.percentage <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  thresholdGenes <span class="op">=</span> <span class="fl">250</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: <code>"sudo"</code> or <code>"docker"</code>, depending to which group the user belongs</p></dd>
+
+
 <dt>file, </dt>
 <dd><p>a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv". The system recognize automatically csv as comma separated files and txt as tab separated file</p></dd>
+
+
 <dt>gtf.name, </dt>
 <dd><p>a character string indicating the ENSEMBL gtf file</p></dd>
+
+
 <dt>biotype, </dt>
 <dd><p>a character string the biotypes of interest</p></dd>
+
+
 <dt>mt, </dt>
 <dd><p>a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed</p></dd>
+
+
 <dt>ribo.proteins, </dt>
 <dd><p>a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed</p></dd>
+
+
 <dt>umiXgene, </dt>
 <dd><p>a integer defining how many UMI are required to call a gene as present. default: 3</p></dd>
+
+
 <dt>riboStart.percentage, </dt>
 <dd><p>start range for ribosomal percentage, cells within the range are kept</p></dd>
+
+
 <dt>riboEnd.percentage, </dt>
 <dd><p>end range for ribosomal percentagem cells within the range are kept</p></dd>
+
+
 <dt>mitoStart.percentage, </dt>
 <dd><p>start range for mitochondrial percentage, cells within the range are retained</p></dd>
+
+
 <dt>mitoEnd.percentage, </dt>
 <dd><p>end range for mitochondrial percentage, cells within the range are retained</p></dd>
+
+
 <dt>thresholdGenes, </dt>
 <dd><p>parameter to filter cells according to the number og significative genes expressed</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal. Filtered_annotated annotated counts table with only cells and genes given by filtering thresholds. A pdf showing the effect of genes counts of the filtering and a filteredStatistics.txt indicating how many cell and genes were filtered out</p>
+    
+
+<p>one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal. Filtered_annotated annotated counts table with only cells and genes given by filtering thresholds. A pdf showing the effect of genes counts of the filtering and a filteredStatistics.txt indicating how many cell and genes were filtered out</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -108,24 +133,24 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">        <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span><span class="op">)</span></span>
-<span class="r-in">     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
-<span class="r-in">     <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"unzip testSCumi_mm10.csv.zip"</span><span class="op">)</span></span>
-<span class="r-in">     <span class="co">#filtering low quality cells</span></span>
-<span class="r-in">     <span class="fu"><a href="lorenzFilter.html">lorenzFilter</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,</span>
-<span class="r-in">                  file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"testSCumi_mm10.csv"</span>,sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span>
-<span class="r-in">                  p_value<span class="op">=</span><span class="fl">0.05</span>,separator<span class="op">=</span><span class="st">','</span><span class="op">)</span></span>
-<span class="r-in">     <span class="co">#running annotation and removal of mit and ribo proteins genes</span></span>
-<span class="r-in">     <span class="co">#download mouse GTF for mm10</span></span>
-<span class="r-in">     <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz"</span><span class="op">)</span></span>
-<span class="r-in">     <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gunzip Mus_musculus.GRCm38.92.gtf.gz"</span><span class="op">)</span></span>
-<span class="r-in">     <span class="fu">scannobyGtf</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"testSCumi_mm10.csv"</span>,sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span>
-<span class="r-in">                  gtf.name<span class="op">=</span><span class="st">"Mus_musculus.GRCm38.94.gtf"</span>, biotype<span class="op">=</span><span class="st">"protein_coding"</span>, </span>
-<span class="r-in">                  mt<span class="op">=</span><span class="cn">TRUE</span>, ribo.proteins<span class="op">=</span><span class="cn">TRUE</span>, umiXgene<span class="op">=</span><span class="fl">3</span>, riboStart.percentage<span class="op">=</span><span class="fl">0</span>, </span>
-<span class="r-in">                  riboEnd.percentage<span class="op">=</span><span class="fl">100</span>, mitoStart.percentage<span class="op">=</span><span class="fl">0</span>, mitoEnd.percentage<span class="op">=</span><span class="fl">100</span>, thresholdGenes<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span></span>
+<span class="r-in"><span>     <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"unzip testSCumi_mm10.csv.zip"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>     <span class="co">#filtering low quality cells</span></span></span>
+<span class="r-in"><span>     <span class="fu"><a href="lorenzFilter.html">lorenzFilter</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,</span></span>
+<span class="r-in"><span>                  file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"testSCumi_mm10.csv"</span>,sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                  p_value<span class="op">=</span><span class="fl">0.05</span>,separator<span class="op">=</span><span class="st">','</span><span class="op">)</span></span></span>
+<span class="r-in"><span>     <span class="co">#running annotation and removal of mit and ribo proteins genes</span></span></span>
+<span class="r-in"><span>     <span class="co">#download mouse GTF for mm10</span></span></span>
+<span class="r-in"><span>     <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>     <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gunzip Mus_musculus.GRCm38.92.gtf.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>     <span class="fu">scannobyGtf</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"testSCumi_mm10.csv"</span>,sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                  gtf.name<span class="op">=</span><span class="st">"Mus_musculus.GRCm38.94.gtf"</span>, biotype<span class="op">=</span><span class="st">"protein_coding"</span>, </span></span>
+<span class="r-in"><span>                  mt<span class="op">=</span><span class="cn">TRUE</span>, ribo.proteins<span class="op">=</span><span class="cn">TRUE</span>, umiXgene<span class="op">=</span><span class="fl">3</span>, riboStart.percentage<span class="op">=</span><span class="fl">0</span>, </span></span>
+<span class="r-in"><span>                  riboEnd.percentage<span class="op">=</span><span class="fl">100</span>, mitoStart.percentage<span class="op">=</span><span class="fl">0</span>, mitoEnd.percentage<span class="op">=</span><span class="fl">100</span>, thresholdGenes<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -140,7 +165,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

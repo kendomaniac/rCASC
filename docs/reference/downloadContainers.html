@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,18 +54,21 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">downloadContainers</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="st">"docker"</span>,
-  containers.file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"full"</span>, <span class="st">"mini"</span>, <span class="st">"nano"</span>, <span class="st">"sca"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">downloadContainers</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="st">"docker"</span>,</span>
+<span>  containers.file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"full"</span>, <span class="st">"mini"</span>, <span class="st">"nano"</span>, <span class="st">"sca"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: <code>"sudo"</code> or <code>"docker"</code>, depending to which group the user belongs</p></dd>
+
+
 <dt>containers.file, </dt>
 <dd><p>a character string with the name of the file which indicate which are the initial set of containers to be downloaded. options: full, mini, nano, sca The set is given by a file located in the folder containers of docker4seq package, full indicates a complete installation, mini refers to an installation including few preprocessing and all clustering tools, nano even a smaller implementation, sca the minimal subset of dockers to run an analysis with Partialy Connected Autoencoders</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -74,11 +77,11 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="co">#running runDocker</span></span>
-<span class="r-in">     <span class="fu">downloadContainers</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, containers.file<span class="op">=</span><span class="st">"full"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">#running runDocker</span></span></span>
+<span class="r-in"><span>     <span class="fu">downloadContainers</span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, containers.file<span class="op">=</span><span class="st">"full"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -93,7 +96,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

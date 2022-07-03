@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,55 +54,82 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">seuratPermutation</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  <span class="va">file</span>,
-  <span class="va">nPerm</span>,
-  <span class="va">permAtTime</span>,
-  <span class="va">percent</span>,
-  <span class="va">separator</span>,
-  logTen <span class="op">=</span> <span class="fl">0</span>,
-  <span class="va">pcaDimensions</span>,
-  seed <span class="op">=</span> <span class="fl">1111</span>,
-  sparse <span class="op">=</span> <span class="cn">FALSE</span>,
-  format <span class="op">=</span> <span class="st">"NULL"</span>,
-  resolution <span class="op">=</span> <span class="fl">0.6</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">seuratPermutation</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  <span class="va">nPerm</span>,</span>
+<span>  <span class="va">permAtTime</span>,</span>
+<span>  <span class="va">percent</span>,</span>
+<span>  <span class="va">separator</span>,</span>
+<span>  logTen <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  <span class="va">pcaDimensions</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">1111</span>,</span>
+<span>  sparse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  format <span class="op">=</span> <span class="st">"NULL"</span>,</span>
+<span>  resolution <span class="op">=</span> <span class="fl">0.6</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>file, </dt>
 <dd><p>a character string indicating the path of the file, with file name and extension included</p></dd>
+
+
 <dt>nPerm, </dt>
 <dd><p>number of permutations to perform the pValue to evaluate clustering</p></dd>
+
+
 <dt>permAtTime, </dt>
 <dd><p>number of permutations that can be computes in parallel</p></dd>
+
+
 <dt>percent, </dt>
 <dd><p>percentage of randomly selected cells removed in each permutation</p></dd>
+
+
 <dt>separator, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>logTen, </dt>
 <dd><p>1 if the count matrix is already in log10, 0 otherwise</p></dd>
+
+
 <dt>pcaDimensions, </dt>
 <dd><p>0 for automatic selection of PC elbow.</p></dd>
+
+
 <dt>seed, </dt>
 <dd><p>important value to reproduce the same results with same input</p></dd>
+
+
 <dt>sparse, </dt>
 <dd><p>boolean for sparse matrix</p></dd>
+
+
 <dt>format, </dt>
 <dd><p>output file format csv or txt</p></dd>
+
+
 <dt>resolution, </dt>
 <dd><p>resolution for Seurat Analysis</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>To write</p>
+    
+
+<p>To write</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -111,22 +138,22 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"section4.1_examples"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gzip -d Homo_sapiens.GRCh38.94.gtf.gz"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"mv Homo_sapiens.GRCh38.94.gtf genome.gtf"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="scannobyGtf.html">scannobyGtf</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"bmsnkn_5x100cells.txt"</span>,sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span>
-<span class="r-in">             gtf.name<span class="op">=</span><span class="st">"genome.gtf"</span>, biotype<span class="op">=</span><span class="st">"protein_coding"</span>, </span>
-<span class="r-in">             mt<span class="op">=</span><span class="cn">TRUE</span>, ribo.proteins<span class="op">=</span><span class="cn">TRUE</span>,umiXgene<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"> </span>
-<span class="r-in"> <span class="fu"><a href="seuratBootstrap.html">seuratBootstrap</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,</span>
-<span class="r-in">      file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"annotated_bmsnkn_5x100cells.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, </span>
-<span class="r-in">      nPerm<span class="op">=</span><span class="fl">160</span>, permAtTime<span class="op">=</span><span class="fl">8</span>, percent<span class="op">=</span><span class="fl">10</span>, separator<span class="op">=</span><span class="st">"\t"</span>,</span>
-<span class="r-in">      logTen<span class="op">=</span><span class="fl">0</span>, pcaDimensions<span class="op">=</span><span class="fl">6</span>, seed<span class="op">=</span><span class="fl">111</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"section4.1_examples"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gzip -d Homo_sapiens.GRCh38.94.gtf.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"mv Homo_sapiens.GRCh38.94.gtf genome.gtf"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="scannobyGtf.html">scannobyGtf</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"bmsnkn_5x100cells.txt"</span>,sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             gtf.name<span class="op">=</span><span class="st">"genome.gtf"</span>, biotype<span class="op">=</span><span class="st">"protein_coding"</span>, </span></span>
+<span class="r-in"><span>             mt<span class="op">=</span><span class="cn">TRUE</span>, ribo.proteins<span class="op">=</span><span class="cn">TRUE</span>,umiXgene<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span> </span></span>
+<span class="r-in"><span> <span class="fu"><a href="seuratBootstrap.html">seuratBootstrap</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,</span></span>
+<span class="r-in"><span>      file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"annotated_bmsnkn_5x100cells.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>      nPerm<span class="op">=</span><span class="fl">160</span>, permAtTime<span class="op">=</span><span class="fl">8</span>, percent<span class="op">=</span><span class="fl">10</span>, separator<span class="op">=</span><span class="st">"\t"</span>,</span></span>
+<span class="r-in"><span>      logTen<span class="op">=</span><span class="fl">0</span>, pcaDimensions<span class="op">=</span><span class="fl">6</span>, seed<span class="op">=</span><span class="fl">111</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -141,7 +168,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

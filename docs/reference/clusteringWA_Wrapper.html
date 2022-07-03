@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.0</span>
       </span>
     </div>
 
@@ -54,79 +54,127 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">clusteringWA_Wrapper</span><span class="op">(</span>
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,
-  <span class="va">scratch.folder</span>,
-  <span class="va">file</span>,
-  <span class="va">separator</span>,
-  <span class="va">nCluster</span>,
-  bias <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mirna"</span>, <span class="st">"TF"</span>, <span class="st">"CUSTOM"</span>, <span class="st">"kinasi"</span>, <span class="st">"immunoSignature"</span>, <span class="st">"ALL"</span><span class="op">)</span>,
-  <span class="va">permutation</span>,
-  <span class="va">nEpochs</span>,
-  patiencePercentage <span class="op">=</span> <span class="fl">5</span>,
-  seed <span class="op">=</span> <span class="fl">1111</span>,
-  <span class="va">projectName</span>,
-  bN <span class="op">=</span> <span class="st">"NULL"</span>,
-  lr <span class="op">=</span> <span class="fl">0.01</span>,
-  beta_1 <span class="op">=</span> <span class="fl">0.9</span>,
-  beta_2 <span class="op">=</span> <span class="fl">0.999</span>,
-  epsilon <span class="op">=</span> <span class="fl">1e-08</span>,
-  decay <span class="op">=</span> <span class="fl">0</span>,
-  loss <span class="op">=</span> <span class="st">"mean_squared_error"</span>,
-  clusterMethod <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GRIPH"</span>, <span class="st">"SIMLR"</span>, <span class="st">"SEURAT"</span>, <span class="st">"SHARP"</span><span class="op">)</span>,
-  pcaDimensions <span class="op">=</span> <span class="fl">5</span>,
-  Sp <span class="op">=</span> <span class="fl">0.8</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">clusteringWA_Wrapper</span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span>, <span class="st">"docker"</span><span class="op">)</span>,</span>
+<span>  <span class="va">scratch.folder</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  <span class="va">separator</span>,</span>
+<span>  <span class="va">nCluster</span>,</span>
+<span>  bias <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mirna"</span>, <span class="st">"TF"</span>, <span class="st">"CUSTOM"</span>, <span class="st">"kinasi"</span>, <span class="st">"immunoSignature"</span>, <span class="st">"cytoBands"</span>, <span class="st">"ALL"</span><span class="op">)</span>,</span>
+<span>  <span class="va">permutation</span>,</span>
+<span>  <span class="va">nEpochs</span>,</span>
+<span>  patiencePercentage <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">1111</span>,</span>
+<span>  <span class="va">projectName</span>,</span>
+<span>  bN <span class="op">=</span> <span class="st">"NULL"</span>,</span>
+<span>  lr <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span>  beta_1 <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>  beta_2 <span class="op">=</span> <span class="fl">0.999</span>,</span>
+<span>  epsilon <span class="op">=</span> <span class="fl">1e-08</span>,</span>
+<span>  decay <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  loss <span class="op">=</span> <span class="st">"mean_squared_error"</span>,</span>
+<span>  clusterMethod <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GRIPH"</span>, <span class="st">"SIMLR"</span>, <span class="st">"SEURAT"</span>, <span class="st">"SHARP"</span><span class="op">)</span>,</span>
+<span>  pcaDimensions <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  Sp <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  version <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group, </dt>
 <dd><p>a character string. Two options: sudo or docker, depending to which group the user belongs</p></dd>
+
+
 <dt>scratch.folder, </dt>
 <dd><p>a character string indicating the path of the scratch folder</p></dd>
+
+
 <dt>file, </dt>
 <dd><p>a character string indicating the path of the file, with file name and extension included</p></dd>
+
+
 <dt>separator, </dt>
 <dd><p>separator used in count file, e.g. '\t', ','</p></dd>
+
+
 <dt>nCluster, </dt>
 <dd><p>number of cluster in which the dataset is divided</p></dd>
+
+
 <dt>bias, </dt>
-<dd><p>bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL</p></dd>
+<dd><p>bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature, cytoBands,ALL</p></dd>
+
+
 <dt>permutation, </dt>
 <dd><p>number of permutations to perform the pValue to evaluate clustering</p></dd>
+
+
 <dt>nEpochs, </dt>
 <dd><p>number of Epochs for neural network training</p></dd>
+
+
 <dt>patiencePercentage, </dt>
 <dd><p>number of Epochs percentage of not training before to stop.</p></dd>
+
+
 <dt>seed, </dt>
 <dd><p>important value to reproduce the same results with same input</p></dd>
+
+
 <dt>projectName, </dt>
 <dd><p>might be different from the matrixname in order to perform different analysis on the same dataset</p></dd>
+
+
 <dt>bN, </dt>
 <dd><p>name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided,</p></dd>
+
+
 <dt>lr, </dt>
 <dd><p>learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise</p></dd>
+
+
 <dt>beta_1, </dt>
 <dd><p>look at keras optimizer parameters</p></dd>
+
+
 <dt>beta_2, </dt>
 <dd><p>look at keras optimizer parameters</p></dd>
+
+
 <dt>epsilon, </dt>
 <dd><p>look at keras optimizer parameters</p></dd>
+
+
 <dt>decay, </dt>
 <dd><p>look at keras optimizer parameters</p></dd>
+
+
 <dt>loss, </dt>
 <dd><p>loss of function to use, for other loss of function check the keras loss of functions.</p></dd>
+
+
 <dt>clusterMethod, </dt>
 <dd><p>clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"</p></dd>
+
+
 <dt>pcaDimensions, </dt>
 <dd><p>number of dimensions to use for Seurat Pca reduction.</p></dd>
+
+
 <dt>Sp, </dt>
 <dd><p>minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.</p></dd>
+
+
+<dt>version, </dt>
+<dd><p>version 1 implements static batchsize, version 2 implements adaptive batchsize</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>folders the complete autoencoder analysis.</p>
+    
+
+<p>folders the complete autoencoder analysis.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -135,9 +183,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"> <span class="fu">clusteringWA_Wrapper</span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span><span class="op">)</span>,scratch.folder<span class="op">=</span><span class="st">"/home/user/autoencoderClustering/test/Scratch/"</span>,file<span class="op">=</span><span class="st">"/home/user/autoencoderClustering/test/Data/setA.csv"</span>,separator<span class="op">=</span><span class="st">","</span>,nCluster<span class="op">=</span><span class="fl">3</span>,bias<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ALL"</span><span class="op">)</span>,permutation<span class="op">=</span><span class="fl">10</span>,nEpochs<span class="op">=</span><span class="fl">10</span>,patiencePercentage<span class="op">=</span><span class="fl">5</span>,seed<span class="op">=</span><span class="fl">1111</span>,projectName<span class="op">=</span><span class="st">"TEST2"</span>,bN<span class="op">=</span><span class="st">"NULL"</span>,lr<span class="op">=</span><span class="fl">0.01</span>,beta_1<span class="op">=</span><span class="fl">0.9</span>,beta_2<span class="op">=</span><span class="fl">0.999</span>,epsilon<span class="op">=</span><span class="fl">0.00000001</span>,decay<span class="op">=</span><span class="fl">0.0</span>,loss<span class="op">=</span><span class="st">"mean_squared_error"</span>,clusterMethod<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"GRIPH"</span><span class="op">)</span>,pcaDimensions<span class="op">=</span><span class="fl">5</span>,Sp<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="fu">clusteringWA_Wrapper</span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sudo"</span><span class="op">)</span>,scratch.folder<span class="op">=</span><span class="st">"/home/user/autoencoderClustering/test/Scratch/"</span>,file<span class="op">=</span><span class="st">"/home/user/autoencoderClustering/test/Data/setA.csv"</span>,separator<span class="op">=</span><span class="st">","</span>,nCluster<span class="op">=</span><span class="fl">3</span>,bias<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ALL"</span><span class="op">)</span>,permutation<span class="op">=</span><span class="fl">10</span>,nEpochs<span class="op">=</span><span class="fl">10</span>,patiencePercentage<span class="op">=</span><span class="fl">5</span>,seed<span class="op">=</span><span class="fl">1111</span>,projectName<span class="op">=</span><span class="st">"TEST2"</span>,bN<span class="op">=</span><span class="st">"NULL"</span>,lr<span class="op">=</span><span class="fl">0.01</span>,beta_1<span class="op">=</span><span class="fl">0.9</span>,beta_2<span class="op">=</span><span class="fl">0.999</span>,epsilon<span class="op">=</span><span class="fl">0.00000001</span>,decay<span class="op">=</span><span class="fl">0.0</span>,loss<span class="op">=</span><span class="st">"mean_squared_error"</span>,clusterMethod<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"GRIPH"</span><span class="op">)</span>,pcaDimensions<span class="op">=</span><span class="fl">5</span>,Sp<span class="op">=</span><span class="fl">0.8</span>, version<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -152,7 +200,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

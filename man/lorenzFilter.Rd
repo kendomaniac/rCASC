@@ -32,7 +32,7 @@ This function executes a docker that embeds Lorenz filter from Diaz at al. Bioin
 \examples{
 \dontrun{
         system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
-     library(casc)
+     library(rCASC)
      system("unzip testSCumi_mm10.csv.zip")
      #filtering low quality cells
      lorenzFilter(group="docker",scratch.folder="/data/scratch/", 
