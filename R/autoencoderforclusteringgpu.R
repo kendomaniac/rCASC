@@ -83,7 +83,7 @@ system(paste("cp ",bN," ",scrat_tmp.folder,"/",sep=""))
 }
   bN=basename(bN)
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data --rm --gpus all -d repbioinfo/autoencoderforclusteringgpu python3 /home/autoencoder.py ",matrixNameC,".",format," ",separator," ",bias," ",permutation," ",nEpochs," ",patiencePercentage," ",projectName," ",seed," ",bN," ",lr," ",beta_1," ",beta_2," ",epsilon," ",decay," ",loss,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data --rm --gpus all repbioinfo/autoencoderforclusteringgpu python3 /home/autoencoder.py ",matrixNameC,".",format," ",separator," ",bias," ",permutation," ",nEpochs," ",patiencePercentage," ",projectName," ",seed," ",bN," ",lr," ",beta_1," ",beta_2," ",epsilon," ",decay," ",loss,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
