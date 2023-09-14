@@ -7,10 +7,10 @@
 #' @param resName, name for result matrix
 #' @param format, format for all the matrix that has to be integrated. Format has to be all the same
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
-#' seuratIntegrationMulti(group=c("sudo"), scratch.folder="/home/user/scratch", folder="/home/user/folderWithFiles",separator=",",resName="test",format="csv")
 #' @return file containing the normalized matrix with the anchors
 #' @examples
 #'\dontrun{
+#' seuratIntegrationMulti(group=c("sudo"), scratch.folder="/home/user/scratch", folder="/home/user/folderWithFiles",separator=",",resName="test",format="csv")
 #'  #to be added
 #' } 
 #' @export
