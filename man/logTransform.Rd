@@ -9,7 +9,7 @@ logTransform(
   file,
   separator,
   overdispersion = 0.05,
-  pseudo_count = 4,
+  pseudo_count = 1/(4 * overdispersion),
   size_factors = TRUE,
   minimum_overdispersion = 0.001,
   scratch.folder,

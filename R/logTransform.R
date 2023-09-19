@@ -18,7 +18,7 @@
 #'logTransform(group="docker",file="/home/gianluca/newFunction/setA.csv",separator=",",scratch.folder="/home/gianluca/newFunction/scratch/","/home/gianluca/newFunction/res/")
 #' }
 #' @export
-logTransform <- function(group=c("sudo","docker"),file,separator, overdispersion=0.05,pseudo_count=4,size_factors=TRUE,minimum_overdispersion=0.001, scratch.folder,outputFolder){
+logTransform <- function(group=c("sudo","docker"),file,separator, overdispersion=0.05,pseudo_count=1/(4*overdispersion),size_factors=TRUE,minimum_overdispersion=0.001, scratch.folder,outputFolder){
 
   data.folder1=dirname(file)
   positions1=length(strsplit(basename(file),"\\.")[[1]])
