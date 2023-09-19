@@ -2,7 +2,7 @@
 % Please edit documentation in R/logTransform.R
 \name{logTransform}
 \alias{logTransform}
-\title{umap}
+\title{Shifted logarithm transformation}
 \usage{
 logTransform(
   group = c("sudo", "docker"),
@@ -27,7 +27,7 @@ logTransform(
 
 \item{pseudo_count, }{instead of specifying the overdispersion, the 'shifted_log_transform' is commonly parameterized with a pseudo-count (pseudo-count = 1/(4 * overdispersion)).}
 
-\item{size_factors, TRUE}{or False in large scale experiments, each sample is typically of different size (for example different sequencing depths). A size factor is an internal mechanism of GLMs to correct for this effect.}
+\item{size_factors, TRUE}{or False in large scale experiments, each sample is typically of different size (for example different sequencing depths). A size factor is an internal mechanism of GLMs to correct for this effect. normed_sum and poscounts are fairly simple methods and can lead to suboptimal results. For the best performance, I recommend to use deconvolution.}
 
 \item{minimum_overdispersion, }{the 'acosh_transform' converges against 2 * sqrt(x) for 'overdispersion == 0'. However, the 'shifted_log_transform' would just become '0', thus here we apply the 'minimum_overdispersion' to avoid this behavior.}
 
@@ -39,7 +39,7 @@ logTransform(
 plot
 }
 \description{
-This function executes a ubuntu docker that performs umap visualization
+This function executes a ubuntu docker that performs shifted logarithm transformation (Ahlmann-Eltze Nature Methods, vol. 20, pg. 665, 2023; transformGamPoi Bioconductor package)
 }
 \examples{
 \dontrun{

@@ -1,11 +1,11 @@
-#' @title umap
-#' @description This function executes a ubuntu docker that performs umap visualization
+#' @title Shifted logarithm transformation
+#' @description This function executes a ubuntu docker that performs shifted logarithm transformation (Ahlmann-Eltze Nature Methods, vol. 20, pg. 665, 2023; transformGamPoi Bioconductor package)
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param file, a character string indicating the path of the count matrix
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param overdispersion, the simplest count model is the Poisson model. However, the Poisson model assumes that variance = mean. For many applications this is too rigid and the Gamma-Poisson allows a more flexible mean-variance relation (variance = mean + mean^2 * overdispersion).
 #' @param pseudo_count, instead of specifying the overdispersion, the 'shifted_log_transform' is commonly parameterized with a pseudo-count (pseudo-count = 1/(4 * overdispersion)).
-#' @param size_factors,TRUE or False in large scale experiments, each sample is typically of different size (for example different sequencing depths). A size factor is an internal mechanism of GLMs to correct for this effect.
+#' @param size_factors,TRUE or False in large scale experiments, each sample is typically of different size (for example different sequencing depths). A size factor is an internal mechanism of GLMs to correct for this effect. normed_sum and poscounts are fairly simple methods and can lead to suboptimal results. For the best performance, I recommend to use deconvolution.
 #' @param minimum_overdispersion, the 'acosh_transform' converges against 2 * sqrt(x) for 'overdispersion == 0'. However, the 'shifted_log_transform' would just become '0', thus here we apply the 'minimum_overdispersion' to avoid this behavior.
 #' @param scratch.folder, a character string indicating the path of the scratch folder
 #' @param outputFolder, a character string indicating the path of the output folder
