@@ -9,7 +9,7 @@ logTransform(
   file,
   separator,
   overdispersion = 0.05,
-  pseudo_count = 1/(4 * overdispersion),
+  pseudo_count = 4,
   size_factors = TRUE,
   minimum_overdispersion = 0.001,
   scratch.folder,
@@ -25,7 +25,7 @@ logTransform(
 
 \item{overdispersion, }{the simplest count model is the Poisson model. However, the Poisson model assumes that variance = mean. For many applications this is too rigid and the Gamma-Poisson allows a more flexible mean-variance relation (variance = mean + mean^2 * overdispersion).}
 
-\item{pseudo_count, }{instead of specifying the overdispersion, the 'shifted_log_transform' is commonly parameterized with a pseudo-count (pseudo-count = 1/(4 * overdispersion)).}
+\item{pseudo_count, }{it is set to 4, which is use internally in pseudo-count = 1/( pseudo_count * overdispersion)).}
 
 \item{size_factors, TRUE}{or False in large scale experiments, each sample is typically of different size (for example different sequencing depths). A size factor is an internal mechanism of GLMs to correct for this effect. normed_sum and poscounts are fairly simple methods and can lead to suboptimal results. For the best performance, I recommend to use deconvolution.}
 

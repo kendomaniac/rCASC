@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.5</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
 
 
 <dt>pseudo_count, </dt>
-<dd><p>instead of specifying the overdispersion, the 'shifted_log_transform' is commonly parameterized with a pseudo-count (pseudo-count = 1/(4 * overdispersion)).</p></dd>
+<dd><p>it is set to 4, which is use internally in pseudo-count = 1/( pseudo_count * overdispersion)).</p></dd>
 
 
 <dt>size_factors, TRUE</dt>

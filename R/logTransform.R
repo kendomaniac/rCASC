@@ -4,7 +4,7 @@
 #' @param file, a character string indicating the path of the count matrix
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param overdispersion, the simplest count model is the Poisson model. However, the Poisson model assumes that variance = mean. For many applications this is too rigid and the Gamma-Poisson allows a more flexible mean-variance relation (variance = mean + mean^2 * overdispersion).
-#' @param pseudo_count, instead of specifying the overdispersion, the 'shifted_log_transform' is commonly parameterized with a pseudo-count (pseudo-count = 1/(4 * overdispersion)).
+#' @param pseudo_count, it is set to 4, which is use internally in pseudo-count = 1/( pseudo_count * overdispersion)).
 #' @param size_factors,TRUE or False in large scale experiments, each sample is typically of different size (for example different sequencing depths). A size factor is an internal mechanism of GLMs to correct for this effect. normed_sum and poscounts are fairly simple methods and can lead to suboptimal results. For the best performance, I recommend to use deconvolution.
 #' @param minimum_overdispersion, the 'acosh_transform' converges against 2 * sqrt(x) for 'overdispersion == 0'. However, the 'shifted_log_transform' would just become '0', thus here we apply the 'minimum_overdispersion' to avoid this behavior.
 #' @param scratch.folder, a character string indicating the path of the scratch folder
@@ -18,7 +18,7 @@
 #'logTransform(group="docker",file="/home/gianluca/newFunction/setA.csv",separator=",",scratch.folder="/home/gianluca/newFunction/scratch/","/home/gianluca/newFunction/res/")
 #' }
 #' @export
-logTransform <- function(group=c("sudo","docker"),file,separator, overdispersion=0.05,pseudo_count=1/(4*overdispersion),size_factors=TRUE,minimum_overdispersion=0.001, scratch.folder,outputFolder){
+logTransform <- function(group=c("sudo","docker"),file,separator, overdispersion=0.05,pseudo_count=4,size_factors=TRUE,minimum_overdispersion=0.001, scratch.folder,outputFolder){
 
   data.folder1=dirname(file)
   positions1=length(strsplit(basename(file),"\\.")[[1]])
