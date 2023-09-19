@@ -34,10 +34,10 @@ This function executes a ubuntu docker that performs seurat integration
 }
 \examples{
 \dontrun{
+seuratIntegrationMulti(group=c("sudo"), scratch.folder="/home/user/scratch", folder="/home/user/folderWithFiles",separator=",",resName="test",format="csv")
  #to be added
 } 
 }
 \author{
 Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
-seuratIntegrationMulti(group=c("sudo"), scratch.folder="/home/user/scratch", folder="/home/user/folderWithFiles",separator=",",resName="test",format="csv")
 }
