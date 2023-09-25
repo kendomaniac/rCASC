@@ -14,7 +14,7 @@
 #'  #to be added
 #' } 
 #' @export
-seuratIntegrationMulti <- function(group=c("sudo","docker"), scratch.folder, folder,separator,resName,format){
+seuratIntegrationMulti <- function(group=c("sudo","docker"), scratch.folder, folder,separator,resName,format,nFeature=2000){
 
 
 data.folder=folder
@@ -64,7 +64,7 @@ separator="tab"
 system(paste("cp ",data.folder,"/* ",scrat_tmp.folder,"/",sep=""))
 
   #executing the docker job
-    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/seuratintegration Rscript /home/pre_processing3.R ",separator," ",format,sep="")
+    params <- paste("--cidfile ",data.folder,"/dockerID -v ",scrat_tmp.folder,":/scratch -v ", data.folder, ":/data -d docker.io/repbioinfo/seuratintegration Rscript /home/pre_processing3.R ",separator," ",format," ",nFeature,sep="")
 
 resultRun <- runDocker(group=group, params=params)
 
