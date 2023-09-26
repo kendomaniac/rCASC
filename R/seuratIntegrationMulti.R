@@ -9,7 +9,7 @@
 #' @param nFeature, number of features used for the generation of the anchors
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #' @return file containing the normalized matrix with the anchors
-#' @examples
+#' @examples 
 #'\dontrun{
 #' seuratIntegrationMulti(group=c("sudo"), scratch.folder="/home/user/scratch", folder="/home/user/folderWithFiles",separator=",",resName="test",format="csv")
 #'  #to be added
