@@ -10,7 +10,8 @@ seuratIntegrationMulti(
   folder,
   separator,
   resName,
-  format
+  format,
+  nFeature = 2000
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ seuratIntegrationMulti(
 \item{resName, }{name for result matrix}
 
 \item{format, }{format for all the matrix that has to be integrated. Format has to be all the same}
+
+\item{nFeature, }{number of features used for the generation of the anchors}
 }
 \value{
 file containing the normalized matrix with the anchors

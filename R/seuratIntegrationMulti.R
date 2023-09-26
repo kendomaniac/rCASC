@@ -6,6 +6,7 @@
 #' @param separator, separator used in count file, e.g. '\\t', ','
 #' @param resName, name for result matrix
 #' @param format, format for all the matrix that has to be integrated. Format has to be all the same
+#' @param nFeature, number of features used for the generation of the anchors
 #' @author Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
 #' @return file containing the normalized matrix with the anchors
 #' @examples
