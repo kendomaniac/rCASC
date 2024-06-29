@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rCASC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.5.9</span>
       </span>
     </div>
 
@@ -116,7 +116,6 @@ project and provides single cell analysis functionalities within the
 reproducible rules described by Sandve et al. [<a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285" class="external-link"><em>PLoS
 Comp Biol. 2013</em></a>]. rCASC is designed to provide a workflow
 (Figure below) for cell-subpopulation discovery.</p>
-<pre><code><span><span class="co">## Warning: package 'knitr' was built under R version 4.1.2</span></span></code></pre>
 <div class="figure" style="text-align: center">
 <img src="../inst/img/fig1.png" alt="rCASC workflow" width="70%"><p class="caption">
 rCASC workflow
@@ -164,12 +163,12 @@ document:</p>
 <li><p>A scratch folder, e.g. /data/scratch, possibly on a fast I/O SSD
 disk, writable by everybody:</p></li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>chmod <span class="dv">777</span> <span class="sc">/</span>data<span class="sc">/</span>scratch</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>chmod <span class="dv">777</span> <span class="sc">/</span>data<span class="sc">/</span>scratch</span></code></pre></div>
 <p>The functions in rCASC package require that user belongs to a
 <em>group</em> with the rights to execute docker. See the following
 document for more info: <a href="https://docs.docker.com/install/linux/linux-postinstall/" class="external-link"><em>https://docs.docker.com/install/linux/linux-postinstall/</em></a></p>
 <p>The following commands allow the rCASC installation in <a href="https://cran.r-project.org/" class="external-link"><em>R</em></a> environment:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"kendomaniac/rCASC"</span><span class="op">)</span></span>
@@ -245,7 +244,7 @@ genome of interest.</p></li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="co">#running indropCounts index build</span></span>
 <span><span class="fu"><a href="../reference/indropIndex.html">indropIndex</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, index.folder<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -297,7 +296,7 @@ regions</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example is part of an unpublished mouse blood cells </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz"</span><span class="op">)</span></span>
@@ -342,7 +341,7 @@ number of recovered cells. Default: 3000 cells</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">home</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/downloadContainers.html">downloadContainers</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -367,7 +366,7 @@ output, more information on cellranger output can be found at <a href="https://s
 web site</em></a>.</p>
 <p>Genome indexes can be retrieved from <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest" class="external-link">10Xgenomics
 repository</a></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"/data/genomes/cellranger_hg38"</span><span class="op">)</span></span>
 <span><span class="co">#getting the hg38 human genome cellranger index </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget  http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz"</span><span class="op">)</span></span>
@@ -409,7 +408,7 @@ interest from the ENSEMBL gtf</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"/data/genomes/hg38refcellranger"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/cellrangerIndexing.html">cellrangerIndexing</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, scratch.folder<span class="op">=</span><span class="st">"/data/scratch"</span>, </span>
@@ -461,7 +460,7 @@ are A1, B1, C1, D1, default NULL (parameter not required)</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="va">Dataset</span><span class="op">=</span><span class="st">"wget http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"</span></span>
 <span><span class="co"># DatasetImage</span></span>
@@ -500,7 +499,7 @@ cell.</p></li>
 <p>The parameter <em>percentageIncrease</em> indicate the % of
 increasement of the CSS score of Sp is greater of equal to the indicated
 theshold.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spatialAnalysis2.html">spatialAnalysis2</a></span><span class="op">(</span> group <span class="op">=</span> <span class="st">"docker"</span>, scratch.folder<span class="op">=</span><span class="st">"/scratch"</span>, </span>
 <span>                  file<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"HBC_BAS1_expr-var-ann_matrix.csv"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span>
 <span>                  nCluster<span class="op">=</span><span class="fl">9</span>, separator<span class="op">=</span><span class="st">","</span>, </span>
@@ -634,7 +633,7 @@ removal of genes with 0s counts. A tab delimited file with the prefix
 quality filter, e.g. <strong>lorenzFilter</strong>, it is convenient to
 remove only genes with 0 counts in all cells, i.e. threshold=0 (Figure
 below). </p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subset of a mouse single cell experiment made to quickly test Lorenz filter.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"testSCumi_mm10.csv.zip"</span><span class="op">)</span></span>
@@ -724,7 +723,7 @@ i.e. those with high percentage of mitochondrial genes (Figure below
 panel B, black cells), and low informative cells, i.e. those in which
 genes are few and mainly ribosomal/mitochondrial (Figure below panel B,
 black and green cells).</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#N.B. geneUmi and mitoRiboUmi expect as input a raw counts table having as rownames ENSEMBL IDs</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
@@ -792,7 +791,7 @@ are used as minimal threshold to call present a gene in 10XGenomics
 experiments and 5 reads [<a href="https://genome.cshlp.org/content/21/12/2213.long" class="external-link"><em>Tarazona et
 al. 2011</em></a>] as minimal threshold to call a gene present in single
 cell whole transcriptome experiments.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Raw counts for 288 cells randomly extracted from the Zheng data set downloaded from 10XGenomics.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/Zheng_cd19_288cells.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"Zheng_cd19_288cells.txt.zip"</span><span class="op">)</span></span>
@@ -898,7 +897,7 @@ UMIs/cell smaller than 1000 in each cell.</p></li>
 </ul>
 <p>The separation between T-cytotoxic and T-regulatory achievable with
 PCA is shown in Figure below panels C-E.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/counts_effect.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"counts_effect.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"counts_effect"</span><span class="op">)</span></span>
@@ -991,7 +990,7 @@ e.g. ‘\t’, ‘,’</li>
 <p>The output is a counts table without low quality cells and with the
 prefix <strong>lorenz_filtered_</strong>. Output will be in the same
 format and with the same separator of input.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#example data set provided as part of rCASC package</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/testSCumi_mm10.csv.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"testSCumi_mm10.csv.zip"</span><span class="op">)</span></span>
@@ -1079,7 +1078,7 @@ number og significative genes expressed</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#running annotation and removal of mito and ribo proteins genes</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gunzip Mus_musculus.GRCm38.94.gtf.gz"</span><span class="op">)</span></span>
@@ -1105,7 +1104,7 @@ separation between metabolic active and resting cells, with respect to
 functional differences between sub-populations. <em>scannobyGtf</em>
 allows also the removal of mitochondrial and ribosomal protein genes.
 </p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/scannobyGtf.html">scannobyGtf</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"testSCumi_mm10.txt"</span>,sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,</span>
 <span>                    gtf.name<span class="op">=</span><span class="st">"Mus_musculus.GRCm38.94.gtf"</span>, biotype<span class="op">=</span><span class="st">"protein_coding"</span>, </span>
@@ -1178,7 +1177,7 @@ genes</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/genesUmi.html">genesUmi</a></span><span class="op">(</span>file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, counts.matrix<span class="op">=</span><span class="st">"testSCumi_mm10.csv"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, umiXgene<span class="op">=</span><span class="fl">3</span>, sep<span class="op">=</span><span class="st">","</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/topx.html">topx</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,file.name<span class="op">=</span><span class="st">"testSCumi_mm10.csv"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>,threshold<span class="op">=</span><span class="fl">10000</span>, logged<span class="op">=</span><span class="cn">FALSE</span>, type<span class="op">=</span><span class="st">"expression"</span>, separator<span class="op">=</span><span class="st">","</span><span class="op">)</span></span>
@@ -1269,7 +1268,7 @@ of output file.</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#N.B. checkCountDepth function requires as input raw counts table</span></span>
 <span></span>
 <span><span class="co">#this specific example is an UMI counts table made of 12 cells having at least 10K UMIs/cell.</span></span>
@@ -1340,7 +1339,7 @@ a plot as SCnorm determines the optimal number of groups</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#N.B. scnorm function requires as input raw counts table</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/example_UMI.txt.zip"</span><span class="op">)</span></span>
@@ -1423,7 +1422,7 @@ different from 0 in the computation of the normalization factors.</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Weighted trimmed mean of M-values (TMM) scaling normalization</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/example_UMI.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"example_UMI.txt.zip"</span><span class="op">)</span></span>
@@ -1467,7 +1466,7 @@ transformation</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/counts2log.html">counts2log</a></span><span class="op">(</span>file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"example_UMI.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, log.base<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -1551,7 +1550,7 @@ Cell cycle assignment to the cells. A) Buettner et al. (Nat. Biotechnol.
 G2M, B) Naive T-cells, expected to be mainly in G0 (Science 2018).
 </p>
 </div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Raw from the Buettner publication</span></span>
 <span> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip"</span><span class="op">)</span></span>
 <span> <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"buettner_G1G2MS_counts.txt.zip"</span><span class="op">)</span></span>
@@ -1625,7 +1624,7 @@ otherwise</li>
 </ul>
 <p><strong>IMPORTANT</strong>: The output of ccRemover does not require
 log transformation before clustering analysis.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#N.B. ccRemove function requires as input raw counts table previously anntoated with scannobyGtf function </span></span>
 <span></span>
 <span><span class="co">#removing cell cycle effect</span></span>
@@ -1642,7 +1641,7 @@ matrix. The matrix can be identified by the prefix
 with <a href="https://www.ncbi.nlm.nih.gov/pubmed/28263960" class="external-link"><em>SIMLR</em></a>,
 the rCASC core clustering tool. <strong>ccRemove</strong> output does
 NOT require log transformation when applied to SIMLR.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#visualizing the dataset before and after cell cycle bias removal</span></span>
 <span><span class="co">#reformat the matrix header to be suitable with docker4seq PCA plotting function</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">"annotated_buettner_G1G2MS_counts.txt"</span>, sep<span class="op">=</span><span class="st">"\t"</span>, header<span class="op">=</span><span class="cn">T</span>, row.names<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
@@ -1766,7 +1765,7 @@ same input, default is 111</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#N.B. If the input is a raw count table, before griph analysis data are log10 transformed</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
@@ -1864,7 +1863,7 @@ because of the similarities between T-cell sub-populations.</p>
 between cells populations. PCA measures the variance between the
 elements of the dataset and the most important differences in variance
 are estimated by the PC1.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"cd section4.1_examples"</span><span class="op">)</span></span>
@@ -1922,7 +1921,7 @@ populations on the stability of the number of clusters, we use the rCASC
 datasets using 160 permutations/each, and randomly removing in each
 permutation 10% of the cells. Each analysis took approximately 60 mins
 on a SeqBox hardware.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#downloading datasets</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span></span>
@@ -1970,7 +1969,7 @@ detecting a stable number of clusters, upon dataset perturbations, is
 due to the limited number of detected genes. To further support this
 hypothesis, we run a comparison between the most expressed genes in the
 cell types used in the above example.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#downloading datasets</span></span>
 <span><span class="co">#section4.1_examples.zip contains raw counts from Zheng experiment available at 10XGenomics web site</span></span>
 <span><span class="co">#100 cells  were randomly extracted from from each sorted cell type dataset.</span></span>
@@ -2144,7 +2143,7 @@ of clusters in each permutation, default = 0.05</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"section4.1_examples"</span><span class="op">)</span></span>
@@ -2264,7 +2263,7 @@ with CSS between 25-50.
 <p>The effect of the perturbations induced in the clustering upon the
 removal of 10%, 20%, 30% and 50% of the data set was also investigated
 in SetA (<em>annotated_bmsnkn_5x100cells.txt</em>), Figure below.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2</span></span>
 <span><span class="fu"><a href="../reference/simlrBootstrap.html">simlrBootstrap</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,</span>
 <span>               file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"annotated_bmHnkn_5x100cells.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, </span>
@@ -2377,7 +2376,7 @@ simlrBootstrap</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/test_permutationvideo.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"test_permutationvideo.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"test_permutationvideo"</span><span class="op">)</span></span>
@@ -2477,7 +2476,7 @@ same input</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#SetA</span></span>
 <span><span class="fu"><a href="../reference/clusterStability.html">clusterStability</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>, </span>
 <span>                 file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"bmsnkn_5x100cells.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, </span>
@@ -2562,7 +2561,7 @@ same input, default is 111</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#N.B. seuratPCAEval requires in input raw counts or log10 transformed raw counts</span></span>
 <span><span class="co">#Before clustering data are normalized as suggested from the Seurat workflow </span></span>
 <span><span class="co">#using Seurat  NormalizeData function, with LogNormalize as normalization.method </span></span>
@@ -2632,7 +2631,7 @@ same input</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#N.B. seuratBootstrap requires in input raw counts or log10 transformed raw counts</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/seuratBootstrap.html">seuratBootstrap</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,</span>
@@ -2705,7 +2704,7 @@ same input</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#N.B. griphBootstrap requires in input raw counts or log10 transformed raw counts</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/griphBootstrap.html">griphBootstrap</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,</span>
@@ -2764,7 +2763,7 @@ scanpy only accepts sparse matrices</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#N.B. scanpy requires in input raw counts in sparse format</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/scanpyBootstrap.html">scanpyBootstrap</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,</span>
@@ -2846,7 +2845,7 @@ the perplexity range between 5 and 50.</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"section4.1_examples"</span><span class="op">)</span></span>
@@ -3018,7 +3017,7 @@ at least one of the clusters is saved with prefix
 logFC extracted from <strong>filtered_DE_</strong> file. The count table
 is also saved reordered on the basis of cluster positions and has the
 extension <strong>_reordered.txt</strong></p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#dataset derived from the analysis shown in section 8</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
@@ -3083,7 +3082,7 @@ contains the list of specific genes SYMBOLS from
 onlyUP_clusters_specific_genes.txt. This file is used by function
 <strong>hfc</strong> to generate features specific heatmap.</p></li>
 </ul>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#dataset derived from the exemplary analysis shown in section 8</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/clusters.features.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"clusters.features.zip"</span><span class="op">)</span></span>
@@ -3148,7 +3147,7 @@ set 0</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/hfc.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"clusters.features.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"clusters.features"</span><span class="op">)</span></span>
@@ -3242,7 +3241,7 @@ in cluster number depicting, default=0.05</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#dataset derived from the exemplary analysis shown in section 8</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
@@ -3316,7 +3315,7 @@ selection</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#dataset derived from the exemplary analysis shown in section 8</span></span>
 <span><span class="fu"><a href="../reference/genesSelection.html">genesSelection</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>,scratch.folder<span class="op">=</span><span class="st">"/data/scratch/"</span>,</span>
 <span>               file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"annotated_setPace_10000_noC5.txt"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, </span>
@@ -3397,7 +3396,7 @@ same input</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/section4.1_examples.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"section4.1_examples.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"section4.1_examples"</span><span class="op">)</span></span>
@@ -3473,7 +3472,7 @@ analysis</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/AXLN1.tar.gz"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"gzip -d AXLN1.tar.gz"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"tar xvf AXLN1.tar"</span><span class="op">)</span></span>
@@ -3527,7 +3526,7 @@ e.g. ‘,’,’</p></li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/csvToSparse.html">csvToSparse</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, scratch<span class="op">=</span><span class="st">"/data/scratch"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, </span>
@@ -3552,7 +3551,7 @@ containing barcodes.tsv, genes.tsv and matrix.mtx</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/csvToSparse.html">csvToSparse</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, scratch<span class="op">=</span><span class="st">"/data/scratch"</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, </span>
@@ -3601,7 +3600,7 @@ e.g. ‘,’,’</p></li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
 <span></span>
@@ -3635,7 +3634,7 @@ with file name and extension included</p>
 e.g. ‘,’,’</p>
 </li>
 </ul>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
 <span></span>
@@ -3704,7 +3703,7 @@ cell stability in each cluster with
 <li><p>generating the video of the bootstrap analysis with
 <strong>bootstrapsVideo</strong></p></li>
 </ul>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Dataset constructed for demonstration purposes using raw counts from GSE106264. </span></span>
 <span><span class="co">#Raw counts were generated with cellranger 2.0 from h5 files.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/setPace.txt.zip"</span><span class="op">)</span></span>
@@ -3847,7 +3846,7 @@ cells in cluster 5 represent a strong interference for an efficient
 clustering. Thus, we investigated if, removing cluster 5 cells (Figure
 above panel C), cell stability score for cluster 6 and 2 could be
 improved.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_clustering.output.txt"</span><span class="op">)</span></span>
@@ -3902,7 +3901,7 @@ role in clusters generation: EdgeR ANOVA-like analysis<a class="anchor" aria-lab
 <p>We detected a total of 2742 differentially expressed genes using the
 naive cluster 3 as reference in an ANOVA-like analysis, see
 <strong>Section 6.1</strong>.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"annotated_setPace_10000_noC5.txt.zip"</span><span class="op">)</span></span>
@@ -3915,7 +3914,7 @@ naive cluster 3 as reference in an ANOVA-like analysis, see
 <p>The following analysis focus only on up-regulated genes, i.e. those
 gene specifically more expressed in a cluster with respect to the naive
 cluster used as reference in the ANOVA-like.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"wget http://130.192.119.59/public/clusters.features.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"clusters.features.zip"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"clusters.features"</span><span class="op">)</span></span>
@@ -4021,7 +4020,7 @@ et al. 2016</em></a>], manually curated cancer-based immune-signature
 (<em>Alessandri et al. In preparation</em>)</p>
 <p>The function <strong>autoencoder</strong> calculates the neural
 network.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">##add example</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/autoencoder.html">autoencoder</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"docker"</span><span class="op">)</span>, scratch<span class="op">=</span><span class="va">path</span>, file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">path</span>, <span class="st">"Data/setA.csv"</span>, sep<span class="op">=</span><span class="st">"/"</span><span class="op">)</span>, </span>
@@ -4083,7 +4082,7 @@ corresponds to the number of selected permutations.</p>
 numerical data required to understand if there is coherence between
 counts table derived clusters and those derived using autoencoders
 latent space.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">##add example</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/autoencoderClustering.html">autoencoderClustering</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"docker"</span><span class="op">)</span>, scratch.folder<span class="op">=</span><span class="va">path</span>,</span>
@@ -4147,7 +4146,7 @@ plot. C) QCM violin plot, D) Combined view of QCM and QCF
 <p>Function <strong>autoencoderAnalysis</strong> transforms **
 <strong>autoencoderClustering</strong> function outputs in readable
 results.</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/autoencoderAnalysis.html">autoencoderAnalysis</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"docker"</span><span class="op">)</span>, scratch.folder<span class="op">=</span><span class="va">path</span>, file<span class="op">=</span><span class="st">"/home/user/newModification/Data/Results/setAKinasi_SIMLR/setA.csv"</span>, </span>
 <span>                    separator<span class="op">=</span><span class="st">","</span>, nCluster<span class="op">=</span><span class="fl">5</span>, seed<span class="op">=</span><span class="fl">1111</span>, </span>
@@ -4178,7 +4177,7 @@ versus QCF, Figure above D)</p></li>
 </ul>
 <p>The <strong>autoFeature</strong> creates the frequency table for
 COMET analysis.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/autoFeature.html">autoFeature</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"docker"</span><span class="op">)</span>, scratch.folder<span class="op">=</span><span class="va">path</span>,file<span class="op">=</span><span class="st">"/home/user/newModification/Data/Results/setAKinasi_SIMLR/setA.csv"</span>,separator<span class="op">=</span><span class="st">","</span>, nCluster<span class="op">=</span><span class="fl">5</span>,projectName<span class="op">=</span><span class="st">"setAKinasi_SIMLR"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>IMPORTANT</strong>: this function produces an output for all
@@ -4205,7 +4204,7 @@ weight equal to 0 it means that it was not used in that specific
 permutation). <strong>autoFeature</strong> function is used to extract
 functional features from autoencoders latent space frequency table
 output.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/cometsc2.html">cometsc2</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"docker"</span><span class="op">)</span>, file<span class="op">=</span><span class="st">"/home/user/newModification/Data/Results/setAKinasi_SIMLR/5/freqMatrix.csv"</span>,</span>
 <span>         scratch.folder<span class="op">=</span><span class="va">path</span>, threads<span class="op">=</span><span class="fl">1</span>, X<span class="op">=</span><span class="fl">0.15</span>, K<span class="op">=</span><span class="fl">2</span>, </span>
@@ -4232,7 +4231,7 @@ generated by rCASC on the initial counts table</p></li>
 steps required for the autoencoder analysis. It should be used when it
 is clear the overall set of steps to be performed and a set of analyses
 with the same parameters are done.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCASC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/wrapperAutoencoder.html">wrapperAutoencoder</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"docker"</span>, scratch.folder<span class="op">=</span><span class="va">scratch.folder</span>,  </span>
 <span>                   file<span class="op">=</span><span class="st">"/home/lucastormreig/test/setA.csv"</span>, separator<span class="op">=</span><span class="st">","</span>,</span>
