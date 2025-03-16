@@ -1,6 +1,6 @@
 Package: rCASC
-Version: 5.5.9
-Date: 2024-06-29
+Version: 5.6.0
+Date: 2025-03-16
 Title: rCASC reproducible Classification Analysis of Single Cell Sequencing Data
 Authors@R: c(person("Raffaele", "Calogero", role = c("aut", "cre"),
                      email = "raffaele.calogero@unito.it"),
