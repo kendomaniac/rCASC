@@ -38,6 +38,8 @@ h5tocsv <- function(group=c("sudo","docker"),  file, type=c("h5","10xgenomics"),
     dockerImage="docker.io/repbioinfo/cellranger.2020.05"
   } else if(version == "7"){
     dockerImage="docker.io/repbioinfo/cellranger.2023.7.1.0"
+  } else if(version == "arc"){
+    dockerImage="docker.io/repbioinfo/cellranger.arc.2025.2.0.2"
   }
   
   
