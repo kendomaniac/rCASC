@@ -3,7 +3,7 @@
 #' @param group, a character string. Two options: sudo or docker, depending to which group the user belongs
 #' @param file,  path of the sparse matrix file. For h5 file the full path MUST be included. For mtx matrix the folder MUST contain tsv and mtx files and the FULL path to mtx matrix MUST be provided
 #' @param type, h5 refers to h5 files and 10xgenomics to the folder containing barcodes.tsv, genes.tsv and matrix.mtx
-#' @param version,  cellranger version: 2, 3 or 5.
+#' @param version,  cellranger version: 2, 3, 5, 7 arc2 (multiome 2.02).
 #' 
 #' @author Raffaele Calogero, raffaele [dot] calogero [at] unito [dot] com, University of Torino
 #'
@@ -38,7 +38,7 @@ h5tocsv <- function(group=c("sudo","docker"),  file, type=c("h5","10xgenomics"),
     dockerImage="docker.io/repbioinfo/cellranger.2020.05"
   } else if(version == "7"){
     dockerImage="docker.io/repbioinfo/cellranger.2023.7.1.0"
-  } else if(version == "arc"){
+  } else if(version == "arc2"){
     dockerImage="docker.io/repbioinfo/cellranger.arc.2025.2.0.2"
   }
   
